@@ -1,0 +1,29 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "dev build",
+      "type": "shell",
+      "command": "./scripts/build.sh",
+      "problemMatcher": []
+    },
+    {
+      "label": "dev start",
+      "type": "shell",
+      "command": "./scripts/start.sh",
+      "problemMatcher": []
+    },
+    {
+      "label": "dev stop",
+      "type": "shell",
+      "command": "./scripts/stop.sh",
+      "problemMatcher": []
+    },
+    {
+      "label": "dev down",
+      "type": "shell",
+      "command": "./scripts/down.sh",
+      "problemMatcher": []
+    }
+  ]
+}
