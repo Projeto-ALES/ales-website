@@ -5,7 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
-    "sequelize": "^5.21.6"
+    "mongoose": "^5.9.7"
   },
   "scripts": {
     "dev": "nodemon --exec babel-node app.js"
@@ -14,7 +14,6 @@
     "@babel/core": "^7.9.0",
     "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.9.0",
-    "nodemon": "^2.0.2",
-    "sequelize-cli": "^5.5.1"
+    "nodemon": "^2.0.2"
   }
 }
