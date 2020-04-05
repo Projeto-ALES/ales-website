@@ -166,7 +166,7 @@ git checkout -b ref/change-browser-window-name
 
 > `-b` flag allows you to create and checkout to a branch in the same command
 
-5. Now in this example we open `public/index.html` file and change the content of `<title>` tag to `<title>My first commit</title>`
+5. Now in this example we open `frontend/public/index.html` file and change the content of `<title>` tag to `<title>My first commit</title>`
 
 6. After that, your code change can be committed. To do that, enter:
 
