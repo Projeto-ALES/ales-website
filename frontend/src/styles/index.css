@@ -1,0 +1,102 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600&display=swap");
+
+:root {
+  --url-logo: url("../assets/logos/logo.svg");
+
+  /* 'margin', 'padding', 'top', 'right', ... */
+  --spacing-tiny: 4px;
+  --spacing-small: 8px;
+  --spacing-base: 16px;
+  --spacing-large: 32px;
+  --spacing-huge: 48px;
+
+  /* 'border-radius' */
+  --small-radius: 2px;
+  --medium-radius: 4px;
+  --no-radius: 0;
+  --full-radius: 50%;
+
+  /* 'box-shadow' */
+  --short-drop-shadow: 0 2px 2px rgba(0, 0, 0, 0.16);
+  --medium-drop-shadow: 0 4px 4px rgba(0, 0, 0, 0.08);
+  --long-drop-shadow: 0 8px 8px rgba(0, 0, 0, 0.16);
+
+  /* Brand  Colors */
+  --brand-yellow: #f2c94c;
+  --brand-yellow-light: #eecc66;
+  --brand-yellow-lighter: #ecdba6;
+  --brand-blue: #1089ff;
+  --brand-blue-light: #45a2ff;
+  --brand-blue-lighter: #89c1f8;
+
+  /* State Colors */
+  --color-info: var(--gray-light);
+  --color-success: #10a85f;
+  --color-alert: var(--brand-yellow);
+  --color-warning: #ff9100;
+  --color-danger: #ff6333;
+
+  /* Neutral Colors */
+  --gray-lightest: #f5f7f9;
+  --gray-lighter: #eceff1;
+  --gray-light: #b0bec5;
+  --gray: #78909c;
+  --gray-dark: #37474f;
+  --gray-darker: #263238;
+  --gray-darkest: #1c202b;
+}
+
+[data-theme="light"] {
+  --primary-color: var(--gray-dark);
+  --secondary-color: var(--gray);
+  --tertiary-color: var(--gray);
+  --tag-color: var(--gray-dark);
+
+  --bg-color: var(--gray-lighter);
+
+  --bg-container-color: white;
+  --border-container: 1px solid var(--gray-lighter);
+
+  --bg-loading: var(--gray-light);
+}
+
+[data-theme="dark"] {
+  --primary-color: white;
+  --secondary-color: white;
+  --tertiary-color: var(--gray-light);
+
+  --bg-color: var(--gray-darkest);
+  --bg-container-color: var(--gray-dark);
+  --border-container: 1px solid var(--gray);
+
+  --bg-loading: var(--gray-darker);
+}
+
+/* General Styles */
+
+body {
+  background-color: var(--bg-color);
+  margin: 0;
+  font-family: "Montserrat", "Roboto", Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  font-family: "Montserrat", "Roboto", Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  outline-color: var(--brand-blue);
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 0;
+  border: none;
+  background: none;
+}
