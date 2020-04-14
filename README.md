@@ -83,6 +83,15 @@ All decisions related with user requirements and needs are made on the design pr
   - ME_CONFIG_MONGODB_ADMINUSERNAME={admin_username}
   - ME_CONFIG_MONGODB_ADMINPASSWORD={admin_username}
 
+
+- `app.env`
+
+  - MONGO_INITDB_ROOT_USERNAME={username}
+  - MONGO_INITDB_ROOT_PASSWORD={username}
+
+  - MONGO_DATABASE={database_name}
+  - MONGO_HOSTNAME=ales-website_mongo_1
+
 4. Build services images by running `docker-compose --build` or running `dev build` VS Code task.
 
 5. Start services by running `docker-compose up` or running `dev start` VS Code task.
