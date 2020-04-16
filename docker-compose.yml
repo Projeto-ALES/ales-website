@@ -32,6 +32,8 @@ services:
     container_name: ales_api
     ports:
       - "8000:8000"
+    env_file:
+      - .env/app.env
     volumes:
       - ./backend:/app
       - /app/node_modules
