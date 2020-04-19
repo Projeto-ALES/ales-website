@@ -7,8 +7,19 @@
   --spacing-tiny: 4px;
   --spacing-small: 8px;
   --spacing-base: 16px;
+  --spacing-medium: 24px;
   --spacing-large: 32px;
   --spacing-huge: 48px;
+  --spacing-very-huge: 96px;
+
+  /* 'font-size' */
+  --font-small: 12px;
+  --font-normal: 14px;
+  --font-medium: 18px;
+  --font-large: 28px;
+  --font-very-large: 34px;
+  --font-huge: 42px;
+  --font-very-huge: 54px;
 
   /* 'border-radius' */
   --small-radius: 2px;
