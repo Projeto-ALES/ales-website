@@ -41,8 +41,18 @@
       display: flex;
       flex-direction: column;
 
+      @include tablet-portrait {
+        flex-direction: row;
+      }
+
       button {
         margin-top: var(--spacing-large);
+
+        @include tablet-portrait {
+          &:first-of-type {
+            margin-right: var(--spacing-huge);
+          }
+        }
       }
     }
   }
