@@ -1,0 +1,17 @@
+@import "~styles/breakpoints";
+
+.container {
+  padding: var(--spacing-large);
+
+  @include tablet-portrait {
+    padding: var(--spacing-huge);
+  }
+
+  @include tablet-landscape {
+    padding: var(--spacing-huge);
+  }
+
+  @include desktop {
+    padding: var(--spacing-very-huge);
+  }
+}
