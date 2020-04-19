@@ -1,0 +1,11 @@
+@import "~styles/breakpoints";
+
+.button {
+  padding: var(--spacing-base) var(--spacing-large);
+  background-color: var(--brand-yellow);
+  border-radius: var(--medium-radius);
+
+  font-weight: 600;
+  color: var(--gray-darker);
+  box-shadow: var(--long-drop-shadow);
+}
