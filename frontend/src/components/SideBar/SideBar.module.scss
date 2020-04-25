@@ -1,0 +1,17 @@
+@import "~styles/breakpoints";
+
+.sideBarContainer {
+  background-color: var(--gray-dark);
+  width: 100vw;
+  height: var(--sidebar-height);
+  position: fixed;
+  bottom: 0;
+  z-index: var(--sidebar-z-index);
+  box-shadow: var(--sidebar-shadow-mobile);
+
+  @include tablet-portrait {
+    width: var(--sidebar-width);
+    height: 100vh;
+    box-shadow: var(--sidebar-shadow-desktop);
+  }
+}

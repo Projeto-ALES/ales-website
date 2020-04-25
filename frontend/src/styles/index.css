@@ -12,6 +12,10 @@
   --spacing-huge: 48px;
   --spacing-very-huge: 96px;
 
+  /* SideBar */
+  --sidebar-width: 80px;
+  --sidebar-height: 60px;
+
   /* 'font-size' */
   --font-small: 12px;
   --font-normal: 14px;
@@ -31,6 +35,11 @@
   --short-drop-shadow: 0 2px 2px rgba(0, 0, 0, 0.16);
   --medium-drop-shadow: 0 4px 4px rgba(0, 0, 0, 0.08);
   --long-drop-shadow: 0 8px 8px rgba(0, 0, 0, 0.16);
+  --sidebar-shadow-mobile: 0 -5px 8px rgba(0, 0, 0, 0.16);
+  --sidebar-shadow-desktop: 5px 0px 8px rgba(0, 0, 0, 0.16);
+
+  /* z-index */
+  --sidebar-z-index: 1000;
 
   /* Brand  Colors */
   --brand-yellow: #f2c94c;

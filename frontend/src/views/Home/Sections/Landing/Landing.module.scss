@@ -9,6 +9,10 @@
   position: relative;
   height: 100vh;
 
+  @include tablet-portrait {
+    margin-left: var(--sidebar-width);
+  }
+
   .landingContainer {
     padding-top: var(--spacing-very-huge);
     display: flex;
