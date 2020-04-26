@@ -15,6 +15,8 @@
   /* SideBar */
   --sidebar-width: 80px;
   --sidebar-height: 60px;
+  --sidebar-item-height: 50px;
+  --sidebar-item-height-desktop: 70px;
 
   /* 'font-size' */
   --font-small: 12px;
@@ -28,6 +30,7 @@
   /* 'border-radius' */
   --small-radius: 2px;
   --medium-radius: 4px;
+  --large-radius: 8px;
   --no-radius: 0;
   --full-radius: 50%;
 
@@ -63,7 +66,7 @@
   --gray: #78909c;
   --gray-dark: #37474f;
   --gray-darker: #263238;
-  --gray-darkest: #1c202b;
+  --gray-darkest: #222b2f;
 }
 
 [data-theme="light"] {
