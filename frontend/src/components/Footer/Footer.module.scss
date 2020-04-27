@@ -1,0 +1,33 @@
+@import "~styles/breakpoints";
+
+.footerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: var(--sidebar-height);
+  height: var(--footer-height);
+  background-color: var(--gray-darkest);
+
+  @include tablet-portrait {
+    margin-bottom: 0;
+  }
+
+  .footerItem {
+    margin: 0 var(--spacing-medium);
+
+    .itemText {
+      color: white;
+      font-size: var(--font-large);
+
+      @include tablet-portrait {
+        font-size: var(--font-very-large);
+      }
+
+      &:hover {
+        color: var(--brand-yellow);
+        transition: 0.2s ease;
+      }
+    }
+  }
+}

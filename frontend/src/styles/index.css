@@ -17,6 +17,8 @@
   --sidebar-height: 60px;
   --sidebar-item-height: 50px;
   --sidebar-item-height-desktop: 70px;
+  --footer-height: 120px;
+  --footer-height-desktop: 150px;
 
   /* 'font-size' */
   --font-small: 12px;
