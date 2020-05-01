@@ -17,7 +17,7 @@
     margin: var(--spacing-small);
 
     @include tablet-portrait {
-      color: white;
+      color: var(--gray-lighter);
       height: var(--sidebar-item-height-desktop);
       justify-content: space-around;
     }
@@ -33,6 +33,9 @@
     .isOpenText {
       @include tablet-portrait {
         display: block;
+        width: 50%;
+        font-size: var(--font-medium);
+        font-weight: 600;
       }
     }
   }
