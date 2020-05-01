@@ -16,13 +16,18 @@ const SideBar = () => {
   const [hoverRef, isHovered] = useHover();
 
   return (
-    <nav className={styles.sideBarContainer} ref={hoverRef}>
-      <ul className={styles.navListContainer}>
-        {sideBarItems.map((item) => {
-          return <SideBarItem id={item.id} text={item.text} icon={item.icon} isOpen={isHovered} />;
-        })}
-      </ul>
-    </nav>
+    <>
+      <div className={`${isHovered ? styles.sideBarOverlay : null}`}></div>
+      <nav className={styles.sideBarContainer} ref={hoverRef}>
+        <ul className={styles.navListContainer}>
+          {sideBarItems.map((item) => {
+            return (
+              <SideBarItem id={item.id} text={item.text} icon={item.icon} isOpen={isHovered} />
+            );
+          })}
+        </ul>
+      </nav>
+    </>
   );
 };
 
