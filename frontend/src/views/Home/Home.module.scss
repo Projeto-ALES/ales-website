@@ -1,0 +1,11 @@
+@import "~styles/breakpoints";
+
+.line {
+  height: 1px;
+  margin: 2em 5em;
+  background-color: var(--gray-light);
+
+  @include tablet-portrait {
+    margin: 2em 20em;
+  }
+}

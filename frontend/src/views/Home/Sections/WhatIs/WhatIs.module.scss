@@ -1,0 +1,23 @@
+@import "~styles/breakpoints";
+
+.whatisContainer {
+  text-align: center;
+  color: var(--gray-darker);
+
+  @include tablet-portrait {
+    padding: 0 20em;
+  }
+
+  .whatisTitle {
+    h2 {
+      font-size: var(--font-large);
+      font-weight: 500;
+    }
+  }
+
+  .whatisDescription {
+    p {
+      font-size: var(--font-medium);
+    }
+  }
+}
