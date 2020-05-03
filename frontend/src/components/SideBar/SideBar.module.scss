@@ -1,0 +1,46 @@
+@import "~styles/breakpoints";
+
+@include tablet-portrait {
+  .sideBarOverlay {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: var(--sidebar-z-index);
+    transition: 200ms ease;
+  }
+}
+
+.sideBarContainer {
+  background-color: var(--gray-dark);
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  z-index: var(--sidebar-z-index);
+  box-shadow: var(--sidebar-shadow-mobile);
+
+  @include tablet-portrait {
+    width: var(--sidebar-width);
+    height: 100vh;
+    box-shadow: var(--sidebar-shadow-desktop);
+    transition: 300ms ease;
+
+    &:hover {
+      width: 250px;
+    }
+  }
+
+  .navListContainer {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    @include tablet-portrait {
+      display: flex;
+      flex-direction: column;
+      margin-top: var(--spacing-medium);
+    }
+  }
+}
