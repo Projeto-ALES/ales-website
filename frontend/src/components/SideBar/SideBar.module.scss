@@ -1,6 +1,6 @@
 @import "~styles/breakpoints";
 
-@include tablet-portrait {
+@include desktop {
   .sideBarOverlay {
     position: fixed;
     height: 100vh;
@@ -19,7 +19,7 @@
   z-index: var(--sidebar-z-index);
   box-shadow: var(--sidebar-shadow-mobile);
 
-  @include tablet-portrait {
+  @include desktop {
     width: var(--sidebar-width);
     height: 100vh;
     box-shadow: var(--sidebar-shadow-desktop);
@@ -37,7 +37,7 @@
     padding: 0;
     margin: 0;
 
-    @include tablet-portrait {
+    @include desktop {
       display: flex;
       flex-direction: column;
       margin-top: var(--spacing-medium);

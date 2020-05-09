@@ -9,12 +9,12 @@
   height: var(--footer-height);
   background-color: var(--gray-darkest);
 
-  @include tablet-portrait {
+  @include desktop {
     margin-bottom: 0;
   }
 
   .footerItem {
-    margin: 0 var(--spacing-medium);
+    margin: 0 var(--spacing-large);
 
     .itemText {
       color: white;

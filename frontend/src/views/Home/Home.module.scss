@@ -1,7 +1,7 @@
 @import "~styles/breakpoints";
 
 .homeContainer {
-  @include tablet-portrait {
+  @include desktop {
     margin-left: var(--sidebar-width);
   }
 

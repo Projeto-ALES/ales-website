@@ -3,7 +3,7 @@
 .itemContainer {
   width: 25%;
 
-  @include tablet-portrait {
+  @include desktop {
     width: auto;
   }
 
@@ -31,7 +31,7 @@
     }
 
     .isOpenText {
-      @include tablet-portrait {
+      @include desktop {
         display: block;
         width: 50%;
         font-size: var(--font-medium);
