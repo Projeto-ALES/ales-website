@@ -3,21 +3,12 @@ import React from "react";
 import Container from "components/Container/Container";
 import Card from "components/Card/Card";
 
+import courses from "./courses";
+import activities from "./activities";
+
 import styles from "./WhatDo.module.scss";
 
 const WhatDo = () => {
-  const courses = [
-    { id: 1, text: "Programação", icon: "fas fa-keyboard" },
-    { id: 2, text: "Robótica", icon: "fas fa-robot" },
-    { id: 3, text: "Desenho", icon: "fas fa-palette" },
-  ];
-
-  const activities = [
-    { id: 1, text: "UPA", icon: "fas fa-graduation-cap" },
-    { id: 2, text: "MUPA", icon: "fas fa-landmark" },
-    { id: 3, text: "Hackathons", icon: "fas fa-users" },
-  ];
-
   return (
     <Container>
       <div className={styles.whatdoContainer}>

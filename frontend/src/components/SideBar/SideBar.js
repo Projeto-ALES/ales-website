@@ -2,17 +2,11 @@ import React from "react";
 import useHover from "hooks/useHover";
 
 import SideBarItem from "components/SideBarItem/SideBarItem";
+import items from "./items";
 
 import styles from "./SideBar.module.scss";
 
 const SideBar = () => {
-  const sideBarItems = [
-    { id: 1, text: "Home", icon: "fas fa-home" },
-    { id: 2, text: "Localização", icon: "fas fa-map-marked-alt" },
-    { id: 3, text: "Matérias", icon: "far fa-calendar-check" },
-    { id: 4, text: "Contato", icon: "fas fa-paper-plane" },
-  ];
-
   const [hoverRef, isHovered] = useHover();
 
   return (
@@ -20,7 +14,7 @@ const SideBar = () => {
       <div className={`${isHovered ? styles.sideBarOverlay : null}`}></div>
       <nav className={styles.sideBarContainer} ref={hoverRef}>
         <ul className={styles.navListContainer}>
-          {sideBarItems.map((item) => {
+          {items.map((item) => {
             return (
               <SideBarItem id={item.id} text={item.text} icon={item.icon} isOpen={isHovered} />
             );
