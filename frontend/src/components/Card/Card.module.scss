@@ -1,0 +1,30 @@
+@import "~styles/breakpoints";
+
+.cardContainer {
+  padding: var(--spacing-base) var(--spacing-medium);
+  background-color: var(--gray-lighter);
+  box-shadow: var(--medium-drop-shadow);
+  border-radius: var(--large-radius);
+  margin: var(--spacing-base) 0;
+  display: flex;
+  justify-content: flex-start;
+  width: 60%;
+
+  @include tablet-portrait {
+    width: 35%;
+  }
+
+  @include desktop {
+    width: 50%;
+  }
+}
+
+.yellow {
+  background-color: var(--brand-yellow);
+  color: var(--gray-dark);
+}
+
+.blue-dark {
+  background-color: var(--brand-blue-dark);
+  color: #fff;
+}
