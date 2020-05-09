@@ -4,8 +4,8 @@
   text-align: center;
   color: var(--gray-darker);
 
-  @include tablet-portrait {
-    padding: 0 20em;
+  @include desktop {
+    padding: 0 10em;
   }
 
   .whatisTitle {

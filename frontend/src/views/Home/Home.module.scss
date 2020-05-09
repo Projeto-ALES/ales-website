@@ -1,11 +1,17 @@
 @import "~styles/breakpoints";
 
-.line {
-  height: 1px;
-  margin: 2em 5em;
-  background-color: var(--gray-light);
-
+.homeContainer {
   @include tablet-portrait {
-    margin: 2em 20em;
+    margin-left: var(--sidebar-width);
+  }
+
+  .line {
+    height: 1px;
+    margin: 0 5em;
+    background-color: var(--gray-light);
+
+    @include desktop {
+      margin: 2em 20em;
+    }
   }
 }
