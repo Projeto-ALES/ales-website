@@ -9,6 +9,10 @@
   position: relative;
   height: 100vh;
 
+  @include tablet-landscape {
+    height: 70vh;
+  }
+
   .landingContainer {
     padding-top: var(--spacing-very-huge);
     display: flex;
