@@ -1,0 +1,29 @@
+@import "~styles/breakpoints";
+
+.quarantineContainer {
+  height: 100vh;
+
+  @include desktop {
+    margin-left: var(--sidebar-width);
+  }
+
+  .quarantineTitle {
+    text-align: center;
+
+    h2 {
+      font-weight: 500;
+      font-size: var(--font-large);
+    }
+  }
+
+  .quarantineDescription {
+    text-align: center;
+    font-size: var(--font-medium);
+
+    @include desktop {
+      width: 60%;
+      margin: auto;
+      padding: 0 var(--spacing-very-huge);
+    }
+  }
+}
