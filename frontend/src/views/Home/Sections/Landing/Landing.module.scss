@@ -9,8 +9,8 @@
   position: relative;
   height: 100vh;
 
-  @include tablet-portrait {
-    margin-left: var(--sidebar-width);
+  @include tablet-landscape {
+    height: 70vh;
   }
 
   .landingContainer {

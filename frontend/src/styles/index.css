@@ -17,13 +17,14 @@
   --sidebar-height: 60px;
   --sidebar-item-height: 50px;
   --sidebar-item-height-desktop: 70px;
-  --footer-height: 120px;
+  --footer-height: 135px;
   --footer-height-desktop: 150px;
 
   /* 'font-size' */
   --font-small: 12px;
   --font-normal: 14px;
   --font-medium: 18px;
+  --font-big: 24px;
   --font-large: 28px;
   --font-very-large: 34px;
   --font-huge: 42px;
@@ -50,6 +51,7 @@
   --brand-yellow: #f2c94c;
   --brand-yellow-light: #eecc66;
   --brand-yellow-lighter: #ecdba6;
+  --brand-blue-dark: #173b5f;
   --brand-blue: #1089ff;
   --brand-blue-light: #45a2ff;
   --brand-blue-lighter: #89c1f8;
