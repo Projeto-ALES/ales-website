@@ -1,7 +1,7 @@
 @import "~styles/breakpoints";
 
 .quarantineContainer {
-  height: 100vh;
+  min-height: 100vh;
 
   @include desktop {
     margin-left: var(--sidebar-width);
@@ -19,11 +19,56 @@
   .quarantineDescription {
     text-align: center;
     font-size: var(--font-medium);
+    margin-bottom: var(--spacing-very-huge);
 
     @include desktop {
       width: 60%;
-      margin: auto;
+      margin: 0 auto var(--spacing-very-huge) auto;
       padding: 0 var(--spacing-very-huge);
+    }
+  }
+
+  .sectionsContainer {
+    @include desktop {
+      padding: 0 var(--spacing-very-huge);
+    }
+
+    .sectionContainer {
+      margin-bottom: var(--spacing-huge);
+
+      .sectionTitle {
+        font-size: var(--font-big);
+        border-bottom: 1px solid var(--gray-dark);
+        display: block;
+        width: 100%;
+      }
+
+      .cardsContainer {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+        @include tablet-portrait {
+          flex-direction: row;
+          justify-content: stretch;
+        }
+
+        .cardContainer {
+          @include tablet-portrait {
+            width: 50%;
+          }
+
+          @include desktop {
+            width: 30%;
+          }
+
+          .cardContentContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+        }
+      }
     }
   }
 }
