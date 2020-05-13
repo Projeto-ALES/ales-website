@@ -16,7 +16,13 @@ const SideBar = () => {
         <ul className={styles.navListContainer}>
           {items.map((item) => {
             return (
-              <SideBarItem id={item.id} text={item.text} icon={item.icon} isOpen={isHovered} />
+              <SideBarItem
+                id={item.id}
+                text={item.text}
+                icon={item.icon}
+                to={item.to}
+                isOpen={isHovered}
+              />
             );
           })}
         </ul>
