@@ -1,0 +1,32 @@
+.tagContainer {
+  height: min-content;
+  width: fit-content;
+  padding: 3px var(--spacing-small);
+  border-radius: var(--medium-radius);
+  margin-right: var(--spacing-small);
+
+  .tagText {
+    font-size: var(--font-small);
+    font-weight: 600;
+  }
+}
+
+.primary {
+  background-color: var(--brand-blue);
+  color: #fff;
+}
+
+.success {
+  background-color: var(--color-success);
+  color: #fff;
+}
+
+.alert {
+  background-color: var(--color-alert);
+  color: var(--gray-dark);
+}
+
+.danger {
+  background-color: var(--color-danger);
+  color: #fff;
+}
