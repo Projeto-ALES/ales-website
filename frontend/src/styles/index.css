@@ -51,20 +51,23 @@
   --brand-yellow: #f2c94c;
   --brand-yellow-light: #eecc66;
   --brand-yellow-lighter: #ecdba6;
-  --brand-blue-dark: #173b5f;
+  --brand-blue-darker: #173b5f;
+  --brand-blue-dark: #20568b;
   --brand-blue: #1089ff;
   --brand-blue-light: #45a2ff;
   --brand-blue-lighter: #89c1f8;
+  --brand-blue-lightest: #e1eefb;
 
   /* State Colors */
   --color-info: var(--gray-light);
   --color-success: #10a85f;
+  --color-success-light: #24b16d;
   --color-alert: var(--brand-yellow);
   --color-warning: #ff9100;
   --color-danger: #ec4949;
 
   /* Neutral Colors */
-  --gray-lightest: #f5f7f9;
+  --gray-lightest: #f5f5f5;
   --gray-lighter: #eceff1;
   --gray-light: #b0bec5;
   --gray: #78909c;

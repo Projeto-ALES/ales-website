@@ -20,9 +20,9 @@
 
 .outline {
   border: 1px solid var(--gray-light);
-  transition: 300ms ease;
+}
 
-  &:hover {
-    background-color: var(--gray-lighter);
-  }
+.outline-blue {
+  background-color: #fff;
+  border: 1px solid var(--brand-blue-dark);
 }
