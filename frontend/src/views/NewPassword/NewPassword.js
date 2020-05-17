@@ -5,9 +5,13 @@ import Card from "components/Card/Card";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
 
+import { useHistory } from "react-router-dom";
+
 import styles from "./NewPassword.module.scss";
 
 const NewPassword = () => {
+  let history = useHistory();
+
   return (
     <div className={styles.newPasswordContainer}>
       <Container>
@@ -27,7 +31,7 @@ const NewPassword = () => {
               <Button
                 text="Redefinir Senha"
                 kind="success"
-                onClick={() => alert("submit new password")}
+                onClick={() => history.push("/password-changed")}
               />
             </div>
           </Card>

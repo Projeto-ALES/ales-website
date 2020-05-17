@@ -9,6 +9,7 @@ import Login from "views/Login/Login";
 import ResetPassword from "views/ResetPassword/ResetPassword";
 import ResetPasswordSent from "views/ResetPasswordSent/ResetPasswordSent";
 import NewPassword from "views/NewPassword/NewPassword";
+import PasswordChanged from "views/PasswordChanged/PasswordChanged";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -32,6 +33,9 @@ function App() {
         </Route>
         <Route path="/new-password/:token">
           <NewPassword />
+        </Route>
+        <Route path="/password-changed">
+          <PasswordChanged />
         </Route>
         <Route path="/">
           <Home />
