@@ -60,8 +60,8 @@
 
   /* State Colors */
   --color-info: var(--gray-light);
-  --color-success: #10a85f;
-  --color-success-light: #24b16d;
+  --color-success: #1cb36a;
+  --color-success-light: #34c981;
   --color-alert: var(--brand-yellow);
   --color-warning: #ff9100;
   --color-danger: #ec4949;

@@ -6,6 +6,7 @@ import Footer from "components/Footer/Footer";
 import Home from "views/Home/Home";
 import Quarantine from "views/Quarantine/Quarantine";
 import Login from "views/Login/Login";
+import ResetPassword from "views/ResetPassword/ResetPassword";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -20,6 +21,9 @@ function App() {
         </Route>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/reset-password">
+          <ResetPassword />
         </Route>
         <Route path="/">
           <Home />

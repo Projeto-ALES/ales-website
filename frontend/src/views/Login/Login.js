@@ -20,7 +20,7 @@ const Login = () => {
               <div className={styles.inputsContainer}>
                 <Input label="Email" type="text" />
                 <Input label="Senha" type="password" />
-                <a href="#">Esqueci a senha</a>
+                <a href="/reset-password">Esqueci a senha</a>
               </div>
               <div className={styles.buttonContainer}>
                 <Button text="Entrar" kind="primary" onClick={() => alert("Login")} />
