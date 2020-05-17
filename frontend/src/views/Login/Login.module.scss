@@ -1,0 +1,73 @@
+@import "~styles/breakpoints";
+
+.loginContainer {
+  min-height: 100vh;
+  background-color: var(--gray-lightest);
+
+  @include desktop {
+    margin-left: var(--sidebar-width);
+  }
+
+  .cardContainer {
+    margin: auto;
+
+    @include tablet-portrait {
+      width: 80%;
+    }
+
+    @include tablet-landscape {
+      width: 70%;
+    }
+
+    @include desktop {
+      width: 60%;
+      max-width: 600px;
+    }
+
+    .cardContentContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: var(--spacing-medium) 0;
+
+      img {
+        width: 100px;
+        margin-bottom: var(--spacing-large);
+      }
+
+      .inputsContainer {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        width: 90%;
+
+        @include tablet-portrait {
+          width: 70%;
+        }
+
+        @include desktop {
+          width: 60%;
+          max-width: 400px;
+        }
+
+        a {
+          text-decoration: none;
+          color: var(--brand-blue);
+          font-size: var(--font-medium);
+          margin: auto;
+          margin-top: var(--spacing-base);
+
+          &:hover {
+            color: var(--brand-blue-light);
+            transition: 300ms ease;
+          }
+        }
+      }
+
+      .buttonContainer {
+        margin-top: var(--spacing-large);
+      }
+    }
+  }
+}

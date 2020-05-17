@@ -5,6 +5,7 @@ import Footer from "components/Footer/Footer";
 
 import Home from "views/Home/Home";
 import Quarantine from "views/Quarantine/Quarantine";
+import Login from "views/Login/Login";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -16,6 +17,9 @@ function App() {
       <Switch>
         <Route path="/quarentenales">
           <Quarantine />
+        </Route>
+        <Route path="/login">
+          <Login />
         </Route>
         <Route path="/">
           <Home />
