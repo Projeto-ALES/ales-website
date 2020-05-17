@@ -8,6 +8,7 @@ import Quarantine from "views/Quarantine/Quarantine";
 import Login from "views/Login/Login";
 import ResetPassword from "views/ResetPassword/ResetPassword";
 import ResetPasswordSent from "views/ResetPasswordSent/ResetPasswordSent";
+import NewPassword from "views/NewPassword/NewPassword";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -28,6 +29,9 @@ function App() {
         </Route>
         <Route path="/reset-password-sent">
           <ResetPasswordSent />
+        </Route>
+        <Route path="/new-password/:token">
+          <NewPassword />
         </Route>
         <Route path="/">
           <Home />
