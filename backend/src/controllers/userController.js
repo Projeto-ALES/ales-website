@@ -1,6 +1,6 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 
 const User = require("../repository/models/user");
 
@@ -20,7 +20,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-routes.post("/authenticate", async (req, res) => {
+router.post("/authenticate", async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email }).select("+password");
@@ -36,10 +36,14 @@ routes.post("/authenticate", async (req, res) => {
   // Removes password from http response
   user.password = undefined;
 
-  const token = jwt.sign({ email: user.email, roles: user.roles, name: user.name }, SECRET_JWT_KEY, {
-    expiresIn: 86400,
-  });
-  res.status(200).send({user, token});
+  const token = jwt.sign(
+    { email: user.email, roles: user.roles, name: user.name },
+    SECRET_JWT_KEY,
+    {
+      expiresIn: 86400,
+    }
+  );
+  res.status(200).send({ user, token });
 });
 
 module.exports = app => app.use("/user", router);
