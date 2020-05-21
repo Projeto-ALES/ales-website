@@ -1,0 +1,36 @@
+.inputContainer {
+  position: relative;
+  margin: var(--spacing-medium) 0;
+
+  .input {
+    padding: var(--spacing-small) var(--spacing-small) var(--spacing-small) var(--spacing-tiny);
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--gray-light);
+    background-color: transparent;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .input:focus ~ .label,
+  .input:valid ~ .label {
+    top: -20px;
+    font-size: var(--font-normal);
+  }
+
+  .label {
+    font-size: var(--font-medium);
+    color: var(--gray);
+    position: absolute;
+    pointer-events: none;
+    left: var(--spacing-tiny);
+    top: var(--spacing-small);
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+  }
+}

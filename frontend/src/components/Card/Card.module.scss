@@ -2,21 +2,10 @@
 
 .cardContainer {
   padding: var(--spacing-base) var(--spacing-medium);
-  background-color: var(--gray-lighter);
+  background-color: var(--gray-lightest);
   box-shadow: var(--medium-drop-shadow);
   border-radius: var(--large-radius);
-  margin: var(--spacing-base) 0;
-  display: flex;
-  justify-content: flex-start;
-  width: 60%;
-
-  @include tablet-portrait {
-    width: 35%;
-  }
-
-  @include desktop {
-    width: 50%;
-  }
+  margin: var(--spacing-base) var(--spacing-base);
 }
 
 .yellow {
@@ -27,4 +16,13 @@
 .blue-dark {
   background-color: var(--brand-blue-dark);
   color: #fff;
+}
+
+.outline {
+  border: 1px solid var(--gray-light);
+}
+
+.outline-blue {
+  background-color: #fff;
+  border: 1px solid var(--brand-blue-dark);
 }

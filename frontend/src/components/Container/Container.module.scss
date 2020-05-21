@@ -1,7 +1,7 @@
 @import "~styles/breakpoints";
 
 .container {
-  padding: var(--spacing-large);
+  padding: var(--spacing-medium) var(--spacing-medium);
 
   @include tablet-portrait {
     padding: var(--spacing-huge);

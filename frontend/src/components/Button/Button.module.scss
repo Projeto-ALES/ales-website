@@ -2,15 +2,43 @@
 
 .button {
   padding: var(--spacing-base) var(--spacing-large);
-  background-color: var(--brand-yellow);
   border-radius: var(--medium-radius);
 
   font-weight: 600;
   font-size: var(--font-normal);
+
+  background-color: var(--gray-lighter);
   color: var(--gray-darker);
   box-shadow: var(--long-drop-shadow);
+  transition: 300ms ease;
+
+  &:hover {
+    background-color: var(--gray-lightest);
+  }
+}
+
+.primary {
+  background-color: var(--brand-blue);
+  color: #fff;
+
+  &:hover {
+    background-color: var(--brand-blue-light);
+  }
+}
+
+.secondary {
+  background-color: var(--brand-yellow);
 
   &:hover {
     background-color: var(--brand-yellow-light);
+  }
+}
+
+.success {
+  background-color: var(--color-success);
+  color: #fff;
+
+  &:hover {
+    background-color: var(--color-success-light);
   }
 }
