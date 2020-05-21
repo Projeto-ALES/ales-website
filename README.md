@@ -92,6 +92,8 @@ All decisions related with user requirements and needs are made on the design pr
   - MONGO_DATABASE={database_name}
   - MONGO_HOSTNAME=ales-website_mongo_1
 
+  - SECRET_JWT_KEY={jwt key}
+
 4. Build services images by running `docker-compose --build` or running `dev build` VS Code task.
 
 5. Start services by running `docker-compose up` or running `dev start` VS Code task.
