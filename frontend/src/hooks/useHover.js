@@ -19,7 +19,7 @@ const useHover = () => {
         node.removeEventListener("mouseout", handleMouseOut);
       };
     }
-  }, [ref.current]);
+  });
 
   return [ref, value];
 };
