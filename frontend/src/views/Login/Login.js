@@ -9,7 +9,7 @@ import Alessauro from "assets/logos/alessauro.svg";
 
 import styles from "./Login.module.scss";
 
-const Login = () => {
+const Login = ({ history }) => {
   return (
     <div className={styles.loginContainer}>
       <Container>
@@ -23,7 +23,7 @@ const Login = () => {
                 <a href="/reset-password">Esqueci a senha</a>
               </div>
               <div className={styles.buttonContainer}>
-                <Button text="Entrar" kind="primary" onClick={() => alert("Login")} />
+                <Button text="Entrar" kind="primary" onClick={() => history.push("/my-area")} />
               </div>
             </div>
           </Card>

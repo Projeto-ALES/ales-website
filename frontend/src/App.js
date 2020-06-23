@@ -10,6 +10,7 @@ import ResetPassword from "views/ResetPassword/ResetPassword";
 import ResetPasswordSent from "views/ResetPasswordSent/ResetPasswordSent";
 import NewPassword from "views/NewPassword/NewPassword";
 import PasswordChanged from "views/PasswordChanged/PasswordChanged";
+import MyArea from "views/MyArea/MyArea";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -19,27 +20,14 @@ function App() {
       <SideBar />
 
       <Switch>
-        <Route path="/quarentenales">
-          <Quarantine />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/reset-password">
-          <ResetPassword />
-        </Route>
-        <Route path="/reset-password-sent">
-          <ResetPasswordSent />
-        </Route>
-        <Route path="/new-password/:token">
-          <NewPassword />
-        </Route>
-        <Route path="/password-changed">
-          <PasswordChanged />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
+        <Route path="/quarentenales" component={Quarantine} />
+        <Route path="/login" component={Login} />
+        <Route path="/reset-password" component={ResetPassword} />
+        <Route path="/reset-password-sent" component={ResetPasswordSent} />
+        <Route path="/new-password/:token" component={NewPassword} />
+        <Route path="/password-changed" component={PasswordChanged} />
+        <Route path="/my-area" component={MyArea} />
+        <Route path="/" component={Home} />
       </Switch>
 
       <Footer />
