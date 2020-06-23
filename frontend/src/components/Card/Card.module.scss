@@ -26,3 +26,18 @@
   background-color: #fff;
   border: 1px solid var(--brand-blue-dark);
 }
+
+.outline-blue-brand {
+  background-color: #fff;
+  border: 1px solid var(--brand-blue);
+}
+
+.outline-yellow {
+  background-color: #fff;
+  border: 1px solid var(--brand-yellow-light);
+  transition: ease 300ms;
+
+  &:hover {
+    background-color: var(--brand-yellow-lighter);
+  }
+}

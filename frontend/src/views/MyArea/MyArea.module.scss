@@ -16,4 +16,42 @@
       font-size: var(--font-large);
     }
   }
+
+  .cardsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include desktop {
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 70%;
+      justify-content: center;
+      margin: var(--spacing-huge) auto;
+    }
+
+    .cardContainer {
+      width: 80%;
+      max-width: 400px;
+
+      .cardContentContainer {
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        span {
+          color: var(--gray-dark);
+          &:first-of-type {
+            font-size: var(--font-large);
+          }
+          &:last-of-type {
+            width: 60%;
+            margin-left: var(--spacing-medium);
+            font-size: var(--font-medium);
+          }
+        }
+      }
+    }
+  }
 }
