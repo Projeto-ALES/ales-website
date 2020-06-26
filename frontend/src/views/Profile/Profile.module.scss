@@ -10,10 +10,49 @@
 
   .profileTitle {
     text-align: center;
+    color: var(--gray-dark);
+    margin-bottom: var(--spacing-huge);
+
+    @include desktop {
+      margin-bottom: 100px;
+    }
 
     h2 {
       font-weight: 500;
       font-size: var(--font-large);
+    }
+  }
+
+  .formsContainer {
+    padding: 0 var(--spacing-medium);
+    color: var(--gray-dark);
+    max-width: 1000px;
+    margin: auto;
+
+    .forms {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      @include desktop {
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
+      .formsSection {
+        width: 100%;
+        margin: var(--spacing-huge) 0;
+        max-width: 400px;
+
+        @include desktop {
+          margin: var(--spacing-huge) 0;
+        }
+
+        span {
+          font-weight: 600;
+        }
+      }
     }
   }
 }
