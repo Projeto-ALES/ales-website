@@ -2,10 +2,11 @@ import React from "react";
 
 import Container from "components/Container/Container";
 import Input from "components/Input/Input";
+import Button from "components/Button/Button";
 
 import styles from "./Profile.module.scss";
 
-const Profile = () => {
+const Profile = ({ history }) => {
   return (
     <div className={styles.profileContainer}>
       <Container>
@@ -33,6 +34,10 @@ const Profile = () => {
               <Input label="Confirmação da Nova Senha" type="password" />
             </div>
           </form>
+          <div className={styles.buttonsContainer}>
+            <Button text="Voltar" kind="primary" onClick={() => history.goBack()} />
+            <Button text="Salvar" kind="success" onClick={() => alert("forms submission")} />
+          </div>
         </div>
       </Container>
     </div>
