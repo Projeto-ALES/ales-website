@@ -1,0 +1,19 @@
+@import "~styles/breakpoints";
+
+.profileContainer {
+  min-height: 100vh;
+  background-color: var(--gray-lightest);
+
+  @include desktop {
+    margin-left: var(--sidebar-width);
+  }
+
+  .profileTitle {
+    text-align: center;
+
+    h2 {
+      font-weight: 500;
+      font-size: var(--font-large);
+    }
+  }
+}

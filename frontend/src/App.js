@@ -11,6 +11,7 @@ import ResetPasswordSent from "views/ResetPasswordSent/ResetPasswordSent";
 import NewPassword from "views/NewPassword/NewPassword";
 import PasswordChanged from "views/PasswordChanged/PasswordChanged";
 import MyArea from "views/MyArea/MyArea";
+import Profile from "views/Profile/Profile";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/new-password/:token" component={NewPassword} />
         <Route path="/password-changed" component={PasswordChanged} />
         <Route path="/my-area" component={MyArea} />
+        <Route path="/profile" component={Profile} />
         <Route path="/" component={Home} />
       </Switch>
 
