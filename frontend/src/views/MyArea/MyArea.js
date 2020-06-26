@@ -18,12 +18,14 @@ const MyArea = () => {
             return (
               <div className={styles.cardContainer}>
                 <Card id={item.id} kind="outline-yellow">
-                  <div className={styles.cardContentContainer}>
-                    <span>
-                      <i class={item.icon}></i>
-                    </span>
-                    <span>{item.text}</span>
-                  </div>
+                  <a href={item.route}>
+                    <div className={styles.cardContentContainer}>
+                      <span>
+                        <i class={item.icon}></i>
+                      </span>
+                      <span>{item.text}</span>
+                    </div>
+                  </a>
                 </Card>
               </div>
             );

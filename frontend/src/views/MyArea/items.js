@@ -1,5 +1,5 @@
 const items = [
-  { id: 1, route: "profile:id", text: "Perfil", icon: "fa fa-user" },
+  { id: 1, route: "/profile", text: "Perfil", icon: "fa fa-user" },
   { id: 2, route: "professors", text: "Professores", icon: "fa fa-graduation-cap" },
   {
     id: 3,
