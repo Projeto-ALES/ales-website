@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Container from "components/Container/Container";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
+import Dropdown from "components/Dropdown/Dropdown";
 
 import styles from "./Profile.module.scss";
 
 const Profile = ({ history }) => {
+  const [gender, setGender] = useState("");
+
+  const onSelectGender = (value) => {
+    setGender(value);
+  };
+
+  const options = [
+    { id: 1, value: "Gender", text: "Escolha um gênero", selected: true, disabled: true },
+    { id: 2, value: "M", text: "M", selected: false, disabled: false },
+    { id: 3, value: "F", text: "F", selected: false, disabled: false },
+    { id: 4, value: "N", text: "N", selected: false, disabled: false },
+  ];
+
   return (
     <div className={styles.profileContainer}>
       <Container>
@@ -24,7 +38,9 @@ const Profile = ({ history }) => {
             <div className={styles.formsSection}>
               <span>Dados Opcionais</span>
               <Input label="Data de Nascimento" type="text" />
-              <Input label="Gênero" type="text" />
+              <div className={styles.dropdownContainer}>
+                <Dropdown name="gender" options={options} onSelect={onSelectGender} />
+              </div>
               <Input label="Curso/Área de Trabalho" type="text" />
             </div>
             <div className={styles.formsSection}>
