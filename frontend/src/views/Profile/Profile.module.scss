@@ -32,7 +32,6 @@
     .forms {
       display: flex;
       flex-direction: column;
-      align-items: center;
 
       @include desktop {
         flex-direction: row;
@@ -44,6 +43,8 @@
         width: 100%;
         margin: var(--spacing-huge) 0;
         max-width: 400px;
+        display: flex;
+        flex-direction: column;
 
         @include desktop {
           margin: var(--spacing-huge) 0;
