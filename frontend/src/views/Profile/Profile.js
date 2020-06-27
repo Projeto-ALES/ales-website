@@ -18,7 +18,7 @@ const Profile = ({ history }) => {
     { id: 1, value: "Gender", text: "Escolha um gênero", selected: true, disabled: true },
     { id: 2, value: "M", text: "M", selected: false, disabled: false },
     { id: 3, value: "F", text: "F", selected: false, disabled: false },
-    { id: 4, value: "N", text: "N", selected: false, disabled: false },
+    { id: 4, value: "N", text: "Não me identifico", selected: false, disabled: false },
   ];
 
   return (
