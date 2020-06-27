@@ -15,7 +15,7 @@ const Login = ({ history }) => {
       <Container>
         <div className={styles.cardContainer}>
           <Card kind="outline-blue">
-            <div className={styles.cardContentContainer}>
+            <form className={styles.cardContentContainer}>
               <img src={Alessauro} alt="alessauro" />
               <div className={styles.inputsContainer}>
                 <Input label="Email" type="text" />
@@ -25,7 +25,7 @@ const Login = ({ history }) => {
               <div className={styles.buttonContainer}>
                 <Button text="Entrar" kind="primary" onClick={() => history.push("/my-area")} />
               </div>
-            </div>
+            </form>
           </Card>
         </div>
       </Container>
