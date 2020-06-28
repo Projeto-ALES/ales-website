@@ -12,6 +12,7 @@ import NewPassword from "views/NewPassword/NewPassword";
 import PasswordChanged from "views/PasswordChanged/PasswordChanged";
 import MyArea from "views/MyArea/MyArea";
 import Profile from "views/Profile/Profile";
+import ProfessorList from "views/Professor/ProfessorList/ProfessorList";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/password-changed" component={PasswordChanged} />
         <Route path="/my-area" component={MyArea} />
         <Route path="/profile" component={Profile} />
+        <Route path="/professors" component={ProfessorList} />
         <Route path="/" component={Home} />
       </Switch>
 
