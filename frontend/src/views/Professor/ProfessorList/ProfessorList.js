@@ -8,13 +8,13 @@ import styles from "./ProfessorList.module.scss";
 
 const ProfessorList = ({ history }) => {
   const data = [
-    { name: "Victor", email: "victorpalmerini@gmail.com" },
+    { name: "Victor", email: "victor@gmail.com" },
     { name: "Henrique", email: "henrique@gmail.com" },
     { name: "Ellen", email: "ellen@gmail.com" },
-    { name: "Victor", email: "victorpalmerini@gmail.com" },
+    { name: "Victor", email: "victor@gmail.com" },
     { name: "Henrique", email: "henrique@gmail.com" },
     { name: "Ellen", email: "ellen@gmail.com" },
-    { name: "Victor", email: "victorpalmerini@gmail.com" },
+    { name: "Victor", email: "victor@gmail.com" },
     { name: "Henrique", email: "henrique@gmail.com" },
     { name: "Ellen", email: "ellen@gmail.com" },
   ];
@@ -42,6 +42,27 @@ const ProfessorList = ({ history }) => {
                   onClick: (event, rowData) => alert("You want to edit " + rowData.name),
                 },
               ]}
+              localization={{
+                pagination: {
+                  labelDisplayedRows: "{from}-{to} de {count}",
+                },
+                header: {
+                  actions: "Ações",
+                },
+                toolbar: {
+                  searchPlaceholder: "Buscar",
+                },
+                body: {
+                  emptyDataSourceMessage: "Nenhum dado para mostrar",
+                  filterRow: {
+                    filterTooltip: "Filtrar",
+                  },
+                },
+                pagination: {
+                  labelRowsSelect: "Itens",
+                  labelDisplayedRows: "{from}-{to} de {count}",
+                },
+              }}
             />
           </div>
           <div className={styles.buttonsContainer}>
