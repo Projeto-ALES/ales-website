@@ -14,6 +14,7 @@ import MyArea from "views/MyArea/MyArea";
 import Profile from "views/Profile/Profile";
 import ProfessorList from "views/Professor/ProfessorList/ProfessorList";
 import NewProfessor from "views/Professor/NewProfessor/NewProfessor";
+import ProfessorEnroll from "views/Professor/ProfessorEnroll/ProfessorEnroll";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -32,6 +33,7 @@ function App() {
         <Route path="/my-area" component={MyArea} />
         <Route path="/profile" component={Profile} />
         <Route path="/professors/new" component={NewProfessor} />
+        <Route path="/professors/enroll/:token" component={ProfessorEnroll} />
         <Route path="/professors" component={ProfessorList} />
         <Route path="/" component={Home} />
       </Switch>

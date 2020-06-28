@@ -1,6 +1,6 @@
 @import "~styles/breakpoints";
 
-.profileContainer {
+.professorEnrollContainer {
   min-height: 100vh;
   background-color: var(--gray-lightest);
 
@@ -8,7 +8,7 @@
     margin-left: var(--sidebar-width);
   }
 
-  .profileTitle {
+  .professorEnrollTitle {
     text-align: center;
     color: var(--gray-dark);
     margin-bottom: var(--spacing-huge);
@@ -72,12 +72,7 @@
       }
 
       button {
-        &:first-of-type {
-          margin-right: var(--spacing-huge);
-        }
-        &:last-of-type {
-          width: 160px;
-        }
+        width: 160px;
       }
     }
   }
