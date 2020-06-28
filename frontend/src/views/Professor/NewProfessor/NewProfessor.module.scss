@@ -1,0 +1,54 @@
+@import "~styles/breakpoints";
+
+.newProfessorContainer {
+  min-height: 100vh;
+  background-color: var(--gray-lightest);
+  text-align: center;
+
+  @include desktop {
+    margin-left: var(--sidebar-width);
+  }
+
+  .newProfessorTitle {
+    text-align: center;
+    color: var(--gray-dark);
+
+    @include desktop {
+      margin-bottom: var(--spacing-huge);
+    }
+
+    h2 {
+      font-weight: 500;
+      font-size: var(--font-large);
+    }
+  }
+
+  .newProfessorDescription {
+    margin-bottom: var(--spacing-huge);
+    color: var(--gray-dark);
+  }
+
+  .formContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .emailInput {
+      width: 90%;
+      max-width: 400px;
+      margin-bottom: var(--spacing-large);
+    }
+
+    .buttonsContainer {
+      display: flex;
+      justify-content: flex-end;
+
+      button {
+        &:last-of-type {
+          margin-left: var(--spacing-huge);
+          width: 140px;
+        }
+      }
+    }
+  }
+}
