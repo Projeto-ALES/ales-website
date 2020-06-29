@@ -16,18 +16,16 @@ const MyArea = () => {
         <div className={styles.cardsContainer}>
           {items.map((item) => {
             return (
-              <div className={styles.cardContainer}>
+              <a href={item.route} className={styles.cardContainer}>
                 <Card id={item.id} kind="outline-yellow">
-                  <a href={item.route}>
-                    <div className={styles.cardContentContainer}>
-                      <span>
-                        <i class={item.icon}></i>
-                      </span>
-                      <span>{item.text}</span>
-                    </div>
-                  </a>
+                  <div className={styles.cardContentContainer}>
+                    <span>
+                      <i class={item.icon}></i>
+                    </span>
+                    <span>{item.text}</span>
+                  </div>
                 </Card>
-              </div>
+              </a>
             );
           })}
         </div>

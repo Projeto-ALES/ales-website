@@ -3,7 +3,7 @@ const items = [
   { id: 2, route: "/professors", text: "Professores", icon: "fa fa-graduation-cap" },
   {
     id: 3,
-    route: "courses",
+    route: "/courses",
     text: "Matérias",
     icon: "fa fa-flask",
   },
