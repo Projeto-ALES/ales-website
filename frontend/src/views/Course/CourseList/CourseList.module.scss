@@ -53,4 +53,20 @@
       }
     }
   }
+
+  .buttonsContainer {
+    margin: var(--spacing-huge) 0;
+    display: flex;
+    justify-content: space-around;
+
+    @include tablet-portrait {
+      justify-content: center;
+
+      button {
+        &:first-of-type {
+          margin-right: var(--spacing-huge);
+        }
+      }
+    }
+  }
 }

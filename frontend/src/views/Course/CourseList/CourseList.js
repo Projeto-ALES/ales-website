@@ -2,10 +2,11 @@ import React from "react";
 
 import Container from "components/Container/Container";
 import Card from "components/Card/Card";
+import Button from "components/Button/Button";
 
 import styles from "./CourseList.module.scss";
 
-const CourseList = () => {
+const CourseList = ({ history }) => {
   const courses = [
     { id: 1, name: "Programação", route: "/programacao" },
     { id: 2, name: "Inglês", route: "/ingles" },
@@ -23,7 +24,7 @@ const CourseList = () => {
         <div className={styles.cardsContainer}>
           {courses.map((course) => {
             return (
-              <a href={course.route} className={styles.cardContainer}>
+              <a href={`/courses/${course.route}`} className={styles.cardContainer}>
                 <Card id={course.id} kind="outline-yellow">
                   <div className={styles.cardContentContainer}>
                     <span>{course.name}</span>
@@ -32,6 +33,10 @@ const CourseList = () => {
               </a>
             );
           })}
+        </div>
+        <div className={styles.buttonsContainer}>
+          <Button text="Voltar" onClick={() => history.goBack()} />
+          <Button kind="success" text="Adicionar" onClick={() => {}} />
         </div>
       </Container>
     </div>
