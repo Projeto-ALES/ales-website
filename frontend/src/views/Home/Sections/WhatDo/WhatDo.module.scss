@@ -43,6 +43,7 @@
 
         .cardContainer {
           width: 80%;
+          margin: var(--spacing-base) 0;
 
           @include tablet-portrait {
             width: 300px;

@@ -25,7 +25,8 @@
     @include desktop {
       flex-direction: row;
       flex-wrap: wrap;
-      width: 70%;
+      width: 90%;
+      max-width: 1000px;
       justify-content: center;
       margin: var(--spacing-huge) auto;
     }
@@ -33,6 +34,11 @@
     .cardContainer {
       width: 80%;
       max-width: 400px;
+      margin: var(--spacing-base) 0;
+
+      @include tablet-portrait {
+        margin: var(--spacing-base);
+      }
 
       .cardContentContainer {
         height: 45px;
