@@ -53,6 +53,36 @@
 
     .dataCoordinator {
       margin-top: var(--spacing-large);
+      margin-bottom: var(--spacing-very-huge);
+    }
+  }
+
+  .tablesContainer {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+
+    @include desktop {
+      width: 80%;
+    }
+
+    .goBackButton {
+      margin-bottom: var(--spacing-large);
+
+      button {
+        width: 120px;
+      }
+    }
+
+    .tableContainer {
+      width: 100%;
+      margin-bottom: var(--spacing-very-huge);
+
+      .buttonsContainer {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: var(--spacing-large);
+      }
     }
   }
 }
