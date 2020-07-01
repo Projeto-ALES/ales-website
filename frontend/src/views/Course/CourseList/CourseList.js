@@ -36,7 +36,7 @@ const CourseList = ({ history }) => {
         </div>
         <div className={styles.buttonsContainer}>
           <Button text="Voltar" onClick={() => history.goBack()} />
-          <Button kind="success" text="Adicionar" onClick={() => {}} />
+          <Button kind="success" text="Adicionar" onClick={() => history.push("/courses/new")} />
         </div>
       </Container>
     </div>
