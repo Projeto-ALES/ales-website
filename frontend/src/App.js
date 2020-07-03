@@ -18,6 +18,7 @@ import ProfessorEnroll from "views/Professor/ProfessorEnroll/ProfessorEnroll";
 import CourseList from "views/Course/CourseList/CourseList";
 import CourseDetail from "views/Course/CourseDetail/CourseDetail";
 import CourseNew from "views/Course/CourseNew/CourseNew";
+import CourseEdit from "views/Course/CourseEdit/CourseEdit";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -38,8 +39,9 @@ function App() {
         <Route path="/professors/new" component={NewProfessor} />
         <Route path="/professors/enroll/:token" component={ProfessorEnroll} />
         <Route path="/professors" component={ProfessorList} />
-        <Route path="/courses/new" component={CourseNew} />
+        <Route path="/courses/:id/edit" component={CourseEdit} />
         <Route path="/courses/:id" component={CourseDetail} />
+        <Route path="/courses/new" component={CourseNew} />
         <Route path="/courses" component={CourseList} />
         <Route path="/" component={Home} />
       </Switch>
