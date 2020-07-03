@@ -10,10 +10,6 @@ import styles from "./Profile.module.scss";
 const Profile = ({ history }) => {
   const [gender, setGender] = useState("");
 
-  const onSelectGender = (value) => {
-    setGender(value);
-  };
-
   const options = [
     { id: 1, value: "Gender", text: "Escolha um gênero", selected: true, disabled: true },
     { id: 2, value: "M", text: "M", selected: false, disabled: false },
@@ -39,7 +35,7 @@ const Profile = ({ history }) => {
               <span>Dados Opcionais</span>
               <Input label="Data de Nascimento" type="text" />
               <div className={styles.dropdownContainer}>
-                <Dropdown name="gender" options={options} onSelect={onSelectGender} />
+                <Dropdown name="gender" options={options} onSelect={setGender} />
               </div>
               <Input label="Curso/Área de Trabalho" type="text" />
             </div>

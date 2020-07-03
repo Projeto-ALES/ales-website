@@ -1,6 +1,6 @@
 @import "~styles/breakpoints";
 
-.myAreaContainer {
+.courseListContainer {
   min-height: 100vh;
   background-color: var(--gray-lightest);
 
@@ -8,7 +8,7 @@
     margin-left: var(--sidebar-width);
   }
 
-  .myAreaTitle {
+  .courseListTitle {
     text-align: center;
 
     h2 {
@@ -41,21 +41,30 @@
       }
 
       .cardContentContainer {
-        height: 50px;
+        height: 45px;
         display: flex;
         align-items: center;
         justify-content: center;
 
         span {
           color: var(--gray-dark);
-          &:first-of-type {
-            font-size: var(--font-large);
-          }
-          &:last-of-type {
-            width: 60%;
-            margin-left: var(--spacing-medium);
-            font-size: var(--font-medium);
-          }
+          font-size: var(--font-medium);
+        }
+      }
+    }
+  }
+
+  .buttonsContainer {
+    margin: var(--spacing-huge) 0;
+    display: flex;
+    justify-content: space-around;
+
+    @include tablet-portrait {
+      justify-content: center;
+
+      button {
+        &:first-of-type {
+          margin-right: var(--spacing-huge);
         }
       }
     }
