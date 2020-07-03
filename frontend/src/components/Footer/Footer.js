@@ -10,7 +10,7 @@ const Footer = () => {
       {items.map((item) => {
         return (
           <div className={styles.footerItem}>
-            <a href={item.link} target="_blank">
+            <a href={item.link} target="_blank" rel="noopener noreferrer">
               <span className={styles.itemText}>
                 <i class={item.icon}></i>
               </span>

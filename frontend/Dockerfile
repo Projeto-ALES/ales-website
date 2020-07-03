@@ -1,11 +1,18 @@
 FROM node:alpine3.11 as build-deps
 
-WORKDIR /app
+RUN apk --no-cache --virtual build-dependencies add \
+    python \
+    make \
+    g++
 
-COPY package.json yarn.lock /app/
+ENV WORKDIR /usr/src/app
+
+WORKDIR ${WORKDIR}
+
+COPY package.json yarn.lock ./
 
 RUN yarn
 
-COPY . /app/
+COPY . .
 
 EXPOSE 3000

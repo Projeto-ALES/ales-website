@@ -34,7 +34,7 @@ const WhatDo = () => {
                 );
               })}
             </div>
-            <a href="#">e muito mais!</a>
+            <a href="/#">e muito mais!</a>
           </div>
           <div className={styles.activitiesContainer}>
             <p>E outras atividades:</p>

@@ -1,0 +1,49 @@
+@import "~styles/breakpoints";
+
+.professorListContainer {
+  min-height: 100vh;
+  background-color: var(--gray-lightest);
+
+  @include desktop {
+    margin-left: var(--sidebar-width);
+  }
+
+  .professorListTitle {
+    text-align: center;
+    color: var(--gray-dark);
+    margin-bottom: var(--spacing-huge);
+
+    @include desktop {
+      margin-bottom: 100px;
+    }
+
+    h2 {
+      font-weight: 500;
+      font-size: var(--font-large);
+    }
+  }
+
+  .contentContainer {
+    @include tablet-landscape {
+      padding: 0 5%;
+    }
+    @include desktop {
+      padding: 0 12%;
+    }
+
+    .tableContainer {
+      margin-bottom: var(--spacing-huge);
+    }
+
+    .buttonsContainer {
+      display: flex;
+      justify-content: flex-end;
+
+      button {
+        &:last-of-type {
+          margin-left: var(--spacing-large);
+        }
+      }
+    }
+  }
+}

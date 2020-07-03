@@ -9,13 +9,13 @@ import Alessauro from "assets/logos/alessauro.svg";
 
 import styles from "./Login.module.scss";
 
-const Login = () => {
+const Login = ({ history }) => {
   return (
     <div className={styles.loginContainer}>
       <Container>
         <div className={styles.cardContainer}>
           <Card kind="outline-blue">
-            <div className={styles.cardContentContainer}>
+            <form className={styles.cardContentContainer}>
               <img src={Alessauro} alt="alessauro" />
               <div className={styles.inputsContainer}>
                 <Input label="Email" type="text" />
@@ -23,9 +23,9 @@ const Login = () => {
                 <a href="/reset-password">Esqueci a senha</a>
               </div>
               <div className={styles.buttonContainer}>
-                <Button text="Entrar" kind="primary" onClick={() => alert("Login")} />
+                <Button text="Entrar" kind="primary" onClick={() => history.push("/my-area")} />
               </div>
-            </div>
+            </form>
           </Card>
         </div>
       </Container>
