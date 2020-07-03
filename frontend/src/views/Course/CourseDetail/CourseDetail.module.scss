@@ -66,11 +66,22 @@
       width: 80%;
     }
 
-    .goBackButton {
+    .actionButtonsContainer {
+      display: flex;
+      justify-content: space-around;
       margin-bottom: var(--spacing-large);
 
+      @include tablet-portrait {
+        justify-content: flex-start;
+      }
+
       button {
-        width: 120px;
+        &:first-of-type {
+          margin-right: var(--spacing-huge);
+        }
+        &:last-of-type {
+          width: 140px;
+        }
       }
     }
 
@@ -78,7 +89,7 @@
       width: 100%;
       margin-bottom: var(--spacing-very-huge);
 
-      .buttonsContainer {
+      .buttonContainer {
         display: flex;
         justify-content: flex-end;
         margin-top: var(--spacing-large);

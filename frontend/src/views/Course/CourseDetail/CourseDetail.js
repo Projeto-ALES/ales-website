@@ -6,7 +6,7 @@ import MaterialTable from "material-table";
 
 import styles from "./CourseDetail.module.scss";
 
-const CourseDetail = ({ history }) => {
+const CourseDetail = ({ history, match }) => {
   const course = {
     id: 1,
     name: "Programação",
@@ -104,8 +104,13 @@ const CourseDetail = ({ history }) => {
           </div>
         </div>
         <div className={styles.tablesContainer}>
-          <div className={styles.goBackButton}>
-            <Button kind="primary" text="Voltar" onClick={() => history.goBack()} />
+          <div className={styles.actionButtonsContainer}>
+            <Button text="Voltar" onClick={() => history.goBack()} />
+            <Button
+              kind="primary"
+              text="Editar"
+              onClick={() => history.push(`/courses/${match.params.id}/edit`)}
+            />
           </div>
           <div className={styles.tableContainer}>
             <MaterialTable
@@ -155,7 +160,7 @@ const CourseDetail = ({ history }) => {
                 exportButton: true,
               }}
             />
-            <div className={styles.buttonsContainer}>
+            <div className={styles.buttonContainer}>
               <Button kind="success" text="Adicionar" />
             </div>
           </div>
@@ -202,7 +207,7 @@ const CourseDetail = ({ history }) => {
                 },
               }}
             />
-            <div className={styles.buttonsContainer}>
+            <div className={styles.buttonContainer}>
               <Button kind="success" text="Adicionar" />
             </div>
           </div>
@@ -249,7 +254,7 @@ const CourseDetail = ({ history }) => {
                 },
               }}
             />
-            <div className={styles.buttonsContainer}>
+            <div className={styles.buttonContainer}>
               <Button kind="success" text="Adicionar" />
             </div>
           </div>
