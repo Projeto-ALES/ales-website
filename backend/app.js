@@ -1,17 +1,14 @@
 import express, { urlencoded } from "express";
 
-const bodyParser = require("body-parser");
+import userController from "./src/controllers/userController";
 
 const app = express();
 const port = 8000;
 
-const userController = require("./src/controllers/userController");
-
-app.use(bodyParser.json());
 app.use(urlencoded({ extended: false }));
 
-app.get("/", (req, res) => {
-  res.send("projeto ales");
+app.get("/ping", (req, res) => {
+  res.send("pong");
 });
 
 userController(app);

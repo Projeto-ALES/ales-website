@@ -3,6 +3,7 @@ version: "3.7"
 services:
   mongo:
     image: mongo:3.6.17-xenial
+    container_name: db
     ports:
       - "27017:27017"
     env_file:
@@ -14,6 +15,7 @@ services:
 
   mongo-express:
     image: mongo-express:0.54.0
+    container_name: db_admin
     ports:
       - 8081:8081
     env_file:
@@ -29,14 +31,17 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     image: ales_backend
-    container_name: ales_api
+    container_name: api
     ports:
       - "8000:8000"
     env_file:
       - .env/app.env
     volumes:
-      - ./backend:/app
-      - /app/node_modules
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - mongo
+      - mongo-express
     restart: always
     command: yarn dev
 
@@ -45,7 +50,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     image: ales_frontend
-    container_name: ales_ui
+    container_name: ui
     ports:
       - "3000:3000"
       - "35729:35729"

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const {
   MONGO_INITDB_ROOT_USERNAME,
@@ -11,6 +11,8 @@ const {
 const mongoAuth = `${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}`;
 
 const mongoUrl = `mongodb://${mongoAuth}@${MONGO_HOSTNAME}/${MONGO_DATABASE}?authSource=admin`;
-mongoose.connect(mongoUrl, { useNewUrlParser: true }).catch(err => console.error(err));
+mongoose
+  .connect(mongoUrl, { useNewUrlParser: true })
+  .catch(err => console.error(err));
 
 module.exports = mongoose;
