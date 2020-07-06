@@ -19,3 +19,13 @@ exports.createUser = async data => {
       throw Error(err.message);
     });
 };
+
+exports.getUser = async params => {
+  return await User.findOne({ _id: params.id })
+    .then(user => {
+      return user;
+    })
+    .catch(err => {
+      throw Error(err.message);
+    });
+};
