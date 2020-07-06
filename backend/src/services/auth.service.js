@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 const User = require("../models/user");
-const jwt = require("../jwt");
+const jwtConfig = require("../jwt");
 
 exports.getToken = async data => {
   try {
@@ -26,14 +26,14 @@ exports.getToken = async data => {
       { email: user.email, roles: user.roles, name: user.name },
       TOKEN_SECRET,
       {
-        expiresIn: jwt.TOKEN_EXP,
+        expiresIn: jwtConfig.TOKEN_EXP,
       }
     );
     const refreshToken = jwt.sign(
       { email: user.email, roles: user.roles, name: user.name },
       REFRESH_TOKEN_SECRET,
       {
-        expiresIn: jwt.REFRESH_TOKEN_EXP,
+        expiresIn: jwtConfig.REFRESH_TOKEN_EXP,
       }
     );
 
@@ -66,7 +66,7 @@ exports.refreshToken = async data => {
       REFRESH_TOKEN_SECRET
     );
     const token = jwt.sign({ email, roles, name }, TOKEN_SECRET, {
-      expiresIn: jwt.token_exp,
+      expiresIn: jwtConfig.token_exp,
     });
     return { token };
   } catch (err) {
