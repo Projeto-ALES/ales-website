@@ -1,13 +1,13 @@
-import express, { urlencoded } from "express";
-
+const express = require("express");
 const connectDb = require("./src/mongo");
 
-import userController from "./src/controllers/userController";
+// routes
+const userRoutes = require("./src/routes/user.route");
 
 const app = express();
 const port = 8000;
 
-app.use(urlencoded({ extended: false }));
+app.use(express.json());
 
 connectDb().then(() => {
   console.log("Database connected");
@@ -17,6 +17,6 @@ app.get("/ping", (req, res) => {
   res.send("pong");
 });
 
-userController(app);
+app.use("/", userRoutes);
 
 app.listen(port);
