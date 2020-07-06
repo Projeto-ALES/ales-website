@@ -29,3 +29,13 @@ exports.getUser = async params => {
       throw Error(err.message);
     });
 };
+
+exports.deleteUser = async params => {
+  return await User.findByIdAndDelete(params.id)
+    .then(() => {
+      return;
+    })
+    .catch(err => {
+      throw Error(err.message);
+    });
+};

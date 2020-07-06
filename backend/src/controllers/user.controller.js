@@ -38,3 +38,15 @@ exports.getUser = async (req, res, next) => {
       return res.status(400).json({ status: 400, message: err.message });
     });
 };
+
+exports.deleteUser = async (req, res, next) => {
+  return await UserService.deleteUser(req.params)
+    .then(() => {
+      return res.status(202).json({
+        status: 202,
+      });
+    })
+    .catch(err => {
+      return res.status(400).json({ status: 400, message: err.message });
+    });
+};
