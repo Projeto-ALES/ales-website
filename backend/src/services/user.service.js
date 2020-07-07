@@ -39,3 +39,13 @@ exports.deleteUser = async params => {
       throw Error(err.message);
     });
 };
+
+exports.updateUser = async (params, data) => {
+  return await User.updateOne({ _id: params.id }, { $set: data })
+    .then(() => {
+      return User.findOne({ _id: params.id });
+    })
+    .catch(err => {
+      throw Error(err.message);
+    });
+};
