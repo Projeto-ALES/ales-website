@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { login } from "services/auth.service";
 
 import Container from "components/Container/Container";
@@ -15,6 +18,8 @@ const Login = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const notify = (message) => toast.error(message);
+
   const submitLogin = async (e, email, password) => {
     e.preventDefault();
 
@@ -23,13 +28,23 @@ const Login = ({ history }) => {
         history.push("/my-area");
       })
       .catch((err) => {
-        console.log(err);
+        err.response.status === 401
+          ? notify("Credenciais Inválidas")
+          : notify("Ops! Aconteceu algo estranho");
       });
   };
 
   return (
     <div className={styles.loginContainer}>
       <Container>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          closeOnClick
+          pauseOnVisibilityChange
+          draggable
+          pauseOnHover
+        />
         <div className={styles.cardContainer}>
           <Card kind="outline-blue">
             <form

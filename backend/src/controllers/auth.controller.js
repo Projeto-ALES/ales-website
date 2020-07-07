@@ -15,8 +15,10 @@ exports.auth = async (req, res, next) => {
         refreshToken,
       });
     })
-    .catch(err => {
-      return res.status(400).json({ status: 400, message: err.message });
+    .catch(() => {
+      return res
+        .status(401)
+        .json({ status: 401, message: "Invalid credentials" });
     });
 };
 
