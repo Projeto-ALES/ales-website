@@ -5,6 +5,8 @@ const connectDb = require("./src/mongo");
 const userRoutes = require("./src/routes/user.route");
 const authRoutes = require("./src/routes/auth.router");
 
+const { handleError } = require("./src/helpers/error");
+
 const app = express();
 const port = 8000;
 
@@ -20,5 +22,9 @@ app.get("/ping", (req, res) => {
 
 app.use("/", userRoutes);
 app.use("/", authRoutes);
+
+app.use((err, req, res, next) => {
+  handleError(err, res);
+});
 
 app.listen(port);

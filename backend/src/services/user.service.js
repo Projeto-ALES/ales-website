@@ -1,42 +1,62 @@
 const User = require("../models/user");
+const { ErrorHandler } = require("../helpers/error");
 
 exports.getUsers = async query => {
   return await User.find(query)
     .then(users => {
       return users;
     })
-    .catch(err => {
-      throw Error(err.message);
+    .catch(() => {
+      throw new ErrorHandler(500, "Error while fetching users");
     });
 };
 
 exports.createUser = async data => {
+  const { email, name, password } = data;
+  if (!email || !name || !password) {
+    throw new ErrorHandler(400, "Required fields are missing");
+  }
   return await User.create(data)
     .then(() => {
       return User.find({ email: data.email });
     })
     .catch(err => {
-      throw Error(err.message);
+      if (err.code === 11000) {
+        throw new ErrorHandler(409, err.errmsg);
+      }
+      throw new ErrorHandler(500, err.errmsg);
     });
 };
 
 exports.getUser = async params => {
-  return await User.findOne({ _id: params.id })
+  return await User.findById(params.id)
     .then(user => {
+      if (!user) {
+        throw Error("Not Found");
+      }
       return user;
     })
     .catch(err => {
-      throw Error(err.message);
+      if (err.message === "Not Found") {
+        throw new ErrorHandler(404, err.message);
+      }
+      throw new ErrorHandler(500, err.errmsg);
     });
 };
 
 exports.deleteUser = async params => {
   return await User.findByIdAndDelete(params.id)
-    .then(() => {
+    .then(user => {
+      if (!user) {
+        throw Error("Not Found");
+      }
       return;
     })
     .catch(err => {
-      throw Error(err.message);
+      if (err.message === "Not Found") {
+        throw new ErrorHandler(404, err.message);
+      }
+      throw new ErrorHandler(500, err.errmsg);
     });
 };
 
@@ -46,6 +66,6 @@ exports.updateUser = async (params, data) => {
       return User.findOne({ _id: params.id });
     })
     .catch(err => {
-      throw Error(err.message);
+      throw new ErrorHandler(500, err.errmsg);
     });
 };

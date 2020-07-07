@@ -1,4 +1,5 @@
 const UserService = require("../services/user.service");
+const { handleError } = require("../helpers/error");
 
 exports.getUsers = async (req, res, next) => {
   return await UserService.getUsers({})
@@ -9,7 +10,7 @@ exports.getUsers = async (req, res, next) => {
       });
     })
     .catch(err => {
-      return res.status(400).json({ status: 400, message: err.message });
+      handleError(err, res);
     });
 };
 
@@ -22,7 +23,7 @@ exports.createUser = async (req, res, next) => {
       });
     })
     .catch(err => {
-      return res.status(400).json({ status: 400, message: err.message });
+      handleError(err, res);
     });
 };
 
@@ -35,7 +36,7 @@ exports.getUser = async (req, res, next) => {
       });
     })
     .catch(err => {
-      return res.status(400).json({ status: 400, message: err.message });
+      handleError(err, res);
     });
 };
 
@@ -47,7 +48,7 @@ exports.deleteUser = async (req, res, next) => {
       });
     })
     .catch(err => {
-      return res.status(400).json({ status: 400, message: err.message });
+      handleError(err, res);
     });
 };
 
