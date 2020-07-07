@@ -1,4 +1,5 @@
 const express = require("express");
+var cors = require("cors");
 const connectDb = require("./src/mongo");
 
 // routes
@@ -9,6 +10,8 @@ const { handleError } = require("./src/helpers/error");
 
 const app = express();
 const port = 8000;
+
+app.use(cors());
 
 app.use(express.json());
 

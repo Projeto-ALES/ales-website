@@ -4,6 +4,10 @@ exports.auth = async (req, res, next) => {
   return await AuthService.getToken(req.body)
     .then(response => {
       const { user, token, refreshToken } = response;
+      res.cookie("token", token, { httpOnly: true });
+      res.cookie("refresh-token", refreshToken, {
+        httpOnly: true,
+      });
       return res.status(200).json({
         status: 200,
         user,
