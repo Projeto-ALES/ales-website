@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from "./Input.module.scss";
 
-const Input = ({ label, type, onChange, value }) => {
+const Input = ({ placeholder, type, onChange, value, required }) => {
   return (
     <div className={styles.inputContainer}>
       <input
@@ -10,11 +10,9 @@ const Input = ({ label, type, onChange, value }) => {
         type={type}
         value={value || ""}
         onChange={onChange}
-        required
+        placeholder={placeholder}
+        required={required}
       />
-      <span className={styles.highlight}></span>
-      <span className={styles.bar}></span>
-      <label className={styles.label}>{label}</label>
     </div>
   );
 };

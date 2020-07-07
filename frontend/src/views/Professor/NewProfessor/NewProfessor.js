@@ -22,7 +22,7 @@ const NewProfessor = ({ history }) => {
         <div>
           <form className={styles.formContainer}>
             <div className={styles.emailInput}>
-              <Input label="Email" type="text" />
+              <Input placeholder="Email" type="text" required />
             </div>
             <div className={styles.buttonsContainer}>
               <Button text="Voltar" onClick={() => history.goBack()} />

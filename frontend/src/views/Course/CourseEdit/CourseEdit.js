@@ -26,20 +26,21 @@ const CourseEdit = ({ history, match }) => {
           <form className={styles.form}>
             <div className={styles.formsSection}>
               <Input
-                label="Nome"
+                placeholder="Nome"
                 type="text"
                 value={coordinator}
                 onChange={(e) => setCoordinator(e.target.value)}
+                required
               />
             </div>
             <div className={styles.formsSection}>
-              <Input label="Descrição" value="Matéria muito legal" type="text" />
+              <Input placeholder="Descrição" value="Matéria muito legal" type="text" required />
             </div>
             <div className={styles.formsSection}>
-              <Input label="Data de Início" value="31/07/2020" type="text" />
+              <Input placeholder="Data de Início" value="31/07/2020" type="text" required />
             </div>
             <div className={styles.formsSection}>
-              <Input label="Data de Término" value="31/11/2020" type="text" />
+              <Input placeholder="Data de Término" value="31/11/2020" type="text" required />
             </div>
             <div className={styles.formsSection}>
               <div className={styles.dropdownContainer}>
