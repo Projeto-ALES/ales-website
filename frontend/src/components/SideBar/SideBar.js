@@ -2,11 +2,11 @@ import React from "react";
 import useHover from "hooks/useHover";
 
 import SideBarItem from "components/SideBarItem/SideBarItem";
-import items from "./items";
+import { loggedIn, notLoggedIn } from "./items";
 
 import styles from "./SideBar.module.scss";
 
-const SideBar = () => {
+const SideBar = ({ items }) => {
   const [hoverRef, isHovered] = useHover();
 
   return (
@@ -22,6 +22,7 @@ const SideBar = () => {
                 icon={item.icon}
                 to={item.to}
                 isOpen={isHovered}
+                onClick={item.onClick}
               />
             );
           })}
