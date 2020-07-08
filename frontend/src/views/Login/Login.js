@@ -28,9 +28,9 @@ const Login = ({ history }) => {
         history.push("/my-area");
       })
       .catch((err) => {
-        err.response.status === 401
+        err.response && err.response.status === 401
           ? notify("Credenciais Inválidas")
-          : notify("Ops! Aconteceu algo estranho");
+          : notify("Ops! Aconteceu algum erro");
       });
   };
 

@@ -11,7 +11,7 @@ const { handleError } = require("./src/helpers/error");
 const app = express();
 const port = 8000;
 
-app.use(cors());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
 app.use(express.json());
 
