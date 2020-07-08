@@ -3,7 +3,7 @@ const connectDb = require("./src/mongo");
 
 // routes
 const userRoutes = require("./src/routes/user.route");
-const authRoutes = require("./src/routes/auth.router");
+const authRoutes = require("./src/routes/auth.route");
 
 const { handleError } = require("./src/helpers/error");
 
