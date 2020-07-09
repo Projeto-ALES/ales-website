@@ -2,7 +2,6 @@ import React from "react";
 import useHover from "hooks/useHover";
 
 import SideBarItem from "components/SideBarItem/SideBarItem";
-import { loggedIn, notLoggedIn } from "./items";
 
 import styles from "./SideBar.module.scss";
 

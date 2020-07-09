@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { login } from "services/auth.service";
+import { context } from "store/store";
 
 import Container from "components/Container/Container";
 import Card from "components/Card/Card";
@@ -15,6 +16,8 @@ import Alessauro from "assets/logos/alessauro.svg";
 import styles from "./Login.module.scss";
 
 const Login = ({ history }) => {
+  const [state, dispatch] = useContext(context);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -26,6 +29,7 @@ const Login = ({ history }) => {
     login(email, password)
       .then(() => {
         history.push("/my-area");
+        dispatch({ type: "LOGIN" });
       })
       .catch((err) => {
         err.response && err.response.status === 401
