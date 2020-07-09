@@ -28,7 +28,9 @@ const loggedIn = [
     text: "Sair",
     icon: "fa fa-sign-out",
     to: "/login",
-    onClick: () => {},
+    onClick: () => {
+      logout();
+    },
   },
 ];
 

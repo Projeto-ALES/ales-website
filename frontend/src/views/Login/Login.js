@@ -1,7 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Cookies from "js-cookie";
 
 import { login } from "services/auth.service";
 import { context } from "store/store";
@@ -17,6 +18,13 @@ import styles from "./Login.module.scss";
 
 const Login = ({ history }) => {
   const [state, dispatch] = useContext(context);
+
+  useEffect(() => {
+    if (!Cookies.get("token")) {
+      console.log("cookie is gone!");
+      dispatch({ type: "LOGOUT" });
+    }
+  }, []);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
