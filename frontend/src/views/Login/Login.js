@@ -21,7 +21,6 @@ const Login = ({ history }) => {
 
   useEffect(() => {
     if (!Cookies.get("token")) {
-      console.log("cookie is gone!");
       dispatch({ type: "LOGOUT" });
     }
   }, []);
