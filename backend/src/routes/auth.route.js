@@ -7,4 +7,6 @@ router.post("/login", AuthController.auth);
 
 router.post("/refresh-token", AuthController.refresh);
 
+router.post("/update-password/:id", AuthController.updatePassword);
+
 module.exports = router;

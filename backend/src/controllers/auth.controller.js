@@ -14,15 +14,16 @@ exports.auth = async (req, res) => {
         message: "Required fields are missing",
       });
     }
-    const user = await AuthService.getUserWithPassword(email);
+    const user = await AuthService.getUserWithPassword({ email });
     if (!user) {
       return res.status(401).json({
         status: 401,
         message: "Invalid credentials",
       });
     }
+    const compare = await bcrypt.compare(password, user.password);
 
-    if (!bcrypt.compareSync(password, user.password)) {
+    if (!compare) {
       return res.status(401).json({
         status: 401,
         message: "Invalid credentials",
@@ -80,8 +81,52 @@ exports.refresh = async (req, res) => {
       expiresIn: jwtConfig.TOKEN_EXP,
     });
 
-    return res.cookie("token", token, { httpOnly: true }).status(200).json({
+    return res.cookie("token", token, { httpOnly: false }).status(200).json({
       status: 200,
+    });
+  } catch (e) {
+    handleError(e, res);
+  }
+};
+
+exports.updatePassword = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { password, new_password, new_password_conf } = req.body;
+
+    if (!id || !password || !new_password || !new_password_conf) {
+      return res.status(400).json({
+        status: 400,
+        message: "Required fields are missing",
+      });
+    }
+    const user = await AuthService.getUserWithPassword({ _id: id });
+    if (!user) {
+      return res.status(404).json({
+        status: 404,
+        message: "User not found",
+      });
+    }
+
+    if (!bcrypt.compareSync(password, user.password)) {
+      return res.status(401).json({
+        status: 401,
+        message: "Invalid password",
+      });
+    }
+
+    if (new_password !== new_password_conf) {
+      return res.status(400).json({
+        status: 400,
+        message: "New password and its confirmation are different",
+      });
+    }
+
+    user.password = new_password;
+    await user.save();
+    return res.status(200).json({
+      status: 200,
+      message: "Password changed",
     });
   } catch (e) {
     handleError(e, res);
