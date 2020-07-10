@@ -13,7 +13,7 @@ exports.getUsers = async (req, res) => {
   }
 };
 
-exports.createUser = async (req, res, next) => {
+exports.createUser = async (req, res) => {
   try {
     const { email, name, password } = req.body;
     if (!email || !name || !password) {
@@ -34,7 +34,7 @@ exports.createUser = async (req, res, next) => {
   }
 };
 
-exports.getUser = async (req, res, next) => {
+exports.getUser = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await UserService.getUser(id);
@@ -53,7 +53,7 @@ exports.getUser = async (req, res, next) => {
   }
 };
 
-exports.deleteUser = async (req, res, next) => {
+exports.deleteUser = async (req, res) => {
   try {
     const user = await UserService.deleteUser(req.params);
     if (!user) {
@@ -70,7 +70,7 @@ exports.deleteUser = async (req, res, next) => {
   }
 };
 
-exports.updateUser = async (req, res, next) => {
+exports.updateUser = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await UserService.updateUser(id, req.body);
