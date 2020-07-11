@@ -8,3 +8,15 @@ exports.getUserWithPassword = async params => {
     throw new ErrorHandler(500, e.errmsg);
   }
 };
+
+exports.getUserWithPasswordToken = async params => {
+  try {
+    return await User.findOne(params).select([
+      "password",
+      "passwordToken",
+      "passwordTokenExp",
+    ]);
+  } catch (e) {
+    throw new ErrorHandler(500, e.errmsg);
+  }
+};

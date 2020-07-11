@@ -5,6 +5,7 @@ const connectDb = require("./src/mongo");
 // routes
 const userRoutes = require("./src/routes/user.route");
 const authRoutes = require("./src/routes/auth.route");
+const passwordRoutes = require("./src/routes/password.route");
 
 const { handleError } = require("./src/helpers/error");
 
@@ -25,6 +26,7 @@ app.get("/ping", (req, res) => {
 
 app.use("/", userRoutes);
 app.use("/", authRoutes);
+app.use("/", passwordRoutes);
 
 app.use((err, req, res, next) => {
   handleError(err, res);
