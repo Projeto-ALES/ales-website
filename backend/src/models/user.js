@@ -22,7 +22,17 @@ const UserSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now,
+    default: Date.now(),
+  },
+  passwordToken: {
+    type: String,
+    select: false,
+    default: null,
+  },
+  passwordTokenExp: {
+    type: Date,
+    default: Date.now(),
+    select: false,
   },
 });
 
