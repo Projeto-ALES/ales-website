@@ -64,13 +64,13 @@ exports.resetPassword = async (req, res) => {
     if (!user) {
       return res.status(404).json({
         status: 404,
-        message: "User not found",
+        message: "User not found with the given email",
       });
     }
 
     const token = crypto.randomBytes(20).toString("hex");
     user.passwordToken = token;
-    user.passwordTokenExp = Date.now() + 3600;
+    user.passwordTokenExp = Date.now() + 3600000;
     user.save();
 
     const { EMAIL_USER, EMAIL_PASSWORD } = process.env;
@@ -94,8 +94,53 @@ exports.resetPassword = async (req, res) => {
     const processing = await transporter.sendMail(mail);
     return res.status(200).json({
       status: 200,
-      message: "Password changed",
+      message: "Token generated and successfully sent to the given email",
       processing,
+    });
+  } catch (e) {
+    handleError(e, res);
+  }
+};
+
+exports.newPassword = async (req, res) => {
+  try {
+    const { token, new_password, new_password_conf } = req.body;
+    if (!token || !new_password || !new_password_conf) {
+      return res.status(400).json({
+        status: 400,
+        message: "Required fields are missing",
+      });
+    }
+
+    if (new_password !== new_password_conf) {
+      return res.status(400).json({
+        status: 400,
+        message: "New password and its confirmation are different",
+      });
+    }
+
+    const user = await AuthService.getUserWithPasswordToken({
+      passwordToken: token,
+    });
+    if (!user) {
+      return res.status(400).json({
+        status: 400,
+        message: "Invalid token",
+      });
+    }
+
+    if (Date.parse(user.passwordTokenExp) < Date.now()) {
+      return res.status(400).json({
+        status: 400,
+        message: "The given token has expired",
+      });
+    }
+
+    user.password = new_password;
+    await user.save();
+    return res.status(200).json({
+      status: 200,
+      message: "Password changed successfully",
     });
   } catch (e) {
     handleError(e, res);
