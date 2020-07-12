@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
+
 import "./styles/index.css";
+import "react-toastify/dist/ReactToastify.css";
+
 import App from "./App";
 import { Store } from "./store/store.js";
 

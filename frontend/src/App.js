@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 
+import { ToastContainer } from "react-toastify";
 import SideBar from "components/SideBar/SideBar";
 import { loggedIn, notLoggedIn } from "./components/SideBar/items";
 
@@ -31,30 +32,40 @@ function App() {
   const { isLoggedIn } = state;
 
   return (
-    <Router>
-      <SideBar items={isLoggedIn ? loggedIn : notLoggedIn} />
+    <>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        closeOnClick
+        pauseOnVisibilityChange
+        draggable
+        pauseOnHover
+      />
+      <Router>
+        <SideBar items={isLoggedIn ? loggedIn : notLoggedIn} />
 
-      <Switch>
-        <Route path="/quarentenales" component={Quarantine} />
-        <Route path="/login" component={Login} />
-        <Route path="/reset-password" component={ResetPassword} />
-        <Route path="/reset-password-sent" component={ResetPasswordSent} />
-        <Route path="/new-password/:token" component={NewPassword} />
-        <Route path="/password-changed" component={PasswordChanged} />
-        <Route path="/my-area" component={MyArea} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/professors/new" component={NewProfessor} />
-        <Route path="/professors/enroll/:token" component={ProfessorEnroll} />
-        <Route path="/professors" component={ProfessorList} />
-        <Route path="/courses/:id/edit" component={CourseEdit} />
-        <Route path="/courses/:id" component={CourseDetail} />
-        <Route path="/courses/new" component={CourseNew} />
-        <Route path="/courses" component={CourseList} />
-        <Route path="/" component={Home} />
-      </Switch>
+        <Switch>
+          <Route path="/quarentenales" component={Quarantine} />
+          <Route path="/login" component={Login} />
+          <Route path="/reset-password" component={ResetPassword} />
+          <Route path="/reset-password-sent" component={ResetPasswordSent} />
+          <Route path="/new-password/:token" component={NewPassword} />
+          <Route path="/password-changed" component={PasswordChanged} />
+          <Route path="/my-area" component={MyArea} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/professors/new" component={NewProfessor} />
+          <Route path="/professors/enroll/:token" component={ProfessorEnroll} />
+          <Route path="/professors" component={ProfessorList} />
+          <Route path="/courses/:id/edit" component={CourseEdit} />
+          <Route path="/courses/:id" component={CourseDetail} />
+          <Route path="/courses/new" component={CourseNew} />
+          <Route path="/courses" component={CourseList} />
+          <Route path="/" component={Home} />
+        </Switch>
 
-      <Footer />
-    </Router>
+        <Footer />
+      </Router>
+    </>
   );
 }
 
