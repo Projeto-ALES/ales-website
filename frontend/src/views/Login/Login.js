@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import Cookies from "js-cookie";
 
 import { login } from "services/auth.service";
@@ -28,8 +28,6 @@ const Login = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const notify = (message) => toast.error(message);
-
   const submitLogin = async (e, email, password) => {
     e.preventDefault();
 
@@ -40,8 +38,8 @@ const Login = ({ history }) => {
       })
       .catch((err) => {
         err.response && err.response.status === 401
-          ? notify("Credenciais Inválidas")
-          : notify("Ops! Aconteceu algum erro");
+          ? toast.error("Credenciais Inválidas")
+          : toast.error("Ops! Aconteceu algum erro");
       });
   };
 
@@ -49,7 +47,7 @@ const Login = ({ history }) => {
     <div className={styles.loginContainer}>
       <Container>
         <ToastContainer
-          position="top-right"
+          position="bottom-right"
           autoClose={5000}
           closeOnClick
           pauseOnVisibilityChange
@@ -78,7 +76,7 @@ const Login = ({ history }) => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                <a href="/reset-password">Esqueci a senha</a>
+                <Link to="/reset-password">Esqueci a senha</Link>
               </div>
               <div className={styles.buttonContainer}>
                 <Button text="Entrar" kind="primary" type="submit" />
