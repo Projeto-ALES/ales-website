@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import Container from "components/Container/Container";
 import Card from "components/Card/Card";
@@ -24,13 +25,13 @@ const CourseList = ({ history }) => {
         <div className={styles.cardsContainer}>
           {courses.map((course) => {
             return (
-              <a href={`/courses/${course.id}`} className={styles.cardContainer}>
+              <Link to={`/courses/${course.id}`} className={styles.cardContainer}>
                 <Card id={course.id} kind="outline-yellow">
                   <div className={styles.cardContentContainer}>
                     <span>{course.name}</span>
                   </div>
                 </Card>
-              </a>
+              </Link>
             );
           })}
         </div>
