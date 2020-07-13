@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 
 import { login } from "services/auth.service";
@@ -27,9 +27,11 @@ const Login = ({ history }) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const submitLogin = async (e, email, password) => {
     e.preventDefault();
+    setIsLoading(true);
 
     login(email, password)
       .then(() => {
@@ -40,20 +42,13 @@ const Login = ({ history }) => {
         err.response && err.response.status === 401
           ? toast.error("Credenciais Inválidas")
           : toast.error("Ops! Aconteceu algum erro");
+        setIsLoading(false);
       });
   };
 
   return (
     <div className={styles.loginContainer}>
       <Container>
-        <ToastContainer
-          position="bottom-right"
-          autoClose={5000}
-          closeOnClick
-          pauseOnVisibilityChange
-          draggable
-          pauseOnHover
-        />
         <div className={styles.cardContainer}>
           <Card kind="outline-blue">
             <form
@@ -79,7 +74,13 @@ const Login = ({ history }) => {
                 <Link to="/reset-password">Esqueci a senha</Link>
               </div>
               <div className={styles.buttonContainer}>
-                <Button text="Entrar" kind="primary" type="submit" />
+                <Button
+                  text="Entrar"
+                  kind="primary"
+                  type="submit"
+                  isLoading={isLoading}
+                  disabled={isLoading}
+                />
               </div>
             </form>
           </Card>

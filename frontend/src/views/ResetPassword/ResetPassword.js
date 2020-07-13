@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import { toast } from "react-toastify";
 import { resetPassword } from "services/auth.service";
+import { toast } from "react-toastify";
 
 import Container from "components/Container/Container";
 import Card from "components/Card/Card";
@@ -12,9 +12,11 @@ import styles from "./ResetPassword.module.scss";
 
 const ResetPassword = ({ history }) => {
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const submitResetPasswordRequest = (e, email) => {
     e.preventDefault();
+    setIsLoading(true);
 
     resetPassword(email)
       .then(() => {
@@ -25,6 +27,7 @@ const ResetPassword = ({ history }) => {
         err.response && err.response.status === 404
           ? toast.error("Email não encontrado")
           : toast.error("Ops! Aconteceu algum erro");
+        setIsLoading(false);
       });
   };
 
@@ -54,7 +57,15 @@ const ResetPassword = ({ history }) => {
                   required
                 />
               </div>
-              <Button text="Recuperar Senha" kind="success" type="submit" />
+              <div className={styles.buttonContainer}>
+                <Button
+                  text="Recuperar Senha"
+                  kind="success"
+                  type="submit"
+                  isLoading={isLoading}
+                  disabled={isLoading}
+                />
+              </div>
             </form>
           </Card>
         </div>

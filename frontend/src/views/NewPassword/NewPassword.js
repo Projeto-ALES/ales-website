@@ -13,14 +13,17 @@ import styles from "./NewPassword.module.scss";
 const NewPassword = ({ history, match }) => {
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const submitNewPassword = (e, new_password, new_password_conf, token) => {
     e.preventDefault();
 
     if (new_password !== new_password_conf) {
-      toast.warning("A senha e sua confirmação devem ser iguais");
+      toast.error("A senha e sua confirmação devem ser iguais");
       return;
     }
+
+    setIsLoading(true);
 
     newPassword(new_password, new_password_conf, token)
       .then(() => {
@@ -31,6 +34,7 @@ const NewPassword = ({ history, match }) => {
         toast.error(
           "Ops! Parece que a requisição pra cadastrar uma nova senha expirou :( Tente gerar outra requisição"
         );
+        setIsLoading(false);
       });
   };
 
@@ -65,7 +69,15 @@ const NewPassword = ({ history, match }) => {
                   required
                 />
               </div>
-              <Button text="Redefinir Senha" kind="success" type="submit" />
+              <div className={styles.buttonContainer}>
+                <Button
+                  text="Redefinir Senha"
+                  kind="success"
+                  type="submit"
+                  isLoading={isLoading}
+                  disabled={isLoading}
+                />
+              </div>
             </form>
           </Card>
         </div>

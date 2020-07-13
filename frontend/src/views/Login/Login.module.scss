@@ -67,6 +67,10 @@
 
       .buttonContainer {
         margin-top: var(--spacing-large);
+        text-align: center;
+        button {
+          width: 200px;
+        }
       }
     }
   }
