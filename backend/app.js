@@ -1,19 +1,30 @@
-import express, { urlencoded } from "express";
+const express = require("express");
+const connectDb = require("./src/mongo");
 
-const bodyParser = require("body-parser");
+// routes
+const userRoutes = require("./src/routes/user.route");
+const authRoutes = require("./src/routes/auth.route");
+
+const { handleError } = require("./src/helpers/error");
 
 const app = express();
 const port = 8000;
 
-const userController = require("./src/controllers/userController");
+app.use(express.json());
 
-app.use(bodyParser.json());
-app.use(urlencoded({ extended: false }));
-
-app.get("/", (req, res) => {
-  res.send("projeto ales");
+connectDb().then(() => {
+  console.log("Database connected");
 });
 
-userController(app);
+app.get("/ping", (req, res) => {
+  res.send("pong");
+});
+
+app.use("/", userRoutes);
+app.use("/", authRoutes);
+
+app.use((err, req, res, next) => {
+  handleError(err, res);
+});
 
 app.listen(port);

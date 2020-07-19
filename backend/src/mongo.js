@@ -11,6 +11,9 @@ const {
 const mongoAuth = `${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}`;
 
 const mongoUrl = `mongodb://${mongoAuth}@${MONGO_HOSTNAME}/${MONGO_DATABASE}?authSource=admin`;
-mongoose.connect(mongoUrl, { useNewUrlParser: true }).catch(err => console.error(err));
 
-module.exports = mongoose;
+const connectDB = () => {
+  return mongoose.connect(mongoUrl, { useNewUrlParser: true });
+};
+
+module.exports = connectDB;

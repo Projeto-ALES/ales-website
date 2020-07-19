@@ -1,11 +1,13 @@
 FROM node:alpine3.11 as build-deps
 
-WORKDIR /app
+ENV WORKDIR /usr/src/app
 
-COPY package.json yarn.lock /app/
+WORKDIR ${WORKDIR}
+
+COPY package.json yarn.lock ./
 
 RUN yarn
 
-COPY . ./
+COPY . .
 
 EXPOSE 8000
