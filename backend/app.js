@@ -4,6 +4,7 @@ const connectDb = require("./src/mongo");
 
 // controllers
 const userController = require("./src/controllers/user.controller");
+const professorController = require("./src/controllers/professor.controller");
 const authController = require("./src/controllers/auth.controller");
 const passwordController = require("./src/controllers/password.controller");
 
@@ -25,6 +26,7 @@ app.get("/ping", (req, res) => {
 });
 
 app.use("/", userController);
+app.use("/", professorController);
 app.use("/", authController);
 app.use("/", passwordController);
 
