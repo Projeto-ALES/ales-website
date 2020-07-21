@@ -27,3 +27,20 @@ exports.getProfessor = async id => {
     throw new ErrorHandler(500, e.errmsg);
   }
 };
+
+exports.deleteProfessor = async params => {
+  try {
+    return await Professor.findByIdAndDelete(params.id);
+  } catch (e) {
+    throw new ErrorHandler(500, e.errmsg);
+  }
+};
+
+exports.updateProfessor = async (id, data) => {
+  try {
+    await Professor.updateOne({ _id: id }, { $set: data });
+    return Professor.findOne({ _id: id });
+  } catch (e) {
+    throw new ErrorHandler(500, e.errmsg);
+  }
+};

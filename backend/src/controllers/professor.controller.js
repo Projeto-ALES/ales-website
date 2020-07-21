@@ -67,4 +67,41 @@ router.get("/professors/:id", async (req, res) => {
   }
 });
 
+router.delete("/professors/:id", async (req, res) => {
+  try {
+    const professor = await ProfessorService.deleteProfessor(req.params);
+    if (!professor) {
+      return res.status(404).json({
+        status: 404,
+        message: "Professor not found",
+      });
+    }
+    return res.status(202).json({
+      status: 202,
+    });
+  } catch (e) {
+    handleError(e, res);
+  }
+});
+
+router.put("/professors/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const professor = await ProfessorService.updateProfessor(id, req.body);
+
+    if (!professor) {
+      return res.status(404).json({
+        status: 404,
+        message: "Professor not found",
+      });
+    }
+    return res.status(200).json({
+      status: 200,
+      professor,
+    });
+  } catch (e) {
+    handleError(e, res);
+  }
+});
+
 module.exports = router;
