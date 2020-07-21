@@ -1,28 +1,25 @@
-const mongoose = require("../mongo");
+const mongoose = require("mongoose");
 
-const TeacherSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    require: true,
-  },
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-  },
-  subjects: {
-    type: [mongoose.Schema.Types.ObjectId]
-  },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+const User = require("./user");
 
-const Teacher = mongoose.model("Teacher", TeacherSchema);
+const Professor = User.discriminator(
+  "Professor",
+  new mongoose.Schema({
+    phone: {
+      type: String,
+      required: true,
+    },
+    birthday: {
+      type: Date,
+    },
+    gender: {
+      type: String,
+      enum: ["M", "F", "N"],
+    },
+    area: {
+      type: String,
+    },
+  })
+);
 
-module.exports = Teacher;
+module.exports = Professor;
