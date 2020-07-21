@@ -3,66 +3,74 @@ const router = express.Router();
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const { check, validationResult } = require("express-validator");
 
 const AuthService = require("../services/auth.service");
 const { handleError } = require("../helpers/error");
 const jwtConfig = require("../jwt");
 
-router.post("/login", async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      return res.status(400).json({
-        status: 400,
-        message: "Required fields are missing",
-      });
+router.post(
+  "/login",
+  [
+    check("email").not().isEmpty().withMessage("Email is missing"),
+    check("password")
+      .isLength({ min: 5 })
+      .withMessage("Password must have at least 5 chars long"),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json(errors.array());
     }
-    const user = await AuthService.getUserWithPassword({ email });
-    if (!user) {
-      return res.status(401).json({
-        status: 401,
-        message: "Invalid credentials",
-      });
-    }
-
-    const compare = await bcrypt.compare(password, user.password);
-    if (!compare) {
-      return res.status(401).json({
-        status: 401,
-        message: "Invalid credentials",
-      });
-    }
-
-    const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
-
-    const token = jwt.sign(
-      { email: user.email, roles: user.roles, name: user.name },
-      TOKEN_SECRET,
-      {
-        expiresIn: jwtConfig.TOKEN_EXP,
+    try {
+      const { email, password } = req.body;
+      const user = await AuthService.getUserWithPassword({ email });
+      if (!user) {
+        return res.status(401).json({
+          status: 401,
+          message: "Invalid credentials",
+        });
       }
-    );
-    const refreshToken = jwt.sign(
-      { email: user.email, roles: user.roles, name: user.name },
-      REFRESH_TOKEN_SECRET,
-      {
-        expiresIn: jwtConfig.REFRESH_TOKEN_EXP,
-      }
-    );
 
-    user.password = null;
-    return res
-      .cookie("token", token, { httpOnly: false })
-      .cookie("refresh_token", refreshToken, { httpOnly: false })
-      .status(200)
-      .json({
-        status: 200,
-        user,
-      });
-  } catch (e) {
-    handleError(e, res);
+      const compare = await bcrypt.compare(password, user.password);
+      if (!compare) {
+        return res.status(401).json({
+          status: 401,
+          message: "Invalid credentials",
+        });
+      }
+
+      const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
+
+      const token = jwt.sign(
+        { email: user.email, roles: user.roles, name: user.name },
+        TOKEN_SECRET,
+        {
+          expiresIn: jwtConfig.TOKEN_EXP,
+        }
+      );
+      const refreshToken = jwt.sign(
+        { email: user.email, roles: user.roles, name: user.name },
+        REFRESH_TOKEN_SECRET,
+        {
+          expiresIn: jwtConfig.REFRESH_TOKEN_EXP,
+        }
+      );
+
+      user.password = null;
+      return res
+        .cookie("token", token, { httpOnly: false })
+        .cookie("refresh_token", refreshToken, { httpOnly: false })
+        .status(200)
+        .json({
+          status: 200,
+          user,
+        });
+    } catch (e) {
+      handleError(e, res);
+    }
   }
-});
+);
 
 router.post("/refresh-token", (req, res) => {
   try {

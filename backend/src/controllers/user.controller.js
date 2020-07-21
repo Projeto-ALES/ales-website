@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const { check, validationResult } = require("express-validator");
+
 const UserService = require("../services/user.service");
 const { handleError } = require("../helpers/error");
 
@@ -16,26 +18,34 @@ router.get("/users", async (req, res) => {
   }
 });
 
-router.post("/users", async (req, res) => {
-  try {
-    const { email, name, password } = req.body;
-    if (!email || !name || !password) {
-      return res.status(400).json({
-        status: 400,
-        message: "Required fields are missing",
-      });
+router.post(
+  "/users",
+  [
+    check("email").not().isEmpty().withMessage("Email is missing"),
+    check("name").not().isEmpty().withMessage("Name is missing"),
+    check("password").not().isEmpty().withMessage("Password is missing"),
+    check("password")
+      .isLength({ min: 5 })
+      .withMessage("Password must have at least 5 chars long"),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json(errors.array());
     }
 
-    const user = await UserService.createUser(req.body);
-    user.password = null;
-    return res.status(201).json({
-      status: 201,
-      user,
-    });
-  } catch (e) {
-    handleError(e, res);
+    try {
+      const user = await UserService.createUser(req.body);
+      user.password = null;
+      return res.status(201).json({
+        status: 201,
+        user,
+      });
+    } catch (e) {
+      handleError(e, res);
+    }
   }
-});
+);
 
 router.get("/users/:id", async (req, res) => {
   try {
