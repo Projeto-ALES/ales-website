@@ -1,10 +1,14 @@
+const express = require("express");
+const router = express.Router();
+
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
+
 const AuthService = require("../services/auth.service");
 const { handleError } = require("../helpers/error");
 
-exports.updatePassword = async (req, res) => {
+router.post("/update-password/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { password, new_password, new_password_conf } = req.body;
@@ -46,9 +50,9 @@ exports.updatePassword = async (req, res) => {
   } catch (e) {
     handleError(e, res);
   }
-};
+});
 
-exports.resetPassword = async (req, res) => {
+router.post("/reset-password", async (req, res) => {
   try {
     const { email } = req.body;
 
@@ -100,9 +104,9 @@ exports.resetPassword = async (req, res) => {
   } catch (e) {
     handleError(e, res);
   }
-};
+});
 
-exports.newPassword = async (req, res) => {
+router.post("/new-password", async (req, res) => {
   try {
     const { token, new_password, new_password_conf } = req.body;
     if (!token || !new_password || !new_password_conf) {
@@ -145,4 +149,6 @@ exports.newPassword = async (req, res) => {
   } catch (e) {
     handleError(e, res);
   }
-};
+});
+
+module.exports = router;

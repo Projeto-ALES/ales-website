@@ -2,10 +2,10 @@ const express = require("express");
 var cors = require("cors");
 const connectDb = require("./src/mongo");
 
-// routes
-const userRoutes = require("./src/routes/user.route");
-const authRoutes = require("./src/routes/auth.route");
-const passwordRoutes = require("./src/routes/password.route");
+// controllers
+const userController = require("./src/controllers/user.controller");
+const authController = require("./src/controllers/auth.controller");
+const passwordController = require("./src/controllers/password.controller");
 
 const { handleError } = require("./src/helpers/error");
 
@@ -24,9 +24,9 @@ app.get("/ping", (req, res) => {
   res.send("pong");
 });
 
-app.use("/", userRoutes);
-app.use("/", authRoutes);
-app.use("/", passwordRoutes);
+app.use("/", userController);
+app.use("/", authController);
+app.use("/", passwordController);
 
 app.use((err, req, res, next) => {
   handleError(err, res);

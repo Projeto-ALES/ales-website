@@ -1,3 +1,6 @@
+const express = require("express");
+const router = express.Router();
+
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
@@ -5,7 +8,7 @@ const AuthService = require("../services/auth.service");
 const { handleError } = require("../helpers/error");
 const jwtConfig = require("../jwt");
 
-exports.auth = async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -59,12 +62,21 @@ exports.auth = async (req, res) => {
   } catch (e) {
     handleError(e, res);
   }
-};
+});
 
-exports.refresh = async (req, res) => {
+router.post("/refresh-token", (req, res) => {
   try {
-    const refreshToken = req.headers.authorization.split(" ")[1];
-    if (!refreshToken) {
+    const { cookie } = req.headers;
+    const rawCookies = cookie.split(";");
+    const parsedCookies = {};
+
+    rawCookies.forEach(rawCookie => {
+      const parsedCookie = rawCookie.split("=");
+      parsedCookies[parsedCookie[0].trim()] = parsedCookie[1];
+    });
+
+    const refresh_token = parsedCookies["refresh_token"];
+    if (!refresh_token) {
       return res.status(400).json({
         status: 400,
         message: "Invalid refresh token",
@@ -74,7 +86,7 @@ exports.refresh = async (req, res) => {
     const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
     const { email, roles, name } = jwt.verify(
-      refreshToken,
+      refresh_token,
       REFRESH_TOKEN_SECRET
     );
     const token = jwt.sign({ email, roles, name }, TOKEN_SECRET, {
@@ -87,4 +99,6 @@ exports.refresh = async (req, res) => {
   } catch (e) {
     handleError(e, res);
   }
-};
+});
+
+module.exports = router;
