@@ -20,9 +20,9 @@ exports.createProfessor = async data => {
   }
 };
 
-exports.getProfessor = async id => {
+exports.getProfessor = async params => {
   try {
-    return await Professor.findById(id);
+    return await Professor.findOne(params);
   } catch (e) {
     throw new ErrorHandler(500, e.errmsg);
   }

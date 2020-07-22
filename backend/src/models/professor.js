@@ -29,7 +29,6 @@ const Professor = User.discriminator(
     },
     inviteTokenExp: {
       type: Date,
-      default: Date.now(),
       select: false,
     },
   })

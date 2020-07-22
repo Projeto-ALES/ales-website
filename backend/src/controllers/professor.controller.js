@@ -23,13 +23,13 @@ router.get("/professors", async (req, res) => {
 router.post(
   "/professors",
   [
-    check("email").not().isEmpty().withMessage("Email is missing"),
     check("name").not().isEmpty().withMessage("Name is missing"),
     check("password").not().isEmpty().withMessage("Password is missing"),
     check("password")
       .isLength({ min: 5 })
       .withMessage("Password must have at least 5 chars long"),
     check("phone").not().isEmpty().withMessage("Phone is required"),
+    check("inviteToken").not().isEmpty().withMessage("Invite token is missing"),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -38,8 +38,28 @@ router.post(
     }
 
     try {
-      const professor = await ProfessorService.createProfessor(req.body);
-      professor.password = null;
+      const { inviteToken } = req.body;
+      const professor = await ProfessorService.getProfessor({ inviteToken });
+
+      if (!professor) {
+        return res.status(400).json({
+          status: 400,
+          message: "Invalid token",
+        });
+      }
+
+      if (Date.parse(professor.inviteTokenExp) < Date.now()) {
+        return res.status(400).json({
+          status: 400,
+          message: "The invite token has expired",
+        });
+      }
+
+      await ProfessorService.updateProfessor(professor._id, {
+        ...req.body,
+        status: "active",
+      });
+
       return res.status(201).json({
         status: 201,
         professor,
@@ -53,7 +73,7 @@ router.post(
 router.get("/professors/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const professor = await ProfessorService.getProfessor(id);
+    const professor = await ProfessorService.getProfessor({ _id: id });
     if (!professor) {
       return res.status(404).json({
         status: 404,
@@ -117,18 +137,33 @@ router.post(
 
     try {
       const { email } = req.body;
+
       const inviteToken = crypto.randomBytes(20).toString("hex");
       const inviteTokenExp = Date.now() + 3600000;
-      const professor = await ProfessorService.createProfessor({
-        email,
-        status: "invited",
-        inviteToken,
-        inviteTokenExp,
-      });
-      await professor.save();
+
+      const professor = await ProfessorService.getProfessor({ email });
+      if (professor) {
+        if (professor.status === "invited") {
+          await ProfessorService.updateProfessor(professor._id, {
+            inviteToken,
+            inviteTokenExp,
+          });
+        } else {
+          return res.status(409).json({
+            status: 409,
+            message: "Professor already registered",
+          });
+        }
+      } else {
+        await ProfessorService.createProfessor({
+          email,
+          status: "invited",
+          inviteToken,
+          inviteTokenExp,
+        });
+      }
 
       const { EMAIL_USER, EMAIL_PASSWORD } = process.env;
-
       const transporter = nodemailer.createTransport({
         host: "smtp.mailtrap.io",
         port: 2525,
