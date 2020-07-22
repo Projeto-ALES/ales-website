@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+  mongo:
+    image: mongo:3.6.17-xenial
+    container_name: db
+    ports:
+      - "27017:27017"
+    volumes:
+      - /data/configdb:/data/configdb
+      - /data/db:/data/db
+    restart: always
+    networks:
+      - app-network
+
+  backend:
+    image: projetoales/ales_backend
+    container_name: api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - mongo
+    restart: always
+    networks:
+      - app-network
+
+  frontend:
+    image: projetoales/ales_frontend
+    container_name: ui
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+
+networks:
+  app-networks:
+    driver: bridge
