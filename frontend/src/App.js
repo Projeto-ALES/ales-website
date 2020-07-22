@@ -53,7 +53,7 @@ function App() {
           <Route path="/password-changed" component={PasswordChanged} />
           <Route path="/my-area" component={MyArea} />
           <Route path="/profile" component={Profile} />
-          <Route path="/professors/new" component={NewProfessor} />
+          <Route path="/professors/invite" component={NewProfessor} />
           <Route path="/professors/enroll/:token" component={ProfessorEnroll} />
           <Route path="/professors" component={ProfessorList} />
           <Route path="/courses/:id/edit" component={CourseEdit} />

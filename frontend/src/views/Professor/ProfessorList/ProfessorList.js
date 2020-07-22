@@ -70,7 +70,7 @@ const ProfessorList = ({ history }) => {
             <Button
               kind="success"
               text="Adicionar"
-              onClick={() => history.push("/professors/new")}
+              onClick={() => history.push("/professors/invite")}
             />
           </div>
         </div>
