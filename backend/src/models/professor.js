@@ -5,9 +5,13 @@ const User = require("./user");
 const Professor = User.discriminator(
   "Professor",
   new mongoose.Schema({
+    status: {
+      type: String,
+      enum: ["active", "inactive", "invited"],
+      default: "inactive",
+    },
     phone: {
       type: String,
-      required: true,
     },
     birthday: {
       type: Date,
@@ -18,6 +22,15 @@ const Professor = User.discriminator(
     },
     area: {
       type: String,
+    },
+    inviteToken: {
+      type: String,
+      select: false,
+    },
+    inviteTokenExp: {
+      type: Date,
+      default: Date.now(),
+      select: false,
     },
   })
 );

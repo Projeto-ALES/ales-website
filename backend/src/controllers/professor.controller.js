@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const crypto = require("crypto");
+const nodemailer = require("nodemailer");
 const { check, validationResult } = require("express-validator");
 
 const ProfessorService = require("../services/professor.service");
@@ -103,5 +105,56 @@ router.put("/professors/:id", async (req, res) => {
     handleError(e, res);
   }
 });
+
+router.post(
+  "/invite-professor",
+  [check("email").not().isEmpty().withMessage("Email is missing")],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json(errors.array());
+    }
+
+    try {
+      const { email } = req.body;
+      const inviteToken = crypto.randomBytes(20).toString("hex");
+      const inviteTokenExp = Date.now() + 3600000;
+      const professor = await ProfessorService.createProfessor({
+        email,
+        status: "invited",
+        inviteToken,
+        inviteTokenExp,
+      });
+      await professor.save();
+
+      const { EMAIL_USER, EMAIL_PASSWORD } = process.env;
+
+      const transporter = nodemailer.createTransport({
+        host: "smtp.mailtrap.io",
+        port: 2525,
+        auth: {
+          user: EMAIL_USER,
+          pass: EMAIL_PASSWORD,
+        },
+      });
+
+      const mail = {
+        from: "projetoales@gmail.com",
+        to: email,
+        subject: "Invite from Projeto ALES",
+        text: `Access http://localhost:3000/new-professor/${inviteToken}`,
+      };
+
+      const processing = await transporter.sendMail(mail);
+      return res.status(200).json({
+        status: 200,
+        message: "Token generated and successfully sent to the given email",
+        processing,
+      });
+    } catch (e) {
+      handleError(e, res);
+    }
+  }
+);
 
 module.exports = router;
