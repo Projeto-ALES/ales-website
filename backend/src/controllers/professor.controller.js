@@ -28,6 +28,13 @@ router.post(
     check("password")
       .isLength({ min: 5 })
       .withMessage("Password must have at least 5 chars long"),
+    check("password_conf")
+      .not()
+      .isEmpty()
+      .withMessage("Password confirmation is missing"),
+    check("password_conf")
+      .isLength({ min: 5 })
+      .withMessage("Password confirmation must have at least 5 chars long"),
     check("phone").not().isEmpty().withMessage("Phone is required"),
     check("inviteToken").not().isEmpty().withMessage("Invite token is missing"),
   ],
@@ -38,8 +45,16 @@ router.post(
     }
 
     try {
-      const { inviteToken } = req.body;
-      const professor = await ProfessorService.getProfessor({ inviteToken });
+      const { inviteToken, password, password_conf } = req.body;
+
+      if (password !== password_conf) {
+        return res.status(400).json({
+          status: 400,
+          message: "Password and its confirmation are different",
+        });
+      }
+
+      let professor = await ProfessorService.getProfessor({ inviteToken });
 
       if (!professor) {
         return res.status(400).json({
@@ -55,7 +70,7 @@ router.post(
         });
       }
 
-      await ProfessorService.updateProfessor(professor._id, {
+      professor = await ProfessorService.updateProfessor(professor._id, {
         ...req.body,
         status: "active",
       });

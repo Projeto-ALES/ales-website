@@ -38,8 +38,7 @@ exports.deleteProfessor = async params => {
 
 exports.updateProfessor = async (id, data) => {
   try {
-    await Professor.updateOne({ _id: id }, { $set: data });
-    return Professor.findOne({ _id: id });
+    return await Professor.findOneAndUpdate({ _id: id }, { $set: data });
   } catch (e) {
     throw new ErrorHandler(500, e.errmsg);
   }

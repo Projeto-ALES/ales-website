@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { inviteProfessor } from "services/professor.service";
+import { invite } from "services/professor.service";
 
 import Container from "components/Container/Container";
 import Input from "components/Input/Input";
@@ -17,7 +17,7 @@ const NewProfessor = ({ history }) => {
     e.preventDefault();
     setIsLoading(true);
 
-    inviteProfessor(email)
+    invite(email)
       .then(() => {
         history.push("/professors");
         toast.success("Convite enviado!");

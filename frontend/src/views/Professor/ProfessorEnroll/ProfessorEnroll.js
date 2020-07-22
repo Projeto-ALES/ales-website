@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 
+import { enroll } from "services/professor.service";
+
 import Container from "components/Container/Container";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
 import Dropdown from "components/Dropdown/Dropdown";
+import { toast } from "react-toastify";
 
 import styles from "./ProfessorEnroll.module.scss";
 
-const ProfessorEnroll = () => {
+const ProfessorEnroll = ({ history, match }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -16,6 +19,7 @@ const ProfessorEnroll = () => {
   const [birthday, setBirthday] = useState("");
   const [gender, setGender] = useState("");
   const [area, setArea] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const options = [
     { id: 1, value: "Gender", text: "Gênero", selected: true, disabled: true },
@@ -24,6 +28,29 @@ const ProfessorEnroll = () => {
     { id: 4, value: "N", text: "Não me identifico", selected: false, disabled: false },
   ];
 
+  const submitEnroll = (e, data) => {
+    e.preventDefault();
+
+    const { password, password_conf } = data;
+    if (password !== password_conf) {
+      toast.error("A senha e sua confirmação estão diferentes");
+      return;
+    }
+    setIsLoading(true);
+
+    enroll(data)
+      .then(() => {
+        history.push("/login");
+        toast.success("Cadastro feito! Agora é só fazer o login");
+      })
+      .catch((err) => {
+        err.response && err.response.status === 400
+          ? toast.error("Ops! Parece que esse token foi expirado")
+          : toast.error("Ops! Aconteceu algum erro");
+        setIsLoading(false);
+      });
+  };
+
   return (
     <div className={styles.professorEnrollContainer}>
       <Container>
@@ -31,7 +58,22 @@ const ProfessorEnroll = () => {
           <h2>Cadastro de Novx Professorx</h2>
         </div>
         <div className={styles.formsContainer}>
-          <form className={styles.forms}>
+          <form
+            className={styles.forms}
+            onSubmit={(e) =>
+              submitEnroll(e, {
+                name,
+                email,
+                phone,
+                password,
+                password_conf: passwordConf,
+                birthday,
+                gender,
+                area,
+                inviteToken: match.params.token,
+              })
+            }
+          >
             <div className={styles.formsSection}>
               <span>Dados Principais</span>
               <Input
@@ -90,11 +132,17 @@ const ProfessorEnroll = () => {
                 value={passwordConf}
                 required
               />
+              <div className={styles.buttonContainer}>
+                <Button
+                  text="Enviar"
+                  kind="success"
+                  type="submit"
+                  isLoading={isLoading}
+                  disabled={isLoading}
+                />
+              </div>
             </div>
           </form>
-          <div className={styles.buttonsContainer}>
-            <Button text="Enviar" kind="success" onClick={() => alert("forms submission")} />
-          </div>
         </div>
       </Container>
     </div>
