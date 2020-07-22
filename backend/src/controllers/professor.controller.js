@@ -10,7 +10,9 @@ const { handleError } = require("../helpers/error");
 
 router.get("/professors", async (req, res) => {
   try {
-    const professors = await ProfessorService.getProfessors({});
+    const professors = await ProfessorService.getProfessors({
+      status: "active",
+    });
     return res.status(200).json({
       status: 200,
       professors,

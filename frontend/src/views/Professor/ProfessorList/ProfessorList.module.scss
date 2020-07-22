@@ -23,6 +23,11 @@
     }
   }
 
+  .loaderContainer {
+    display: flex;
+    justify-content: center;
+  }
+
   .contentContainer {
     @include tablet-landscape {
       padding: 0 5%;
@@ -38,6 +43,7 @@
     .buttonsContainer {
       display: flex;
       justify-content: flex-end;
+      margin-bottom: var(--spacing-huge);
 
       button {
         &:last-of-type {
