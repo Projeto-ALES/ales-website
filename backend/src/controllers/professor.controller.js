@@ -177,7 +177,7 @@ router.post(
         from: "projetoales@gmail.com",
         to: email,
         subject: "Invite from Projeto ALES",
-        text: `Access http://localhost:3000/new-professor/${inviteToken}`,
+        text: `Access http://localhost:3000/professors/enroll/${inviteToken}`,
       };
 
       const processing = await transporter.sendMail(mail);

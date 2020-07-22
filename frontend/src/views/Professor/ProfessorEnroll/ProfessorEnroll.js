@@ -8,11 +8,14 @@ import Dropdown from "components/Dropdown/Dropdown";
 import styles from "./ProfessorEnroll.module.scss";
 
 const ProfessorEnroll = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConf, setPasswordConf] = useState("");
+  const [birthday, setBirthday] = useState("");
   const [gender, setGender] = useState("");
-
-  const onSelectGender = (value) => {
-    setGender(value);
-  };
+  const [area, setArea] = useState("");
 
   const options = [
     { id: 1, value: "Gender", text: "Gênero", selected: true, disabled: true },
@@ -31,22 +34,62 @@ const ProfessorEnroll = () => {
           <form className={styles.forms}>
             <div className={styles.formsSection}>
               <span>Dados Principais</span>
-              <Input placeholder="Nome" type="text" required />
-              <Input placeholder="Email" type="text" required />
-              <Input placeholder="Telefone" type="text" required />
+              <Input
+                placeholder="Nome"
+                type="text"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+                required
+              />
+              <Input
+                placeholder="Email"
+                type="text"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                required
+              />
+              <Input
+                placeholder="Telefone"
+                type="text"
+                onChange={(e) => setPhone(e.target.value)}
+                value={phone}
+                required
+              />
             </div>
             <div className={styles.formsSection}>
               <span>Dados Opcionais</span>
-              <Input placeholder="Data de Nascimento" type="text" />
+              <Input
+                placeholder="Data de Nascimento"
+                type="text"
+                onChange={(e) => setBirthday(e.target.value)}
+                value={birthday}
+              />
               <div className={styles.dropdownContainer}>
-                <Dropdown name="gender" options={options} onSelect={onSelectGender} />
+                <Dropdown name="gender" options={options} onSelect={setGender} />
               </div>
-              <Input placeholder="Curso/Área de Trabalho" type="text" />
+              <Input
+                placeholder="Curso/Área de Trabalho"
+                type="text"
+                onChange={(e) => setArea(e.target.value)}
+                value={area}
+              />
             </div>
             <div className={styles.formsSection}>
               <span>Autenticação</span>
-              <Input placeholder="Senha" type="password" required />
-              <Input placeholder="Confirmação da Senha" type="password" required />
+              <Input
+                placeholder="Senha"
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                required
+              />
+              <Input
+                placeholder="Confirmação da Senha"
+                type="password"
+                onChange={(e) => setPasswordConf(e.target.value)}
+                value={passwordConf}
+                required
+              />
             </div>
           </form>
           <div className={styles.buttonsContainer}>
