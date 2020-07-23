@@ -4,6 +4,7 @@ import { enroll } from "services/professor.service";
 
 import Container from "components/Container/Container";
 import Input from "components/Input/Input";
+import PhoneInput from "components/PhoneInput/PhoneInput";
 import Button from "components/Button/Button";
 import Dropdown from "components/Dropdown/Dropdown";
 import { toast } from "react-toastify";
@@ -75,7 +76,7 @@ const ProfessorEnroll = ({ history, match }) => {
             }
           >
             <div className={styles.formsSection}>
-              <span>Dados Principais</span>
+              <span className={styles.sectionLabel}>Dados Principais</span>
               <Input
                 placeholder="Nome"
                 type="text"
@@ -85,21 +86,20 @@ const ProfessorEnroll = ({ history, match }) => {
               />
               <Input
                 placeholder="Email"
-                type="text"
+                type="email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
                 required
               />
-              <Input
+              <PhoneInput
                 placeholder="Telefone"
-                type="text"
                 onChange={(e) => setPhone(e.target.value)}
                 value={phone}
                 required
               />
             </div>
             <div className={styles.formsSection}>
-              <span>Dados Opcionais</span>
+              <span className={styles.sectionLabel}>Dados Opcionais</span>
               <Input
                 placeholder="Data de Nascimento"
                 type="text"
@@ -117,7 +117,7 @@ const ProfessorEnroll = ({ history, match }) => {
               />
             </div>
             <div className={styles.formsSection}>
-              <span>Autenticação</span>
+              <span className={styles.sectionLabel}>Autenticação</span>
               <Input
                 placeholder="Senha"
                 type="password"
