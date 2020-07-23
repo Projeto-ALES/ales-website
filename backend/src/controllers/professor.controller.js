@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const { check, validationResult } = require("express-validator");
 
@@ -125,7 +126,32 @@ router.delete("/professors/:id", async (req, res) => {
 
 router.put("/professors/:id", async (req, res) => {
   try {
-    const { id } = req.params;
+    const { cookie } = req.headers;
+    const rawCookies = cookie.split(";");
+    const parsedCookies = {};
+
+    rawCookies.forEach(rawCookie => {
+      const parsedCookie = rawCookie.split("=");
+      parsedCookies[parsedCookie[0].trim()] = parsedCookie[1];
+    });
+
+    const token = parsedCookies["token"];
+    if (!token) {
+      return res.status(401).json({
+        status: 401,
+        message: "An access token is required",
+      });
+    }
+
+    const { TOKEN_SECRET } = process.env;
+    const { id } = jwt.verify(token, TOKEN_SECRET);
+
+    if (id !== req.params.id) {
+      return res.status(403).json({
+        status: 403,
+        message: "Permission denied",
+      });
+    }
     const professor = await ProfessorService.updateProfessor(id, req.body);
 
     if (!professor) {

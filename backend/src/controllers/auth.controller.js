@@ -43,14 +43,14 @@ router.post(
       const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
       const token = jwt.sign(
-        { email: user.email, roles: user.roles, name: user.name },
+        { id: user._id, email: user.email, name: user.name },
         TOKEN_SECRET,
         {
           expiresIn: jwtConfig.TOKEN_EXP,
         }
       );
       const refreshToken = jwt.sign(
-        { email: user.email, roles: user.roles, name: user.name },
+        { id: user._id, email: user.email, name: user.name },
         REFRESH_TOKEN_SECRET,
         {
           expiresIn: jwtConfig.REFRESH_TOKEN_EXP,
@@ -93,11 +93,8 @@ router.post("/refresh-token", (req, res) => {
 
     const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
-    const { email, roles, name } = jwt.verify(
-      refresh_token,
-      REFRESH_TOKEN_SECRET
-    );
-    const token = jwt.sign({ email, roles, name }, TOKEN_SECRET, {
+    const { id, email, name } = jwt.verify(refresh_token, REFRESH_TOKEN_SECRET);
+    const token = jwt.sign({ id, email, name }, TOKEN_SECRET, {
       expiresIn: jwtConfig.TOKEN_EXP,
     });
 
