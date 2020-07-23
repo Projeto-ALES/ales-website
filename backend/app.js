@@ -3,15 +3,16 @@ var cors = require("cors");
 const connectDb = require("./src/mongo");
 
 // controllers
-const userController = require("./src/controllers/user.controller");
-const professorController = require("./src/controllers/professor.controller");
-const authController = require("./src/controllers/auth.controller");
-const passwordController = require("./src/controllers/password.controller");
+const userRouter = require("./src/controllers/user.controller");
+const professorRouter = require("./src/controllers/professor.controller");
+const authRouter = require("./src/controllers/auth.controller");
+const passwordRouter = require("./src/controllers/password.controller");
 
 const { handleError } = require("./src/helpers/error");
 
 const app = express();
 const port = 8000;
+const basePath = "/api";
 
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
@@ -21,14 +22,14 @@ connectDb().then(() => {
   console.log("Database connected");
 });
 
-app.get("/ping", (req, res) => {
+app.get(`${basePath}/ping`, (req, res) => {
   res.send("pong");
 });
 
-app.use("/", userController);
-app.use("/", professorController);
-app.use("/", authController);
-app.use("/", passwordController);
+app.use(basePath, userRouter);
+app.use(basePath, professorRouter);
+app.use(basePath, authRouter);
+app.use(basePath, passwordRouter);
 
 app.use((err, req, res, next) => {
   handleError(err, res);
