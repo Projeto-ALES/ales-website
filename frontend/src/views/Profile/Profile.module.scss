@@ -23,6 +23,11 @@
     }
   }
 
+  .loaderContainer {
+    display: flex;
+    justify-content: center;
+  }
+
   .formsContainer {
     padding: 0 var(--spacing-medium);
     color: var(--gray-dark);

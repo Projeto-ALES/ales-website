@@ -11,3 +11,8 @@ export const enroll = async (data) => {
 export const list = async () => {
   return await api.get("/professors", { withCredentials: true });
 };
+
+export const getProfile = async (id) => {
+  console.log(id);
+  return await api.get(`/professors/${id}`, { withCredentials: true });
+};
