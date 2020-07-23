@@ -51,8 +51,8 @@ function App() {
           <Route path="/reset-password-sent" component={ResetPasswordSent} />
           <Route path="/new-password/:token" component={NewPassword} />
           <Route path="/password-changed" component={PasswordChanged} />
+          <Route path="/my-area/:id" component={Profile} />
           <Route path="/my-area" component={MyArea} />
-          <Route path="/profile" component={Profile} />
           <Route path="/professors/invite" component={NewProfessor} />
           <Route path="/professors/enroll/:token" component={ProfessorEnroll} />
           <Route path="/professors" component={ProfessorList} />

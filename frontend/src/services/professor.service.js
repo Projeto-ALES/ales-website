@@ -13,6 +13,5 @@ export const list = async () => {
 };
 
 export const getProfile = async (id) => {
-  console.log(id);
   return await api.get(`/professors/${id}`, { withCredentials: true });
 };

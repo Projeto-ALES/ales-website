@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import styles from "./Profile.module.scss";
 
 const Profile = ({ history, match }) => {
-  const id = "5f19e86e7477c903c882e06c";
+  const { id } = match.params;
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

@@ -34,9 +34,10 @@ const Login = ({ history }) => {
     setIsLoading(true);
 
     login(email, password)
-      .then(() => {
+      .then((response) => {
+        const { user } = response.data;
+        dispatch({ type: "LOGIN", user });
         history.push("/my-area");
-        dispatch({ type: "LOGIN" });
       })
       .catch((err) => {
         err.response && err.response.status === 401
