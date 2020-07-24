@@ -124,50 +124,64 @@ router.delete("/professors/:id", async (req, res) => {
   }
 });
 
-router.put("/professors/:id", async (req, res) => {
-  try {
-    const { cookie } = req.headers;
-    const rawCookies = cookie.split(";");
-    const parsedCookies = {};
-
-    rawCookies.forEach(rawCookie => {
-      const parsedCookie = rawCookie.split("=");
-      parsedCookies[parsedCookie[0].trim()] = parsedCookie[1];
-    });
-
-    const token = parsedCookies["token"];
-    if (!token) {
-      return res.status(401).json({
-        status: 401,
-        message: "An access token is required",
-      });
+router.put(
+  "/professors/:id",
+  [
+    check("name").not().isEmpty().withMessage("Name is missing"),
+    check("email").not().isEmpty().withMessage("Email is missing"),
+    check("phone").not().isEmpty().withMessage("Phone is missing"),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json(errors.array());
     }
 
-    const { TOKEN_SECRET } = process.env;
-    const { id } = jwt.verify(token, TOKEN_SECRET);
+    try {
+      const { cookie } = req.headers;
+      const rawCookies = cookie.split(";");
+      const parsedCookies = {};
 
-    if (id !== req.params.id) {
-      return res.status(403).json({
-        status: 403,
-        message: "Permission denied",
+      rawCookies.forEach(rawCookie => {
+        const parsedCookie = rawCookie.split("=");
+        parsedCookies[parsedCookie[0].trim()] = parsedCookie[1];
       });
-    }
-    const professor = await ProfessorService.updateProfessor(id, req.body);
 
-    if (!professor) {
-      return res.status(404).json({
-        status: 404,
-        message: "Professor not found",
+      const token = parsedCookies["token"];
+      if (!token) {
+        return res.status(401).json({
+          status: 401,
+          message: "An access token is required",
+        });
+      }
+
+      const { TOKEN_SECRET } = process.env;
+      const { id } = jwt.verify(token, TOKEN_SECRET);
+
+      if (id !== req.params.id) {
+        return res.status(403).json({
+          status: 403,
+          message: "Permission denied",
+        });
+      }
+
+      const professor = await ProfessorService.updateProfessor(id, req.body);
+
+      if (!professor) {
+        return res.status(404).json({
+          status: 404,
+          message: "Professor not found",
+        });
+      }
+      return res.status(200).json({
+        status: 200,
+        professor,
       });
+    } catch (e) {
+      handleError(e, res);
     }
-    return res.status(200).json({
-      status: 200,
-      professor,
-    });
-  } catch (e) {
-    handleError(e, res);
   }
-});
+);
 
 router.post(
   "/invite-professor",
