@@ -15,3 +15,7 @@ export const list = async () => {
 export const getProfile = async (id) => {
   return await api.get(`/professors/${id}`, { withCredentials: true });
 };
+
+export const update = async (id, data) => {
+  return await api.put(`/professors/${id}`, data, { withCredentials: true });
+};

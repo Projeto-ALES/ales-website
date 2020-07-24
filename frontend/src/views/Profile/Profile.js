@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { getProfile } from "services/professor.service";
+import { getProfile, update } from "services/professor.service";
 
 import Container from "components/Container/Container";
 import Input from "components/Input/Input";
@@ -23,7 +23,9 @@ const Profile = ({ history, match }) => {
   const [birthday, setBirthday] = useState("");
   const [gender, setGender] = useState("");
   const [area, setArea] = useState("");
+
   const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const options = [
     { id: 1, value: "Gender", text: "Escolha um gênero", selected: true, disabled: true },
@@ -55,6 +57,27 @@ const Profile = ({ history, match }) => {
     getProfessor(id);
   }, []);
 
+  const submitUpdate = (e, id, data) => {
+    e.preventDefault();
+
+    const { new_password, new_password_conf } = data;
+    if ((new_password || new_password_conf) && new_password !== new_password_conf) {
+      toast.error("A nova senha e sua confirmação estão diferentes");
+      return;
+    }
+    setIsSubmitting(true);
+
+    update(id, data)
+      .then(() => {
+        history.push("/my-area");
+        toast.success("Dados atualizados!");
+      })
+      .catch((err) => {
+        toast.error("Ops! Aconteceu algum erro na hora de atualizar seus dados");
+        setIsSubmitting(false);
+      });
+  };
+
   return (
     <div className={styles.profileContainer}>
       <Container>
@@ -67,7 +90,25 @@ const Profile = ({ history, match }) => {
           </div>
         ) : (
           <div className={styles.formsContainer}>
-            <form className={styles.forms}>
+            <form
+              className={styles.forms}
+              onSubmit={(e) => {
+                const data = password
+                  ? {
+                      name,
+                      email,
+                      phone,
+                      password,
+                      new_password: newPassword,
+                      new_password_conf: newPasswordConf,
+                      birthday,
+                      gender,
+                      area,
+                    }
+                  : { name, email, phone, birthday, gender, area };
+                submitUpdate(e, id, data);
+              }}
+            >
               <div className={styles.formsSection}>
                 <span>Dados Principais</span>
                 <Input
@@ -75,18 +116,21 @@ const Profile = ({ history, match }) => {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  required
                 />
                 <Input
                   placeholder="Email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
                 <Input
                   placeholder="Telefone"
                   type="text"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
+                  required
                 />
               </div>
               <div className={styles.formsSection}>
@@ -127,12 +171,23 @@ const Profile = ({ history, match }) => {
                   value={newPasswordConf}
                   onChange={(e) => setNewPasswordConf(e.target.value)}
                 />
+                <div className={styles.buttonsContainer}>
+                  <Button
+                    text="Voltar"
+                    type="button"
+                    kind="primary"
+                    onClick={() => history.goBack()}
+                  />
+                  <Button
+                    text="Salvar"
+                    type="submit"
+                    kind="success"
+                    isLoading={isSubmitting}
+                    disabled={isSubmitting}
+                  />
+                </div>
               </div>
             </form>
-            <div className={styles.buttonsContainer}>
-              <Button text="Voltar" type="button" kind="primary" onClick={() => history.goBack()} />
-              <Button text="Salvar" kind="success" onClick={() => alert("forms submission")} />
-            </div>
           </div>
         )}
       </Container>

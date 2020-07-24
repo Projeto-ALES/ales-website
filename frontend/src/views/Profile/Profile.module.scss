@@ -70,7 +70,7 @@
     .buttonsContainer {
       display: flex;
       justify-content: center;
-      margin-bottom: var(--spacing-large);
+      margin-top: var(--spacing-huge);
 
       @include desktop {
         justify-content: flex-start;
