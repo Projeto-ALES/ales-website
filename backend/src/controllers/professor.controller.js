@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const { check, validationResult } = require("express-validator");
 
+const UserService = require("../services/user.service");
 const ProfessorService = require("../services/professor.service");
 const { handleError } = require("../helpers/error");
 
@@ -155,10 +156,7 @@ router.put(
         });
       }
 
-      const { TOKEN_SECRET } = process.env;
-      const { id } = jwt.verify(token, TOKEN_SECRET);
-
-      if (id !== req.params.id) {
+      if (!UserService.isOwner(req.params.id, token)) {
         return res.status(403).json({
           status: 403,
           message: "Permission denied",
