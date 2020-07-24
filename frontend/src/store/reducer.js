@@ -23,8 +23,9 @@ export const reducer = (state, action) => {
     case "UPDATE":
       return {
         ...state,
+        isLoggedIn: true,
         user: {
-          ...state.user,
+          id: action.user._id,
           name: action.user.name,
           email: action.user.email,
         },

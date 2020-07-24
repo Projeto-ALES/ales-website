@@ -1,4 +1,6 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
+
+import { me } from "services/user.service";
 
 import { ToastContainer } from "react-toastify";
 import SideBar from "components/SideBar/SideBar";
@@ -30,6 +32,20 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 function App() {
   const [state, dispatch] = useContext(context);
   const { isLoggedIn } = state;
+
+  useEffect(() => {
+    const getMe = () => {
+      me()
+        .then((response) => {
+          const { user } = response.data;
+          dispatch({ type: "UPDATE", user });
+        })
+        .catch(() => {
+          dispatch({ type: "LOGOUT" });
+        });
+    };
+    getMe();
+  }, []);
 
   return (
     <>

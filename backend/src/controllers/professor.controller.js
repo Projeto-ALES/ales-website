@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 const crypto = require("crypto");
-const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const { check, validationResult } = require("express-validator");
 

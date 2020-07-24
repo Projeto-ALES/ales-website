@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
 
 const UserService = require("../services/user.service");
@@ -97,6 +98,50 @@ router.put("/users/:id", async (req, res) => {
     return res.status(200).json({
       status: 200,
       user,
+    });
+  } catch (e) {
+    handleError(e, res);
+  }
+});
+
+router.get("/me", async (req, res) => {
+  try {
+    const { cookie } = req.headers;
+    const rawCookies = cookie.split(";");
+    const parsedCookies = {};
+
+    rawCookies.forEach(rawCookie => {
+      const parsedCookie = rawCookie.split("=");
+      parsedCookies[parsedCookie[0].trim()] = parsedCookie[1];
+    });
+
+    const token = parsedCookies["token"];
+    if (!token) {
+      return res.status(401).json({
+        status: 401,
+        message: "An access token is required",
+      });
+    }
+
+    const { TOKEN_SECRET } = process.env;
+    const { id } = jwt.verify(token, TOKEN_SECRET);
+
+    const user = await UserService.getUser(id);
+    if (!user) {
+      return res.status(404).json({
+        status: 404,
+        message: "User not found",
+      });
+    }
+
+    const { _id, name, email } = user;
+    return res.status(200).json({
+      status: 200,
+      user: {
+        _id,
+        name,
+        email,
+      },
     });
   } catch (e) {
     handleError(e, res);
