@@ -1,14 +1,13 @@
 export const reducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
-      const { _id, name, email } = action.user;
       return {
         ...state,
         isLoggedIn: true,
         user: {
-          id: _id,
-          name,
-          email,
+          id: action.user._id,
+          name: action.user.name,
+          email: action.user.email,
         },
       };
     case "LOGOUT":
@@ -19,6 +18,15 @@ export const reducer = (state, action) => {
           id: "",
           name: "",
           email: "",
+        },
+      };
+    case "UPDATE":
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          name: action.user.name,
+          email: action.user.email,
         },
       };
     default:

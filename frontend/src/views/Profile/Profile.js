@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import { getProfile, update } from "services/professor.service";
+import { context } from "store/store";
 
 import Container from "components/Container/Container";
 import Input from "components/Input/Input";
@@ -12,6 +13,7 @@ import { toast } from "react-toastify";
 import styles from "./Profile.module.scss";
 
 const Profile = ({ history, match }) => {
+  const [state, dispatch] = useContext(context);
   const { id } = match.params;
 
   const [name, setName] = useState("");
@@ -58,8 +60,10 @@ const Profile = ({ history, match }) => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    const { name, email } = data;
     update(id, data)
       .then(() => {
+        dispatch({ type: "UPDATE", user: { name, email } });
         history.push("/my-area");
         toast.success("Dados atualizados!");
       })
