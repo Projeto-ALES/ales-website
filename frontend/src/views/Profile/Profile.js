@@ -17,9 +17,6 @@ const Profile = ({ history, match }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [newPasswordConf, setNewPasswordConf] = useState("");
   const [birthday, setBirthday] = useState("");
   const [gender, setGender] = useState("");
   const [area, setArea] = useState("");
@@ -59,12 +56,6 @@ const Profile = ({ history, match }) => {
 
   const submitUpdate = (e, id, data) => {
     e.preventDefault();
-
-    const { new_password, new_password_conf } = data;
-    if ((new_password || new_password_conf) && new_password !== new_password_conf) {
-      toast.error("A nova senha e sua confirmação estão diferentes");
-      return;
-    }
     setIsSubmitting(true);
 
     update(id, data)
@@ -92,22 +83,16 @@ const Profile = ({ history, match }) => {
           <div className={styles.formsContainer}>
             <form
               className={styles.forms}
-              onSubmit={(e) => {
-                const data = password
-                  ? {
-                      name,
-                      email,
-                      phone,
-                      password,
-                      new_password: newPassword,
-                      new_password_conf: newPasswordConf,
-                      birthday,
-                      gender,
-                      area,
-                    }
-                  : { name, email, phone, birthday, gender, area };
-                submitUpdate(e, id, data);
-              }}
+              onSubmit={(e) =>
+                submitUpdate(e, id, {
+                  name,
+                  email,
+                  phone,
+                  birthday,
+                  gender,
+                  area,
+                })
+              }
             >
               <div className={styles.formsSection}>
                 <span>Dados Principais</span>
@@ -152,25 +137,6 @@ const Profile = ({ history, match }) => {
                 />
               </div>
               <div className={styles.formsSection}>
-                <span>Autenticação</span>
-                <Input
-                  placeholder="Senha Atual"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <Input
-                  placeholder="Nova Senha"
-                  type="password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                />
-                <Input
-                  placeholder="Confirmação da Nova Senha"
-                  type="password"
-                  value={newPasswordConf}
-                  onChange={(e) => setNewPasswordConf(e.target.value)}
-                />
                 <div className={styles.buttonsContainer}>
                   <Button
                     text="Voltar"
