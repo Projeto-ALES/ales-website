@@ -1,14 +1,17 @@
 const express = require("express");
 const router = express.Router();
 
-const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
+
+const AuthMiddleware = require("../middlewares/auth.middleware");
 
 const UserService = require("../services/user.service");
 const { handleError } = require("../helpers/error");
 
 router.get("/users", async (req, res) => {
   try {
+    await AuthMiddleware.verifyAuth(req.headers.cookie);
+
     const users = await UserService.getUsers({});
     return res.status(200).json({
       status: 200,
@@ -36,6 +39,8 @@ router.post(
     }
 
     try {
+      await AuthMiddleware.verifyAuth(req.headers.cookie);
+
       const user = await UserService.createUser(req.body);
       user.password = null;
       return res.status(201).json({
@@ -50,6 +55,8 @@ router.post(
 
 router.get("/users/:id", async (req, res) => {
   try {
+    await AuthMiddleware.verifyAuth(req.headers.cookie);
+
     const { id } = req.params;
     const user = await UserService.getUser(id);
     if (!user) {
@@ -69,6 +76,8 @@ router.get("/users/:id", async (req, res) => {
 
 router.delete("/users/:id", async (req, res) => {
   try {
+    await AuthMiddleware.verifyAuth(req.headers.cookie);
+
     const user = await UserService.deleteUser(req.params);
     if (!user) {
       return res.status(404).json({
@@ -86,6 +95,8 @@ router.delete("/users/:id", async (req, res) => {
 
 router.put("/users/:id", async (req, res) => {
   try {
+    await AuthMiddleware.verifyAuth(req.headers.cookie);
+
     const { id } = req.params;
     const user = await UserService.updateUser(id, req.body);
 
@@ -106,26 +117,8 @@ router.put("/users/:id", async (req, res) => {
 
 router.get("/me", async (req, res) => {
   try {
-    const { cookie } = req.headers;
-    const rawCookies = cookie.split(";");
-    const parsedCookies = {};
-
-    rawCookies.forEach(rawCookie => {
-      const parsedCookie = rawCookie.split("=");
-      parsedCookies[parsedCookie[0].trim()] = parsedCookie[1];
-    });
-
-    const token = parsedCookies["token"];
-    if (!token) {
-      return res.status(401).json({
-        status: 401,
-        message: "An access token is required",
-      });
-    }
-
-    const { TOKEN_SECRET } = process.env;
-    const { id } = jwt.verify(token, TOKEN_SECRET);
-
+    const { data } = await AuthMiddleware.verifyAuth(req.headers.cookie);
+    const { id } = data;
     const user = await UserService.getUser(id);
     if (!user) {
       return res.status(404).json({

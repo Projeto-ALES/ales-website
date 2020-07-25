@@ -5,12 +5,17 @@ const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const { check, validationResult } = require("express-validator");
 
+const AuthMiddleware = require("../middlewares/auth.middleware");
+
 const UserService = require("../services/user.service");
 const ProfessorService = require("../services/professor.service");
+
 const { handleError } = require("../helpers/error");
 
 router.get("/professors", async (req, res) => {
   try {
+    await AuthMiddleware.verifyAuth(req.headers.cookie);
+
     const professors = await ProfessorService.getProfessors({
       status: "active",
     });
@@ -49,7 +54,6 @@ router.post(
 
     try {
       const { inviteToken, password, password_conf } = req.body;
-
       if (password !== password_conf) {
         return res.status(400).json({
           status: 400,
@@ -58,7 +62,6 @@ router.post(
       }
 
       let professor = await ProfessorService.getProfessor({ inviteToken });
-
       if (!professor) {
         return res.status(400).json({
           status: 400,
@@ -90,6 +93,8 @@ router.post(
 
 router.get("/professors/:id", async (req, res) => {
   try {
+    await AuthMiddleware.verifyAuth(req.headers.cookie);
+
     const { id } = req.params;
     const professor = await ProfessorService.getProfessor({ _id: id });
     if (!professor) {
@@ -109,6 +114,8 @@ router.get("/professors/:id", async (req, res) => {
 
 router.delete("/professors/:id", async (req, res) => {
   try {
+    await AuthMiddleware.verifyAuth(req.headers.cookie);
+
     const professor = await ProfessorService.deleteProfessor(req.params);
     if (!professor) {
       return res.status(404).json({
@@ -138,24 +145,10 @@ router.put(
     }
 
     try {
-      const { cookie } = req.headers;
-      const rawCookies = cookie.split(";");
-      const parsedCookies = {};
+      const { token } = await AuthMiddleware.verifyAuth(req.headers.cookie);
 
-      rawCookies.forEach(rawCookie => {
-        const parsedCookie = rawCookie.split("=");
-        parsedCookies[parsedCookie[0].trim()] = parsedCookie[1];
-      });
-
-      const token = parsedCookies["token"];
-      if (!token) {
-        return res.status(401).json({
-          status: 401,
-          message: "An access token is required",
-        });
-      }
-
-      if (!UserService.isOwner(req.params.id, token)) {
+      const { id } = req.params;
+      if (!UserService.isOwner(id, token)) {
         return res.status(403).json({
           status: 403,
           message: "Permission denied",
@@ -163,7 +156,6 @@ router.put(
       }
 
       const professor = await ProfessorService.updateProfessor(id, req.body);
-
       if (!professor) {
         return res.status(404).json({
           status: 404,
@@ -190,8 +182,9 @@ router.post(
     }
 
     try {
-      const { email } = req.body;
+      await AuthMiddleware.verifyAuth(req.headers.cookie);
 
+      const { email } = req.body;
       const inviteToken = crypto.randomBytes(20).toString("hex");
       const inviteTokenExp = Date.now() + 3600000;
 

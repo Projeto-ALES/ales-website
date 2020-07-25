@@ -6,6 +6,8 @@ const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const { check, validationResult } = require("express-validator");
 
+const AuthMiddleware = require("../middlewares/auth.middleware");
+
 const AuthService = require("../services/auth.service");
 const { handleError } = require("../helpers/error");
 
@@ -33,6 +35,8 @@ router.post(
     }
 
     try {
+      await AuthMiddleware.verifyAuth(req.headers.cookie);
+
       const { id } = req.params;
       const { password, new_password, new_password_conf } = req.body;
       const user = await AuthService.getUserWithPassword({ _id: id });
@@ -79,6 +83,8 @@ router.post(
     }
 
     try {
+      await AuthMiddleware.verifyAuth(req.headers.cookie);
+
       const { email } = req.body;
       const user = await AuthService.getUserWithPasswordToken({ email });
 
