@@ -11,6 +11,7 @@ const UserService = require("../services/user.service");
 const ProfessorService = require("../services/professor.service");
 
 const { handleError } = require("../helpers/error");
+const { professorStatus } = require("../helpers/status");
 
 router.get("/professors", async (req, res) => {
   try {
@@ -181,7 +182,7 @@ router.post(
 
       const professor = await ProfessorService.getProfessor({ email });
       if (professor) {
-        if (professor.status === "invited") {
+        if (professor.status === professorStatus.INVITED) {
           await ProfessorService.updateProfessor(professor._id, {
             inviteToken,
             inviteTokenExp,
@@ -195,7 +196,7 @@ router.post(
       } else {
         await ProfessorService.createProfessor({
           email,
-          status: "invited",
+          status: professorStatus.INVITED,
           inviteToken,
           inviteTokenExp,
         });

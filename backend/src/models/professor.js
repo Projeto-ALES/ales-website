@@ -1,13 +1,16 @@
 const mongoose = require("mongoose");
 
 const User = require("./user");
+const { professorStatus, gender } = require("../helpers/status");
+const { INACTIVE, INVITED, ACTIVE } = professorStatus;
+const { M, F, N } = gender;
 
 const Professor = User.discriminator(
   "Professor",
   new mongoose.Schema({
     status: {
       type: String,
-      enum: ["active", "inactive", "invited"],
+      enum: [INACTIVE, INVITED, ACTIVE],
       default: "inactive",
     },
     phone: {
@@ -18,7 +21,7 @@ const Professor = User.discriminator(
     },
     gender: {
       type: String,
-      enum: ["M", "F", "N"],
+      enum: [M, F, N],
     },
     area: {
       type: String,
