@@ -41,7 +41,7 @@ exports.deleteUser = async params => {
 exports.updateUser = async (id, data) => {
   try {
     await User.updateOne({ _id: id }, { $set: data });
-    return User.findOne({ _id: id });
+    return await User.findOne({ _id: id });
   } catch (e) {
     throw new ErrorHandler(500, e.errmsg);
   }

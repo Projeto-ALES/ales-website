@@ -39,12 +39,10 @@ router.post(
 
       const { id } = req.params;
       const { password, new_password, new_password_conf } = req.body;
+
       const user = await AuthService.getUserWithPassword({ _id: id });
       if (!user) {
-        return res.status(404).json({
-          status: 404,
-          message: "User not found",
-        });
+        throw new ErrorHandler(404, "User not found");
       }
 
       if (!bcrypt.compareSync(password, user.password)) {
@@ -87,12 +85,8 @@ router.post(
 
       const { email } = req.body;
       const user = await AuthService.getUserWithPasswordToken({ email });
-
       if (!user) {
-        return res.status(404).json({
-          status: 404,
-          message: "User not found with the given email",
-        });
+        throw new ErrorHandler(404, "User not found");
       }
 
       const token = crypto.randomBytes(20).toString("hex");
@@ -165,10 +159,7 @@ router.post(
         passwordToken: token,
       });
       if (!user) {
-        return res.status(400).json({
-          status: 400,
-          message: "Invalid token",
-        });
+        throw new ErrorHandler(404, "User not found");
       }
 
       if (Date.parse(user.passwordTokenExp) < Date.now()) {

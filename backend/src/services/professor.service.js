@@ -13,6 +13,7 @@ exports.createProfessor = async data => {
   try {
     return await Professor.create(data);
   } catch (e) {
+    // duplicated key error
     if (e.code === 11000) {
       throw new ErrorHandler(409, e.errmsg);
     }

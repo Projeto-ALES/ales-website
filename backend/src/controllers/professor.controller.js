@@ -98,11 +98,9 @@ router.get("/professors/:id", async (req, res) => {
     const { id } = req.params;
     const professor = await ProfessorService.getProfessor({ _id: id });
     if (!professor) {
-      return res.status(404).json({
-        status: 404,
-        message: "Professor not found",
-      });
+      throw new ErrorHandler(404, "Professor not found");
     }
+
     return res.status(200).json({
       status: 200,
       professor,
@@ -118,11 +116,9 @@ router.delete("/professors/:id", async (req, res) => {
 
     const professor = await ProfessorService.deleteProfessor(req.params);
     if (!professor) {
-      return res.status(404).json({
-        status: 404,
-        message: "Professor not found",
-      });
+      throw new ErrorHandler(404, "Professor not found");
     }
+
     return res.status(202).json({
       status: 202,
     });
@@ -157,11 +153,9 @@ router.put(
 
       const professor = await ProfessorService.updateProfessor(id, req.body);
       if (!professor) {
-        return res.status(404).json({
-          status: 404,
-          message: "Professor not found",
-        });
+        throw new ErrorHandler(404, "Professor not found");
       }
+
       return res.status(200).json({
         status: 200,
         professor,

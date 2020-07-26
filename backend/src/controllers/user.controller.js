@@ -60,11 +60,9 @@ router.get("/users/:id", async (req, res) => {
     const { id } = req.params;
     const user = await UserService.getUser(id);
     if (!user) {
-      return res.status(404).json({
-        status: 404,
-        message: "User not found",
-      });
+      throw new ErrorHandler(404, "User not found");
     }
+
     return res.status(200).json({
       status: 200,
       user,
@@ -77,14 +75,11 @@ router.get("/users/:id", async (req, res) => {
 router.delete("/users/:id", async (req, res) => {
   try {
     await AuthMiddleware.verifyAuth(req.headers.cookie);
-
     const user = await UserService.deleteUser(req.params);
     if (!user) {
-      return res.status(404).json({
-        status: 404,
-        message: "User not found",
-      });
+      throw new ErrorHandler(404, "User not found");
     }
+
     return res.status(202).json({
       status: 202,
     });
@@ -99,13 +94,10 @@ router.put("/users/:id", async (req, res) => {
 
     const { id } = req.params;
     const user = await UserService.updateUser(id, req.body);
-
     if (!user) {
-      return res.status(404).json({
-        status: 404,
-        message: "User not found",
-      });
+      throw new ErrorHandler(404, "User not found");
     }
+
     return res.status(200).json({
       status: 200,
       user,
@@ -121,10 +113,7 @@ router.get("/me", async (req, res) => {
     const { id } = data;
     const user = await UserService.getUser(id);
     if (!user) {
-      return res.status(404).json({
-        status: 404,
-        message: "User not found",
-      });
+      throw new ErrorHandler(404, "User not found");
     }
 
     const { _id, name, email } = user;
