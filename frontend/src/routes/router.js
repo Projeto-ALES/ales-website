@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 
 import routes from "./routes";
+import PrivateRoute from "./PrivateRoute";
 
 import Home from "views/Home/Home";
 import Login from "views/Login/Login";
@@ -28,22 +29,22 @@ const router = (
   <Switch>
     <Route path={routes.LOGIN} component={Login} />
 
-    <Route path={routes.MY_AREA_ID} component={Profile} />
-    <Route path={routes.MY_AREA} component={MyArea} />
+    <PrivateRoute path={routes.MY_AREA_ID} component={Profile} />
+    <PrivateRoute path={routes.MY_AREA} component={MyArea} />
 
     <Route path={routes.RESET_PASSWORD} component={ResetPassword} />
     <Route path={routes.RESET_PASSWORD_SENT} component={ResetPasswordSent} />
     <Route path={routes.NEW_PASSWORD} component={NewPassword} />
     <Route path={routes.PASSWORD_CHANGED} component={PasswordChanged} />
 
-    <Route path={routes.PROFESSOR_INVITE} component={NewProfessor} />
+    <PrivateRoute path={routes.PROFESSOR_INVITE} component={NewProfessor} />
     <Route path={routes.PROFESSOR_ENROLL} component={ProfessorEnroll} />
-    <Route path={routes.PROFESSORS} component={ProfessorList} />
+    <PrivateRoute path={routes.PROFESSORS} component={ProfessorList} />
 
-    <Route path={routes.COURSE_EDIT} component={CourseEdit} />
-    <Route path={routes.COURSE_NEW} component={CourseNew} />
-    <Route path={routes.COURSE_DETAIL} component={CourseDetail} />
-    <Route path={routes.COURSES} component={CourseList} />
+    <PrivateRoute path={routes.COURSE_EDIT} component={CourseEdit} />
+    <PrivateRoute path={routes.COURSE_NEW} component={CourseNew} />
+    <PrivateRoute path={routes.COURSE_DETAIL} component={CourseDetail} />
+    <PrivateRoute path={routes.COURSES} component={CourseList} />
     <Route path={routes.QUARANTINE} component={Quarantine} />
 
     <Route path={routes.HOME} component={Home} />
