@@ -3,12 +3,12 @@ const router = express.Router();
 
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
-const nodemailer = require("nodemailer");
 const { check, validationResult } = require("express-validator");
 
 const AuthMiddleware = require("../middlewares/auth.middleware");
 
 const AuthService = require("../services/auth.service");
+const MailService = require("../services/mail.service");
 const { handleError } = require("../helpers/error");
 
 router.post(
@@ -94,25 +94,12 @@ router.post(
       user.passwordTokenExp = Date.now() + 3600000;
       user.save();
 
-      const { EMAIL_USER, EMAIL_PASSWORD } = process.env;
-
-      const transporter = nodemailer.createTransport({
-        host: "smtp.mailtrap.io",
-        port: 2525,
-        auth: {
-          user: EMAIL_USER,
-          pass: EMAIL_PASSWORD,
-        },
+      const processing = await MailService.sendEmail({
+        to: email,
+        subject: "Reset Password",
+        text: `Access http://localhost:3000/new-password/${token}`,
       });
 
-      const mail = {
-        from: "projetoales@gmail.com",
-        to: email,
-        subject: "Reset Password Yeah",
-        text: `Access http://localhost:3000/new-password/${token}`,
-      };
-
-      const processing = await transporter.sendMail(mail);
       return res.status(200).json({
         status: 200,
         message: "Token generated and successfully sent to the given email",
