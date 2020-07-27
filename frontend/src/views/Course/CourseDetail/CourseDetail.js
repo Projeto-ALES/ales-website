@@ -1,5 +1,7 @@
 import React from "react";
 
+import routes from "routes/routes";
+
 import Container from "components/Container/Container";
 import Button from "components/Button/Button";
 import MaterialTable from "material-table";
@@ -109,7 +111,7 @@ const CourseDetail = ({ history, match }) => {
             <Button
               kind="primary"
               text="Editar"
-              onClick={() => history.push(`/courses/${match.params.id}/edit`)}
+              onClick={() => history.push(routes.COURSE_EDIT.replace(":id", match.params.id))}
             />
           </div>
           <div className={styles.tableContainer}>

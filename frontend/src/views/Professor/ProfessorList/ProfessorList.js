@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import routes from "routes/routes";
+
 import { list } from "services/professor.service";
 
 import Container from "components/Container/Container";
@@ -91,7 +93,7 @@ const ProfessorList = ({ history }) => {
               <Button
                 kind="success"
                 text="Adicionar"
-                onClick={() => history.push("/professors/invite")}
+                onClick={() => history.push(routes.PROFESSOR_INVITE)}
               />
             </div>
           </div>

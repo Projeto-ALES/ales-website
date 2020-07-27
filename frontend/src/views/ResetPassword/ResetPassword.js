@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import routes from "routes/routes";
+
 import { resetPassword } from "services/auth.service";
 import { toast } from "react-toastify";
 
@@ -20,7 +22,7 @@ const ResetPassword = ({ history }) => {
 
     resetPassword(email)
       .then(() => {
-        history.push("/reset-password-sent");
+        history.push(routes.RESET_PASSWORD_SENT);
         toast.success("Requisição aceita");
       })
       .catch((err) => {

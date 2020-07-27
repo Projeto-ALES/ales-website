@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import routes from "routes/routes";
+
 import { invite } from "services/professor.service";
 
 import Container from "components/Container/Container";
@@ -19,7 +21,7 @@ const NewProfessor = ({ history }) => {
 
     invite(email)
       .then(() => {
-        history.push("/professors");
+        history.push(routes.PROFESSORS);
         toast.success("Convite enviado!");
       })
       .catch((err) => {

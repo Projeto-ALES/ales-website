@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import routes from "routes/routes";
+
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 
@@ -38,7 +40,7 @@ const Login = ({ history }) => {
       .then((response) => {
         const { user } = response.data;
         dispatch({ type: types.LOGIN, user });
-        history.push("/my-area");
+        history.push(routes.MY_AREA);
       })
       .catch((err) => {
         err.response && err.response.status === 401

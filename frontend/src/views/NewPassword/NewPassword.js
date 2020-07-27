@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import routes from "routes/routes";
+
 import { newPassword } from "services/auth.service";
 import { toast } from "react-toastify";
 
@@ -27,7 +29,7 @@ const NewPassword = ({ history, match }) => {
 
     newPassword(new_password, new_password_conf, token)
       .then(() => {
-        history.push("/password-changed");
+        history.push(routes.PASSWORD_CHANGED);
         toast.success("Senha alterada com sucesso");
       })
       .catch((err) => {

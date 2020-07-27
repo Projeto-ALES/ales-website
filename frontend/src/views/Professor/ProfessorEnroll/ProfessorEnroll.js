@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import routes from "routes/routes";
+
 import { enroll } from "services/professor.service";
 
 import Container from "components/Container/Container";
@@ -41,7 +43,7 @@ const ProfessorEnroll = ({ history, match }) => {
 
     enroll(data)
       .then(() => {
-        history.push("/login");
+        history.push(routes.PROFESSOR_ENROLL);
         toast.success("Cadastro feito! Agora é só fazer o login");
       })
       .catch((err) => {

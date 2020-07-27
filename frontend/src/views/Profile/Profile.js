@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 
+import routes from "routes/routes";
+
 import { getProfile, update } from "services/professor.service";
 import { context } from "store/store";
 import { types } from "store/types";
@@ -65,7 +67,7 @@ const Profile = ({ history, match }) => {
     update(id, data)
       .then(() => {
         dispatch({ type: types.UPDATE, user: { name, email } });
-        history.push("/my-area");
+        history.push(routes.MY_AREA);
         toast.success("Dados atualizados!");
       })
       .catch((err) => {

@@ -1,6 +1,8 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
+import routes from "./routes";
+
 import Home from "views/Home/Home";
 import Login from "views/Login/Login";
 
@@ -24,27 +26,27 @@ import Quarantine from "views/Quarantine/Quarantine";
 
 const router = (
   <Switch>
-    <Route path="/login" component={Login} />
+    <Route path={routes.LOGIN} component={Login} />
 
-    <Route path="/my-area/:id" component={Profile} />
-    <Route path="/my-area" component={MyArea} />
+    <Route path={routes.MY_AREA_ID} component={Profile} />
+    <Route path={routes.MY_AREA} component={MyArea} />
 
-    <Route path="/reset-password" component={ResetPassword} />
-    <Route path="/reset-password-sent" component={ResetPasswordSent} />
-    <Route path="/new-password/:token" component={NewPassword} />
-    <Route path="/password-changed" component={PasswordChanged} />
+    <Route path={routes.RESET_PASSWORD} component={ResetPassword} />
+    <Route path={routes.RESET_PASSWORD_SENT} component={ResetPasswordSent} />
+    <Route path={routes.NEW_PASSWORD} component={NewPassword} />
+    <Route path={routes.PASSWORD_CHANGED} component={PasswordChanged} />
 
-    <Route path="/professors/invite" component={NewProfessor} />
-    <Route path="/professors/enroll/:token" component={ProfessorEnroll} />
-    <Route path="/professors" component={ProfessorList} />
+    <Route path={routes.PROFESSOR_INVITE} component={NewProfessor} />
+    <Route path={routes.PROFESSOR_ENROLL} component={ProfessorEnroll} />
+    <Route path={routes.PROFESSORS} component={ProfessorList} />
 
-    <Route path="/courses/:id/edit" component={CourseEdit} />
-    <Route path="/courses/:id" component={CourseDetail} />
-    <Route path="/courses/new" component={CourseNew} />
-    <Route path="/courses" component={CourseList} />
-    <Route path="/quarentenales" component={Quarantine} />
+    <Route path={routes.COURSE_EDIT} component={CourseEdit} />
+    <Route path={routes.COURSE_NEW} component={CourseNew} />
+    <Route path={routes.COURSE_DETAIL} component={CourseDetail} />
+    <Route path={routes.COURSES} component={CourseList} />
+    <Route path={routes.QUARANTINE} component={Quarantine} />
 
-    <Route path="/" component={Home} />
+    <Route path={routes.HOME} component={Home} />
   </Switch>
 );
 
