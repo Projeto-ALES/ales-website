@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 
 import { getProfile, update } from "services/professor.service";
 import { context } from "store/store";
+import { types } from "store/types";
 
 import Container from "components/Container/Container";
 import Input from "components/Input/Input";
@@ -63,7 +64,7 @@ const Profile = ({ history, match }) => {
     const { name, email } = data;
     update(id, data)
       .then(() => {
-        dispatch({ type: "UPDATE", user: { name, email } });
+        dispatch({ type: types.UPDATE, user: { name, email } });
         history.push("/my-area");
         toast.success("Dados atualizados!");
       })

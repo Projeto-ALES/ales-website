@@ -1,6 +1,8 @@
+import { types } from "./types";
+
 export const reducer = (state, action) => {
   switch (action.type) {
-    case "LOGIN":
+    case types.LOGIN:
       return {
         ...state,
         isLoggedIn: true,
@@ -10,7 +12,7 @@ export const reducer = (state, action) => {
           email: action.user.email,
         },
       };
-    case "LOGOUT":
+    case types.LOGOUT:
       return {
         ...state,
         isLoggedIn: false,
@@ -20,7 +22,7 @@ export const reducer = (state, action) => {
           email: "",
         },
       };
-    case "UPDATE":
+    case types.UPDATE:
       return {
         ...state,
         isLoggedIn: true,

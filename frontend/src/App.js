@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from "react";
 
 import { me } from "services/user.service";
+import { types } from "store/types";
 
 import { ToastContainer } from "react-toastify";
 import SideBar from "components/SideBar/SideBar";
@@ -38,10 +39,10 @@ function App() {
       me()
         .then((response) => {
           const { user } = response.data;
-          dispatch({ type: "UPDATE", user });
+          dispatch({ type: types.UPDATE, user });
         })
         .catch(() => {
-          dispatch({ type: "LOGOUT" });
+          dispatch({ type: types.LOGOUT });
         });
     };
     getMe();

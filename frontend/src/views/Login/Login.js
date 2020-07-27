@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 
 import { login } from "services/auth.service";
 import { context } from "store/store";
+import { types } from "store/types";
 
 import Container from "components/Container/Container";
 import Card from "components/Card/Card";
@@ -21,7 +22,7 @@ const Login = ({ history }) => {
 
   useEffect(() => {
     if (!Cookies.get("token")) {
-      dispatch({ type: "LOGOUT" });
+      dispatch({ type: types.LOGOUT });
     }
   }, []);
 
@@ -36,7 +37,7 @@ const Login = ({ history }) => {
     login(email, password)
       .then((response) => {
         const { user } = response.data;
-        dispatch({ type: "LOGIN", user });
+        dispatch({ type: types.LOGIN, user });
         history.push("/my-area");
       })
       .catch((err) => {
