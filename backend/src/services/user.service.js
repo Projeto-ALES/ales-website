@@ -1,3 +1,5 @@
+const jwt = require("jsonwebtoken");
+
 const User = require("../models/user");
 const { ErrorHandler } = require("../helpers/error");
 
@@ -39,7 +41,21 @@ exports.deleteUser = async params => {
 exports.updateUser = async (id, data) => {
   try {
     await User.updateOne({ _id: id }, { $set: data });
-    return User.findOne({ _id: id });
+    return await User.findOne({ _id: id });
+  } catch (e) {
+    throw new ErrorHandler(500, e.errmsg);
+  }
+};
+
+exports.isOwner = (idParam, token) => {
+  try {
+    const { TOKEN_SECRET } = process.env;
+    const { id } = jwt.verify(token, TOKEN_SECRET);
+
+    if (idParam === id) {
+      return true;
+    }
+    return false;
   } catch (e) {
     throw new ErrorHandler(500, e.errmsg);
   }

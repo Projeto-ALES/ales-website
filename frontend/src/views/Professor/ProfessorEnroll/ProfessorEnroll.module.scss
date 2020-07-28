@@ -51,7 +51,7 @@
           margin: var(--spacing-huge) 0;
         }
 
-        span {
+        .sectionLabel {
           font-weight: 600;
         }
 
@@ -62,10 +62,10 @@
       }
     }
 
-    .buttonsContainer {
+    .buttonContainer {
       display: flex;
       justify-content: center;
-      margin-bottom: var(--spacing-large);
+      margin: var(--spacing-large) 0;
 
       @include desktop {
         justify-content: flex-start;

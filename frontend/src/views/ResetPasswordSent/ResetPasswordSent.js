@@ -3,13 +3,9 @@ import React from "react";
 import Container from "components/Container/Container";
 import Button from "components/Button/Button";
 
-import { useHistory } from "react-router-dom";
-
 import styles from "./ResetPasswordSent.module.scss";
 
-const ResetPasswordSent = () => {
-  let history = useHistory();
-
+const ResetPasswordSent = ({ history }) => {
   return (
     <div className={styles.resetPasswordSentContainer}>
       <Container>
@@ -23,7 +19,9 @@ const ResetPasswordSent = () => {
             email foi digitado corretamente na tela anterior
           </p>
         </div>
-        <Button text="Voltar" kind="primary" onClick={() => history.goBack()} />
+        <div className={styles.buttonContainer}>
+          <Button text="Voltar" kind="primary" onClick={() => history.goBack()} />
+        </div>
       </Container>
     </div>
   );

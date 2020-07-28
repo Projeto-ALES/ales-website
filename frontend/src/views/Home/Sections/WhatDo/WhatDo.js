@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import Container from "components/Container/Container";
 import Card from "components/Card/Card";
@@ -34,7 +35,7 @@ const WhatDo = () => {
                 );
               })}
             </div>
-            <a href="/#">e muito mais!</a>
+            <Link to="/#">e muito mais!</Link>
           </div>
           <div className={styles.activitiesContainer}>
             <p>E outras atividades:</p>

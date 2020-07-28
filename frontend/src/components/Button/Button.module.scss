@@ -3,6 +3,9 @@
 .button {
   padding: var(--spacing-base) var(--spacing-large);
   border-radius: var(--medium-radius);
+  display: flex;
+  justify-content: center;
+  max-height: 50px;
 
   font-weight: 600;
   font-size: var(--font-normal);
@@ -14,6 +17,49 @@
 
   &:hover {
     background-color: var(--gray-lightest);
+  }
+
+  .loader {
+    border-top: 3px solid rgba(255, 255, 255, 0.2);
+    border-right: 3px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+    border-left: 3px solid #ffffff;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: loader 0.6s infinite linear;
+    animation: loader 0.6s infinite linear;
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+
+    &::after {
+      border-radius: 50%;
+      height: 16px;
+      width: 16px;
+    }
+
+    @-webkit-keyframes loader {
+      0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes loader {
+      0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
   }
 }
 

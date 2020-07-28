@@ -1,4 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+import routes from "routes/routes";
 
 import Container from "components/Container/Container";
 import Card from "components/Card/Card";
@@ -24,19 +27,19 @@ const CourseList = ({ history }) => {
         <div className={styles.cardsContainer}>
           {courses.map((course) => {
             return (
-              <a href={`/courses/${course.id}`} className={styles.cardContainer}>
+              <Link to={`/courses/${course.id}`} className={styles.cardContainer}>
                 <Card id={course.id} kind="outline-yellow">
                   <div className={styles.cardContentContainer}>
                     <span>{course.name}</span>
                   </div>
                 </Card>
-              </a>
+              </Link>
             );
           })}
         </div>
         <div className={styles.buttonsContainer}>
           <Button text="Voltar" onClick={() => history.goBack()} />
-          <Button kind="success" text="Adicionar" onClick={() => history.push("/courses/new")} />
+          <Button kind="success" text="Adicionar" onClick={() => history.push(routes.COURSE_NEW)} />
         </div>
       </Container>
     </div>
