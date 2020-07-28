@@ -6,9 +6,9 @@ import { me } from "services/user.service";
 
 import { ToastContainer } from "react-toastify";
 import SideBar from "components/SideBar/SideBar";
-import { loggedIn, notLoggedIn } from "./components/SideBar/items";
 import Footer from "components/Footer/Footer";
-import { ToastContainer } from "react-toastify";
+
+import { loggedIn, notLoggedIn } from "./components/SideBar/items";
 
 import { context } from "store/store";
 import { types } from "store/types";
