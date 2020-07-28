@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import Container from "components/Container/Container";
 import Card from "components/Card/Card";
@@ -16,7 +17,7 @@ const MyArea = () => {
         <div className={styles.cardsContainer}>
           {items.map((item) => {
             return (
-              <a href={item.route} className={styles.cardContainer}>
+              <Link to={item.route} className={styles.cardContainer}>
                 <Card id={item.id} kind="outline-yellow">
                   <div className={styles.cardContentContainer}>
                     <span>
@@ -25,7 +26,7 @@ const MyArea = () => {
                     <span>{item.text}</span>
                   </div>
                 </Card>
-              </a>
+              </Link>
             );
           })}
         </div>

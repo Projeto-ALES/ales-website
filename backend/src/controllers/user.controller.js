@@ -1,7 +1,12 @@
+const express = require("express");
+const router = express.Router();
+
+const { check, validationResult } = require("express-validator");
+
 const UserService = require("../services/user.service");
 const { handleError } = require("../helpers/error");
 
-exports.getUsers = async (req, res) => {
+router.get("/users", async (req, res) => {
   try {
     const users = await UserService.getUsers({});
     return res.status(200).json({
@@ -11,30 +16,38 @@ exports.getUsers = async (req, res) => {
   } catch (e) {
     handleError(e, res);
   }
-};
+});
 
-exports.createUser = async (req, res, next) => {
-  try {
-    const { email, name, password } = req.body;
-    if (!email || !name || !password) {
-      return res.status(400).json({
-        status: 400,
-        message: "Required fields are missing",
-      });
+router.post(
+  "/users",
+  [
+    check("email").not().isEmpty().withMessage("Email is missing"),
+    check("name").not().isEmpty().withMessage("Name is missing"),
+    check("password").not().isEmpty().withMessage("Password is missing"),
+    check("password")
+      .isLength({ min: 5 })
+      .withMessage("Password must have at least 5 chars long"),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json(errors.array());
     }
 
-    const user = await UserService.createUser(req.body);
-    user.password = null;
-    return res.status(201).json({
-      status: 201,
-      user,
-    });
-  } catch (e) {
-    handleError(e, res);
+    try {
+      const user = await UserService.createUser(req.body);
+      user.password = null;
+      return res.status(201).json({
+        status: 201,
+        user,
+      });
+    } catch (e) {
+      handleError(e, res);
+    }
   }
-};
+);
 
-exports.getUser = async (req, res, next) => {
+router.get("/users/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const user = await UserService.getUser(id);
@@ -51,9 +64,9 @@ exports.getUser = async (req, res, next) => {
   } catch (e) {
     handleError(e, res);
   }
-};
+});
 
-exports.deleteUser = async (req, res, next) => {
+router.delete("/users/:id", async (req, res) => {
   try {
     const user = await UserService.deleteUser(req.params);
     if (!user) {
@@ -68,9 +81,9 @@ exports.deleteUser = async (req, res, next) => {
   } catch (e) {
     handleError(e, res);
   }
-};
+});
 
-exports.updateUser = async (req, res, next) => {
+router.put("/users/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const user = await UserService.updateUser(id, req.body);
@@ -88,4 +101,6 @@ exports.updateUser = async (req, res, next) => {
   } catch (e) {
     handleError(e, res);
   }
-};
+});
+
+module.exports = router;

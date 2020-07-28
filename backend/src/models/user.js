@@ -22,14 +22,26 @@ const UserSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now,
+    default: Date.now(),
+  },
+  passwordToken: {
+    type: String,
+    select: false,
+    default: null,
+  },
+  passwordTokenExp: {
+    type: Date,
+    default: Date.now(),
+    select: false,
   },
 });
 
 UserSchema.pre("save", async function (next) {
-  const hash = await bcrypt.hash(this.password, 10);
-  this.password = hash;
+  if (!this.isModified("password")) {
+    return next();
+  }
 
+  this.password = await bcrypt.hash(this.password, 10);
   next();
 });
 

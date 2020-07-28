@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 
 import { login } from "services/auth.service";
@@ -21,19 +21,17 @@ const Login = ({ history }) => {
 
   useEffect(() => {
     if (!Cookies.get("token")) {
-      console.log("cookie is gone!");
       dispatch({ type: "LOGOUT" });
     }
   }, []);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const notify = (message) => toast.error(message);
+  const [isLoading, setIsLoading] = useState(false);
 
   const submitLogin = async (e, email, password) => {
     e.preventDefault();
-
+    setIsLoading(true);
     login(email, password)
       .then(() => {
         history.push("/my-area");
@@ -41,8 +39,9 @@ const Login = ({ history }) => {
       })
       .catch((err) => {
         err.response && err.response.status === 401
-          ? notify("Credenciais Inválidas")
-          : notify("Ops! Aconteceu algum erro");
+          ? toast.error("Credenciais Inválidas")
+          : toast.error("Ops! Aconteceu algum erro");
+        setIsLoading(false);
       });
   };
 
@@ -79,10 +78,16 @@ const Login = ({ history }) => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                <a href="/reset-password">Esqueci a senha</a>
+                <Link to="/reset-password">Esqueci a senha</Link>
               </div>
               <div className={styles.buttonContainer}>
-                <Button text="Entrar" kind="primary" type="submit" />
+                <Button
+                  text="Entrar"
+                  kind="primary"
+                  type="submit"
+                  isLoading={isLoading}
+                  disabled={isLoading}
+                />
               </div>
             </form>
           </Card>
