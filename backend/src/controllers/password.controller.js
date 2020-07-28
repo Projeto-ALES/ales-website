@@ -9,6 +9,7 @@ const AuthMiddleware = require("../middlewares/auth.middleware");
 
 const AuthService = require("../services/auth.service");
 const MailService = require("../services/mail.service");
+
 const { handleError } = require("../helpers/error");
 
 router.post(
@@ -99,7 +100,6 @@ router.post(
         subject: "Reset Password",
         text: `Access http://localhost:3000/new-password/${token}`,
       });
-
       return res.status(200).json({
         status: 200,
         message: "Token generated and successfully sent to the given email",

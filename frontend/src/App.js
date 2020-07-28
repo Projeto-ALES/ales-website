@@ -4,6 +4,7 @@ import router from "routes/router";
 
 import { me } from "services/user.service";
 
+import { ToastContainer } from "react-toastify";
 import SideBar from "components/SideBar/SideBar";
 import { loggedIn, notLoggedIn } from "./components/SideBar/items";
 import Footer from "components/Footer/Footer";
@@ -43,7 +44,6 @@ function App() {
       <Router>
         <SideBar items={isLoggedIn ? loggedIn : notLoggedIn} />
         {router}
-        <Footer />
       </Router>
     </>
   );

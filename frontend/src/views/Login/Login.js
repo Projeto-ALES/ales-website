@@ -35,7 +35,6 @@ const Login = ({ history }) => {
   const submitLogin = async (e, email, password) => {
     e.preventDefault();
     setIsLoading(true);
-
     login(email, password)
       .then((response) => {
         const { user } = response.data;
@@ -53,6 +52,14 @@ const Login = ({ history }) => {
   return (
     <div className={styles.loginContainer}>
       <Container>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          closeOnClick
+          pauseOnVisibilityChange
+          draggable
+          pauseOnHover
+        />
         <div className={styles.cardContainer}>
           <Card kind="outline-blue">
             <form

@@ -41,7 +41,6 @@ router.post(
           message: "Invalid credentials",
         });
       }
-
       const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
       const token = jwt.sign(
@@ -58,7 +57,6 @@ router.post(
           expiresIn: jwtConfig.REFRESH_TOKEN_EXP,
         }
       );
-
       user.password = null;
       return res
         .cookie("token", token, { httpOnly: false })

@@ -17,6 +17,8 @@ const { UI_URL } = process.env;
 
 app.use(cors({ credentials: true, origin: UI_URL }));
 
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+
 app.use(express.json());
 
 connectDb().then(() => {

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import routes from "routes/routes";
 
 import { newPassword } from "services/auth.service";
