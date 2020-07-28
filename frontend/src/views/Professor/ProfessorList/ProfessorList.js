@@ -59,7 +59,11 @@ const ProfessorList = ({ history }) => {
                   {
                     icon: "account_circle",
                     tooltip: "Detalhes dx Professorx",
-                    onClick: (event, rowData) => alert("You want to edit " + rowData.name),
+                    onClick: (event, rowData) => {
+                      const { name } = rowData;
+                      const { _id } = professors.find((prof) => prof.name === name);
+                      history.push(routes.PROFESSOR_DETAIL.replace(":id", _id));
+                    },
                   },
                 ]}
                 options={{

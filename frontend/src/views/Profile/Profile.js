@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 
 import routes from "routes/routes";
 
-import { getProfile, update } from "services/professor.service";
+import { get, update } from "services/professor.service";
 import { context } from "store/store";
 import { types } from "store/types";
 
@@ -39,7 +39,7 @@ const Profile = ({ history, match }) => {
   useEffect(() => {
     const getProfessor = (id) => {
       setIsLoading(true);
-      getProfile(id)
+      get(id)
         .then((response) => {
           const { name, email, phone, birthday, gender, area } = response.data.professor;
           setName(name);

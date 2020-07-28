@@ -12,7 +12,7 @@ export const list = async () => {
   return await api.get("/professors", { withCredentials: true });
 };
 
-export const getProfile = async (id) => {
+export const get = async (id) => {
   return await api.get(`/professors/${id}`, { withCredentials: true });
 };
 

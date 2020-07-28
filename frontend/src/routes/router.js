@@ -16,6 +16,7 @@ import NewPassword from "views/NewPassword/NewPassword";
 import PasswordChanged from "views/PasswordChanged/PasswordChanged";
 
 import ProfessorList from "views/Professor/ProfessorList/ProfessorList";
+import ProfessorDetail from "views/Professor/ProfessorDetail/ProfessorDetail";
 import NewProfessor from "views/Professor/NewProfessor/NewProfessor";
 import ProfessorEnroll from "views/Professor/ProfessorEnroll/ProfessorEnroll";
 
@@ -39,6 +40,7 @@ const router = (
 
     <PrivateRoute path={routes.PROFESSOR_INVITE} component={NewProfessor} />
     <Route path={routes.PROFESSOR_ENROLL} component={ProfessorEnroll} />
+    <PrivateRoute path={routes.PROFESSOR_DETAIL} component={ProfessorDetail} />
     <PrivateRoute path={routes.PROFESSORS} component={ProfessorList} />
 
     <PrivateRoute path={routes.COURSE_EDIT} component={CourseEdit} />

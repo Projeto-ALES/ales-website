@@ -11,8 +11,9 @@ const routes = {
   PASSWORD_CHANGED: "/password-changed",
 
   PROFESSORS: "/professors",
+  PROFESSOR_DETAIL: "/professors/:id",
   PROFESSOR_INVITE: "/professors/invite",
-  PROFESSOR_ENROLL: "/professors/enroll",
+  PROFESSOR_ENROLL: "/professors/enroll/:token",
 
   COURSES: "/courses",
   COURSE_NEW: "/courses/new",
