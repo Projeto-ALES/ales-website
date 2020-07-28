@@ -47,12 +47,14 @@ exports.auth = async (req, res) => {
     );
 
     user.password = null;
-    return res.status(200).json({
-      status: 200,
-      user,
-      token,
-      refreshToken,
-    });
+    return res
+      .cookie("token", token, { httpOnly: false })
+      .cookie("refresh_token", refreshToken, { httpOnly: false })
+      .status(200)
+      .json({
+        status: 200,
+        user,
+      });
   } catch (e) {
     handleError(e, res);
   }
@@ -77,9 +79,9 @@ exports.refresh = async (req, res) => {
     const token = jwt.sign({ email, roles, name }, TOKEN_SECRET, {
       expiresIn: jwtConfig.TOKEN_EXP,
     });
-    return res.status(200).json({
+
+    return res.cookie("token", token, { httpOnly: true }).status(200).json({
       status: 200,
-      token,
     });
   } catch (e) {
     handleError(e, res);

@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import SideBar from "components/SideBar/SideBar";
+import { loggedIn, notLoggedIn } from "./components/SideBar/items";
+
 import Footer from "components/Footer/Footer";
 
 import Home from "views/Home/Home";
@@ -20,12 +22,17 @@ import CourseDetail from "views/Course/CourseDetail/CourseDetail";
 import CourseNew from "views/Course/CourseNew/CourseNew";
 import CourseEdit from "views/Course/CourseEdit/CourseEdit";
 
+import { context } from "store/store";
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
+  const [state, dispatch] = useContext(context);
+  const { isLoggedIn } = state;
+
   return (
     <Router>
-      <SideBar />
+      <SideBar items={isLoggedIn ? loggedIn : notLoggedIn} />
 
       <Switch>
         <Route path="/quarentenales" component={Quarantine} />

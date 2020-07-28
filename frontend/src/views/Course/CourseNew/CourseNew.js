@@ -26,16 +26,16 @@ const CourseNew = ({ history }) => {
         <div className={styles.formContainer}>
           <form className={styles.form}>
             <div className={styles.formsSection}>
-              <Input label="Nome" type="text" />
+              <Input placeholder="Nome" type="text" required />
             </div>
             <div className={styles.formsSection}>
-              <Input label="Descrição" type="text" />
+              <Input placeholder="Descrição" type="text" required />
             </div>
             <div className={styles.formsSection}>
-              <Input label="Data de Início" type="text" />
+              <Input placeholder="Data de Início" type="text" required />
             </div>
             <div className={styles.formsSection}>
-              <Input label="Data de Término" type="text" />
+              <Input placeholder="Data de Término" type="text" required />
             </div>
             <div className={styles.formsSection}>
               <div className={styles.dropdownContainer}>

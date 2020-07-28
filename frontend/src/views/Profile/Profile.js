@@ -27,23 +27,23 @@ const Profile = ({ history }) => {
           <form className={styles.forms}>
             <div className={styles.formsSection}>
               <span>Dados Principais</span>
-              <Input label="Nome" type="text" />
-              <Input label="Email" type="text" />
-              <Input label="Telefone" type="text" />
+              <Input placeholder="Nome" type="text" required />
+              <Input placeholder="Email" type="text" required />
+              <Input placeholder="Telefone" type="text" required />
             </div>
             <div className={styles.formsSection}>
               <span>Dados Opcionais</span>
-              <Input label="Data de Nascimento" type="text" />
+              <Input placeholder="Data de Nascimento" type="text" />
               <div className={styles.dropdownContainer}>
                 <Dropdown name="gender" options={options} onSelect={setGender} />
               </div>
-              <Input label="Curso/Área de Trabalho" type="text" />
+              <Input placeholder="Curso/Área de Trabalho" type="text" />
             </div>
             <div className={styles.formsSection}>
               <span>Autenticação</span>
-              <Input label="Senha Atual" type="password" />
-              <Input label="Nova Senha" type="password" />
-              <Input label="Confirmação da Nova Senha" type="password" />
+              <Input placeholder="Senha Atual" type="password" required />
+              <Input placeholder="Nova Senha" type="password" required />
+              <Input placeholder="Confirmação da Nova Senha" type="password" required />
             </div>
           </form>
           <div className={styles.buttonsContainer}>

@@ -23,7 +23,7 @@ const ResetPassword = () => {
                 </p>
               </div>
               <div className={styles.inputContainer}>
-                <Input label="Email" type="text" />
+                <Input placeholder="Email" type="text" required />
               </div>
               <Button
                 text="Recuperar Senha"

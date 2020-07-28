@@ -25,8 +25,8 @@ const NewPassword = () => {
                 Defina uma nova senha para poder entrar no nosso site :)
               </div>
               <div className={styles.inputsContainer}>
-                <Input label="Nova Senha" type="password" />
-                <Input label="Nova Senha" type="password" />
+                <Input placeholder="Nova Senha" type="password" required />
+                <Input placeholder="Nova Senha" type="password" required />
               </div>
               <Button
                 text="Redefinir Senha"
