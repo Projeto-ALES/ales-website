@@ -4,21 +4,14 @@ const bcrypt = require("bcryptjs");
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
   },
   email: {
     type: String,
     unique: true,
-    required: true,
   },
   password: {
     type: String,
-    required: true,
     select: false,
-  },
-  roles: {
-    type: Array,
-    default: ["user"],
   },
   createdAt: {
     type: Date,
@@ -27,11 +20,9 @@ const UserSchema = new mongoose.Schema({
   passwordToken: {
     type: String,
     select: false,
-    default: null,
   },
   passwordTokenExp: {
     type: Date,
-    default: Date.now(),
     select: false,
   },
 });
@@ -40,9 +31,17 @@ UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     return next();
   }
-
   this.password = await bcrypt.hash(this.password, 10);
-  next();
+  return next();
+});
+
+UserSchema.pre("findOneAndUpdate", async function (next) {
+  let password = this.getUpdate().$set.password;
+  if (!password) {
+    return next();
+  }
+  this.getUpdate().$set.password = await bcrypt.hash(password, 10);
+  return next();
 });
 
 const User = mongoose.model("User", UserSchema);

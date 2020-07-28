@@ -1,11 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import routes from "routes/routes";
+
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 
 import { login } from "services/auth.service";
 import { context } from "store/store";
+import { types } from "store/types";
 
 import Container from "components/Container/Container";
 import Card from "components/Card/Card";
@@ -21,7 +24,7 @@ const Login = ({ history }) => {
 
   useEffect(() => {
     if (!Cookies.get("token")) {
-      dispatch({ type: "LOGOUT" });
+      dispatch({ type: types.LOGOUT });
     }
   }, []);
 
@@ -33,9 +36,10 @@ const Login = ({ history }) => {
     e.preventDefault();
     setIsLoading(true);
     login(email, password)
-      .then(() => {
-        history.push("/my-area");
-        dispatch({ type: "LOGIN" });
+      .then((response) => {
+        const { user } = response.data;
+        dispatch({ type: types.LOGIN, user });
+        history.push(routes.MY_AREA);
       })
       .catch((err) => {
         err.response && err.response.status === 401

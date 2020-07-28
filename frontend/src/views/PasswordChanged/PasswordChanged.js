@@ -1,5 +1,7 @@
 import React from "react";
 
+import routes from "routes/routes";
+
 import Container from "components/Container/Container";
 import Button from "components/Button/Button";
 
@@ -16,7 +18,7 @@ const PasswordChanged = ({ history }) => {
           <p>Agora é só entrar de novo no site com a nova senha \o/</p>
         </div>
         <div className={styles.buttonContainer}>
-          <Button text="Entrar" kind="success" onClick={() => history.push("/login")} />
+          <Button text="Entrar" kind="success" onClick={() => history.push(routes.LOGIN)} />
         </div>
       </Container>
     </div>

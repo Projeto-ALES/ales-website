@@ -54,6 +54,8 @@ services:
     ports:
       - "3000:3000"
       - "35729:35729"
+    env_file:
+      - .env/ui.env
     volumes:
       - ./frontend:/usr/src/app
       - /usr/src/app/node_modules

@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { check, validationResult } = require("express-validator");
 
+const AuthMiddleware = require("../middlewares/auth.middleware");
+
 const AuthService = require("../services/auth.service");
 const { handleError } = require("../helpers/error");
 const jwtConfig = require("../jwt");
@@ -39,18 +41,17 @@ router.post(
           message: "Invalid credentials",
         });
       }
-
       const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
       const token = jwt.sign(
-        { email: user.email, roles: user.roles, name: user.name },
+        { id: user._id, email: user.email, name: user.name },
         TOKEN_SECRET,
         {
           expiresIn: jwtConfig.TOKEN_EXP,
         }
       );
       const refreshToken = jwt.sign(
-        { email: user.email, roles: user.roles, name: user.name },
+        { id: user._id, email: user.email, name: user.name },
         REFRESH_TOKEN_SECRET,
         {
           expiresIn: jwtConfig.REFRESH_TOKEN_EXP,
@@ -71,19 +72,13 @@ router.post(
   }
 );
 
-router.post("/refresh-token", (req, res) => {
+router.post("/refresh-token", async (req, res) => {
   try {
-    const { cookie } = req.headers;
-    const rawCookies = cookie.split(";");
-    const parsedCookies = {};
+    const { refreshToken } = await AuthMiddleware.verifyAuth(
+      req.headers.cookie
+    );
 
-    rawCookies.forEach(rawCookie => {
-      const parsedCookie = rawCookie.split("=");
-      parsedCookies[parsedCookie[0].trim()] = parsedCookie[1];
-    });
-
-    const refresh_token = parsedCookies["refresh_token"];
-    if (!refresh_token) {
+    if (!refreshToken) {
       return res.status(400).json({
         status: 400,
         message: "Invalid refresh token",
@@ -92,13 +87,11 @@ router.post("/refresh-token", (req, res) => {
 
     const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
-    const { email, roles, name } = jwt.verify(
-      refresh_token,
-      REFRESH_TOKEN_SECRET
-    );
-    const token = jwt.sign({ email, roles, name }, TOKEN_SECRET, {
+    const { id, email, name } = jwt.verify(refreshToken, REFRESH_TOKEN_SECRET);
+    const token = jwt.sign({ id, email, name }, TOKEN_SECRET, {
       expiresIn: jwtConfig.TOKEN_EXP,
     });
+
     return res.cookie("token", token, { httpOnly: false }).status(200).json({
       status: 200,
     });

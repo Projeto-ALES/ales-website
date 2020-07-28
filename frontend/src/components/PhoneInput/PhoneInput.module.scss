@@ -1,0 +1,41 @@
+.phoneInputContainer {
+  position: relative;
+  margin: var(--spacing-medium) 0;
+  display: flex;
+  align-items: center;
+
+  .phoneInputAddon {
+    background: var(--gray-lighter);
+    height: 37px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--gray-light);
+    border-left: 1px solid var(--gray-light);
+    border-top: 1px solid var(--gray-light);
+    border-radius: 5px 0 0 5px;
+    color: var(--gray);
+    font-weight: 500;
+  }
+
+  .phoneInput {
+    height: 35px;
+    font-size: var(--font-normal);
+    width: 100%;
+    min-width: 125px;
+    border: 1px solid #eee;
+    border-left: 3px solid var(--gray-light);
+    border-radius: 0 5px 5px 0;
+    padding-left: 10px;
+    transition: border-color 0.5s ease-out;
+
+    &:required {
+      border-left-color: palegreen;
+    }
+
+    &:invalid {
+      border-left-color: salmon;
+    }
+  }
+}

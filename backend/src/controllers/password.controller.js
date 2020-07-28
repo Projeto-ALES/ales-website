@@ -3,10 +3,13 @@ const router = express.Router();
 
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
-const nodemailer = require("nodemailer");
 const { check, validationResult } = require("express-validator");
 
+const AuthMiddleware = require("../middlewares/auth.middleware");
+
 const AuthService = require("../services/auth.service");
+const MailService = require("../services/mail.service");
+
 const { handleError } = require("../helpers/error");
 
 router.post(
@@ -33,14 +36,14 @@ router.post(
     }
 
     try {
+      await AuthMiddleware.verifyAuth(req.headers.cookie);
+
       const { id } = req.params;
       const { password, new_password, new_password_conf } = req.body;
+
       const user = await AuthService.getUserWithPassword({ _id: id });
       if (!user) {
-        return res.status(404).json({
-          status: 404,
-          message: "User not found",
-        });
+        throw new ErrorHandler(404, "User not found");
       }
 
       if (!bcrypt.compareSync(password, user.password)) {
@@ -79,14 +82,12 @@ router.post(
     }
 
     try {
+      await AuthMiddleware.verifyAuth(req.headers.cookie);
+
       const { email } = req.body;
       const user = await AuthService.getUserWithPasswordToken({ email });
-
       if (!user) {
-        return res.status(404).json({
-          status: 404,
-          message: "User not found with the given email",
-        });
+        throw new ErrorHandler(404, "User not found");
       }
 
       const token = crypto.randomBytes(20).toString("hex");
@@ -94,25 +95,11 @@ router.post(
       user.passwordTokenExp = Date.now() + 3600000;
       user.save();
 
-      const { EMAIL_USER, EMAIL_PASSWORD } = process.env;
-
-      const transporter = nodemailer.createTransport({
-        host: "smtp.mailtrap.io",
-        port: 2525,
-        auth: {
-          user: EMAIL_USER,
-          pass: EMAIL_PASSWORD,
-        },
-      });
-
-      const mail = {
-        from: "projetoales@gmail.com",
+      const processing = await MailService.sendEmail({
         to: email,
-        subject: "Reset Password Yeah",
+        subject: "Reset Password",
         text: `Access http://localhost:3000/new-password/${token}`,
-      };
-
-      const processing = await transporter.sendMail(mail);
+      });
       return res.status(200).json({
         status: 200,
         message: "Token generated and successfully sent to the given email",
@@ -159,10 +146,7 @@ router.post(
         passwordToken: token,
       });
       if (!user) {
-        return res.status(400).json({
-          status: 400,
-          message: "Invalid token",
-        });
+        throw new ErrorHandler(404, "User not found");
       }
 
       if (Date.parse(user.passwordTokenExp) < Date.now()) {

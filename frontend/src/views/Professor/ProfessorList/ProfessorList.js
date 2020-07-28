@@ -1,23 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
+import routes from "routes/routes";
+
+import { list } from "services/professor.service";
 
 import Container from "components/Container/Container";
 import Button from "components/Button/Button";
+import Loader from "components/Loader/Loader";
 import MaterialTable from "material-table";
+import { toast } from "react-toastify";
 
 import styles from "./ProfessorList.module.scss";
 
 const ProfessorList = ({ history }) => {
-  const data = [
-    { name: "Victor", email: "victor@gmail.com" },
-    { name: "Henrique", email: "henrique@gmail.com" },
-    { name: "Ellen", email: "ellen@gmail.com" },
-    { name: "Victor", email: "victor@gmail.com" },
-    { name: "Henrique", email: "henrique@gmail.com" },
-    { name: "Ellen", email: "ellen@gmail.com" },
-    { name: "Victor", email: "victor@gmail.com" },
-    { name: "Henrique", email: "henrique@gmail.com" },
-    { name: "Ellen", email: "ellen@gmail.com" },
-  ];
+  const [professors, setProfessors] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const getProfessors = () => {
+      setIsLoading(true);
+      list()
+        .then((response) => {
+          const { professors } = response.data;
+          setProfessors(professors);
+        })
+        .catch((err) => {
+          toast.error("Ops! Aconteceu algum erro para listar os professores");
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    };
+    getProfessors();
+  }, []);
 
   return (
     <div className={styles.professorListContainer}>
@@ -25,55 +40,64 @@ const ProfessorList = ({ history }) => {
         <div className={styles.professorListTitle}>
           <h2>Professores</h2>
         </div>
-        <div className={styles.contentContainer}>
-          <div className={styles.tableContainer}>
-            <MaterialTable
-              style={{ padding: `0 3%`, color: "#263238" }}
-              columns={[
-                { title: "Nome", field: "name" },
-                { title: "Email", field: "email" },
-              ]}
-              data={data}
-              title="Professores"
-              actions={[
-                {
-                  icon: "account_circle",
-                  tooltip: "Edit User",
-                  onClick: (event, rowData) => alert("You want to edit " + rowData.name),
-                },
-              ]}
-              localization={{
-                pagination: {
-                  labelDisplayedRows: "{from}-{to} de {count}",
-                },
-                header: {
-                  actions: "Ações",
-                },
-                toolbar: {
-                  searchPlaceholder: "Buscar",
-                },
-                body: {
-                  emptyDataSourceMessage: "Nenhum dado para mostrar",
-                  filterRow: {
-                    filterTooltip: "Filtrar",
+        {isLoading ? (
+          <div className={styles.loaderContainer}>
+            <Loader />
+          </div>
+        ) : (
+          <div className={styles.contentContainer}>
+            <div className={styles.tableContainer}>
+              <MaterialTable
+                style={{ padding: `0 3%`, color: "#263238" }}
+                columns={[
+                  { title: "Nome", field: "name" },
+                  { title: "Email", field: "email" },
+                ]}
+                data={professors}
+                title="Professores"
+                actions={[
+                  {
+                    icon: "account_circle",
+                    tooltip: "Detalhes dx Professorx",
+                    onClick: (event, rowData) => alert("You want to edit " + rowData.name),
                   },
-                },
-                pagination: {
-                  labelRowsSelect: "Itens",
-                  labelDisplayedRows: "{from}-{to} de {count}",
-                },
-              }}
-            />
+                ]}
+                options={{
+                  pageSize: 10,
+                }}
+                localization={{
+                  pagination: {
+                    labelDisplayedRows: "{from}-{to} de {count}",
+                  },
+                  header: {
+                    actions: "Ações",
+                  },
+                  toolbar: {
+                    searchPlaceholder: "Buscar",
+                  },
+                  body: {
+                    emptyDataSourceMessage: "Nenhumx professorx cadastradx",
+                    filterRow: {
+                      filterTooltip: "Filtrar",
+                    },
+                  },
+                  pagination: {
+                    labelRowsSelect: "Itens",
+                    labelDisplayedRows: "{from}-{to} de {count}",
+                  },
+                }}
+              />
+            </div>
+            <div className={styles.buttonsContainer}>
+              <Button text="Voltar" onClick={() => history.goBack()} />
+              <Button
+                kind="success"
+                text="Adicionar"
+                onClick={() => history.push(routes.PROFESSOR_INVITE)}
+              />
+            </div>
           </div>
-          <div className={styles.buttonsContainer}>
-            <Button text="Voltar" onClick={() => history.goBack()} />
-            <Button
-              kind="success"
-              text="Adicionar"
-              onClick={() => history.push("/professors/new")}
-            />
-          </div>
-        </div>
+        )}
       </Container>
     </div>
   );

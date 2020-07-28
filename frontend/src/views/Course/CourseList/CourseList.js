@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import routes from "routes/routes";
+
 import Container from "components/Container/Container";
 import Card from "components/Card/Card";
 import Button from "components/Button/Button";
@@ -37,7 +39,7 @@ const CourseList = ({ history }) => {
         </div>
         <div className={styles.buttonsContainer}>
           <Button text="Voltar" onClick={() => history.goBack()} />
-          <Button kind="success" text="Adicionar" onClick={() => history.push("/courses/new")} />
+          <Button kind="success" text="Adicionar" onClick={() => history.push(routes.COURSE_NEW)} />
         </div>
       </Container>
     </div>

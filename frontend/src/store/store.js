@@ -3,6 +3,11 @@ import { reducer } from "./reducer";
 
 const initialState = {
   isLoggedIn: false,
+  user: {
+    id: "",
+    name: "",
+    email: "",
+  },
 };
 
 const context = createContext(initialState);
