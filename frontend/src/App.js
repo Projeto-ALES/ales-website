@@ -45,6 +45,7 @@ function App() {
         <SideBar items={isLoggedIn ? loggedIn : notLoggedIn} />
         {router}
       </Router>
+      <Footer />
     </>
   );
 }
