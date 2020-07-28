@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import routes from "routes/routes";
 
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import Cookies from "js-cookie";
 
 import { login } from "services/auth.service";
