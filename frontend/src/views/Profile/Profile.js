@@ -29,6 +29,12 @@ const Profile = ({ history, match }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [newPasswordConf, setNewPasswordConf] = useState("");
+
+  const [authIsOpen, setAuthIsOpen] = useState(false);
+
   const options = [
     { id: 1, value: "Gender", text: "Escolha um gênero", selected: true, disabled: true },
     { id: 2, value: "M", text: "M", selected: false, disabled: false },
@@ -148,7 +154,7 @@ const Profile = ({ history, match }) => {
                   <Button
                     text="Voltar"
                     type="button"
-                    kind="primary"
+                    kind="tertiary"
                     onClick={() => history.goBack()}
                   />
                   <Button
@@ -159,6 +165,40 @@ const Profile = ({ history, match }) => {
                     disabled={isSubmitting}
                   />
                 </div>
+              </div>
+            </form>
+            <form className={styles.forms}>
+              <div className={styles.authFormsContent}>
+                <div className={styles.formsSection}>
+                  <span>Autenticação</span>
+                  <Input
+                    placeholder="Senha Atual"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                  <Input
+                    placeholder="Nova Senha"
+                    type="password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    required
+                  />
+                  <Input
+                    placeholder="Confirmação da Nova Senha"
+                    type="password"
+                    value={newPasswordConf}
+                    onChange={(e) => setNewPasswordConf(e.target.value)}
+                    required
+                  />
+                </div>
+                <Button
+                  text="Atualizar senha"
+                  type="button"
+                  kind="primary"
+                  onClick={() => setAuthIsOpen((state) => !state)}
+                />
               </div>
             </form>
           </div>
