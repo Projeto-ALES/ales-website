@@ -20,12 +20,13 @@ import Alessauro from "assets/logos/alessauro.svg";
 import styles from "./Login.module.scss";
 
 const Login = ({ history }) => {
-  const [state, dispatch] = useContext(context);
+  const dispatch = useContext(context)[1];
 
   useEffect(() => {
     if (!Cookies.get("token")) {
       dispatch({ type: types.LOGOUT });
     }
+    // eslint-disable-next-line
   }, []);
 
   const [email, setEmail] = useState("");

@@ -7,7 +7,7 @@ const notLoggedIn = [
 ];
 
 const loggedIn = [
-  { id: 1, text: "Minha Área", icon: "fas fa-home", to: "/my-area" },
+  { id: 1, text: "Dashboard", icon: "fas fa-home", to: "/my-area" },
   {
     id: 2,
     text: "Matérias",

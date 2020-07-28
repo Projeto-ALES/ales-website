@@ -6,7 +6,7 @@ import routes from "./routes";
 import { context } from "store/store";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const [state, dispatch] = useContext(context);
+  const [state] = useContext(context);
 
   return (
     <Route

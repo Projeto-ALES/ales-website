@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 import styles from "./Profile.module.scss";
 
 const Profile = ({ history, match }) => {
-  const [state, dispatch] = useContext(context);
+  const dispatch = useContext(context)[1];
   const { id } = match.params;
 
   const [name, setName] = useState("");
@@ -49,7 +49,7 @@ const Profile = ({ history, match }) => {
           setGender(gender);
           setArea(area);
         })
-        .catch((err) => {
+        .catch(() => {
           toast.error("Ops! Aconteceu algum erro para retornar os dados");
         })
         .finally(() => {
@@ -57,7 +57,7 @@ const Profile = ({ history, match }) => {
         });
     };
     getProfessor(id);
-  }, []);
+  }, [id]);
 
   const submitUpdate = (e, id, data) => {
     e.preventDefault();
@@ -70,7 +70,7 @@ const Profile = ({ history, match }) => {
         history.push(routes.MY_AREA);
         toast.success("Dados atualizados!");
       })
-      .catch((err) => {
+      .catch(() => {
         toast.error("Ops! Aconteceu algum erro na hora de atualizar seus dados");
         setIsSubmitting(false);
       });

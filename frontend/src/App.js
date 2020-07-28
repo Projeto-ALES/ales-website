@@ -29,6 +29,7 @@ function App() {
         });
     };
     getMe();
+    // eslint-disable-next-line
   }, []);
 
   return (

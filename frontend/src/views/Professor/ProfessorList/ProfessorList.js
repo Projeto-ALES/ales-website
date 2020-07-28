@@ -67,6 +67,7 @@ const ProfessorList = ({ history }) => {
                 }}
                 localization={{
                   pagination: {
+                    labelRowsSelect: "Itens",
                     labelDisplayedRows: "{from}-{to} de {count}",
                   },
                   header: {
@@ -80,10 +81,6 @@ const ProfessorList = ({ history }) => {
                     filterRow: {
                       filterTooltip: "Filtrar",
                     },
-                  },
-                  pagination: {
-                    labelRowsSelect: "Itens",
-                    labelDisplayedRows: "{from}-{to} de {count}",
                   },
                 }}
               />

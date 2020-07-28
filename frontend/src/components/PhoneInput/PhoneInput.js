@@ -3,10 +3,6 @@ import React from "react";
 import styles from "./PhoneInput.module.scss";
 
 const PhoneInput = ({ placeholder, onChange, value, required }) => {
-  const matchValue = (value) => {
-    return value.match();
-  };
-
   return (
     <div className={styles.phoneInputContainer}>
       <span className={styles.phoneInputAddon}>+55</span>
