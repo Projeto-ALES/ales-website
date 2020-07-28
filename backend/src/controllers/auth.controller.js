@@ -56,7 +56,6 @@ router.post(
           expiresIn: jwtConfig.REFRESH_TOKEN_EXP,
         }
       );
-
       user.password = null;
       return res
         .cookie("token", token, { httpOnly: false })
@@ -100,7 +99,6 @@ router.post("/refresh-token", (req, res) => {
     const token = jwt.sign({ email, roles, name }, TOKEN_SECRET, {
       expiresIn: jwtConfig.TOKEN_EXP,
     });
-
     return res.cookie("token", token, { httpOnly: false }).status(200).json({
       status: 200,
     });
