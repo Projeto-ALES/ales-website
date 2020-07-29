@@ -56,8 +56,10 @@ const Profile = ({ history, match }) => {
           setGender(gender);
           setArea(area);
         })
-        .catch(() => {
-          toast.error("Ops! Aconteceu algum erro para retornar os dados");
+        .catch((err) => {
+          if (err.response.data.status !== 401) {
+            toast.error("Ops! Aconteceu algum erro para retornar os dados");
+          }
         })
         .finally(() => {
           setIsLoading(false);

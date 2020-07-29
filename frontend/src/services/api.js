@@ -1,8 +1,43 @@
 import axios from "axios";
 
+import { logout } from "services/auth.service";
+
 const { REACT_APP_API_URL } = process.env;
 
-export default axios.create({
+const api = axios.create({
   baseURL: REACT_APP_API_URL,
   responseType: "json",
+  withCredentials: true,
 });
+
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response.data.status !== 401) {
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+    const originalRequest = error.config;
+    if (error.response.data.message === "jwt expired") {
+      if (originalRequest.url !== "/refresh-token") {
+        return new Promise((resolve, reject) => {
+          api
+            .post("/refresh-token", { withCredentials: true })
+            .then(() => {
+              return resolve(axios(originalRequest));
+            })
+            .catch((err) => {
+              reject(err);
+            });
+        });
+      } else {
+        logout({ error: true });
+      }
+    }
+  }
+);
+
+export default api;
