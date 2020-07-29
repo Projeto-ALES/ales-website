@@ -74,16 +74,8 @@ router.post(
 
 router.post("/refresh-token", async (req, res) => {
   try {
-    const { refreshToken } = await AuthMiddleware.verifyAuth(
-      req.headers.cookie
-    );
-
-    if (!refreshToken) {
-      return res.status(400).json({
-        status: 400,
-        message: "Invalid refresh token",
-      });
-    }
+    const { cookie } = req.headers;
+    const refreshToken = await AuthMiddleware.verifyRefreshToken(cookie);
 
     const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
