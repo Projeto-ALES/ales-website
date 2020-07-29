@@ -22,14 +22,16 @@ const Login = ({ history, location }) => {
   const dispatch = useContext(context)[1];
 
   useEffect(() => {
-    const { logout, error } = location.state;
-    if (logout) {
-      dispatch({ type: types.LOGOUT });
+    if (location && location.state) {
+      if (location.state.logout) {
+        dispatch({ type: types.LOGOUT });
 
-      if (error) {
-        toast.info("Sua sessão expirou. Faça login novamente");
+        if (location.state.error) {
+          toast.info("Sua sessão expirou. Faça login novamente");
+        }
       }
     }
+    // eslint-disable-next-line
   }, [location]);
 
   const [email, setEmail] = useState("");

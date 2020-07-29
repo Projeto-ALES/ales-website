@@ -91,7 +91,7 @@
 
     .buttonsContainer {
       display: flex;
-      justify-content: start;
+      justify-content: flex-start;
 
       @include desktop {
         justify-content: flex-start;
