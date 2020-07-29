@@ -100,6 +100,7 @@ All decisions related with user requirements and needs are made on the design pr
   - EMAIL_USER={email-user}
   - EMAIL_PASSWORD={email-password}
 
+  - PORT={port}
   - UI_URL={ui_url}
 
 - `ui.env`

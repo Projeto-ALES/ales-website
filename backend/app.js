@@ -1,5 +1,6 @@
 const express = require("express");
 var cors = require("cors");
+const rateLimit = require("express-rate-limit");
 const connectDb = require("./src/mongo");
 
 // controllers
@@ -11,15 +12,21 @@ const passwordRouter = require("./src/controllers/password.controller");
 const { handleError } = require("./src/helpers/error");
 
 const app = express();
-const port = 8000;
+
+const { UI_URL, PORT } = process.env;
+const port = PORT;
 const basePath = "/api";
-const { UI_URL } = process.env;
 
 app.use(cors({ credentials: true, origin: UI_URL }));
 
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
-
 app.use(express.json());
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 150,
+});
+
+app.use(limiter);
 
 connectDb().then(() => {
   console.log("Database connected");
