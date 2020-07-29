@@ -59,8 +59,8 @@ router.post(
       );
       user.password = null;
       return res
-        .cookie("token", token, { httpOnly: false })
-        .cookie("refresh_token", refreshToken, { httpOnly: false })
+        .cookie("token", token, { httpOnly: true })
+        .cookie("refresh_token", refreshToken, { httpOnly: true })
         .status(200)
         .json({
           status: 200,
@@ -84,7 +84,7 @@ router.post("/refresh-token", async (req, res) => {
       expiresIn: jwtConfig.TOKEN_EXP,
     });
 
-    return res.cookie("token", token, { httpOnly: false }).status(200).json({
+    return res.cookie("token", token, { httpOnly: true }).status(200).json({
       status: 200,
     });
   } catch (e) {
