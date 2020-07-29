@@ -28,3 +28,11 @@ export const newPassword = async (new_password, new_password_conf, token) => {
     { withCredentials: true }
   );
 };
+
+export const updatePassword = async (id, password, new_password, new_password_conf) => {
+  return await api.post(
+    `/update-password/${id}`,
+    { password, new_password, new_password_conf },
+    { withCredentials: true }
+  );
+};

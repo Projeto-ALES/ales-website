@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import routes from "routes/routes";
 
 import { get, update } from "services/professor.service";
+import { updatePassword } from "services/auth.service";
 import { context } from "store/store";
 import { types } from "store/types";
 
@@ -33,7 +34,7 @@ const Profile = ({ history, match }) => {
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordConf, setNewPasswordConf] = useState("");
 
-  const [authIsOpen, setAuthIsOpen] = useState(false);
+  const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
 
   const options = [
     { id: 1, value: "Gender", text: "Escolha um gênero", selected: true, disabled: true },
@@ -79,6 +80,32 @@ const Profile = ({ history, match }) => {
       .catch(() => {
         toast.error("Ops! Aconteceu algum erro na hora de atualizar seus dados");
         setIsSubmitting(false);
+      });
+  };
+
+  const submitPasswordUpdate = (e, id, data) => {
+    e.preventDefault();
+    setIsUpdatingPassword(true);
+
+    const { password, newPassword, newPasswordConf } = data;
+    if (newPassword !== newPasswordConf) {
+      setIsUpdatingPassword(false);
+      toast.error("A nova senha e sua confirmação estão diferentes");
+      return;
+    }
+
+    updatePassword(id, password, newPassword, newPasswordConf)
+      .then(() => {
+        toast.success("Senha atualizada!");
+      })
+      .catch(() => {
+        toast.error("Ops! Aconteceu algum erro. Tem certeza que digitou a senha correta?");
+      })
+      .finally(() => {
+        setIsUpdatingPassword(false);
+        setPassword("");
+        setNewPassword("");
+        setNewPasswordConf("");
       });
   };
 
@@ -163,11 +190,17 @@ const Profile = ({ history, match }) => {
                     kind="success"
                     isLoading={isSubmitting}
                     disabled={isSubmitting}
+                    width="140px"
                   />
                 </div>
               </div>
             </form>
-            <form className={styles.forms}>
+            <form
+              className={styles.forms}
+              onSubmit={(e) =>
+                submitPasswordUpdate(e, id, { password, newPassword, newPasswordConf })
+              }
+            >
               <div className={styles.authFormsContent}>
                 <div className={styles.formsSection}>
                   <span>Autenticação</span>
@@ -192,13 +225,17 @@ const Profile = ({ history, match }) => {
                     onChange={(e) => setNewPasswordConf(e.target.value)}
                     required
                   />
+                  <div className={styles.buttonContainer}>
+                    <Button
+                      text="Atualizar senha"
+                      type="submit"
+                      kind="primary"
+                      isLoading={isUpdatingPassword}
+                      disabled={isUpdatingPassword}
+                      width="180px"
+                    />
+                  </div>
                 </div>
-                <Button
-                  text="Atualizar senha"
-                  type="button"
-                  kind="primary"
-                  onClick={() => setAuthIsOpen((state) => !state)}
-                />
               </div>
             </form>
           </div>

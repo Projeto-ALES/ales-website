@@ -48,6 +48,13 @@
       .authFormsContent {
         width: 100%;
         margin-bottom: var(--spacing-huge);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @include desktop {
+          align-items: flex-start;
+        }
       }
 
       .formsSection {
@@ -73,6 +80,12 @@
         &:nth-child(3) {
           margin-top: 0;
         }
+
+        .buttonContainer {
+          display: flex;
+          justify-content: flex-start;
+          margin-top: var(--spacing-large);
+        }
       }
     }
 
@@ -85,11 +98,10 @@
       }
 
       button {
-        margin: var(--spacing-base) var(--spacing-huge) 0 0;
+        margin-right: 0;
 
-        &:last-of-type {
-          width: 140px;
-          margin-right: 0;
+        &:first-of-type {
+          margin-right: var(--spacing-huge);
         }
       }
     }
