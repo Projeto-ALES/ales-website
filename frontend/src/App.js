@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Router } from "react-router-dom";
 import router from "routes/router";
+import history from "routes/history";
 
 import { me } from "services/user.service";
 
@@ -13,7 +14,7 @@ import { loggedIn, notLoggedIn } from "./components/SideBar/items";
 import { context } from "store/store";
 import { types } from "store/types";
 
-function App() {
+const App = () => {
   const [state, dispatch] = useContext(context);
   const { isLoggedIn } = state;
 
@@ -42,13 +43,13 @@ function App() {
         draggable
         pauseOnHover
       />
-      <Router>
+      <Router history={history}>
         <SideBar items={isLoggedIn ? loggedIn : notLoggedIn} />
         {router}
       </Router>
       <Footer />
     </>
   );
-}
+};
 
 export default App;

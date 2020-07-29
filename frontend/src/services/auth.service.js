@@ -1,5 +1,6 @@
-import Cookies from "js-cookie";
 import api from "./api";
+import history from "routes/history";
+import routes from "routes/routes";
 
 export const login = async (email, password) => {
   return await api.post(
@@ -12,9 +13,8 @@ export const login = async (email, password) => {
   );
 };
 
-export const logout = async () => {
-  Cookies.remove("token");
-  Cookies.remove("refresh_token");
+export const logout = (error = false) => {
+  history.push({ pathname: routes.LOGIN, state: { logout: true, error: error } });
 };
 
 export const resetPassword = async (email) => {
