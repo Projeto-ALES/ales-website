@@ -8,6 +8,7 @@ const userRouter = require("./src/controllers/user.controller");
 const professorRouter = require("./src/controllers/professor.controller");
 const authRouter = require("./src/controllers/auth.controller");
 const passwordRouter = require("./src/controllers/password.controller");
+const mailRouter = require("./src/controllers/mail.controller");
 
 const { handleError } = require("./src/helpers/error");
 
@@ -40,6 +41,7 @@ app.use(basePath, userRouter);
 app.use(basePath, professorRouter);
 app.use(basePath, authRouter);
 app.use(basePath, passwordRouter);
+app.use(basePath, mailRouter);
 
 app.use((err, req, res, next) => {
   handleError(err, res);
