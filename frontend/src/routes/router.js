@@ -6,6 +6,7 @@ import PrivateRoute from "./PrivateRoute";
 
 import Home from "views/Home/Home";
 import Login from "views/Login/Login";
+import Contact from "views/Contact/Contact";
 
 import MyArea from "views/MyArea/MyArea";
 import Profile from "views/Profile/Profile";
@@ -29,6 +30,7 @@ import Quarantine from "views/Quarantine/Quarantine";
 const router = (
   <Switch>
     <Route path={routes.LOGIN} component={Login} />
+    <Route path={routes.CONTACT} component={Contact} />
 
     <PrivateRoute path={routes.MY_AREA_ID} component={Profile} />
     <PrivateRoute path={routes.MY_AREA} component={MyArea} />

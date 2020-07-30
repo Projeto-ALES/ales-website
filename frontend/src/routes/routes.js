@@ -1,6 +1,7 @@
 const routes = {
   HOME: "/",
   LOGIN: "/login",
+  CONTACT: "/contact",
 
   MY_AREA: "/my-area",
   MY_AREA_ID: "/my-area/:id",
