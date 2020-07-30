@@ -2,6 +2,7 @@ import React from "react";
 
 import Card from "components/Card/Card";
 import Input from "components/Input/Input";
+import TextArea from "components/TextArea/TextArea";
 import Button from "components/Button/Button";
 
 import styles from "./Contact.module.scss";
@@ -33,7 +34,7 @@ const Contact = () => {
           <div className={styles.formContent}>
             <Input placeholder="Nome" required />
             <Input placeholder="Email" required />
-            <Input placeholder="Mensagem" required />
+            <TextArea placeholder="Mensagem" rows={4} required />
           </div>
           <Button text="Enviar" width="200px" />
         </form>
