@@ -25,7 +25,7 @@ const ProfessorList = ({ history }) => {
           setProfessors(professors);
         })
         .catch((err) => {
-          if (err.response.data.status !== 401) {
+          if (err.response && err.response.status !== 401) {
             toast.error("Ops! Aconteceu algum erro para listar os professores");
           }
         })

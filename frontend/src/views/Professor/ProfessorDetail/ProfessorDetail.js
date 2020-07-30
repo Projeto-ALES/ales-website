@@ -35,7 +35,7 @@ const ProfessorDetail = ({ history, match }) => {
           setArea(area);
         })
         .catch((err) => {
-          if (err.response.data.status !== 401) {
+          if (err.response && err.response.status !== 401) {
             toast.error("Ops! Aconteceu algum erro para retornar os dados");
           }
         })
