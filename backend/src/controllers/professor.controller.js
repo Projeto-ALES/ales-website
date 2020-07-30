@@ -202,7 +202,9 @@ router.post(
         });
       }
 
+      const { EMAIL_FROM } = process.env;
       const processing = await MailService.sendEmail({
+        from: EMAIL_FROM,
         to: email,
         subject: "Invite from Projeto ALES",
         text: `Access http://localhost:3000/professors/enroll/${inviteToken}`,

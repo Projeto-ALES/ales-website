@@ -95,7 +95,9 @@ router.post(
       user.passwordTokenExp = Date.now() + 3600000;
       user.save();
 
+      const { EMAIL_FROM } = process.env;
       const processing = await MailService.sendEmail({
+        from: EMAIL_FROM,
         to: email,
         subject: "Reset Password",
         text: `Access http://localhost:3000/new-password/${token}`,
