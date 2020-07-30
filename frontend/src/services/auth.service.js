@@ -9,8 +9,9 @@ export const login = async (email, password) => {
   });
 };
 
-export const logout = (error = false) => {
-  history.push({ pathname: routes.LOGIN, state: { logout: true, error: error } });
+export const logout = async (error = false) => {
+  history.push({ pathname: routes.LOGIN, state: { logout: true, error } });
+  await api.post("/logout");
 };
 
 export const resetPassword = async (email) => {

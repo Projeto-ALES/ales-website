@@ -39,7 +39,7 @@ exports.verifyRefreshToken = async cookie => {
 
   jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, decoded) => {
     if (err) {
-      throw new ErrorHandler(401, err.message);
+      throw new ErrorHandler(401, err.message, true);
     }
   });
 

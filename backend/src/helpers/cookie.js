@@ -9,3 +9,9 @@ exports.parseCookie = async cookie => {
 
   return parsedCookies;
 };
+
+exports.clearCookies = res => {
+  res.clearCookie("token");
+  res.clearCookie("refresh_token");
+  return res;
+};

@@ -21,11 +21,11 @@ api.interceptors.response.use(
       });
     }
     const originalRequest = error.config;
-    if (error.response.data.message === "jwt expired") {
+    if (error.response && error.response.data && error.response.data.message === "jwt expired") {
       if (originalRequest.url !== "/refresh-token") {
         return new Promise((resolve, reject) => {
           api
-            .post("/refresh-token", { withCredentials: true })
+            .post("/refresh-token")
             .then(() => {
               return resolve(axios(originalRequest));
             })
@@ -34,7 +34,7 @@ api.interceptors.response.use(
             });
         });
       } else {
-        logout({ error: true });
+        logout(true);
       }
     }
   }

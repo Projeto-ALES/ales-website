@@ -9,6 +9,7 @@ const AuthMiddleware = require("../middlewares/auth.middleware");
 
 const AuthService = require("../services/auth.service");
 const { handleError } = require("../helpers/error");
+const { clearCookies } = require("../helpers/cookie");
 const jwtConfig = require("../jwt");
 
 router.post(
@@ -87,6 +88,17 @@ router.post("/refresh-token", async (req, res) => {
     return res.cookie("token", token, { httpOnly: true }).status(200).json({
       status: 200,
     });
+  } catch (e) {
+    handleError(e, res);
+  }
+});
+
+router.post("/logout", async (req, res) => {
+  try {
+    await AuthMiddleware.verifyAuth(req.headers.cookie);
+    await clearCookies(res);
+
+    res.status(202).json({ status: 202 });
   } catch (e) {
     handleError(e, res);
   }
