@@ -12,6 +12,7 @@
     border-radius: 5px;
     padding-left: 10px;
     transition: border-color 0.5s ease-out;
+    box-sizing: border-box;
 
     &:required {
       border-left-color: palegreen;

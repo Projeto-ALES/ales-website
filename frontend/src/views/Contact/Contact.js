@@ -1,6 +1,8 @@
 import React from "react";
 
 import Card from "components/Card/Card";
+import Input from "components/Input/Input";
+import Button from "components/Button/Button";
 
 import styles from "./Contact.module.scss";
 import items from "./items";
@@ -24,6 +26,17 @@ const Contact = () => {
             </div>
           );
         })}
+      </div>
+      <div className={styles.formContainer}>
+        <h3>Mande uma mensagem!</h3>
+        <form className={styles.contactForm}>
+          <div className={styles.formContent}>
+            <Input placeholder="Nome" required />
+            <Input placeholder="Email" required />
+            <Input placeholder="Mensagem" required />
+          </div>
+          <Button text="Enviar" width="200px" />
+        </form>
       </div>
     </div>
   );
