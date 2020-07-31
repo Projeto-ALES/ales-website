@@ -23,27 +23,29 @@ const option = {
     timestamp: true,
   },
   console: {
-    level: 'debug',
+    level: "debug",
     handleExceptions: true,
     json: false,
     colorize: true,
     timestamp: true,
-  }
-}
+  },
+};
 
-const logFormat = winston.format.printf(({ message, timestamp }) => {
+const logFormat = winston.format.printf(({ message, timestamp, level }) => {
   return `${timestamp} ${level}: ${message}`;
 });
 
-const errorFormat = winston.format.printf(({ message, timestamp, meta }) => {
-  return `${timestamp} ${level} ${message} : ${meta.stack}`;
-});
+const errorFormat = winston.format.printf(
+  ({ message, timestamp, level, meta }) => {
+    return `${timestamp} ${level} ${message} : ${meta.stack}`;
+  }
+);
 
 const logger = expressWinston.logger({
   format: winston.format.combine(
     winston.format.colorize(),
     winston.format.timestamp(),
-    logFormat,
+    logFormat
   ),
   transports: [
     new winston.transports.File(option.combined),
@@ -57,11 +59,9 @@ const errorLogger = expressWinston.errorLogger({
   format: winston.format.combine(
     winston.format.colorize(),
     winston.format.timestamp(),
-    errorFormat,
+    errorFormat
   ),
-  transports: [
-    new winston.transports.File(option.error),
-  ],
+  transports: [new winston.transports.File(option.error)],
 });
 
 module.exports = {
