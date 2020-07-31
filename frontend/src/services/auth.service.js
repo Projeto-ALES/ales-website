@@ -3,10 +3,7 @@ import history from "routes/history";
 import routes from "routes/routes";
 
 export const login = async (email, password) => {
-  return await api.post("/login", {
-    email,
-    password,
-  });
+  return await api.post("/login", { email, password });
 };
 
 export const logout = async (error = false) => {

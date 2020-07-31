@@ -41,6 +41,7 @@ const Login = ({ history, location }) => {
   const submitLogin = async (e, email, password) => {
     e.preventDefault();
     setIsLoading(true);
+
     login(email, password)
       .then((response) => {
         const { user } = response.data;
