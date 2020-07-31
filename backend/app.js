@@ -3,6 +3,8 @@ var cors = require("cors");
 const rateLimit = require("express-rate-limit");
 const connectDb = require("./src/mongo");
 
+const { logger, errorLogger } = require("./src/logger");
+
 // controllers
 const userRouter = require("./src/controllers/user.controller");
 const professorRouter = require("./src/controllers/professor.controller");
@@ -17,6 +19,8 @@ const app = express();
 const { UI_URL, PORT } = process.env;
 const port = PORT;
 const basePath = "/api";
+
+app.use(logger);
 
 app.use(cors({ credentials: true, origin: UI_URL }));
 
@@ -42,6 +46,8 @@ app.use(basePath, professorRouter);
 app.use(basePath, authRouter);
 app.use(basePath, passwordRouter);
 app.use(basePath, mailRouter);
+
+app.use(errorLogger);
 
 app.use((err, req, res, next) => {
   handleError(err, res);

@@ -25,6 +25,7 @@ services:
     volumes:
       - ./backend:/usr/src/app
       - /usr/src/app/node_modules
+      - /usr/src/app/logs:/logs
     depends_on:
       - mongo
     restart: always
