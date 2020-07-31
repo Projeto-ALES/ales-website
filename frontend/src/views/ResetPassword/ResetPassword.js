@@ -53,7 +53,7 @@ const ResetPassword = ({ history }) => {
               <div className={styles.inputContainer}>
                 <Input
                   placeholder="Email"
-                  type="text"
+                  type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required

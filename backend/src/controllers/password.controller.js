@@ -82,8 +82,6 @@ router.post(
     }
 
     try {
-      await AuthMiddleware.verifyAuth(req.headers.cookie);
-
       const { email } = req.body;
       const user = await AuthService.getUserWithPasswordToken({ email });
       if (!user) {

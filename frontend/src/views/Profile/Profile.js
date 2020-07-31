@@ -75,7 +75,7 @@ const Profile = ({ history, match }) => {
     const { name, email } = data;
     update(id, data)
       .then(() => {
-        dispatch({ type: types.UPDATE, user: { name, email } });
+        dispatch({ type: types.UPDATE, user: { _id: id, name, email } });
         history.push(routes.MY_AREA);
         toast.success("Dados atualizados!");
       })
