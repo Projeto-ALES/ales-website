@@ -1,5 +1,8 @@
 import React from "react";
 
+import routes from "routes/routes";
+import history from "routes/history";
+
 import Container from "components/Container/Container";
 import Button from "components/Button/Button";
 
@@ -14,11 +17,11 @@ const Landing = () => {
           <h3>Aulas extracurriculares aos finais de semana e de graça! \o/</h3>
           <div className={styles.buttonsContainer}>
             <Button
-              text="Nossas Matérias"
+              text="Contato"
               kind="secondary"
-              onClick={() => alert("click nossas matérias")}
+              width="160px"
+              onClick={() => history.push(routes.CONTACT)}
             />
-            <Button text="Contato" kind="secondary" onClick={() => alert("click contato")} />
           </div>
         </div>
       </Container>
