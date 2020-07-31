@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { get } from "services/professor.service";
 
+import { phoneMask } from "helpers/masks";
+
 import Container from "components/Container/Container";
 import Button from "components/Button/Button";
 import Loader from "components/Loader/Loader";
@@ -29,7 +31,7 @@ const ProfessorDetail = ({ history, match }) => {
           const { name, email, phone, birthday, gender, area } = response.data.professor;
           setName(name);
           setEmail(email);
-          setPhone(phone);
+          setPhone(phoneMask(phone));
           setBirthday(birthday);
           setGender(gender);
           setArea(area);

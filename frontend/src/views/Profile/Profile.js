@@ -7,8 +7,11 @@ import { updatePassword } from "services/auth.service";
 import { context } from "store/store";
 import { types } from "store/types";
 
+import { phoneMask, formatPhone } from "helpers/masks";
+
 import Container from "components/Container/Container";
 import Input from "components/Input/Input";
+import PhoneInput from "components/PhoneInput/PhoneInput";
 import Button from "components/Button/Button";
 import Dropdown from "components/Dropdown/Dropdown";
 import Loader from "components/Loader/Loader";
@@ -51,7 +54,7 @@ const Profile = ({ history, match }) => {
           const { name, email, phone, birthday, gender, area } = response.data.professor;
           setName(name);
           setEmail(email);
-          setPhone(phone);
+          setPhone(phoneMask(phone));
           setBirthday(birthday);
           setGender(gender);
           setArea(area);
@@ -72,7 +75,9 @@ const Profile = ({ history, match }) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const { name, email } = data;
+    const { name, email, phone } = data;
+    data.phone = formatPhone(phone);
+
     update(id, data)
       .then(() => {
         dispatch({ type: types.UPDATE, user: { _id: id, name, email } });
@@ -152,12 +157,12 @@ const Profile = ({ history, match }) => {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
-                <Input
-                  placeholder="Telefone"
-                  type="text"
+                <PhoneInput
+                  placeholder="Telefone (99) 9XXXX-XXXX"
+                  onChange={(e) => setPhone(phoneMask(e.target.value))}
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
                   required
+                  min={11}
                 />
               </div>
               <div className={styles.formsSection}>

@@ -4,6 +4,8 @@ import routes from "routes/routes";
 
 import { enroll } from "services/professor.service";
 
+import { phoneMask, formatPhone } from "helpers/masks";
+
 import Container from "components/Container/Container";
 import Input from "components/Input/Input";
 import PhoneInput from "components/PhoneInput/PhoneInput";
@@ -40,6 +42,9 @@ const ProfessorEnroll = ({ history, match }) => {
       return;
     }
     setIsLoading(true);
+
+    const { phone } = data;
+    data.phone = formatPhone(phone);
 
     enroll(data)
       .then(() => {
@@ -94,10 +99,11 @@ const ProfessorEnroll = ({ history, match }) => {
                 required
               />
               <PhoneInput
-                placeholder="Telefone"
-                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Telefone (99) 9XXXX-XXXX"
+                onChange={(e) => setPhone(phoneMask(e.target.value))}
                 value={phone}
                 required
+                min={11}
               />
             </div>
             <div className={styles.formsSection}>
