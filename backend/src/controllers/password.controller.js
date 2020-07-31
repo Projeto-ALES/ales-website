@@ -95,12 +95,12 @@ router.post(
       user.passwordTokenExp = Date.now() + 3600000;
       user.save();
 
-      const { EMAIL_FROM } = process.env;
+      const { EMAIL_FROM, DOMAIN } = process.env;
       const processing = await MailService.sendEmail({
         from: EMAIL_FROM,
         to: email,
-        subject: "Reset Password",
-        text: `Access http://localhost:3000/new-password/${token}`,
+        subject: "[ALES] Reset da senha",
+        html: `<span>Olá! Você solicitou o cadastro de uma nova senha</span><br><span>Acesse <a href="${DOMAIN}/new-password/${token}" target="_blank">este link</a> para cadastrar uma nova.</span>`,
       });
       return res.status(200).json({
         status: 200,
