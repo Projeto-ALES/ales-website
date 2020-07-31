@@ -10,7 +10,7 @@ const AuthMiddleware = require("../middlewares/auth.middleware");
 const AuthService = require("../services/auth.service");
 const MailService = require("../services/mail.service");
 
-const { handleError } = require("../helpers/error");
+const { handleError, ErrorHandler } = require("../helpers/error");
 
 router.post(
   "/update-password/:id",
@@ -47,17 +47,14 @@ router.post(
       }
 
       if (!bcrypt.compareSync(password, user.password)) {
-        return res.status(401).json({
-          status: 401,
-          message: "Invalid password",
-        });
+        throw new ErrorHandler(401, "Invalid password");
       }
 
       if (new_password !== new_password_conf) {
-        return res.status(400).json({
-          status: 400,
-          message: "New password and its confirmation are different",
-        });
+        throw new ErrorHandler(
+          401,
+          "New password and its confirmation are different"
+        );
       }
 
       user.password = new_password;
@@ -136,10 +133,10 @@ router.post(
     try {
       const { token, new_password, new_password_conf } = req.body;
       if (new_password !== new_password_conf) {
-        return res.status(400).json({
-          status: 400,
-          message: "New password and its confirmation are different",
-        });
+        throw new ErrorHandler(
+          400,
+          "New password and its confirmation are different"
+        );
       }
 
       const user = await AuthService.getUserWithPasswordToken({
@@ -150,10 +147,7 @@ router.post(
       }
 
       if (Date.parse(user.passwordTokenExp) < Date.now()) {
-        return res.status(400).json({
-          status: 400,
-          message: "The given token has expired",
-        });
+        throw new ErrorHandler(400, "The given token has expired");
       }
 
       user.password = new_password;

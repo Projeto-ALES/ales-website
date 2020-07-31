@@ -6,7 +6,7 @@ const { check, validationResult } = require("express-validator");
 const AuthMiddleware = require("../middlewares/auth.middleware");
 
 const UserService = require("../services/user.service");
-const { handleError } = require("../helpers/error");
+const { handleError, ErrorHandler } = require("../helpers/error");
 
 router.get("/users", async (req, res) => {
   try {
