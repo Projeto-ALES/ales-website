@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { get } from "services/professor.service";
 
-import { phoneMask } from "helpers/masks";
+import { phoneMask, formatDateToReceive } from "helpers/masks";
 
 import Container from "components/Container/Container";
 import Button from "components/Button/Button";
@@ -32,7 +32,7 @@ const ProfessorDetail = ({ history, match }) => {
           setName(name);
           setEmail(email);
           setPhone(phoneMask(phone));
-          setBirthday(birthday);
+          setBirthday(formatDateToReceive(birthday));
           setGender(gender);
           setArea(area);
         })

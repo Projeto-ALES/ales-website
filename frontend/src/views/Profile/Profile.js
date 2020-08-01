@@ -7,7 +7,13 @@ import { updatePassword } from "services/auth.service";
 import { context } from "store/store";
 import { types } from "store/types";
 
-import { phoneMask, formatPhone, dateMask } from "helpers/masks";
+import {
+  phoneMask,
+  formatPhone,
+  dateMask,
+  formatDateToSend,
+  formatDateToReceive,
+} from "helpers/masks";
 
 import Container from "components/Container/Container";
 import Input from "components/Input/Input";
@@ -56,7 +62,7 @@ const Profile = ({ history, match }) => {
           setName(name);
           setEmail(email);
           setPhone(phoneMask(phone));
-          setBirthday(birthday);
+          setBirthday(formatDateToReceive(birthday));
           setGender(gender);
           setArea(area);
         })
@@ -76,8 +82,9 @@ const Profile = ({ history, match }) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const { name, email, phone } = data;
+    const { phone, birthday } = data;
     data.phone = formatPhone(phone);
+    data.birthday = formatDateToSend(birthday);
 
     update(id, data)
       .then(() => {
