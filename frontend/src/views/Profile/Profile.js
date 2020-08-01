@@ -7,11 +7,12 @@ import { updatePassword } from "services/auth.service";
 import { context } from "store/store";
 import { types } from "store/types";
 
-import { phoneMask, formatPhone } from "helpers/masks";
+import { phoneMask, formatPhone, dateMask } from "helpers/masks";
 
 import Container from "components/Container/Container";
 import Input from "components/Input/Input";
 import PhoneInput from "components/PhoneInput/PhoneInput";
+import DateInput from "components/DateInput/DateInput";
 import Button from "components/Button/Button";
 import Dropdown from "components/Dropdown/Dropdown";
 import Loader from "components/Loader/Loader";
@@ -167,11 +168,12 @@ const Profile = ({ history, match }) => {
               </div>
               <div className={styles.formsSection}>
                 <span>Dados Opcionais</span>
-                <Input
-                  placeholder="Data de Nascimento"
-                  type="text"
+                <DateInput
+                  placeholder="Data de Nascimento dd/mm/aaaa"
+                  onChange={(e) => setBirthday(dateMask(e.target.value))}
                   value={birthday}
-                  onChange={(e) => setBirthday(e.target.value)}
+                  required
+                  min={8}
                 />
                 <div className={styles.dropdownContainer}>
                   <Dropdown name="gender" options={options} onSelect={setGender} value={gender} />
