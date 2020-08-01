@@ -20,9 +20,9 @@ const WhatDo = () => {
           <div className={styles.activitiesContainer}>
             <p>Oferecemos um vasto leque de aulas:</p>
             <div className={styles.cardsContainer}>
-              {courses.map((course) => {
+              {courses.map((course, index) => {
                 return (
-                  <div className={styles.cardContainer}>
+                  <div className={styles.cardContainer} key={index}>
                     <Card kind="yellow" id={course.id} width="200px">
                       <div className={styles.cardContentContainer}>
                         <span>
@@ -40,9 +40,9 @@ const WhatDo = () => {
           <div className={styles.activitiesContainer}>
             <p>E outras atividades:</p>
             <div className={styles.cardsContainer}>
-              {activities.map((activity) => {
+              {activities.map((activity, index) => {
                 return (
-                  <div className={styles.cardContainer}>
+                  <div className={styles.cardContainer} key={index}>
                     <Card kind="blue-dark" id={activity.id} width="200px">
                       <div className={styles.cardContentContainer}>
                         <span>
