@@ -2,11 +2,7 @@ import React from "react";
 
 import styles from "./PhoneInput.module.scss";
 
-const PhoneInput = ({ placeholder, onChange, value, required }) => {
-  const matchValue = (value) => {
-    return value.match();
-  };
-
+const PhoneInput = ({ placeholder, onChange, value, required, min }) => {
   return (
     <div className={styles.phoneInputContainer}>
       <span className={styles.phoneInputAddon}>+55</span>
@@ -17,6 +13,7 @@ const PhoneInput = ({ placeholder, onChange, value, required }) => {
         value={value || ""}
         onChange={onChange}
         required={required}
+        minLength={min}
       />
     </div>
   );

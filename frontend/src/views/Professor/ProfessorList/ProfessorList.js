@@ -25,7 +25,9 @@ const ProfessorList = ({ history }) => {
           setProfessors(professors);
         })
         .catch((err) => {
-          toast.error("Ops! Aconteceu algum erro para listar os professores");
+          if (err.response && err.response.status !== 401) {
+            toast.error("Ops! Aconteceu algum erro para listar os professores");
+          }
         })
         .finally(() => {
           setIsLoading(false);
@@ -59,7 +61,11 @@ const ProfessorList = ({ history }) => {
                   {
                     icon: "account_circle",
                     tooltip: "Detalhes dx Professorx",
-                    onClick: (event, rowData) => alert("You want to edit " + rowData.name),
+                    onClick: (event, rowData) => {
+                      const { name } = rowData;
+                      const { _id } = professors.find((prof) => prof.name === name);
+                      history.push(routes.PROFESSOR_DETAIL.replace(":id", _id));
+                    },
                   },
                 ]}
                 options={{
@@ -67,6 +73,7 @@ const ProfessorList = ({ history }) => {
                 }}
                 localization={{
                   pagination: {
+                    labelRowsSelect: "Itens",
                     labelDisplayedRows: "{from}-{to} de {count}",
                   },
                   header: {
@@ -80,10 +87,6 @@ const ProfessorList = ({ history }) => {
                     filterRow: {
                       filterTooltip: "Filtrar",
                     },
-                  },
-                  pagination: {
-                    labelRowsSelect: "Itens",
-                    labelDisplayedRows: "{from}-{to} de {count}",
                   },
                 }}
               />

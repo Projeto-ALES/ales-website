@@ -10,7 +10,7 @@ const UserService = require("../services/user.service");
 const ProfessorService = require("../services/professor.service");
 const MailService = require("../services/mail.service");
 
-const { handleError } = require("../helpers/error");
+const { handleError, ErrorHandler } = require("../helpers/error");
 const { professorStatus } = require("../helpers/status");
 
 router.get("/professors", async (req, res) => {
@@ -61,17 +61,11 @@ router.post(
 
       let professor = await ProfessorService.getProfessor({ inviteToken });
       if (!professor) {
-        return res.status(400).json({
-          status: 400,
-          message: "Invalid token",
-        });
+        throw new ErrorHandler(400, "Invalid token");
       }
 
       if (Date.parse(professor.inviteTokenExp) < Date.now()) {
-        return res.status(400).json({
-          status: 400,
-          message: "The invite token has expired",
-        });
+        throw new ErrorHandler(400, "The invite token has expired");
       }
 
       professor = await ProfessorService.updateProfessor(professor._id, {
@@ -143,10 +137,7 @@ router.put(
 
       const { id } = req.params;
       if (!UserService.isOwner(id, token)) {
-        return res.status(403).json({
-          status: 403,
-          message: "Permission denied",
-        });
+        throw new ErrorHandler(403, "Permission denied");
       }
 
       const professor = await ProfessorService.updateProfessor(id, req.body);
@@ -188,10 +179,7 @@ router.post(
             inviteTokenExp,
           });
         } else {
-          return res.status(409).json({
-            status: 409,
-            message: "Professor already registered",
-          });
+          throw new ErrorHandler(409, "Professor already registered");
         }
       } else {
         await ProfessorService.createProfessor({
@@ -202,10 +190,12 @@ router.post(
         });
       }
 
+      const { EMAIL_FROM, DOMAIN } = process.env;
       const processing = await MailService.sendEmail({
+        from: EMAIL_FROM,
         to: email,
-        subject: "Invite from Projeto ALES",
-        text: `Access http://localhost:3000/professors/enroll/${inviteToken}`,
+        subject: "[ALES] Convite",
+        html: `<span>Olá! Você foi convidado para ter acesso ao site do ALES!</span><br><span>Acesse <a href="${DOMAIN}/professors/enroll/${inviteToken}" target="_blank">este link</a> para completar seu cadastro.</span>`,
       });
 
       return res.status(200).json({

@@ -45,6 +45,18 @@
         flex-wrap: wrap;
       }
 
+      .authFormsContent {
+        width: 100%;
+        margin-bottom: var(--spacing-huge);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @include desktop {
+          align-items: flex-start;
+        }
+      }
+
       .formsSection {
         width: 100%;
         margin: var(--spacing-huge) 0;
@@ -64,24 +76,32 @@
           width: 240px;
           margin: var(--spacing-base) 0;
         }
+
+        &:nth-child(3) {
+          margin-top: 0;
+        }
+
+        .buttonContainer {
+          display: flex;
+          justify-content: flex-start;
+          margin-top: var(--spacing-large);
+        }
       }
     }
 
     .buttonsContainer {
       display: flex;
-      justify-content: center;
-      margin-top: var(--spacing-huge);
+      justify-content: flex-start;
 
       @include desktop {
         justify-content: flex-start;
       }
 
       button {
+        margin-right: 0;
+
         &:first-of-type {
           margin-right: var(--spacing-huge);
-        }
-        &:last-of-type {
-          width: 160px;
         }
       }
     }

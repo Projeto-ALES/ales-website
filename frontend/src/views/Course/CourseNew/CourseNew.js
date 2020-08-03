@@ -39,7 +39,12 @@ const CourseNew = ({ history }) => {
             </div>
             <div className={styles.formsSection}>
               <div className={styles.dropdownContainer}>
-                <Dropdown name="coordinator" options={coordinators} onSelect={setCoordinator} />
+                <Dropdown
+                  name="coordinator"
+                  options={coordinators}
+                  onSelect={setCoordinator}
+                  value={coordinator}
+                />
               </div>
             </div>
             <div className={styles.buttonsContainer}>

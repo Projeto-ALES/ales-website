@@ -8,7 +8,8 @@ const { check, validationResult } = require("express-validator");
 const AuthMiddleware = require("../middlewares/auth.middleware");
 
 const AuthService = require("../services/auth.service");
-const { handleError } = require("../helpers/error");
+const { handleError, ErrorHandler } = require("../helpers/error");
+const { clearCookies } = require("../helpers/cookie");
 const jwtConfig = require("../jwt");
 
 router.post(
@@ -28,18 +29,12 @@ router.post(
       const { email, password } = req.body;
       const user = await AuthService.getUserWithPassword({ email });
       if (!user) {
-        return res.status(401).json({
-          status: 401,
-          message: "Invalid credentials",
-        });
+        throw new ErrorHandler(401, "Invalid credentials");
       }
 
       const compare = await bcrypt.compare(password, user.password);
       if (!compare) {
-        return res.status(401).json({
-          status: 401,
-          message: "Invalid credentials",
-        });
+        throw new ErrorHandler(401, "Invalid credentials");
       }
       const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
@@ -59,8 +54,8 @@ router.post(
       );
       user.password = null;
       return res
-        .cookie("token", token, { httpOnly: false })
-        .cookie("refresh_token", refreshToken, { httpOnly: false })
+        .cookie("token", token, { httpOnly: true })
+        .cookie("refresh_token", refreshToken, { httpOnly: true })
         .status(200)
         .json({
           status: 200,
@@ -74,16 +69,8 @@ router.post(
 
 router.post("/refresh-token", async (req, res) => {
   try {
-    const { refreshToken } = await AuthMiddleware.verifyAuth(
-      req.headers.cookie
-    );
-
-    if (!refreshToken) {
-      return res.status(400).json({
-        status: 400,
-        message: "Invalid refresh token",
-      });
-    }
+    const { cookie } = req.headers;
+    const refreshToken = await AuthMiddleware.verifyRefreshToken(cookie);
 
     const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
@@ -92,9 +79,20 @@ router.post("/refresh-token", async (req, res) => {
       expiresIn: jwtConfig.TOKEN_EXP,
     });
 
-    return res.cookie("token", token, { httpOnly: false }).status(200).json({
+    return res.cookie("token", token, { httpOnly: true }).status(200).json({
       status: 200,
     });
+  } catch (e) {
+    handleError(e, res);
+  }
+});
+
+router.post("/logout", async (req, res) => {
+  try {
+    await AuthMiddleware.verifyAuth(req.headers.cookie);
+    await clearCookies(res);
+
+    res.status(202).json({ status: 202 });
   } catch (e) {
     handleError(e, res);
   }

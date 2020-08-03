@@ -3,11 +3,10 @@ version: "3.7"
 services:
   mongo:
     image: mongo:3.6.17-xenial
-    container_name: db
     ports:
       - "27017:27017"
     env_file:
-      - .env/db.env
+      - .env/prod/db.env
     volumes:
       - /data/configdb:/data/configdb
       - /data/db:/data/db
@@ -17,13 +16,13 @@ services:
 
   backend:
     image: projetoales/ales_backend
-    container_name: api
+    build:
+      context: ./backend
     ports:
       - "8000:8000"
     env_file:
-      - .env/app.env
+      - .env/prod/app.env
     volumes:
-      - ./backend:/usr/src/app
       - /usr/src/app/node_modules
       - /usr/src/app/logs:/logs
     depends_on:
@@ -35,14 +34,21 @@ services:
 
   frontend:
     image: projetoales/ales_frontend
-    container_name: ui
+    build:
+      context: ./frontend
+      args:
+        API_URL: /api
     ports:
       - "80:80"
       - "443:443"
+    env_file:
+      - .env/prod/ui.env
+    depends_on:
+      - backend
     networks:
       - app-network
     restart: always
 
 networks:
   app-network:
-    driver: bridge
+    driver: overlay

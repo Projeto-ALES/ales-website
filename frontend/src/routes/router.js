@@ -6,6 +6,7 @@ import PrivateRoute from "./PrivateRoute";
 
 import Home from "views/Home/Home";
 import Login from "views/Login/Login";
+import Contact from "views/Contact/Contact";
 
 import MyArea from "views/MyArea/MyArea";
 import Profile from "views/Profile/Profile";
@@ -16,6 +17,7 @@ import NewPassword from "views/NewPassword/NewPassword";
 import PasswordChanged from "views/PasswordChanged/PasswordChanged";
 
 import ProfessorList from "views/Professor/ProfessorList/ProfessorList";
+import ProfessorDetail from "views/Professor/ProfessorDetail/ProfessorDetail";
 import NewProfessor from "views/Professor/NewProfessor/NewProfessor";
 import ProfessorEnroll from "views/Professor/ProfessorEnroll/ProfessorEnroll";
 
@@ -28,6 +30,7 @@ import Quarantine from "views/Quarantine/Quarantine";
 const router = (
   <Switch>
     <Route path={routes.LOGIN} component={Login} />
+    <Route path={routes.CONTACT} component={Contact} />
 
     <PrivateRoute path={routes.MY_AREA_ID} component={Profile} />
     <PrivateRoute path={routes.MY_AREA} component={MyArea} />
@@ -39,6 +42,7 @@ const router = (
 
     <PrivateRoute path={routes.PROFESSOR_INVITE} component={NewProfessor} />
     <Route path={routes.PROFESSOR_ENROLL} component={ProfessorEnroll} />
+    <PrivateRoute path={routes.PROFESSOR_DETAIL} component={ProfessorDetail} />
     <PrivateRoute path={routes.PROFESSORS} component={ProfessorList} />
 
     <PrivateRoute path={routes.COURSE_EDIT} component={CourseEdit} />

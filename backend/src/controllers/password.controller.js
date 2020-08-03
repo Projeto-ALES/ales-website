@@ -10,7 +10,7 @@ const AuthMiddleware = require("../middlewares/auth.middleware");
 const AuthService = require("../services/auth.service");
 const MailService = require("../services/mail.service");
 
-const { handleError } = require("../helpers/error");
+const { handleError, ErrorHandler } = require("../helpers/error");
 
 router.post(
   "/update-password/:id",
@@ -47,17 +47,14 @@ router.post(
       }
 
       if (!bcrypt.compareSync(password, user.password)) {
-        return res.status(401).json({
-          status: 401,
-          message: "Invalid password",
-        });
+        throw new ErrorHandler(401, "Invalid password");
       }
 
       if (new_password !== new_password_conf) {
-        return res.status(400).json({
-          status: 400,
-          message: "New password and its confirmation are different",
-        });
+        throw new ErrorHandler(
+          401,
+          "New password and its confirmation are different"
+        );
       }
 
       user.password = new_password;
@@ -82,8 +79,6 @@ router.post(
     }
 
     try {
-      await AuthMiddleware.verifyAuth(req.headers.cookie);
-
       const { email } = req.body;
       const user = await AuthService.getUserWithPasswordToken({ email });
       if (!user) {
@@ -95,10 +90,12 @@ router.post(
       user.passwordTokenExp = Date.now() + 3600000;
       user.save();
 
+      const { EMAIL_FROM, DOMAIN } = process.env;
       const processing = await MailService.sendEmail({
+        from: EMAIL_FROM,
         to: email,
-        subject: "Reset Password",
-        text: `Access http://localhost:3000/new-password/${token}`,
+        subject: "[ALES] Reset da senha",
+        html: `<span>Olá! Você solicitou o cadastro de uma nova senha</span><br><span>Acesse <a href="${DOMAIN}/new-password/${token}" target="_blank">este link</a> para cadastrar uma nova.</span>`,
       });
       return res.status(200).json({
         status: 200,
@@ -136,10 +133,10 @@ router.post(
     try {
       const { token, new_password, new_password_conf } = req.body;
       if (new_password !== new_password_conf) {
-        return res.status(400).json({
-          status: 400,
-          message: "New password and its confirmation are different",
-        });
+        throw new ErrorHandler(
+          400,
+          "New password and its confirmation are different"
+        );
       }
 
       const user = await AuthService.getUserWithPasswordToken({
@@ -150,10 +147,7 @@ router.post(
       }
 
       if (Date.parse(user.passwordTokenExp) < Date.now()) {
-        return res.status(400).json({
-          status: 400,
-          message: "The given token has expired",
-        });
+        throw new ErrorHandler(400, "The given token has expired");
       }
 
       user.password = new_password;

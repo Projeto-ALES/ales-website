@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 
 import routes from "routes/routes";
 
-import { ToastContainer, toast } from "react-toastify";
-import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 import { login } from "services/auth.service";
 import { context } from "store/store";
@@ -19,14 +18,21 @@ import Alessauro from "assets/logos/alessauro.svg";
 
 import styles from "./Login.module.scss";
 
-const Login = ({ history }) => {
-  const [state, dispatch] = useContext(context);
+const Login = ({ history, location }) => {
+  const dispatch = useContext(context)[1];
 
   useEffect(() => {
-    if (!Cookies.get("token")) {
-      dispatch({ type: types.LOGOUT });
+    if (location && location.state) {
+      if (location.state.logout) {
+        dispatch({ type: types.LOGOUT });
+
+        if (location.state.error) {
+          toast.info("Sua sessão expirou. Faça login novamente");
+        }
+      }
     }
-  }, []);
+    // eslint-disable-next-line
+  }, [location]);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,6 +41,7 @@ const Login = ({ history }) => {
   const submitLogin = async (e, email, password) => {
     e.preventDefault();
     setIsLoading(true);
+
     login(email, password)
       .then((response) => {
         const { user } = response.data;
@@ -52,14 +59,6 @@ const Login = ({ history }) => {
   return (
     <div className={styles.loginContainer}>
       <Container>
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          closeOnClick
-          pauseOnVisibilityChange
-          draggable
-          pauseOnHover
-        />
         <div className={styles.cardContainer}>
           <Card kind="outline-blue">
             <form

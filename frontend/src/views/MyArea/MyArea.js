@@ -10,7 +10,7 @@ import styles from "./MyArea.module.scss";
 import { context } from "store/store";
 
 const MyArea = () => {
-  const [state, dispatch] = useContext(context);
+  const [state] = useContext(context);
   const { user } = state;
 
   return (

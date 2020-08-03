@@ -137,6 +137,7 @@ const CourseDetail = ({ history, match }) => {
               ]}
               localization={{
                 pagination: {
+                  labelRowsSelect: "Itens",
                   labelDisplayedRows: "{from}-{to} de {count}",
                 },
                 header: {
@@ -152,10 +153,6 @@ const CourseDetail = ({ history, match }) => {
                   filterRow: {
                     filterTooltip: "Filtrar",
                   },
-                },
-                pagination: {
-                  labelRowsSelect: "Itens",
-                  labelDisplayedRows: "{from}-{to} de {count}",
                 },
               }}
               options={{
@@ -189,6 +186,7 @@ const CourseDetail = ({ history, match }) => {
               ]}
               localization={{
                 pagination: {
+                  labelRowsSelect: "Itens",
                   labelDisplayedRows: "{from}-{to} de {count}",
                 },
                 header: {
@@ -202,10 +200,6 @@ const CourseDetail = ({ history, match }) => {
                   filterRow: {
                     filterTooltip: "Filtrar",
                   },
-                },
-                pagination: {
-                  labelRowsSelect: "Itens",
-                  labelDisplayedRows: "{from}-{to} de {count}",
                 },
               }}
             />
@@ -236,6 +230,7 @@ const CourseDetail = ({ history, match }) => {
               ]}
               localization={{
                 pagination: {
+                  labelRowsSelect: "Itens",
                   labelDisplayedRows: "{from}-{to} de {count}",
                 },
                 header: {
@@ -249,10 +244,6 @@ const CourseDetail = ({ history, match }) => {
                   filterRow: {
                     filterTooltip: "Filtrar",
                   },
-                },
-                pagination: {
-                  labelRowsSelect: "Itens",
-                  labelDisplayedRows: "{from}-{to} de {count}",
                 },
               }}
             />
@@ -279,6 +270,7 @@ const CourseDetail = ({ history, match }) => {
               ]}
               localization={{
                 pagination: {
+                  labelRowsSelect: "Itens",
                   labelDisplayedRows: "{from}-{to} de {count}",
                 },
                 header: {
@@ -294,10 +286,6 @@ const CourseDetail = ({ history, match }) => {
                   filterRow: {
                     filterTooltip: "Filtrar",
                   },
-                },
-                pagination: {
-                  labelRowsSelect: "Itens",
-                  labelDisplayedRows: "{from}-{to} de {count}",
                 },
               }}
               options={{

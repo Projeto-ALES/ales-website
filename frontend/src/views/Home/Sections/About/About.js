@@ -17,8 +17,8 @@ const About = () => {
         </div>
         <div>
           <div className={styles.numbersContainer}>
-            {numbers.map((item) => {
-              return <span>{item.text}</span>;
+            {numbers.map((item, index) => {
+              return <span key={index}>{item.text}</span>;
             })}
           </div>
           <div className={styles.partnersContainer}>

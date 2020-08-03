@@ -1,0 +1,26 @@
+.dateInputContainer {
+  position: relative;
+  margin: var(--spacing-medium) 0;
+  display: flex;
+  align-items: center;
+
+  .dateInput {
+    height: 35px;
+    font-size: var(--font-normal);
+    width: 100%;
+    min-width: 125px;
+    border: 1px solid #eee;
+    border-left: 3px solid var(--gray-light);
+    border-radius: 0 5px 5px 0;
+    padding-left: 10px;
+    transition: border-color 0.5s ease-out;
+
+    &:required {
+      border-left-color: palegreen;
+    }
+
+    &:invalid {
+      border-left-color: salmon;
+    }
+  }
+}

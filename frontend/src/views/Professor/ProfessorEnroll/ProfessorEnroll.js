@@ -4,9 +4,12 @@ import routes from "routes/routes";
 
 import { enroll } from "services/professor.service";
 
+import { phoneMask, formatPhone, dateMask, formatDateToSend } from "helpers/masks";
+
 import Container from "components/Container/Container";
 import Input from "components/Input/Input";
 import PhoneInput from "components/PhoneInput/PhoneInput";
+import DateInput from "components/DateInput/DateInput";
 import Button from "components/Button/Button";
 import Dropdown from "components/Dropdown/Dropdown";
 import { toast } from "react-toastify";
@@ -40,6 +43,10 @@ const ProfessorEnroll = ({ history, match }) => {
       return;
     }
     setIsLoading(true);
+
+    const { phone, birthday } = data;
+    data.phone = formatPhone(phone);
+    data.birthday = formatDateToSend(birthday);
 
     enroll(data)
       .then(() => {
@@ -94,19 +101,21 @@ const ProfessorEnroll = ({ history, match }) => {
                 required
               />
               <PhoneInput
-                placeholder="Telefone"
-                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Telefone (99) 9XXXX-XXXX"
+                onChange={(e) => setPhone(phoneMask(e.target.value))}
                 value={phone}
                 required
+                min={11}
               />
             </div>
             <div className={styles.formsSection}>
               <span className={styles.sectionLabel}>Dados Opcionais</span>
-              <Input
-                placeholder="Data de Nascimento"
-                type="text"
-                onChange={(e) => setBirthday(e.target.value)}
+              <DateInput
+                placeholder="Data de Nascimento dd/mm/aaaa"
+                onChange={(e) => setBirthday(dateMask(e.target.value))}
                 value={birthday}
+                required
+                min={8}
               />
               <div className={styles.dropdownContainer}>
                 <Dropdown name="gender" options={options} onSelect={setGender} />
