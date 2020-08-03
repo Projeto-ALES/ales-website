@@ -5,14 +5,16 @@
   "license": "MIT",
   "proxy": "http://localhost:8000",
   "dependencies": {
-    "express": "^4.17.1",
-    "mongoose": "^5.9.7",
-    "jsonwebtoken": "^8.5.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
-    "nodemailer": "^6.4.10",
+    "express": "^4.17.1",
     "express-validator": "^6.6.0",
+    "express-winston": "^4.0.5",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.7",
+    "nodemailer": "^6.4.10",
     "express-rate-limit": "^5.1.3"
+    "winston": "^3.3.3"
   },
   "scripts": {
     "dev": "nodemon --exec babel-node app.js"
