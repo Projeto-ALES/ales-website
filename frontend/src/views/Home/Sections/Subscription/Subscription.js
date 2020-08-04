@@ -12,12 +12,12 @@ const Adaption = () => {
     <div className={styles.adaptionContainer} id="inscricao2020">
       <Container>
         <div className={styles.adaptionTitle}>
-          <img src={Alessauro} />
+          <img src={Alessauro} alt="alessauro" />
           <h2>Inscrições pro 2º Semestre</h2>
         </div>
         <div className={styles.adaptionSubtitle}>
           <h3>É isso mesmo! Vamos ter atividades no 2º Semestre</h3>
-          <img src={Confetti} />
+          <img src={Confetti} alt="confetti" />
         </div>
         <div className={styles.adaptionDescription}>
           <p>
@@ -26,7 +26,11 @@ const Adaption = () => {
             outros avisos importantes. É o melhor jeito de se manter informado!
           </p>
           <div className={styles.buttonContainer}>
-            <a href="https://chat.whatsapp.com/GxdAuQ1hzop70cJ9xQSgGQ" target="_blank">
+            <a
+              href="https://chat.whatsapp.com/GxdAuQ1hzop70cJ9xQSgGQ"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <ButtonIcon text="Entrar no grupo" kind="success" icon="fa fa-whatsapp" />
             </a>
           </div>
