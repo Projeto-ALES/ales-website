@@ -50,7 +50,7 @@ const ProfessorEnroll = ({ history, match }) => {
 
     enroll(data)
       .then(() => {
-        history.push(routes.PROFESSOR_ENROLL);
+        history.push(routes.LOGIN);
         toast.success("Cadastro feito! Agora é só fazer o login");
       })
       .catch((err) => {
