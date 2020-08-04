@@ -2,6 +2,7 @@ import React from "react";
 
 import Container from "components/Container/Container";
 
+import Logo from "assets/logos/logo.svg";
 import styles from "./WhatIs.module.scss";
 
 const WhatIs = () => {
@@ -10,6 +11,7 @@ const WhatIs = () => {
       <div className={styles.whatisContainer}>
         <div className={styles.whatisTitle}>
           <h2>O que é o ALES?</h2>
+          <img src={Logo} />
         </div>
         <div className={styles.whatisDescription}>
           <p>
