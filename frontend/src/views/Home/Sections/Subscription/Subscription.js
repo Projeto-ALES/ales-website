@@ -36,9 +36,9 @@ const Adaption = () => {
           </div>
           <p>
             Apesar do momento que todos nós estamos passando, queremos que o nosso propósito de
-            espalhar conhecimento e curiosidade continue a qualquer custo. Por isso, não estamos
-            medindo esforços pra que a gente possa oferecer atividades para nossos alunos nos
-            proximos meses.
+            espalhar conhecimento e curiosidade continue a inspirar cada vez mais jovens. Por isso,
+            não estamos medindo esforços pra que a gente possa oferecer atividades para nossos
+            alunos nos próximos meses.
           </p>
           <p>
             Ficou interessado? Então fica ligado que nossas inscrições começam já, já. Se você está

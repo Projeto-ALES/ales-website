@@ -27,7 +27,7 @@ router.post(
         from: email,
         to: EMAIL_FROM,
         subject: "[ALES] Mensagem do Site",
-        text: `${name} enviou a seguinte mensagem: ${message}`,
+        text: `${name} - ${email} enviou a seguinte mensagem: ${message}`,
       });
       return res.status(200).json({
         status: 200,
