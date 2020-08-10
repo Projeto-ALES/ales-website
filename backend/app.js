@@ -11,6 +11,8 @@ const professorRouter = require("./src/controllers/professor.controller");
 const authRouter = require("./src/controllers/auth.controller");
 const passwordRouter = require("./src/controllers/password.controller");
 const mailRouter = require("./src/controllers/mail.controller");
+const subjectRouter = require("./src/controllers/subject.controller");
+
 
 const { handleError } = require("./src/helpers/error");
 
@@ -41,11 +43,16 @@ app.get(`${basePath}/ping`, (req, res) => {
   res.send("pong");
 });
 
-app.use(basePath, userRouter);
-app.use(basePath, professorRouter);
-app.use(basePath, authRouter);
-app.use(basePath, passwordRouter);
-app.use(basePath, mailRouter);
+const routers = [
+  userRouter,
+  professorRouter,
+  authRouter,
+  passwordRouter,
+  mailRouter,
+  subjectRouter
+];
+
+routers.forEach((router) => app.use(basePath, router));
 
 app.use(errorLogger);
 
