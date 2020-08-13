@@ -12,7 +12,7 @@ const SubjectSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  coordinators: [{ type: mongoose.Types.ObjectId, ref:'User'}],
+  coordinators: { type: mongoose.Types.ObjectId, ref:'User'},
   professors: [{ type: mongoose.Types.ObjectId, ref:'User'}],
   beginningDate: {
     type: Date,

@@ -56,7 +56,7 @@ router.delete("subjects/:id", async (req, res, next) => {
 router.post("/subjects",
   [
     check("name").not().isEmpty().withMessage("Name is missing"),
-    check("coordinators").not().isEmpty().isArray().withMessage("Coordinators are missing"),
+    check("coordinators").not().isEmpty().isArray().withMessage("Coordinator is missing"),
     check("professors").not().isEmpty().withMessage("Professors are missing"),
     check("beginningDate").not().isEmpty().withMessage("Beginning Date is required"),
     check("endDate").not().isEmpty().withMessage("End date is missing"),
