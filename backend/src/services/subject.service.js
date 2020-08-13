@@ -25,9 +25,18 @@ const createSubject = async data => {
   }
 }
 
+const updateSubject = async (id, body) => {
+  try {
+    return await Subject.findOneAndUpdate({ _id: id }, { $set: { ...body } })
+  } catch (e) {
+    throw new ErrorHandler(500, e.errmsg);
+  }
+}
+
 module.exports = {
   getSubjects,
   getSubjectsById,
   deleteSubject,
   createSubject,
+  updateSubject
 };

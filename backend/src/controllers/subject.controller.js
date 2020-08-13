@@ -33,7 +33,12 @@ router.get("/subjects/:id", async (req, res, next) => {
 })
 
 router.delete("subjects/:id", async (req, res, next) => {
-  await AuthMiddleware.verifyAuth(req.headers.cookie);
+
+  try {
+    await AuthMiddleware.verifyAuth(req.headers.cookie);
+  } catch(e) {
+    next(e);
+  }
 
   const { id } = req.params;
 
@@ -57,15 +62,15 @@ router.post("/subjects",
     check("endDate").not().isEmpty().withMessage("End date is missing"),
   ],
   async (req, res, next) => {
-    await AuthMiddleware.verifyAuth(req.headers.cookie);
-
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() })
-    };
-
     try {
+      await AuthMiddleware.verifyAuth(req.headers.cookie);
+
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() })
+      };
+
       const subject = await SubjectService.createSubject(req.body);
     } catch(e) {
       next(e);
@@ -76,5 +81,21 @@ router.post("/subjects",
       subject,
     });
   });
+
+router.put("/subjects/:id", async (req, res, next) => {
+  try {
+    await AuthMiddleware.verifyAuth(req.headers.cookie);
+
+    const { id } = req.params;
+
+    await SubjectService.updateSubject(id, req.body);
+  } catch(e) {
+    next(e);
+  };
+
+  return res.status(201).json({
+    status: 200,
+  });
+})
 
 module.exports = router;
