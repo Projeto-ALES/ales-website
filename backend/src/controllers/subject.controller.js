@@ -40,7 +40,7 @@ router.delete("subjects/:id", async (req, res, next) => {
   const subject = await SubjectService.deleteSubject(id);
 
   if (!subject) {
-    nex (new NotFoundError(ENTITY_NAME));
+    next (new NotFoundError(ENTITY_NAME));
   }
 
   return res.status(202).json({
