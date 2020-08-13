@@ -53,8 +53,8 @@ router.post("/subjects",
     check("name").not().isEmpty().withMessage("Name is missing"),
     check("coordinators").not().isEmpty().isArray().withMessage("Coordinators are missing"),
     check("professors").not().isEmpty().withMessage("Professors are missing"),
-    check("beginningDate").not().isEmpty().isISO8601().toDate().withMessage("Beginning Date is required"),
-    check("endDate").not().isEmpty().isISO8601().toDate().withMessage("End date is missing"),
+    check("beginningDate").not().isEmpty().withMessage("Beginning Date is required"),
+    check("endDate").not().isEmpty().withMessage("End date is missing"),
   ],
   async (req, res, next) => {
     await AuthMiddleware.verifyAuth(req.headers.cookie);
