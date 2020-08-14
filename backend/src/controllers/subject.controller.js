@@ -62,6 +62,8 @@ router.post("/subjects",
     check("endDate").not().isEmpty().withMessage("End date is missing"),
   ],
   async (req, res, next) => {
+    let subject;
+
     try {
       await AuthMiddleware.verifyAuth(req.headers.cookie);
 
@@ -71,7 +73,7 @@ router.post("/subjects",
         return res.status(400).json({ errors: errors.array() })
       };
 
-      const subject = await SubjectService.createSubject(req.body);
+      subject = await SubjectService.createSubject(req.body);
     } catch(e) {
       next(e);
     }
