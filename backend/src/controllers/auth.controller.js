@@ -54,8 +54,14 @@ router.post(
       );
       user.password = null;
       return res
-        .cookie("token", token, { httpOnly: true, secure: NODE_ENV === "production" ? true : false })
-        .cookie("refresh_token", refreshToken, { httpOnly: true, secure: NODE_ENV === "production" ? true : false })
+        .cookie("token", token, {
+          httpOnly: true,
+          secure: NODE_ENV === "production",
+        })
+        .cookie("refresh_token", refreshToken, {
+          httpOnly: true,
+          secure: NODE_ENV === "production",
+        })
         .status(200)
         .json({
           status: 200,

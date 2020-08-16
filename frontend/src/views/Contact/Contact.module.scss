@@ -1,6 +1,6 @@
 @import "~styles/breakpoints";
 
-.contactItems {
+.items {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,12 +13,12 @@
     margin: var(--spacing-very-huge) 0;
   }
 
-  .cardContainer {
+  .card {
     width: 100%;
     max-width: 400px;
     margin: var(--spacing-large) var(--spacing-base);
 
-    .contactItem {
+    .item {
       height: 120px;
       display: flex;
       flex-direction: column;
@@ -38,7 +38,7 @@
   }
 }
 
-.formContainer {
+.contact {
   background: var(--gray-darker);
   padding: var(--spacing-huge) var(--spacing-large);
   display: flex;
@@ -46,7 +46,7 @@
   align-items: center;
   color: #fff;
 
-  .contactForm {
+  .form {
     margin: 0;
     width: 100%;
     max-width: 500px;
@@ -58,7 +58,7 @@
       width: 40%;
     }
 
-    .formContent {
+    .inputs {
       width: 100%;
 
       input {

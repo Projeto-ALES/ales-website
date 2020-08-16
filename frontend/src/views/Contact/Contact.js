@@ -46,12 +46,12 @@ const Contact = () => {
         icon="fas fa-paper-plane"
         height="250px"
       />
-      <div className={styles.contactItems}>
-        {items.map((item) => {
+      <div className={styles.items}>
+        {items.map((item, index) => {
           return (
-            <div className={styles.cardContainer}>
+            <div className={styles.card} key={index}>
               <Card kind="outline-yellow">
-                <div className={styles.contactItem}>
+                <div className={styles.item}>
                   <i class={item.icon}></i>
                   <span>{item.text}</span>
                 </div>
@@ -60,13 +60,10 @@ const Contact = () => {
           );
         })}
       </div>
-      <div className={styles.formContainer}>
+      <div className={styles.contact}>
         <h3>Mande uma mensagem!</h3>
-        <form
-          className={styles.contactForm}
-          onSubmit={(e) => submitMessage(e, { name, email, message })}
-        >
-          <div className={styles.formContent}>
+        <form className={styles.form} onSubmit={(e) => submitMessage(e, { name, email, message })}>
+          <div className={styles.inputs}>
             <Input
               placeholder="Nome"
               value={name}
