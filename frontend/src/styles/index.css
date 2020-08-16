@@ -130,3 +130,9 @@ button {
   border: none;
   background: none;
 }
+
+input:focus {
+  outline-color: var(--brand-blue);
+  outline: none;
+  box-shadow: 0 0 3px var(--brand-blue);
+}
