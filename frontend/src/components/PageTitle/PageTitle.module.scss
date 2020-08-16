@@ -4,6 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 var(--spacing-base);
   height: 150px;
   color: var(--gray-darker);
   background: var(--brand-yellow);
@@ -16,6 +17,7 @@
   &__text {
     font-weight: 500;
     font-size: var(--font-large);
+    max-width: 60%;
   }
 
   &__icon {
