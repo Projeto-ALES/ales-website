@@ -4,7 +4,8 @@ import routes from "routes/routes";
 
 import { invite } from "services/professor.service";
 
-import PageTitle from 'components/PageTitle/PageTitle';
+import Page from "components/Page/Page";
+import PageTitle from "components/PageTitle/PageTitle";
 import Container from "components/Container/Container";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
@@ -34,8 +35,8 @@ const NewProfessor = ({ history }) => {
   };
 
   return (
-    <div className={styles.newProfessorContainer}>
-      <PageTitle title="Convidar Professor" icon="fas fa-user-plus" />
+    <Page>
+      <PageTitle title="Convidar Professorx" icon="fas fa-user-plus" />
       <Container>
         <div className={styles.newProfessorDescription}>
           <p>
@@ -67,7 +68,7 @@ const NewProfessor = ({ history }) => {
           </form>
         </div>
       </Container>
-    </div>
+    </Page>
   );
 };
 

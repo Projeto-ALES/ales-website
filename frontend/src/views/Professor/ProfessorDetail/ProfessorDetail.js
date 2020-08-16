@@ -4,7 +4,8 @@ import { get } from "services/professor.service";
 
 import { phoneMask, formatDateToReceive } from "helpers/masks";
 
-import PageTitle from 'components/PageTitle/PageTitle';
+import Page from "components/Page/Page";
+import PageTitle from "components/PageTitle/PageTitle";
 import Container from "components/Container/Container";
 import Button from "components/Button/Button";
 import Loader from "components/Loader/Loader";
@@ -50,7 +51,7 @@ const ProfessorDetail = ({ history, match }) => {
   }, [id]);
 
   return (
-    <div className={styles.professorDetailContainer}>
+    <Page>
       <PageTitle title="Professorx" icon="fas fa-chalkboard-teacher" />
       <Container>
         {isLoading ? (
@@ -93,7 +94,7 @@ const ProfessorDetail = ({ history, match }) => {
           <Button text="Voltar" type="button" kind="primary" onClick={() => history.goBack()} />
         </div>
       </Container>
-    </div>
+    </Page>
   );
 };
 

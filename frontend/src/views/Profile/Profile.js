@@ -15,7 +15,8 @@ import {
   formatDateToReceive,
 } from "helpers/masks";
 
-import PageTitle from 'components/PageTitle/PageTitle';
+import Page from "components/Page/Page";
+import PageTitle from "components/PageTitle/PageTitle";
 import Container from "components/Container/Container";
 import Input from "components/Input/Input";
 import PhoneInput from "components/PhoneInput/PhoneInput";
@@ -126,7 +127,7 @@ const Profile = ({ history, match }) => {
   };
 
   return (
-    <div className={styles.profileContainer}>
+    <Page>
       <PageTitle title="Perfil" icon="fas fa-user-circle" />
       <Container>
         {isLoading ? (
@@ -256,7 +257,7 @@ const Profile = ({ history, match }) => {
           </div>
         )}
       </Container>
-    </div>
+    </Page>
   );
 };
 

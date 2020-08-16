@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
+import Page from "components/Page/Page";
 import PageTitle from "components/PageTitle/PageTitle";
 import Container from "components/Container/Container";
 import Card from "components/Card/Card";
@@ -15,15 +16,15 @@ const MyArea = () => {
   const { user } = state;
 
   return (
-    <div className={styles.myAreaContainer}>
+    <Page>
       <PageTitle title="Minha Área" icon="fas fa-house-user" />
       <Container>
-        <div className={styles.cardsContainer}>
+        <div className={styles.cards}>
           {getItems(user.id).map((item) => {
             return (
-              <Link to={item.route} className={styles.cardContainer}>
+              <Link to={item.route} className={styles.card}>
                 <Card id={item.id} kind="outline-yellow">
-                  <div className={styles.cardContentContainer}>
+                  <div className={styles.card__item}>
                     <span>
                       <i class={item.icon}></i>
                     </span>
@@ -35,7 +36,7 @@ const MyArea = () => {
           })}
         </div>
       </Container>
-    </div>
+    </Page>
   );
 };
 

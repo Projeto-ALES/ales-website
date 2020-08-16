@@ -1,52 +1,44 @@
 @import "~styles/breakpoints";
 
-.myAreaContainer {
-  min-height: 100vh;
-  background-color: var(--gray-lightest);
+.cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   @include desktop {
-    margin-left: var(--sidebar-width);
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 90%;
+    max-width: 1000px;
+    justify-content: center;
+    margin: var(--spacing-huge) auto;
   }
 
-  .cardsContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .card {
+    width: 80%;
+    max-width: 400px;
+    margin: var(--spacing-base) 0;
 
-    @include desktop {
-      flex-direction: row;
-      flex-wrap: wrap;
-      width: 90%;
-      max-width: 1000px;
-      justify-content: center;
-      margin: var(--spacing-huge) auto;
+    @include tablet-portrait {
+      margin: var(--spacing-base);
     }
 
-    .cardContainer {
-      width: 80%;
-      max-width: 400px;
-      margin: var(--spacing-base) 0;
+    &__item {
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-      @include tablet-portrait {
-        margin: var(--spacing-base);
-      }
+      span {
+        color: var(--gray-dark);
 
-      .cardContentContainer {
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        span {
-          color: var(--gray-dark);
-          &:first-of-type {
-            font-size: var(--font-large);
-          }
-          &:last-of-type {
-            width: 60%;
-            margin-left: var(--spacing-medium);
-            font-size: var(--font-medium);
-          }
+        &:first-of-type {
+          font-size: var(--font-large);
+        }
+        &:last-of-type {
+          width: 60%;
+          margin-left: var(--spacing-medium);
+          font-size: var(--font-medium);
         }
       }
     }

@@ -1,93 +1,84 @@
 @import "~styles/breakpoints";
 
-.profileContainer {
-  min-height: 100vh;
-  background-color: var(--gray-lightest);
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+}
 
-  @include desktop {
-    margin-left: var(--sidebar-width);
-  }
+.formsContainer {
+  padding: 0 var(--spacing-medium);
+  color: var(--gray-dark);
+  max-width: 1000px;
+  margin: auto;
 
-  .loaderContainer {
+  .forms {
     display: flex;
-    justify-content: center;
-  }
+    flex-direction: column;
+    align-items: center;
 
-  .formsContainer {
-    padding: 0 var(--spacing-medium);
-    color: var(--gray-dark);
-    max-width: 1000px;
-    margin: auto;
+    @include desktop {
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
 
-    .forms {
+    .authFormsContent {
+      width: 100%;
+      margin-bottom: var(--spacing-huge);
       display: flex;
       flex-direction: column;
       align-items: center;
 
       @include desktop {
-        flex-direction: row;
-        justify-content: space-between;
-        flex-wrap: wrap;
-      }
-
-      .authFormsContent {
-        width: 100%;
-        margin-bottom: var(--spacing-huge);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        @include desktop {
-          align-items: flex-start;
-        }
-      }
-
-      .formsSection {
-        width: 100%;
-        margin: var(--spacing-huge) 0;
-        max-width: 400px;
-        display: flex;
-        flex-direction: column;
-
-        @include desktop {
-          margin: var(--spacing-huge) 0;
-        }
-
-        span {
-          font-weight: 600;
-        }
-
-        .dropdownContainer {
-          width: 240px;
-          margin: var(--spacing-base) 0;
-        }
-
-        &:nth-child(3) {
-          margin-top: 0;
-        }
-
-        .buttonContainer {
-          display: flex;
-          justify-content: flex-start;
-          margin-top: var(--spacing-large);
-        }
+        align-items: flex-start;
       }
     }
 
-    .buttonsContainer {
+    .formsSection {
+      width: 100%;
+      margin: var(--spacing-huge) 0;
+      max-width: 400px;
       display: flex;
-      justify-content: flex-start;
+      flex-direction: column;
 
       @include desktop {
-        justify-content: flex-start;
+        margin: var(--spacing-huge) 0;
       }
 
-      button {
-        margin-right: 0;
+      span {
+        font-weight: 600;
+      }
 
-        &:first-of-type {
-          margin-right: var(--spacing-huge);
-        }
+      .dropdownContainer {
+        width: 240px;
+        margin: var(--spacing-base) 0;
+      }
+
+      &:nth-child(3) {
+        margin-top: 0;
+      }
+
+      .buttonContainer {
+        display: flex;
+        justify-content: flex-start;
+        margin-top: var(--spacing-large);
+      }
+    }
+  }
+
+  .buttonsContainer {
+    display: flex;
+    justify-content: flex-start;
+
+    @include desktop {
+      justify-content: flex-start;
+    }
+
+    button {
+      margin-right: 0;
+
+      &:first-of-type {
+        margin-right: var(--spacing-huge);
       }
     }
   }
