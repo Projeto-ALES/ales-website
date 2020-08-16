@@ -38,15 +38,15 @@ const NewProfessor = ({ history }) => {
     <Page>
       <PageTitle title="Convidar Professorx" icon="fas fa-user-plus" />
       <Container>
-        <div className={styles.newProfessorDescription}>
+        <div className={styles.description}>
           <p>
             Um email será enviado para o email dx professorx com o link de cadastro e instruções
             para tal
           </p>
         </div>
         <div>
-          <form className={styles.formContainer} onSubmit={(e) => submitInvitation(e, email)}>
-            <div className={styles.emailInput}>
+          <form className={styles.form} onSubmit={(e) => submitInvitation(e, email)}>
+            <div className={styles.form__email}>
               <Input
                 placeholder="Email"
                 type="text"
@@ -55,7 +55,7 @@ const NewProfessor = ({ history }) => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className={styles.buttonsContainer}>
+            <div className={styles.form__buttons}>
               <Button text="Voltar" type="button" onClick={() => history.goBack()} />
               <Button
                 kind="success"

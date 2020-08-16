@@ -6,6 +6,8 @@ import { enroll } from "services/professor.service";
 
 import { phoneMask, formatPhone, dateMask, formatDateToSend } from "helpers/masks";
 
+import Page from "components/Page/Page";
+import PageTitle from "components/PageTitle/PageTitle";
 import Container from "components/Container/Container";
 import Input from "components/Input/Input";
 import PhoneInput from "components/PhoneInput/PhoneInput";
@@ -62,14 +64,12 @@ const ProfessorEnroll = ({ history, match }) => {
   };
 
   return (
-    <div className={styles.professorEnrollContainer}>
+    <Page>
+      <PageTitle title="Cadastro de Novx Professorx" icon="fas fa-chalkboard-teacher" />
       <Container>
-        <div className={styles.professorEnrollTitle}>
-          <h2>Cadastro de Novx Professorx</h2>
-        </div>
-        <div className={styles.formsContainer}>
+        <div className={styles.container}>
           <form
-            className={styles.forms}
+            className={styles.form}
             onSubmit={(e) =>
               submitEnroll(e, {
                 name,
@@ -84,8 +84,8 @@ const ProfessorEnroll = ({ history, match }) => {
               })
             }
           >
-            <div className={styles.formsSection}>
-              <span className={styles.sectionLabel}>Dados Principais</span>
+            <div className={styles.section}>
+              <span className={styles.section__label}>Dados Principais</span>
               <Input
                 placeholder="Nome"
                 type="text"
@@ -108,8 +108,8 @@ const ProfessorEnroll = ({ history, match }) => {
                 min={11}
               />
             </div>
-            <div className={styles.formsSection}>
-              <span className={styles.sectionLabel}>Dados Opcionais</span>
+            <div className={styles.section}>
+              <span className={styles.section__label}>Dados Opcionais</span>
               <DateInput
                 placeholder="Data de Nascimento dd/mm/aaaa"
                 onChange={(e) => setBirthday(dateMask(e.target.value))}
@@ -117,7 +117,7 @@ const ProfessorEnroll = ({ history, match }) => {
                 required
                 min={8}
               />
-              <div className={styles.dropdownContainer}>
+              <div className={styles.section__dropdown}>
                 <Dropdown name="gender" options={options} onSelect={setGender} />
               </div>
               <Input
@@ -127,8 +127,8 @@ const ProfessorEnroll = ({ history, match }) => {
                 value={area}
               />
             </div>
-            <div className={styles.formsSection}>
-              <span className={styles.sectionLabel}>Autenticação</span>
+            <div className={styles.section}>
+              <span className={styles.section__label}>Autenticação</span>
               <Input
                 placeholder="Senha"
                 type="password"
@@ -143,7 +143,7 @@ const ProfessorEnroll = ({ history, match }) => {
                 value={passwordConf}
                 required
               />
-              <div className={styles.buttonContainer}>
+              <div className={styles.section__button}>
                 <Button
                   text="Enviar"
                   kind="success"
@@ -156,7 +156,7 @@ const ProfessorEnroll = ({ history, match }) => {
           </form>
         </div>
       </Container>
-    </div>
+    </Page>
   );
 };
 

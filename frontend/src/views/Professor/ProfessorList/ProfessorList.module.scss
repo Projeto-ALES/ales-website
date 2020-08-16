@@ -1,11 +1,11 @@
 @import "~styles/breakpoints";
 
-.loaderContainer {
+.loader {
   display: flex;
   justify-content: center;
 }
 
-.contentContainer {
+.container {
   @include tablet-landscape {
     padding: 0 5%;
   }
@@ -13,11 +13,11 @@
     padding: 0 12%;
   }
 
-  .tableContainer {
+  &__table {
     margin-bottom: var(--spacing-huge);
   }
 
-  .buttonsContainer {
+  &__buttons {
     display: flex;
     justify-content: flex-end;
     margin-bottom: var(--spacing-huge);

@@ -1,11 +1,11 @@
 @import "~styles/breakpoints";
 
-.loaderContainer {
+.loader {
   display: flex;
   justify-content: center;
 }
 
-.dataContainer {
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,13 +25,13 @@
     align-items: center;
     width: 100%;
 
-    .dataSection {
+    .section {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin: var(--spacing-large);
 
-      .sectionLabel {
+      &__label {
         font-size: 20px;
         font-weight: 600;
         margin-bottom: var(--spacing-small);
@@ -44,7 +44,7 @@
   }
 }
 
-.buttonContainer {
+.button {
   display: flex;
   justify-content: center;
   margin: var(--spacing-large) 0;

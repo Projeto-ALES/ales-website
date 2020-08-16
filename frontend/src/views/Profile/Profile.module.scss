@@ -1,17 +1,17 @@
 @import "~styles/breakpoints";
 
-.loaderContainer {
+.loader {
   display: flex;
   justify-content: center;
 }
 
-.formsContainer {
+.container {
   padding: 0 var(--spacing-medium);
   color: var(--gray-dark);
   max-width: 1000px;
   margin: auto;
 
-  .forms {
+  .form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,7 +22,7 @@
       flex-wrap: wrap;
     }
 
-    .authFormsContent {
+    .authForm {
       width: 100%;
       margin-bottom: var(--spacing-huge);
       display: flex;
@@ -34,7 +34,7 @@
       }
     }
 
-    .formsSection {
+    .section {
       width: 100%;
       margin: var(--spacing-huge) 0;
       max-width: 400px;
@@ -49,7 +49,7 @@
         font-weight: 600;
       }
 
-      .dropdownContainer {
+      &__dropdown {
         width: 240px;
         margin: var(--spacing-base) 0;
       }
@@ -58,27 +58,27 @@
         margin-top: 0;
       }
 
-      .buttonContainer {
+      &__buttons {
+        display: flex;
+        justify-content: flex-start;
+
+        @include desktop {
+          justify-content: flex-start;
+        }
+
+        button {
+          margin-right: 0;
+
+          &:first-of-type {
+            margin-right: var(--spacing-huge);
+          }
+        }
+      }
+
+      &__button {
         display: flex;
         justify-content: flex-start;
         margin-top: var(--spacing-large);
-      }
-    }
-  }
-
-  .buttonsContainer {
-    display: flex;
-    justify-content: flex-start;
-
-    @include desktop {
-      justify-content: flex-start;
-    }
-
-    button {
-      margin-right: 0;
-
-      &:first-of-type {
-        margin-right: var(--spacing-huge);
       }
     }
   }

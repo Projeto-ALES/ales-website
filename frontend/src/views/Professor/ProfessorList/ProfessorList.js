@@ -43,12 +43,12 @@ const ProfessorList = ({ history }) => {
       <PageTitle title="Professores" icon="fas fa-graduation-cap" />
       <Container>
         {isLoading ? (
-          <div className={styles.loaderContainer}>
+          <div className={styles.loader}>
             <Loader />
           </div>
         ) : (
-          <div className={styles.contentContainer}>
-            <div className={styles.tableContainer}>
+          <div className={styles.container}>
+            <div className={styles.container__table}>
               <MaterialTable
                 style={{ padding: `0 3%`, color: "#263238" }}
                 columns={[
@@ -91,7 +91,7 @@ const ProfessorList = ({ history }) => {
                 }}
               />
             </div>
-            <div className={styles.buttonsContainer}>
+            <div className={styles.container__buttons}>
               <Button text="Voltar" onClick={() => history.goBack()} />
               <Button
                 kind="success"
