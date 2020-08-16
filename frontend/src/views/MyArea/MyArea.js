@@ -22,7 +22,7 @@ const MyArea = () => {
         <div className={styles.cards}>
           {getItems(user.id).map((item) => {
             return (
-              <Link to={item.route} className={styles.card}>
+              <Link to={item.route} className={styles.card} key={item.id}>
                 <Card id={item.id} kind="outline-yellow">
                   <div className={styles.item}>
                     <span className={styles.item__icon}>
