@@ -24,11 +24,11 @@ const MyArea = () => {
             return (
               <Link to={item.route} className={styles.card}>
                 <Card id={item.id} kind="outline-yellow">
-                  <div className={styles.card__item}>
-                    <span>
+                  <div className={styles.item}>
+                    <span className={styles.item__icon}>
                       <i class={item.icon}></i>
                     </span>
-                    <span>{item.text}</span>
+                    <span className={styles.item__text}>{item.text}</span>
                   </div>
                 </Card>
               </Link>

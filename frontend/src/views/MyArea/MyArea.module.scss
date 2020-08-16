@@ -5,7 +5,7 @@
   flex-direction: column;
   align-items: center;
 
-  @include desktop {
+  @include tablet-portrait {
     flex-direction: row;
     flex-wrap: wrap;
     width: 90%;
@@ -15,31 +15,29 @@
   }
 
   .card {
-    width: 80%;
-    max-width: 400px;
     margin: var(--spacing-base) 0;
 
     @include tablet-portrait {
       margin: var(--spacing-base);
     }
 
-    &__item {
-      height: 50px;
+    .item {
+      width: 220px;
+      height: 180px;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      color: var(--gray-dark);
 
-      span {
-        color: var(--gray-dark);
+      &__icon {
+        font-size: var(--font-very-large);
+        margin-bottom: var(--spacing-small);
+      }
 
-        &:first-of-type {
-          font-size: var(--font-large);
-        }
-        &:last-of-type {
-          width: 60%;
-          margin-left: var(--spacing-medium);
-          font-size: var(--font-medium);
-        }
+      &__text {
+        font-size: 20px;
+        font-weight: 400;
       }
     }
   }
