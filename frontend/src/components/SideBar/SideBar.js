@@ -10,9 +10,9 @@ const SideBar = ({ items }) => {
 
   return (
     <>
-      <div className={`${isHovered ? styles.sideBarOverlay : null}`}></div>
-      <nav className={styles.sideBarContainer} ref={hoverRef}>
-        <ul className={styles.navListContainer}>
+      <div className={`${isHovered ? styles.overlay : null}`}></div>
+      <nav className={styles.container} ref={hoverRef}>
+        <ul className={styles.list}>
           {items.map((item) => {
             return (
               <SideBarItem
