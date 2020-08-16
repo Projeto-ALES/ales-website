@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
+import PageTitle from "components/PageTitle/PageTitle";
 import Container from "components/Container/Container";
 import Card from "components/Card/Card";
 
@@ -15,10 +16,8 @@ const MyArea = () => {
 
   return (
     <div className={styles.myAreaContainer}>
+      <PageTitle title="Minha Área" icon="fas fa-house-user" />
       <Container>
-        <div className={styles.myAreaTitle}>
-          <h2>Minha Área</h2>
-        </div>
         <div className={styles.cardsContainer}>
           {getItems(user.id).map((item) => {
             return (

@@ -8,21 +8,6 @@
     margin-left: var(--sidebar-width);
   }
 
-  .professorListTitle {
-    text-align: center;
-    color: var(--gray-dark);
-    margin-bottom: var(--spacing-huge);
-
-    @include desktop {
-      margin-bottom: 100px;
-    }
-
-    h2 {
-      font-weight: 500;
-      font-size: var(--font-large);
-    }
-  }
-
   .loaderContainer {
     display: flex;
     justify-content: center;

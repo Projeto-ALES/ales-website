@@ -9,20 +9,6 @@
     margin-left: var(--sidebar-width);
   }
 
-  .newProfessorTitle {
-    text-align: center;
-    color: var(--gray-dark);
-
-    @include desktop {
-      margin-bottom: var(--spacing-huge);
-    }
-
-    h2 {
-      font-weight: 500;
-      font-size: var(--font-large);
-    }
-  }
-
   .newProfessorDescription {
     margin-bottom: var(--spacing-huge);
     color: var(--gray-dark);

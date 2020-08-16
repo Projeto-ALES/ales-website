@@ -4,6 +4,7 @@ import routes from "routes/routes";
 
 import { list } from "services/professor.service";
 
+import PageTitle from 'components/PageTitle/PageTitle';
 import Container from "components/Container/Container";
 import Button from "components/Button/Button";
 import Loader from "components/Loader/Loader";
@@ -38,10 +39,8 @@ const ProfessorList = ({ history }) => {
 
   return (
     <div className={styles.professorListContainer}>
+      <PageTitle title="Professores" icon="fas fa-graduation-cap" />
       <Container>
-        <div className={styles.professorListTitle}>
-          <h2>Professores</h2>
-        </div>
         {isLoading ? (
           <div className={styles.loaderContainer}>
             <Loader />
