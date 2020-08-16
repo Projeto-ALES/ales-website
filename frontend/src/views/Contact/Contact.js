@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import { send } from "services/mail.service";
 
+import Page from "components/Page/Page";
+import PageTitle from "components/PageTitle/PageTitle";
 import Card from "components/Card/Card";
 import Input from "components/Input/Input";
 import TextArea from "components/TextArea/TextArea";
@@ -38,10 +40,12 @@ const Contact = () => {
   };
 
   return (
-    <div className={styles.contactContainer}>
-      <div className={styles.contactHeader}>
-        <h2>Como entrar em contato com a gente</h2>
-      </div>
+    <Page>
+      <PageTitle
+        title="Como entrar em contato com a gente"
+        icon="fas fa-paper-plane"
+        height="250px"
+      />
       <div className={styles.contactItems}>
         {items.map((item) => {
           return (
@@ -95,7 +99,7 @@ const Contact = () => {
           />
         </form>
       </div>
-    </div>
+    </Page>
   );
 };
 

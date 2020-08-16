@@ -9,6 +9,7 @@ import { login } from "services/auth.service";
 import { context } from "store/store";
 import { types } from "store/types";
 
+import Page from "components/Page/Page";
 import Container from "components/Container/Container";
 import Card from "components/Card/Card";
 import Input from "components/Input/Input";
@@ -57,16 +58,13 @@ const Login = ({ history, location }) => {
   };
 
   return (
-    <div className={styles.loginContainer}>
+    <Page>
       <Container>
-        <div className={styles.cardContainer}>
+        <div className={styles.card}>
           <Card kind="outline-blue">
-            <form
-              className={styles.cardContentContainer}
-              onSubmit={(e) => submitLogin(e, email, password)}
-            >
+            <form className={styles.form} onSubmit={(e) => submitLogin(e, email, password)}>
               <img src={Alessauro} alt="alessauro" />
-              <div className={styles.inputsContainer}>
+              <div className={styles.form__input}>
                 <Input
                   placeholder="Email"
                   type="text"
@@ -83,7 +81,7 @@ const Login = ({ history, location }) => {
                 />
                 <Link to="/reset-password">Esqueci a senha</Link>
               </div>
-              <div className={styles.buttonContainer}>
+              <div className={styles.form__button}>
                 <Button
                   text="Entrar"
                   kind="primary"
@@ -96,7 +94,7 @@ const Login = ({ history, location }) => {
           </Card>
         </div>
       </Container>
-    </div>
+    </Page>
   );
 };
 
