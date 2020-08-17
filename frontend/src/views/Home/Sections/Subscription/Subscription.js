@@ -21,11 +21,16 @@ const Adaption = () => {
         </div>
         <div className={styles.adaptionDescription}>
           <p>
-            *Importante!* As inscrições vão de 18 a 25 de agosto. O link do formulário será
-            divulgado aqui e no nosso grupo de informações no WhatsApp, onde também iremos postar
-            outros avisos importantes. É o melhor jeito de se manter informado!
+            <b>*Importante!* As inscrições vão de 18 a 25 de agosto</b>. Pra acessar o formulário de
+            inscrição, basta clicar no botão abaixo que você será redirecionado \o/ E pra se manter
+            informado sobre as nossas atividades e atualizações, entre no nosso grupo de informações
+            no WhatsApp, onde também iremos postar outros avisos importantes. É o melhor jeito de se
+            manter informado!
           </p>
-          <div className={styles.buttonContainer}>
+          <div className={styles.buttonsContainer}>
+            <a href="https://forms.gle/qkBJpAqJTg4XcLHh6" target="_blank" rel="noopener noreferrer">
+              <ButtonIcon text="Formulário de Inscrição" kind="purple" icon="far fa-file-alt" />
+            </a>
             <a
               href="https://chat.whatsapp.com/GxdAuQ1hzop70cJ9xQSgGQ"
               target="_blank"
@@ -39,12 +44,6 @@ const Adaption = () => {
             espalhar conhecimento e curiosidade continue a inspirar cada vez mais jovens. Por isso,
             não estamos medindo esforços pra que a gente possa oferecer atividades para nossos
             alunos nos próximos meses.
-          </p>
-          <p>
-            Ficou interessado? Então fica ligado que nossas inscrições começam já, já. Se você está
-            ansioso ou pelo menos curioso, abre o link acima e entra no nosso grupo de informações
-            do ALES, onde divulgaremos informações sobre as inscrições e sobre nosso projeto como um
-            todo. Ah, e prometemos que vamos manter o grupo calmo :)
           </p>
         </div>
         <div className={styles.classesDescription}>

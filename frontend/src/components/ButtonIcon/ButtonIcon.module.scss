@@ -1,69 +1,69 @@
 @import "~styles/breakpoints";
 
 .button {
-    display: flex;
-    align-items: center;
-    padding: var(--spacing-base) var(--spacing-large);
-    border-radius: var(--medium-radius);
-    max-height: 50px;
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-base) var(--spacing-large);
+  border-radius: var(--medium-radius);
+  max-height: 50px;
 
-    background-color: var(--gray-lighter);
-    color: var(--gray-darker);
-    box-shadow: var(--long-drop-shadow);
-    transition: 300ms ease;
+  background-color: var(--gray-lighter);
+  color: var(--gray-darker);
+  box-shadow: var(--long-drop-shadow);
+  transition: 300ms ease;
 
-    &:hover {
-        background-color: var(--gray-lightest);
-      }
+  &:hover {
+    background-color: var(--gray-lightest);
+  }
 
-    .text {
-        font-weight: 600;
-        font-size: var(--font-normal);
-        margin-right: var(--spacing-small);
+  .text {
+    font-weight: 600;
+    font-size: var(--font-normal);
+    margin-right: var(--spacing-small);
+  }
+
+  .loader {
+    border-top: 3px solid rgba(255, 255, 255, 0.2);
+    border-right: 3px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+    border-left: 3px solid #ffffff;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: loader 0.6s infinite linear;
+    animation: loader 0.6s infinite linear;
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+
+    &::after {
+      border-radius: 50%;
+      height: 16px;
+      width: 16px;
     }
 
-    .loader {
-        border-top: 3px solid rgba(255, 255, 255, 0.2);
-        border-right: 3px solid rgba(255, 255, 255, 0.2);
-        border-bottom: 3px solid rgba(255, 255, 255, 0.2);
-        border-left: 3px solid #ffffff;
-        -webkit-transform: translateZ(0);
-        -ms-transform: translateZ(0);
-        transform: translateZ(0);
-        -webkit-animation: loader 0.6s infinite linear;
-        animation: loader 0.6s infinite linear;
-        border-radius: 50%;
-        height: 16px;
-        width: 16px;
-    
-        &::after {
-          border-radius: 50%;
-          height: 16px;
-          width: 16px;
-        }
-    
-        @-webkit-keyframes loader {
-          0% {
-            -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-          }
-          100% {
-            -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-          }
-        }
-    
-        @keyframes loader {
-          0% {
-            -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-          }
-          100% {
-            -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-          }
-        }
+    @-webkit-keyframes loader {
+      0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
       }
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes loader {
+      0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+  }
 }
 
 .primary {
@@ -89,5 +89,14 @@
 
   &:hover {
     background-color: var(--color-success-light);
+  }
+}
+
+.purple {
+  background-color: var(--color-purple);
+  color: #fff;
+
+  &:hover {
+    background-color: var(--color-purple-light);
   }
 }

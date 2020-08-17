@@ -65,6 +65,8 @@
   --color-alert: var(--brand-yellow);
   --color-warning: #ff9100;
   --color-danger: #ec4949;
+  --color-purple: #970b97;
+  --color-purple-light: #b83db8;
 
   /* Neutral Colors */
   --gray-lightest: #f5f5f5;
