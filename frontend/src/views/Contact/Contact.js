@@ -49,14 +49,16 @@ const Contact = () => {
       <div className={styles.items}>
         {items.map((item, index) => {
           return (
-            <div className={styles.card} key={index}>
-              <Card kind="outline-yellow">
-                <div className={styles.item}>
-                  <i class={item.icon}></i>
-                  <span>{item.text}</span>
-                </div>
-              </Card>
-            </div>
+            <a href={item.to} target="_blank" rel="noopener noreferrer">
+              <div className={styles.card} key={index}>
+                <Card kind="outline-yellow">
+                  <div className={styles.item}>
+                    <i class={item.icon}></i>
+                    <span>{item.text}</span>
+                  </div>
+                </Card>
+              </div>
+            </a>
           );
         })}
       </div>
