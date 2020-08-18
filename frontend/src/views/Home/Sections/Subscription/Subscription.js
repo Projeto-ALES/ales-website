@@ -7,6 +7,8 @@ import Alessauro from "assets/logos/alessauro.svg";
 import Confetti from "assets/icons/confetti.png";
 import styles from "./Subscription.module.scss";
 
+import courses from "./courses";
+
 const Adaption = () => {
   return (
     <div className={styles.adaptionContainer} id="inscricao2020">
@@ -28,7 +30,11 @@ const Adaption = () => {
             manter informado!
           </p>
           <div className={styles.buttonsContainer}>
-            <a href="https://forms.gle/qkBJpAqJTg4XcLHh6" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://bit.ly/inscricao-ales-2020-2s"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <ButtonIcon text="Formulário de Inscrição" kind="purple" icon="far fa-file-alt" />
             </a>
             <a
@@ -39,12 +45,6 @@ const Adaption = () => {
               <ButtonIcon text="Entrar no grupo" kind="success" icon="fa fa-whatsapp" />
             </a>
           </div>
-          <p>
-            Apesar do momento que todos nós estamos passando, queremos que o nosso propósito de
-            espalhar conhecimento e curiosidade continue a inspirar cada vez mais jovens. Por isso,
-            não estamos medindo esforços pra que a gente possa oferecer atividades para nossos
-            alunos nos próximos meses.
-          </p>
         </div>
         <div className={styles.classesDescription}>
           <span>Lembrando que nossas aulas/atividades:</span>
@@ -54,6 +54,22 @@ const Adaption = () => {
             <li>ocorrem aos sábados</li>
             <li>não há limite de matérias pra participar (bora fazer todas \o/)</li>
           </ul>
+        </div>
+        <div className={styles.courses}>
+          <table className={styles.table}>
+            <tr>
+              <th>Horário</th>
+              <th>Matéria</th>
+            </tr>
+            {courses.map((course) => {
+              return (
+                <tr key={course.id}>
+                  <td>{course.time}</td>
+                  <td>{course.name}</td>
+                </tr>
+              );
+            })}
+          </table>
         </div>
       </Container>
     </div>

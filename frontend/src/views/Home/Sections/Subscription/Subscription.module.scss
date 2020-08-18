@@ -99,12 +99,54 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: var(--spacing-large);
     font-size: var(--font-medium);
     color: var(--gray-darker);
 
     span {
       font-weight: 600;
       text-align: center;
+      font-size: var(--font-medium);
+    }
+  }
+
+  .courses {
+    display: flex;
+    justify-content: center;
+
+    .table {
+      width: 100%;
+      min-width: 300px;
+      max-width: 400px;
+      border-spacing: 0;
+      color: var(--gray-darker);
+      box-shadow: var(--long-drop-shadow);
+
+      th:first-of-type {
+        border-top-left-radius: 6px;
+      }
+      th:last-of-type {
+        border-top-right-radius: 6px;
+      }
+      tr:last-of-type td:first-of-type {
+        border-bottom-left-radius: 6px;
+      }
+      tr:last-of-type td:last-of-type {
+        border-bottom-right-radius: 6px;
+      }
+
+      th {
+        background: var(--gray-darker);
+        color: #fff;
+        padding: var(--spacing-base);
+      }
+
+      td {
+        background: var(--gray-lighter);
+        color: var(--gray-darker);
+        padding: var(--spacing-base);
+        text-align: center;
+      }
     }
   }
 }
