@@ -45,7 +45,7 @@ const Contact = () => {
       <div className={styles.contactItems}>
         {items.map((item) => {
           return (
-            <a href={item.to} target="_blank">
+            <a href={item.to} target="_blank" rel="noopener noreferrer">
               <div className={styles.cardContainer}>
                 <Card kind="outline-yellow">
                   <div className={styles.contactItem}>
