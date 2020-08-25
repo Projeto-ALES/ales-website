@@ -1,22 +1,27 @@
-const mongoose = require("../mongo");
+const mongoose = require("mongoose");
 
 const SubjectSchema = new mongoose.Schema({
   name: {
     type: String,
-    require: true,
+    required: true,
   },
   description: {
     type: String,
-  },
-  materials: {
-    type: []
   },
   createdAt: {
     type: Date,
     default: Date.now,
   },
+  coordinators: { type: mongoose.Types.ObjectId, ref:'User'},
+  professors: [{ type: mongoose.Types.ObjectId, ref:'User'}],
+  beginningDate: {
+    type: Date,
+  },
+  endDate: {
+    type: Date,
+  },
 });
 
-const Subject = mongoose.model("SubjectSchema", SubjectSchema);
+const Subject = mongoose.model("Subjects", SubjectSchema);
 
 module.exports = Subject;
