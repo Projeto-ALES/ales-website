@@ -2,7 +2,9 @@ const Lesson = require("../models/lesson");
 const { ErrorHandler } = require("../helpers/error");
 
 const getLessonsBySubjectId = async (subjectId) => {
-  return await Lesson.find();
+  return await Lesson.find({
+    subject: subjectId,
+  });
 }
 
 const createLesson = async data => {
@@ -17,6 +19,21 @@ const createLesson = async data => {
   }
 }
 
+const deleteLesson = async (id) => {
+  return await Lesson.findByIdAndDelete(id);
+}
+
+const updateLesson = async (id, body) => {
+  try {
+    return await Lesson.findOneAndUpdate({ _id: id }, { $set: { ...body } })
+  } catch (e) {
+    throw new ErrorHandler(500, e.errmsg);
+  }
+}
+
 module.exports = {
+  getLessonsBySubjectId,
   createLesson,
+  updateLesson,
+  deleteLesson,
 };

@@ -16,8 +16,8 @@ class NotFoundError extends ErrorHandler {
 };
 
 class BadRequestError extends ErrorHandler {
-  constructor() {
-    super(400, 'Bad request');
+  constructor(message) {
+    super(400, message);
   };
 };
 

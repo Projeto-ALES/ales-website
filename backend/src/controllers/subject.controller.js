@@ -3,6 +3,7 @@ const { check, validationResult } = require("express-validator");
 
 const { AuthMiddleware } = require("../middlewares/auth.middleware");
 const SubjectService = require("../services/subject.service");
+const LessonService = require("../services/lesson.service");
 
 const { NotFoundError, BadRequestError } = require("../helpers/error");
 
@@ -15,6 +16,16 @@ router.get("/subjects", async (req, res) => {
   return res.status(200).json({
     status: 200,
     subjects,
+  });
+});
+
+router.get("/subjects/:id/lessons", AuthMiddleware, async (req, res, next) => {
+  const { id } = req.params;
+  const lessons = await LessonService.getLessonsBySubjectId(id);
+
+  return res.status(200).json({
+    status: 200,
+    lessons,
   });
 });
 
@@ -32,7 +43,7 @@ router.get("/subjects/:id", async (req, res, next) => {
   });
 })
 
-router.delete("subjects/:id", AuthMiddleware, async (req, res, next) => {
+router.delete("/subjects/:id", AuthMiddleware, async (req, res, next) => {
   const { id } = req.params;
 
   const subject = await SubjectService.deleteSubject(id);
