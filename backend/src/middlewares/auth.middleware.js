@@ -4,7 +4,7 @@ const { parseCookie } = require("../helpers/cookie");
 
 const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
-module.exports = (req, res, next) => {
+exports.AuthMiddleware = async (req, res, next) => {
   const { headers } = req;
 
   const cookie = headers ? headers.cookie : undefined;

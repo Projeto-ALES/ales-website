@@ -1,7 +1,7 @@
 const express = require("express");
 const { check, validationResult } = require("express-validator");
 
-const AuthMiddleware = require("../middlewares/auth.middleware");
+const { AuthMiddleware } = require("../middlewares/auth.middleware");
 const LessonService = require("../services/lesson.service");
 
 const { BadRequestError } = require("../helpers/error");

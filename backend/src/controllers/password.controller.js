@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const { check, validationResult } = require("express-validator");
 
-const AuthMiddleware = require("../middlewares/auth.middleware");
+const { AuthMiddleware } = require("../middlewares/auth.middleware");
 
 const AuthService = require("../services/auth.service");
 const MailService = require("../services/mail.service");

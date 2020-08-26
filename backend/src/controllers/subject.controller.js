@@ -1,7 +1,7 @@
 const express = require("express");
 const { check, validationResult } = require("express-validator");
 
-const AuthMiddleware = require("../middlewares/auth.middleware");
+const { AuthMiddleware } = require("../middlewares/auth.middleware");
 const SubjectService = require("../services/subject.service");
 
 const { NotFoundError, BadRequestError } = require("../helpers/error");
