@@ -4,7 +4,7 @@ const { check, validationResult } = require("express-validator");
 const AuthMiddleware = require("../middlewares/auth.middleware");
 const SubjectService = require("../services/subject.service");
 
-const { NotFoundError } = require("../helpers/error");
+const { NotFoundError, BadRequestError } = require("../helpers/error");
 
 const router = express.Router();
 
@@ -32,14 +32,7 @@ router.get("/subjects/:id", async (req, res, next) => {
   });
 })
 
-router.delete("subjects/:id", async (req, res, next) => {
-
-  try {
-    await AuthMiddleware.verifyAuth(req.headers.cookie);
-  } catch(e) {
-    next(e);
-  }
-
+router.delete("subjects/:id", AuthMiddleware, async (req, res, next) => {
   const { id } = req.params;
 
   const subject = await SubjectService.deleteSubject(id);
@@ -54,6 +47,7 @@ router.delete("subjects/:id", async (req, res, next) => {
 })
 
 router.post("/subjects",
+  AuthMiddleware,
   [
     check("name").not().isEmpty().withMessage("Name is missing"),
     check("coordinators").not().isEmpty().isArray().withMessage("Coordinator is missing"),
@@ -61,19 +55,16 @@ router.post("/subjects",
     check("beginningDate").not().isEmpty().withMessage("Beginning Date is required"),
     check("endDate").not().isEmpty().withMessage("End date is missing"),
   ],
-  async (req, res, next) => {
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return BadRequestError(errors.array());
+    };
+
     let subject;
-
     try {
-      await AuthMiddleware.verifyAuth(req.headers.cookie);
-
-      const errors = validationResult(req);
-
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() })
-      };
-
-      subject = await SubjectService.createSubject(req.body);
+      await SubjectService.createSubject(req.body);
     } catch(e) {
       next(e);
     }
@@ -84,12 +75,9 @@ router.post("/subjects",
     });
   });
 
-router.put("/subjects/:id", async (req, res, next) => {
+router.put("/subjects/:id", AuthMiddleware, async (req, res, next) => {
   try {
-    await AuthMiddleware.verifyAuth(req.headers.cookie);
-
     const { id } = req.params;
-
     await SubjectService.updateSubject(id, req.body);
   } catch(e) {
     next(e);

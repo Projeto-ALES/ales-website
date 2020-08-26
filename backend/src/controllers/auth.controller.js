@@ -5,9 +5,10 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { check, validationResult } = require("express-validator");
 
-const AuthMiddleware = require("../middlewares/auth.middleware");
+const AuthMiddleware, { VerifyRefreshToken } = require("../middlewares/auth.middleware");
 
 const AuthService = require("../services/auth.service");
+
 const { handleError, ErrorHandler } = require("../helpers/error");
 const { clearCookies } = require("../helpers/cookie");
 const jwtConfig = require("../jwt");
@@ -67,38 +68,27 @@ router.post(
   }
 );
 
-router.post("/refresh-token", async (req, res) => {
-  try {
-    const { cookie } = req.headers;
-    const refreshToken = await AuthMiddleware.verifyRefreshToken(cookie);
+router.post("/refresh-token", VerifyRefreshToken, async (req, res) => {
+  const refreshToken = req.authContext;
 
-    const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
+  const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
-    const { id, email, name } = jwt.verify(refreshToken, REFRESH_TOKEN_SECRET);
-    const token = jwt.sign({ id, email, name }, TOKEN_SECRET, {
-      expiresIn: jwtConfig.TOKEN_EXP,
+  const { id, email, name } = jwt.verify(refreshToken, REFRESH_TOKEN_SECRET);
+  const token = jwt.sign({ id, email, name }, TOKEN_SECRET, {
+    expiresIn: jwtConfig.TOKEN_EXP,
+  });
+
+  return res
+    .cookie("token", token, { httpOnly: true, secure: true })
+    .status(200)
+    .json({
+      status: 200,
     });
-
-    return res
-      .cookie("token", token, { httpOnly: true, secure: true })
-      .status(200)
-      .json({
-        status: 200,
-      });
-  } catch (e) {
-    handleError(e, res);
-  }
 });
 
-router.post("/logout", async (req, res) => {
-  try {
-    await AuthMiddleware.verifyAuth(req.headers.cookie);
-    await clearCookies(res);
-
-    res.status(202).json({ status: 202 });
-  } catch (e) {
-    handleError(e, res);
-  }
+router.post("/logout", AuthMiddleware, async (req, res) => {
+  await clearCookies(res);
+  res.status(202).json({ status: 202 });
 });
 
 module.exports = router;

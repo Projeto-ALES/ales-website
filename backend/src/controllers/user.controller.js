@@ -8,10 +8,8 @@ const AuthMiddleware = require("../middlewares/auth.middleware");
 const UserService = require("../services/user.service");
 const { handleError, ErrorHandler } = require("../helpers/error");
 
-router.get("/users", async (req, res) => {
+router.get("/users", AuthMiddleware, async (req, res) => {
   try {
-    await AuthMiddleware.verifyAuth(req.headers.cookie);
-
     const users = await UserService.getUsers({});
     return res.status(200).json({
       status: 200,
@@ -53,10 +51,8 @@ router.post(
   }
 );
 
-router.get("/users/:id", async (req, res) => {
+router.get("/users/:id", AuthMiddleware, async (req, res) => {
   try {
-    await AuthMiddleware.verifyAuth(req.headers.cookie);
-
     const { id } = req.params;
     const user = await UserService.getUser(id);
     if (!user) {
@@ -72,9 +68,8 @@ router.get("/users/:id", async (req, res) => {
   }
 });
 
-router.delete("/users/:id", async (req, res) => {
+router.delete("/users/:id", AuthMiddleware, async (req, res) => {
   try {
-    await AuthMiddleware.verifyAuth(req.headers.cookie);
     const user = await UserService.deleteUser(req.params);
     if (!user) {
       throw new ErrorHandler(404, "User not found");
@@ -88,10 +83,8 @@ router.delete("/users/:id", async (req, res) => {
   }
 });
 
-router.put("/users/:id", async (req, res) => {
+router.put("/users/:id", AuthMiddleware, async (req, res) => {
   try {
-    await AuthMiddleware.verifyAuth(req.headers.cookie);
-
     const { id } = req.params;
     const user = await UserService.updateUser(id, req.body);
     if (!user) {
@@ -107,9 +100,9 @@ router.put("/users/:id", async (req, res) => {
   }
 });
 
-router.get("/me", async (req, res) => {
+router.get("/me", AuthMiddleware, async (req, res) => {
   try {
-    const { data } = await AuthMiddleware.verifyAuth(req.headers.cookie);
+    const { data } = req.authContext;
     const { id } = data;
     const user = await UserService.getUser(id);
     if (!user) {
