@@ -24,9 +24,9 @@
     }
 
     img {
-        margin-right: var(--spacing-large);
-        width: 3.5em;
-        transform: rotate(-9deg);
+      margin-right: var(--spacing-large);
+      width: 3.5em;
+      transform: rotate(-9deg);
     }
   }
 
@@ -50,9 +50,9 @@
     }
 
     img {
-        margin-left: var(--spacing-base);
-        width: 2em;
-        transform: rotate(-5deg);
+      margin-left: var(--spacing-base);
+      width: 2em;
+      transform: rotate(-5deg);
     }
   }
 
@@ -70,10 +70,27 @@
       font-size: var(--font-medium);
     }
 
-    .buttonContainer {
+    .buttonsContainer {
       display: flex;
+      flex-direction: column;
+      align-items: center;
       justify-content: center;
       margin: var(--spacing-huge) 0;
+
+      @include tablet-portrait {
+        flex-direction: row;
+      }
+
+      a {
+        &:first-of-type {
+          margin-bottom: var(--spacing-huge);
+
+          @include tablet-portrait {
+            margin-bottom: 0;
+            margin-right: var(--spacing-huge);
+          }
+        }
+      }
     }
   }
 
@@ -82,12 +99,54 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: var(--spacing-large);
     font-size: var(--font-medium);
     color: var(--gray-darker);
 
     span {
       font-weight: 600;
       text-align: center;
+      font-size: var(--font-medium);
+    }
+  }
+
+  .courses {
+    display: flex;
+    justify-content: center;
+
+    .table {
+      width: 100%;
+      min-width: 300px;
+      max-width: 400px;
+      border-spacing: 0;
+      color: var(--gray-darker);
+      box-shadow: var(--long-drop-shadow);
+
+      th:first-of-type {
+        border-top-left-radius: 6px;
+      }
+      th:last-of-type {
+        border-top-right-radius: 6px;
+      }
+      tr:last-of-type td:first-of-type {
+        border-bottom-left-radius: 6px;
+      }
+      tr:last-of-type td:last-of-type {
+        border-bottom-right-radius: 6px;
+      }
+
+      th {
+        background: var(--gray-darker);
+        color: #fff;
+        padding: var(--spacing-base);
+      }
+
+      td {
+        background: var(--gray-lighter);
+        color: var(--gray-darker);
+        padding: var(--spacing-base);
+        text-align: center;
+      }
     }
   }
 }
