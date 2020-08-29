@@ -4,6 +4,7 @@ import routes from "routes/routes";
 import { resetPassword } from "services/auth.service";
 import { toast } from "react-toastify";
 
+import Page from "components/Page/Page";
 import Container from "components/Container/Container";
 import Card from "components/Card/Card";
 import Input from "components/Input/Input";
@@ -34,23 +35,20 @@ const ResetPassword = ({ history }) => {
   };
 
   return (
-    <div className={styles.resetPasswordContainer}>
+    <Page>
       <Container>
-        <div className={styles.cardContainer}>
+        <div className={styles.container}>
           <Card kind="outline-blue">
-            <form
-              className={styles.cardContentContainer}
-              onSubmit={(e) => submitResetPasswordRequest(e, email)}
-            >
-              <div className={styles.resetPasswordTitle}>
+            <form className={styles.form} onSubmit={(e) => submitResetPasswordRequest(e, email)}>
+              <div className={styles.form__title}>
                 <h3>Recuperar Senha</h3>
               </div>
-              <div className={styles.resetPasswordDescription}>
+              <div className={styles.form__description}>
                 <p>
                   Esqueceu a senha? Digite o email cadastrado pra te ajudarmos a definir uma nova :)
                 </p>
               </div>
-              <div className={styles.inputContainer}>
+              <div className={styles.form__input}>
                 <Input
                   placeholder="Email"
                   type="email"
@@ -59,7 +57,7 @@ const ResetPassword = ({ history }) => {
                   required
                 />
               </div>
-              <div className={styles.buttonContainer}>
+              <div className={styles.form__button}>
                 <Button
                   text="Recuperar Senha"
                   kind="success"
@@ -72,7 +70,7 @@ const ResetPassword = ({ history }) => {
           </Card>
         </div>
       </Container>
-    </div>
+    </Page>
   );
 };
 

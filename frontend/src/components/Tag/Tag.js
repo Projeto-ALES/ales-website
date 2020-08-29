@@ -4,8 +4,8 @@ import styles from "./Tag.module.scss";
 
 const Tag = ({ text, kind }) => {
   return (
-    <div className={`${styles.tagContainer} ${styles[kind]}`}>
-      <span className={styles.tagText}>{text}</span>
+    <div className={`${styles.container} ${styles[kind]}`}>
+      <span className={styles.text}>{text}</span>
     </div>
   );
 };

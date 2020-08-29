@@ -15,6 +15,8 @@ import {
   formatDateToReceive,
 } from "helpers/masks";
 
+import Page from "components/Page/Page";
+import PageTitle from "components/PageTitle/PageTitle";
 import Container from "components/Container/Container";
 import Input from "components/Input/Input";
 import PhoneInput from "components/PhoneInput/PhoneInput";
@@ -125,19 +127,17 @@ const Profile = ({ history, match }) => {
   };
 
   return (
-    <div className={styles.profileContainer}>
+    <Page>
+      <PageTitle title="Perfil" icon="fas fa-user-circle" />
       <Container>
-        <div className={styles.profileTitle}>
-          <h2>Meu Perfil</h2>
-        </div>
         {isLoading ? (
-          <div className={styles.loaderContainer}>
+          <div className={styles.loader}>
             <Loader />
           </div>
         ) : (
-          <div className={styles.formsContainer}>
+          <div className={styles.container}>
             <form
-              className={styles.forms}
+              className={styles.form}
               onSubmit={(e) =>
                 submitUpdate(e, id, {
                   name,
@@ -149,7 +149,7 @@ const Profile = ({ history, match }) => {
                 })
               }
             >
-              <div className={styles.formsSection}>
+              <div className={styles.section}>
                 <span>Dados Principais</span>
                 <Input
                   placeholder="Nome"
@@ -173,7 +173,7 @@ const Profile = ({ history, match }) => {
                   min={11}
                 />
               </div>
-              <div className={styles.formsSection}>
+              <div className={styles.section}>
                 <span>Dados Opcionais</span>
                 <DateInput
                   placeholder="Data de Nascimento dd/mm/aaaa"
@@ -182,7 +182,7 @@ const Profile = ({ history, match }) => {
                   required
                   min={8}
                 />
-                <div className={styles.dropdownContainer}>
+                <div className={styles.section__dropdown}>
                   <Dropdown name="gender" options={options} onSelect={setGender} value={gender} />
                 </div>
                 <Input
@@ -192,8 +192,8 @@ const Profile = ({ history, match }) => {
                   onChange={(e) => setArea(e.target.value)}
                 />
               </div>
-              <div className={styles.formsSection}>
-                <div className={styles.buttonsContainer}>
+              <div className={styles.section}>
+                <div className={styles.section__buttons}>
                   <Button
                     text="Voltar"
                     type="button"
@@ -212,13 +212,13 @@ const Profile = ({ history, match }) => {
               </div>
             </form>
             <form
-              className={styles.forms}
+              className={styles.form}
               onSubmit={(e) =>
                 submitPasswordUpdate(e, id, { password, newPassword, newPasswordConf })
               }
             >
-              <div className={styles.authFormsContent}>
-                <div className={styles.formsSection}>
+              <div className={styles.authForm}>
+                <div className={styles.section}>
                   <span>Autenticação</span>
                   <Input
                     placeholder="Senha Atual"
@@ -241,7 +241,7 @@ const Profile = ({ history, match }) => {
                     onChange={(e) => setNewPasswordConf(e.target.value)}
                     required
                   />
-                  <div className={styles.buttonContainer}>
+                  <div className={styles.section__button}>
                     <Button
                       text="Atualizar senha"
                       type="submit"
@@ -257,7 +257,7 @@ const Profile = ({ history, match }) => {
           </div>
         )}
       </Container>
-    </div>
+    </Page>
   );
 };
 

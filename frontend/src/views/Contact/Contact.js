@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import { send } from "services/mail.service";
 
+import Page from "components/Page/Page";
+import PageTitle from "components/PageTitle/PageTitle";
 import Card from "components/Card/Card";
 import Input from "components/Input/Input";
 import TextArea from "components/TextArea/TextArea";
@@ -38,31 +40,32 @@ const Contact = () => {
   };
 
   return (
-    <div className={styles.contactContainer}>
-      <div className={styles.contactHeader}>
-        <h2>Como entrar em contato com a gente</h2>
-      </div>
-      <div className={styles.contactItems}>
-        {items.map((item) => {
+    <Page>
+      <PageTitle
+        title="Como entrar em contato com a gente"
+        icon="fas fa-paper-plane"
+        height="250px"
+      />
+      <div className={styles.items}>
+        {items.map((item, index) => {
           return (
-            <div className={styles.cardContainer}>
-              <Card kind="outline-yellow">
-                <div className={styles.contactItem}>
-                  <i class={item.icon}></i>
-                  <span>{item.text}</span>
-                </div>
-              </Card>
-            </div>
+            <a href={item.to} target="_blank" rel="noopener noreferrer">
+              <div className={styles.card} key={index}>
+                <Card kind="outline-yellow">
+                  <div className={styles.item}>
+                    <i class={item.icon}></i>
+                    <span>{item.text}</span>
+                  </div>
+                </Card>
+              </div>
+            </a>
           );
         })}
       </div>
-      <div className={styles.formContainer}>
+      <div className={styles.contact}>
         <h3>Mande uma mensagem!</h3>
-        <form
-          className={styles.contactForm}
-          onSubmit={(e) => submitMessage(e, { name, email, message })}
-        >
-          <div className={styles.formContent}>
+        <form className={styles.form} onSubmit={(e) => submitMessage(e, { name, email, message })}>
+          <div className={styles.inputs}>
             <Input
               placeholder="Nome"
               value={name}
@@ -95,7 +98,7 @@ const Contact = () => {
           />
         </form>
       </div>
-    </div>
+    </Page>
   );
 };
 

@@ -1,53 +1,30 @@
 @import "~styles/breakpoints";
 
-.newProfessorContainer {
-  min-height: 100vh;
-  background-color: var(--gray-lightest);
+.description {
   text-align: center;
+  margin-bottom: var(--spacing-huge);
+  color: var(--gray-dark);
+}
 
-  @include desktop {
-    margin-left: var(--sidebar-width);
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__email {
+    width: 90%;
+    max-width: 400px;
+    margin-bottom: var(--spacing-large);
   }
 
-  .newProfessorTitle {
-    text-align: center;
-    color: var(--gray-dark);
-
-    @include desktop {
-      margin-bottom: var(--spacing-huge);
-    }
-
-    h2 {
-      font-weight: 500;
-      font-size: var(--font-large);
-    }
-  }
-
-  .newProfessorDescription {
-    margin-bottom: var(--spacing-huge);
-    color: var(--gray-dark);
-  }
-
-  .formContainer {
+  &__buttons {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: flex-end;
 
-    .emailInput {
-      width: 90%;
-      max-width: 400px;
-      margin-bottom: var(--spacing-large);
-    }
-
-    .buttonsContainer {
-      display: flex;
-      justify-content: flex-end;
-
-      button {
-        &:last-of-type {
-          margin-left: var(--spacing-huge);
-          width: 140px;
-        }
+    button {
+      &:last-of-type {
+        margin-left: var(--spacing-huge);
+        width: 140px;
       }
     }
   }
