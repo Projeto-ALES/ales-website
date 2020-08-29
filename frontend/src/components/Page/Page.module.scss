@@ -1,0 +1,10 @@
+@import "~styles/breakpoints";
+
+.page {
+  min-height: 100vh;
+  background-color: var(--gray-lightest);
+
+  @include desktop {
+    margin-left: var(--sidebar-width);
+  }
+}

@@ -9,12 +9,18 @@ class ErrorHandler extends Error {
   }
 }
 
+class NotFoundError extends ErrorHandler {
+  constructor(entityName) {
+    super(404, `${entityName} not found`);
+  }
+}
+
 const handleError = async (err, res) => {
   const { status, message, jwtExpired } = err;
   if (status === 401 && jwtExpired) {
     await clearCookies(res);
   }
-  res.status(status).json({
+  res.status(status || 500).json({
     status,
     message,
   });
@@ -22,5 +28,6 @@ const handleError = async (err, res) => {
 
 module.exports = {
   ErrorHandler,
+  NotFoundError,
   handleError,
 };

@@ -4,9 +4,9 @@ import styles from "./DateInput.module.scss";
 
 const DateInput = ({ placeholder, onChange, value, required, min }) => {
   return (
-    <div className={styles.dateInputContainer}>
+    <div className={styles.container}>
       <input
-        className={styles.dateInput}
+        className={styles.input}
         type="text"
         placeholder={placeholder}
         value={value || ""}

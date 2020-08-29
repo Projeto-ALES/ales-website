@@ -10,7 +10,7 @@ const items = [
     id: 3,
     text: "@projetoales",
     icon: "fa fa-instagram",
-    to: "https://instagram.com/projetoales/",
+    to: "https://www.instagram.com/projetoales/",
   },
 ];
 

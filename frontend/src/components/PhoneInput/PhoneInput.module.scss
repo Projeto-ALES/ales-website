@@ -1,10 +1,10 @@
-.phoneInputContainer {
+.container {
   position: relative;
   margin: var(--spacing-medium) 0;
   display: flex;
   align-items: center;
 
-  .phoneInputAddon {
+  .addon {
     background: var(--gray-lighter);
     height: 37px;
     width: 50px;
@@ -19,7 +19,7 @@
     font-weight: 500;
   }
 
-  .phoneInput {
+  .input {
     height: 35px;
     font-size: var(--font-normal);
     width: 100%;

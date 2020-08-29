@@ -1,13 +1,13 @@
 @import "~styles/breakpoints";
 
-.itemContainer {
+.container {
   width: 25%;
 
   @include desktop {
     width: auto;
   }
 
-  .itemLink {
+  .item {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -26,11 +26,11 @@
       background-color: var(--gray-darkest);
     }
 
-    .itemText {
+    &__text {
       display: none;
     }
 
-    .isOpenText {
+    &__isOpen {
       @include desktop {
         display: block;
         width: 50%;

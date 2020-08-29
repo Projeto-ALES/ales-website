@@ -36,7 +36,7 @@ router.post(
       if (!compare) {
         throw new ErrorHandler(401, "Invalid credentials");
       }
-      const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
+      const { TOKEN_SECRET, REFRESH_TOKEN_SECRET, NODE_ENV } = process.env;
 
       const token = jwt.sign(
         { id: user._id, email: user.email, name: user.name },
@@ -54,8 +54,14 @@ router.post(
       );
       user.password = null;
       return res
-        .cookie("token", token, { httpOnly: true, secure: true })
-        .cookie("refresh_token", refreshToken, { httpOnly: true, secure: true })
+        .cookie("token", token, {
+          httpOnly: true,
+          secure: NODE_ENV === "production",
+        })
+        .cookie("refresh_token", refreshToken, {
+          httpOnly: true,
+          secure: NODE_ENV === "production",
+        })
         .status(200)
         .json({
           status: 200,

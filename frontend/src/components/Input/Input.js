@@ -4,7 +4,7 @@ import styles from "./Input.module.scss";
 
 const Input = ({ placeholder, type, onChange, value, required }) => {
   return (
-    <div className={styles.inputContainer}>
+    <div className={styles.container}>
       <input
         className={styles.input}
         type={type}

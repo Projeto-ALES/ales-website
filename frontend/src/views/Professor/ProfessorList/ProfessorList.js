@@ -4,6 +4,8 @@ import routes from "routes/routes";
 
 import { list } from "services/professor.service";
 
+import Page from "components/Page/Page";
+import PageTitle from "components/PageTitle/PageTitle";
 import Container from "components/Container/Container";
 import Button from "components/Button/Button";
 import Loader from "components/Loader/Loader";
@@ -37,18 +39,16 @@ const ProfessorList = ({ history }) => {
   }, []);
 
   return (
-    <div className={styles.professorListContainer}>
+    <Page>
+      <PageTitle title="Professores" icon="fas fa-graduation-cap" />
       <Container>
-        <div className={styles.professorListTitle}>
-          <h2>Professores</h2>
-        </div>
         {isLoading ? (
-          <div className={styles.loaderContainer}>
+          <div className={styles.loader}>
             <Loader />
           </div>
         ) : (
-          <div className={styles.contentContainer}>
-            <div className={styles.tableContainer}>
+          <div className={styles.container}>
+            <div className={styles.container__table}>
               <MaterialTable
                 style={{ padding: `0 3%`, color: "#263238" }}
                 columns={[
@@ -91,7 +91,7 @@ const ProfessorList = ({ history }) => {
                 }}
               />
             </div>
-            <div className={styles.buttonsContainer}>
+            <div className={styles.container__buttons}>
               <Button text="Voltar" onClick={() => history.goBack()} />
               <Button
                 kind="success"
@@ -102,7 +102,7 @@ const ProfessorList = ({ history }) => {
           </div>
         )}
       </Container>
-    </div>
+    </Page>
   );
 };
 
