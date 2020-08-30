@@ -169,9 +169,7 @@ As it was said, it's very useful if you don't want to install a lot of dependenc
 
 The project uses `React` as main library for the frontend, thus they use `JavaScript` as main programming language. `JavaScript` has many code styles that could be followed, most of them were created in big companies like Google and Airbnb. We will be using `Airbnb`'s code style.
 
-But before you search for it (which we suggest you to do), know that we use some built-in configurations that allow us to write `Airbnb`'s code style automatically. It should come already configured in the project. The only thing you need to to is configure your `VS Code` settings to format your `JavaScript` code on save.
-
-To do that, open `VS Code` and enter `Ctrl + Shift + P` to open actions menu. Then type in `settings`. Choose the option `Preferences: Open Settings (JSON)`. A file named `settings.json` should be opened. Now you add these lines to the file: `"editor.formatOnSave": true` and `"[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" }`. Make sure that you have `Prettier` VS Code extension installed.
+But before you search for it (which we suggest you to do), know that we use some built-in configurations that allow us to write `Airbnb`'s code style automatically. It should come already configured in the project (`.vscode/settings.json` file).
 
 Despite all of that, it is recommended to spend some time (not much) checking [Airbnb's code style](https://github.com/airbnb/javascript).
 

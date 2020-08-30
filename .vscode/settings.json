@@ -1,4 +1,8 @@
 {
   "prettier.arrowParens": "avoid",
-  "prettier.prettierPath": "./frontend/node_modules/prettier"
+  "prettier.prettierPath": "./frontend/node_modules/prettier",
+  "editor.formatOnSave": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
