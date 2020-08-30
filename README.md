@@ -114,7 +114,7 @@ All decisions related with user requirements and needs are made on the design pr
 
   - REACT_APP_API_URL={api-url}
 
-5. Build services images by running `docker-compose --build` or running `dev build` VS Code task.
+5. Build services images by running `docker-compose build` or running `dev build` VS Code task.
 
 6. Start services by running `docker-compose up` or running `dev start` VS Code task.
 
