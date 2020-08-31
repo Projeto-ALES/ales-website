@@ -5,7 +5,10 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { check, validationResult } = require("express-validator");
 
-const { AuthMiddleware, VerifyRefreshToken } = require("../middlewares/auth.middleware");
+const {
+  AuthMiddleware,
+  VerifyRefreshToken,
+} = require("../middlewares/auth.middleware");
 
 const AuthService = require("../services/auth.service");
 
@@ -85,7 +88,10 @@ router.post("/refresh-token", VerifyRefreshToken, async (req, res) => {
   });
 
   return res
-    .cookie("token", token, { httpOnly: true, secure: true })
+    .cookie("token", token, {
+      httpOnly: true,
+      secure: NODE_ENV === "production",
+    })
     .status(200)
     .json({
       status: 200,
