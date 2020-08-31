@@ -34,7 +34,7 @@ router.get("/subjects/:id", async (req, res, next) => {
   const subject = await SubjectService.getSubjectsById(id);
 
   if (!subject) {
-    next (new NotFoundError(ENTITY_NAME));
+    return next (new NotFoundError(ENTITY_NAME));
   }
 
   return res.status(200).json({
@@ -49,7 +49,7 @@ router.delete("/subjects/:id", AuthMiddleware, async (req, res, next) => {
   const subject = await SubjectService.deleteSubject(id);
 
   if (!subject) {
-    next (new NotFoundError(ENTITY_NAME));
+    return next (new NotFoundError(ENTITY_NAME));
   }
 
   return res.status(202).json({
@@ -77,7 +77,7 @@ router.post("/subjects",
     try {
       await SubjectService.createSubject(req.body);
     } catch(e) {
-      next(e);
+      return next(e);
     }
 
     return res.status(201).json({
@@ -91,7 +91,7 @@ router.put("/subjects/:id", AuthMiddleware, async (req, res, next) => {
     const { id } = req.params;
     await SubjectService.updateSubject(id, req.body);
   } catch(e) {
-    next(e);
+    return next(e);
   };
 
   return res.status(201).json({

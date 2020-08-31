@@ -69,7 +69,7 @@ router.post(
 );
 
 router.post("/refresh-token", VerifyRefreshToken, async (req, res) => {
-  const refreshToken = req.authContext;
+  const { refreshToken } = req.authContext;
 
   const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 

@@ -7,6 +7,10 @@ const getLessonsBySubjectId = async (subjectId) => {
   });
 }
 
+const getLessonById = async (id) => {
+  return await Lesson.findById(id);
+};
+
 const createLesson = async data => {
   try {
     return await Lesson.create(data);
@@ -33,6 +37,7 @@ const updateLesson = async (id, body) => {
 
 module.exports = {
   getLessonsBySubjectId,
+  getLessonById,
   createLesson,
   updateLesson,
   deleteLesson,
