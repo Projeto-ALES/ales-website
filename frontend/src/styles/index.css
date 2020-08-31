@@ -65,9 +65,11 @@
   --color-alert: var(--brand-yellow);
   --color-warning: #ff9100;
   --color-danger: #ec4949;
+  --color-purple: #970b97;
+  --color-purple-light: #b83db8;
 
   /* Neutral Colors */
-  --gray-lightest: #f5f5f5;
+  --gray-lightest: #fafafa;
   --gray-lighter: #eceff1;
   --gray-light: #b0bec5;
   --gray: #78909c;
@@ -129,4 +131,10 @@ button {
   padding: 0;
   border: none;
   background: none;
+}
+
+input:focus {
+  outline-color: var(--brand-blue);
+  outline: none;
+  box-shadow: 0 0 3px var(--brand-blue);
 }

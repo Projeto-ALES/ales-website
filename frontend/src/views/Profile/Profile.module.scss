@@ -1,108 +1,84 @@
 @import "~styles/breakpoints";
 
-.profileContainer {
-  min-height: 100vh;
-  background-color: var(--gray-lightest);
+.loader {
+  display: flex;
+  justify-content: center;
+}
 
-  @include desktop {
-    margin-left: var(--sidebar-width);
-  }
+.container {
+  padding: 0 var(--spacing-medium);
+  color: var(--gray-dark);
+  max-width: 1000px;
+  margin: auto;
 
-  .profileTitle {
-    text-align: center;
-    color: var(--gray-dark);
-    margin-bottom: var(--spacing-huge);
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     @include desktop {
-      margin-bottom: 100px;
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
     }
 
-    h2 {
-      font-weight: 500;
-      font-size: var(--font-large);
-    }
-  }
-
-  .loaderContainer {
-    display: flex;
-    justify-content: center;
-  }
-
-  .formsContainer {
-    padding: 0 var(--spacing-medium);
-    color: var(--gray-dark);
-    max-width: 1000px;
-    margin: auto;
-
-    .forms {
+    .authForm {
+      width: 100%;
+      margin-bottom: var(--spacing-huge);
       display: flex;
       flex-direction: column;
       align-items: center;
 
       @include desktop {
-        flex-direction: row;
-        justify-content: space-between;
-        flex-wrap: wrap;
-      }
-
-      .authFormsContent {
-        width: 100%;
-        margin-bottom: var(--spacing-huge);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        @include desktop {
-          align-items: flex-start;
-        }
-      }
-
-      .formsSection {
-        width: 100%;
-        margin: var(--spacing-huge) 0;
-        max-width: 400px;
-        display: flex;
-        flex-direction: column;
-
-        @include desktop {
-          margin: var(--spacing-huge) 0;
-        }
-
-        span {
-          font-weight: 600;
-        }
-
-        .dropdownContainer {
-          width: 240px;
-          margin: var(--spacing-base) 0;
-        }
-
-        &:nth-child(3) {
-          margin-top: 0;
-        }
-
-        .buttonContainer {
-          display: flex;
-          justify-content: flex-start;
-          margin-top: var(--spacing-large);
-        }
+        align-items: flex-start;
       }
     }
 
-    .buttonsContainer {
+    .section {
+      width: 100%;
+      margin: var(--spacing-huge) 0;
+      max-width: 400px;
       display: flex;
-      justify-content: flex-start;
+      flex-direction: column;
 
       @include desktop {
-        justify-content: flex-start;
+        margin: var(--spacing-huge) 0;
       }
 
-      button {
-        margin-right: 0;
+      span {
+        font-weight: 600;
+      }
 
-        &:first-of-type {
-          margin-right: var(--spacing-huge);
+      &__dropdown {
+        width: 240px;
+        margin: var(--spacing-base) 0;
+      }
+
+      &:nth-child(3) {
+        margin-top: 0;
+      }
+
+      &__buttons {
+        display: flex;
+        justify-content: flex-start;
+
+        @include desktop {
+          justify-content: flex-start;
         }
+
+        button {
+          margin-right: 0;
+
+          &:first-of-type {
+            margin-right: var(--spacing-huge);
+          }
+        }
+      }
+
+      &__button {
+        display: flex;
+        justify-content: flex-start;
+        margin-top: var(--spacing-large);
       }
     }
   }

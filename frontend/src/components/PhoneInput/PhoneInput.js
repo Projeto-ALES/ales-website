@@ -4,10 +4,10 @@ import styles from "./PhoneInput.module.scss";
 
 const PhoneInput = ({ placeholder, onChange, value, required, min }) => {
   return (
-    <div className={styles.phoneInputContainer}>
-      <span className={styles.phoneInputAddon}>+55</span>
+    <div className={styles.container}>
+      <span className={styles.addon}>+55</span>
       <input
-        className={styles.phoneInput}
+        className={styles.input}
         type="text"
         placeholder={placeholder}
         value={value || ""}

@@ -4,6 +4,8 @@ import routes from "routes/routes";
 
 import { invite } from "services/professor.service";
 
+import Page from "components/Page/Page";
+import PageTitle from "components/PageTitle/PageTitle";
 import Container from "components/Container/Container";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
@@ -33,20 +35,18 @@ const NewProfessor = ({ history }) => {
   };
 
   return (
-    <div className={styles.newProfessorContainer}>
+    <Page>
+      <PageTitle title="Convidar Professorx" icon="fas fa-user-plus" />
       <Container>
-        <div className={styles.newProfessorTitle}>
-          <h2>Adicionar Professor</h2>
-        </div>
-        <div className={styles.newProfessorDescription}>
+        <div className={styles.description}>
           <p>
             Um email será enviado para o email dx professorx com o link de cadastro e instruções
             para tal
           </p>
         </div>
         <div>
-          <form className={styles.formContainer} onSubmit={(e) => submitInvitation(e, email)}>
-            <div className={styles.emailInput}>
+          <form className={styles.form} onSubmit={(e) => submitInvitation(e, email)}>
+            <div className={styles.form__email}>
               <Input
                 placeholder="Email"
                 type="text"
@@ -55,7 +55,7 @@ const NewProfessor = ({ history }) => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className={styles.buttonsContainer}>
+            <div className={styles.form__buttons}>
               <Button text="Voltar" type="button" onClick={() => history.goBack()} />
               <Button
                 kind="success"
@@ -68,7 +68,7 @@ const NewProfessor = ({ history }) => {
           </form>
         </div>
       </Container>
-    </div>
+    </Page>
   );
 };
 

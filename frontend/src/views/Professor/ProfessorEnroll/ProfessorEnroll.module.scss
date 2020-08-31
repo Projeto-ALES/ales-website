@@ -1,78 +1,54 @@
 @import "~styles/breakpoints";
 
-.professorEnrollContainer {
-  min-height: 100vh;
-  background-color: var(--gray-lightest);
+.container {
+  padding: 0 var(--spacing-medium);
+  color: var(--gray-dark);
+  max-width: 1000px;
+  margin: auto;
 
-  @include desktop {
-    margin-left: var(--sidebar-width);
-  }
-
-  .professorEnrollTitle {
-    text-align: center;
-    color: var(--gray-dark);
-    margin-bottom: var(--spacing-huge);
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     @include desktop {
-      margin-bottom: 100px;
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
     }
 
-    h2 {
-      font-weight: 500;
-      font-size: var(--font-large);
-    }
-  }
-
-  .formsContainer {
-    padding: 0 var(--spacing-medium);
-    color: var(--gray-dark);
-    max-width: 1000px;
-    margin: auto;
-
-    .forms {
+    .section {
+      width: 100%;
+      margin: var(--spacing-huge) 0;
+      max-width: 400px;
       display: flex;
       flex-direction: column;
-      align-items: center;
 
       @include desktop {
-        flex-direction: row;
-        justify-content: space-between;
-        flex-wrap: wrap;
+        margin: var(--spacing-huge) 0;
       }
 
-      .formsSection {
-        width: 100%;
-        margin: var(--spacing-huge) 0;
-        max-width: 400px;
+      &__label {
+        font-weight: 600;
+      }
+
+      &__dropdown {
+        width: 240px;
+        margin: var(--spacing-base) 0;
+      }
+
+      &__button {
         display: flex;
-        flex-direction: column;
+        justify-content: center;
+        margin: var(--spacing-large) 0;
 
         @include desktop {
-          margin: var(--spacing-huge) 0;
+          justify-content: flex-start;
         }
 
-        .sectionLabel {
-          font-weight: 600;
+        button {
+          width: 160px;
         }
-
-        .dropdownContainer {
-          width: 240px;
-          margin: var(--spacing-base) 0;
-        }
-      }
-    }
-
-    .buttonContainer {
-      display: flex;
-      justify-content: center;
-      margin: var(--spacing-large) 0;
-
-      @include desktop {
-        justify-content: flex-start;
-      }
-
-      button {
-        width: 160px;
       }
     }
   }

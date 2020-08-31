@@ -1,10 +1,10 @@
-.dateInputContainer {
+.container {
   position: relative;
   margin: var(--spacing-medium) 0;
   display: flex;
   align-items: center;
 
-  .dateInput {
+  .input {
     height: 35px;
     font-size: var(--font-normal);
     width: 100%;
