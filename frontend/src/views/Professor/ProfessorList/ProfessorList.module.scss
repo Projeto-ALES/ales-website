@@ -1,54 +1,30 @@
 @import "~styles/breakpoints";
 
-.professorListContainer {
-  min-height: 100vh;
-  background-color: var(--gray-lightest);
+.loader {
+  display: flex;
+  justify-content: center;
+}
 
+.container {
+  @include tablet-landscape {
+    padding: 0 5%;
+  }
   @include desktop {
-    margin-left: var(--sidebar-width);
+    padding: 0 12%;
   }
 
-  .professorListTitle {
-    text-align: center;
-    color: var(--gray-dark);
+  &__table {
+    margin-bottom: var(--spacing-huge);
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: flex-end;
     margin-bottom: var(--spacing-huge);
 
-    @include desktop {
-      margin-bottom: 100px;
-    }
-
-    h2 {
-      font-weight: 500;
-      font-size: var(--font-large);
-    }
-  }
-
-  .loaderContainer {
-    display: flex;
-    justify-content: center;
-  }
-
-  .contentContainer {
-    @include tablet-landscape {
-      padding: 0 5%;
-    }
-    @include desktop {
-      padding: 0 12%;
-    }
-
-    .tableContainer {
-      margin-bottom: var(--spacing-huge);
-    }
-
-    .buttonsContainer {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: var(--spacing-huge);
-
-      button {
-        &:last-of-type {
-          margin-left: var(--spacing-large);
-        }
+    button {
+      &:last-of-type {
+        margin-left: var(--spacing-large);
       }
     }
   }

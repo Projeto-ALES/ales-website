@@ -1,6 +1,6 @@
 @import "~styles/breakpoints";
 
-.footerContainer {
+.container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,10 +13,10 @@
     margin-left: var(--sidebar-width);
   }
 
-  .footerItem {
+  .item {
     margin: 0 var(--spacing-large);
 
-    .itemText {
+    &__text {
       color: white;
       font-size: var(--font-large);
 

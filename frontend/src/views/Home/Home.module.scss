@@ -1,6 +1,6 @@
 @import "~styles/breakpoints";
 
-.homeContainer {
+.container {
   @include desktop {
     margin-left: var(--sidebar-width);
   }

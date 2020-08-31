@@ -1,11 +1,11 @@
-.tagContainer {
+.container {
   height: min-content;
   width: fit-content;
   padding: 3px var(--spacing-small);
   border-radius: var(--medium-radius);
   margin-right: var(--spacing-small);
 
-  .tagText {
+  .text {
     font-size: var(--font-small);
     font-weight: 600;
   }

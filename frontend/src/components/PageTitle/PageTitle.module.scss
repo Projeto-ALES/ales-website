@@ -1,0 +1,27 @@
+@import "~styles/breakpoints";
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 var(--spacing-base);
+  height: 150px;
+  color: var(--gray-darker);
+  background: var(--brand-yellow);
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.2);
+
+  @include desktop {
+    height: 200px;
+  }
+
+  &__text {
+    font-weight: 500;
+    font-size: var(--font-large);
+    max-width: 60%;
+  }
+
+  &__icon {
+    margin-left: var(--spacing-large);
+    font-size: var(--font-large);
+  }
+}

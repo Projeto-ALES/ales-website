@@ -4,6 +4,7 @@ import routes from "routes/routes";
 import { newPassword } from "services/auth.service";
 import { toast } from "react-toastify";
 
+import Page from "components/Page/Page";
 import Container from "components/Container/Container";
 import Card from "components/Card/Card";
 import Input from "components/Input/Input";
@@ -31,7 +32,7 @@ const NewPassword = ({ history, match }) => {
         history.push(routes.PASSWORD_CHANGED);
         toast.success("Senha alterada com sucesso");
       })
-      .catch((err) => {
+      .catch(() => {
         toast.error(
           "Ops! Parece que a requisição pra cadastrar uma nova senha expirou :( Tente gerar outra requisição"
         );
@@ -40,21 +41,21 @@ const NewPassword = ({ history, match }) => {
   };
 
   return (
-    <div className={styles.newPasswordContainer}>
+    <Page>
       <Container>
-        <div className={styles.cardContainer}>
+        <div className={styles.card}>
           <Card kind="outline-blue">
             <form
-              className={styles.cardContentContainer}
+              className={styles.form}
               onSubmit={(e) => submitNewPassword(e, password, passwordConf, match.params.token)}
             >
-              <div className={styles.cardTitle}>
+              <div className={styles.form__title}>
                 <h3>Nova Senha</h3>
               </div>
-              <div className={styles.cardDescription}>
+              <div className={styles.form__description}>
                 Defina uma nova senha para poder entrar no nosso site :)
               </div>
-              <div className={styles.inputsContainer}>
+              <div className={styles.form__inputs}>
                 <Input
                   placeholder="Nova Senha"
                   type="password"
@@ -70,7 +71,7 @@ const NewPassword = ({ history, match }) => {
                   required
                 />
               </div>
-              <div className={styles.buttonContainer}>
+              <div className={styles.form__button}>
                 <Button
                   text="Redefinir Senha"
                   kind="success"
@@ -83,7 +84,7 @@ const NewPassword = ({ history, match }) => {
           </Card>
         </div>
       </Container>
-    </div>
+    </Page>
   );
 };
 

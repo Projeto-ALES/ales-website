@@ -4,7 +4,7 @@ import styles from "./TextArea.module.scss";
 
 const TextArea = ({ placeholder, rows, onChange, value, required }) => {
   return (
-    <div className={styles.textareaContainer}>
+    <div className={styles.container}>
       <textarea
         rows={rows}
         className={styles.textarea}
