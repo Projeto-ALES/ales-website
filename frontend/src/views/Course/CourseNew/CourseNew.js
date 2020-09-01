@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
+import Page from "components/Page/Page";
+import PageTitle from "components/PageTitle/PageTitle";
 import Container from "components/Container/Container";
 import Button from "components/Button/Button";
 import Input from "components/Input/Input";
+import DateInput from "components/DateInput/DateInput";
+import TextArea from "components/TextArea/TextArea";
 import Dropdown from "components/Dropdown/Dropdown";
 
 import styles from "./CourseNew.module.scss";
@@ -15,30 +19,48 @@ const CourseNew = ({ history }) => {
     { id: 3, value: "Henrique", text: "Henrique", selected: false, disabled: false },
   ];
 
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [beginningDate, setBeginningDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [coordinator, setCoordinator] = useState("");
 
   return (
-    <div className={styles.courseNewContainer}>
+    <Page>
+      <PageTitle title="Adicionar Matéria" icon="fas fa-plus" />
       <Container>
-        <div className={styles.courseNewTitle}>
-          <h2>Nova Matéria</h2>
-        </div>
-        <div className={styles.formContainer}>
+        <div className={styles.container}>
           <form className={styles.form}>
-            <div className={styles.formsSection}>
-              <Input placeholder="Nome" type="text" required />
+            <div className={styles.form__section}>
+              <Input
+                placeholder="Nome"
+                type="text"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+                required
+              />
             </div>
-            <div className={styles.formsSection}>
-              <Input placeholder="Descrição" type="text" required />
+            <div className={styles.form__section}>
+              <TextArea
+                placeholder="Descrição"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows={4}
+                required
+              />
             </div>
-            <div className={styles.formsSection}>
-              <Input placeholder="Data de Início" type="text" required />
+            <div className={styles.form__section}>
+              <DateInput
+                onChange={(e) => setBeginningDate(e.target.value)}
+                value={beginningDate}
+                required
+              />
             </div>
-            <div className={styles.formsSection}>
-              <Input placeholder="Data de Término" type="text" required />
+            <div className={styles.form__section}>
+              <DateInput onChange={(e) => setEndDate(e.target.value)} value={endDate} required />
             </div>
-            <div className={styles.formsSection}>
-              <div className={styles.dropdownContainer}>
+            <div className={styles.form__section}>
+              <div className={styles.dropdown}>
                 <Dropdown
                   name="coordinator"
                   options={coordinators}
@@ -47,7 +69,7 @@ const CourseNew = ({ history }) => {
                 />
               </div>
             </div>
-            <div className={styles.buttonsContainer}>
+            <div className={styles.buttons}>
               <Button
                 text="Voltar"
                 onClick={() => {
@@ -59,7 +81,7 @@ const CourseNew = ({ history }) => {
           </form>
         </div>
       </Container>
-    </div>
+    </Page>
   );
 };
 

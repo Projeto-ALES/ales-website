@@ -2,17 +2,15 @@ import React from "react";
 
 import styles from "./DateInput.module.scss";
 
-const DateInput = ({ placeholder, onChange, value, required, min }) => {
+const DateInput = ({ onChange, value, required }) => {
   return (
     <div className={styles.container}>
       <input
         className={styles.input}
-        type="text"
-        placeholder={placeholder}
+        type="date"
         value={value || ""}
         onChange={onChange}
         required={required}
-        minLength={min}
       />
     </div>
   );
