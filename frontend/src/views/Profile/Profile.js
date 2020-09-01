@@ -131,7 +131,7 @@ const Profile = ({ history, match }) => {
       <PageTitle title="Perfil" icon="fas fa-user-circle" />
       <Container>
         {isLoading ? (
-          <div className={styles.loader}>
+          <div className="loader">
             <Loader />
           </div>
         ) : (

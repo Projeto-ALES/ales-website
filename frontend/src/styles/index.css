@@ -138,3 +138,8 @@ input:focus {
   outline: none;
   box-shadow: 0 0 3px var(--brand-blue);
 }
+
+.loader {
+  display: flex;
+  justify-content: center;
+}

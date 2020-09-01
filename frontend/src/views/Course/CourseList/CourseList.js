@@ -45,7 +45,7 @@ const CourseList = ({ history }) => {
         </div>
         <div className={styles.cardsContainer}>
           {isLoading ? (
-            <div className={styles.loader}>
+            <div className="loader">
               <Loader />
             </div>
           ) : (

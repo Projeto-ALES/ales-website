@@ -1,10 +1,5 @@
 @import "~styles/breakpoints";
 
-.loader {
-  display: flex;
-  justify-content: center;
-}
-
 .container {
   @include tablet-landscape {
     padding: 0 5%;
