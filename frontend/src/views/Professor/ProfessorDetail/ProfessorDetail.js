@@ -4,6 +4,8 @@ import { get } from "services/professor.service";
 
 import { phoneMask, formatDateToReceive } from "helpers/masks";
 
+import Page from "components/Page/Page";
+import PageTitle from "components/PageTitle/PageTitle";
 import Container from "components/Container/Container";
 import Button from "components/Button/Button";
 import Loader from "components/Loader/Loader";
@@ -49,52 +51,50 @@ const ProfessorDetail = ({ history, match }) => {
   }, [id]);
 
   return (
-    <div className={styles.professorDetailContainer}>
+    <Page>
+      <PageTitle title="Professorx" icon="fas fa-chalkboard-teacher" />
       <Container>
-        <div className={styles.professorDetailTitle}>
-          <h2>{name}</h2>
-        </div>
         {isLoading ? (
-          <div className={styles.loaderContainer}>
+          <div className={styles.loader}>
             <Loader />
           </div>
         ) : (
-          <div className={styles.dataContainer}>
+          <div className={styles.container}>
             <div className={styles.data}>
-              <div className={styles.dataSection}>
-                <span className={styles.sectionLabel}>Nome</span>
+              <div className={styles.section}>
+                <span className={styles.section__label}>Nome</span>
                 <span>{name}</span>
               </div>
-              <div className={styles.dataSection}>
-                <span className={styles.sectionLabel}>Email</span>
+              <div className={styles.section}>
+                <span className={styles.section__label}>Email</span>
                 <span>{email}</span>
               </div>
-              <div className={styles.dataSection}>
-                <span className={styles.sectionLabel}>Telefone</span>
+              <div className={styles.section}>
+                <span className={styles.section__label}>Telefone</span>
                 <span>{phone}</span>
               </div>
             </div>
             <div className={styles.data}>
-              <div className={styles.dataSection}>
-                <span className={styles.sectionLabel}>Aniversário</span>
+              <div className={styles.section}>
+                <span className={styles.section__label}>Aniversário</span>
                 <span>{birthday || "-"}</span>
               </div>
-              <div className={styles.dataSection}>
-                <span className={styles.sectionLabel}>Gênero</span>
+              <div className={styles.section}>
+                <span className={styles.section__label}>Gênero</span>
                 <span>{gender || "-"}</span>
               </div>
-              <div className={styles.dataSection}>
-                <span className={styles.sectionLabel}>Área de Atuação</span>
+              <div className={styles.section}>
+                <span className={styles.section__label}>Área de Atuação</span>
                 <span>{area || "-"}</span>
               </div>
             </div>
           </div>
         )}
-        <div className={styles.buttonContainer}>
+        <div className={styles.button}>
           <Button text="Voltar" type="button" kind="primary" onClick={() => history.goBack()} />
         </div>
       </Container>
-    </div>
+    </Page>
   );
 };
 
