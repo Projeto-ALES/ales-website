@@ -48,7 +48,7 @@ const CourseList = ({ history }) => {
             <div className="loader">
               <Loader />
             </div>
-          ) : (
+          ) : courses.length > 0 ? (
             courses.map((course) => {
               return (
                 <Link to={`/courses/${course._id}`} className={styles.card} key={course._id}>
@@ -60,6 +60,10 @@ const CourseList = ({ history }) => {
                 </Link>
               );
             })
+          ) : (
+            <div className={styles.empty}>
+              <span>Nenhum curso cadastrado</span>
+            </div>
           )}
         </div>
         <div className={styles.buttons}>

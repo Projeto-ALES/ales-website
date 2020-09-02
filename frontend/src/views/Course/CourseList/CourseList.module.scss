@@ -16,6 +16,14 @@
     margin: var(--spacing-huge) auto;
   }
 
+  .empty {
+    margin-top: var(--spacing-huge);
+
+    span {
+      font-size: var(--font-medium);
+    }
+  }
+
   .card {
     width: 80%;
     max-width: 300px;
