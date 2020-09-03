@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 
+import { list } from "services/professor.service";
+
+import parseDropdownOptions from "helpers/dropdown";
+
 import Page from "components/Page/Page";
 import PageTitle from "components/PageTitle/PageTitle";
 import Container from "components/Container/Container";
@@ -8,22 +12,39 @@ import Input from "components/Input/Input";
 import DateInput from "components/DateInput/DateInput";
 import TextArea from "components/TextArea/TextArea";
 import Dropdown from "components/Dropdown/Dropdown";
+import { toast } from "react-toastify";
 
 import styles from "./CourseNew.module.scss";
 
 const CourseNew = ({ history }) => {
-  const coordinators = [
-    { id: 1, value: "", text: "Selecione umx coordenadorx", selected: true, disabled: true },
-    { id: 1, value: "Victor", text: "Victor", selected: false, disabled: false },
-    { id: 2, value: "Ellen", text: "Ellen", selected: false, disabled: false },
-    { id: 3, value: "Henrique", text: "Henrique", selected: false, disabled: false },
-  ];
-
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [beginningDate, setBeginningDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [professors, setProfessors] = useState([]);
   const [coordinator, setCoordinator] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const getProfessors = () => {
+      setIsLoading(true);
+      list()
+        .then((response) => {
+          const { professors } = response.data;
+          setProfessors(professors);
+        })
+        .catch((err) => {
+          if (err.response && err.response.status !== 401) {
+            toast.error("Ops! Aconteceu algum erro para listar os professores");
+          }
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    };
+    getProfessors();
+  }, []);
 
   return (
     <Page>
@@ -63,9 +84,10 @@ const CourseNew = ({ history }) => {
               <div className={styles.dropdown}>
                 <Dropdown
                   name="coordinator"
-                  options={coordinators}
+                  options={parseDropdownOptions("_id", "name", professors)}
                   onSelect={setCoordinator}
                   value={coordinator}
+                  label="Selecione Professores"
                 />
               </div>
             </div>
