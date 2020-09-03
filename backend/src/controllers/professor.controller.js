@@ -4,7 +4,7 @@ const router = express.Router();
 const crypto = require("crypto");
 const { check, validationResult } = require("express-validator");
 
-const AuthMiddleware = require("../middlewares/auth.middleware");
+const { AuthMiddleware } = require("../middlewares/auth.middleware");
 
 const UserService = require("../services/user.service");
 const ProfessorService = require("../services/professor.service");
@@ -13,10 +13,8 @@ const MailService = require("../services/mail.service");
 const { handleError, ErrorHandler } = require("../helpers/error");
 const { professorStatus } = require("../helpers/status");
 
-router.get("/professors", async (req, res) => {
+router.get("/professors", AuthMiddleware, async (req, res) => {
   try {
-    await AuthMiddleware.verifyAuth(req.headers.cookie);
-
     const professors = await ProfessorService.getProfessors({
       status: "active",
     });
@@ -83,12 +81,11 @@ router.post(
   }
 );
 
-router.get("/professors/:id", async (req, res) => {
+router.get("/professors/:id", AuthMiddleware, async (req, res) => {
   try {
-    await AuthMiddleware.verifyAuth(req.headers.cookie);
-
     const { id } = req.params;
     const professor = await ProfessorService.getProfessor({ _id: id });
+
     if (!professor) {
       throw new ErrorHandler(404, "Professor not found");
     }
@@ -102,10 +99,8 @@ router.get("/professors/:id", async (req, res) => {
   }
 });
 
-router.delete("/professors/:id", async (req, res) => {
+router.delete("/professors/:id", AuthMiddleware, async (req, res) => {
   try {
-    await AuthMiddleware.verifyAuth(req.headers.cookie);
-
     const professor = await ProfessorService.deleteProfessor(req.params);
     if (!professor) {
       throw new ErrorHandler(404, "Professor not found");
@@ -121,6 +116,7 @@ router.delete("/professors/:id", async (req, res) => {
 
 router.put(
   "/professors/:id",
+  AuthMiddleware,
   [
     check("name").not().isEmpty().withMessage("Name is missing"),
     check("email").not().isEmpty().withMessage("Email is missing"),
@@ -133,8 +129,6 @@ router.put(
     }
 
     try {
-      const { token } = await AuthMiddleware.verifyAuth(req.headers.cookie);
-
       const { id } = req.params;
       if (!UserService.isOwner(id, token)) {
         throw new ErrorHandler(403, "Permission denied");
@@ -157,6 +151,7 @@ router.put(
 
 router.post(
   "/invite-professor",
+  AuthMiddleware,
   [check("email").not().isEmpty().withMessage("Email is missing")],
   async (req, res) => {
     const errors = validationResult(req);
@@ -165,7 +160,6 @@ router.post(
     }
 
     try {
-      await AuthMiddleware.verifyAuth(req.headers.cookie);
 
       const { email } = req.body;
       const inviteToken = crypto.randomBytes(20).toString("hex");
