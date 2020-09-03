@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const { check, validationResult } = require("express-validator");
 
-const AuthMiddleware = require("../middlewares/auth.middleware");
+const { AuthMiddleware } = require("../middlewares/auth.middleware");
 
 const AuthService = require("../services/auth.service");
 const MailService = require("../services/mail.service");
@@ -14,6 +14,7 @@ const { handleError, ErrorHandler } = require("../helpers/error");
 
 router.post(
   "/update-password/:id",
+  AuthMiddleware,
   [
     check("id").not().isEmpty().withMessage("ID is missing"),
     check("password").not().isEmpty().withMessage("Password is missing"),
@@ -36,8 +37,6 @@ router.post(
     }
 
     try {
-      await AuthMiddleware.verifyAuth(req.headers.cookie);
-
       const { id } = req.params;
       const { password, new_password, new_password_conf } = req.body;
 

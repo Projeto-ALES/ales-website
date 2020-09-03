@@ -12,6 +12,7 @@ const authRouter = require("./src/controllers/auth.controller");
 const passwordRouter = require("./src/controllers/password.controller");
 const mailRouter = require("./src/controllers/mail.controller");
 const subjectRouter = require("./src/controllers/subject.controller");
+const lessonRouter = require("./src/controllers/lesson.controller");
 
 
 const { handleError } = require("./src/helpers/error");
@@ -49,7 +50,8 @@ const routers = [
   authRouter,
   passwordRouter,
   mailRouter,
-  subjectRouter
+  subjectRouter,
+  lessonRouter,
 ];
 
 routers.forEach((router) => app.use(basePath, router));
