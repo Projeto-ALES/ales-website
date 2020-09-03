@@ -14,6 +14,17 @@
       width: 100%;
       margin: var(--spacing-base) 0;
       max-width: 400px;
+      text-align: center;
+
+      .professorsDescription {
+        margin-bottom: var(--spacing-huge);
+        color: var(--gray-dark);
+
+        .chip {
+          display: flex;
+          justify-content: center;
+        }
+      }
 
       .dropdown {
         max-width: 300px;
@@ -22,8 +33,13 @@
 
       .selectedProfessors {
         display: flex;
+        justify-content: center;
         flex-wrap: wrap;
-        margin-top: var(--spacing-huge);
+        margin: var(--spacing-huge) 0;
+      }
+
+      .coordinatorsLabel {
+        font-weight: 600;
       }
     }
   }

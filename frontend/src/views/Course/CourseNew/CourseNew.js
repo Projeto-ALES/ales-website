@@ -116,6 +116,16 @@ const CourseNew = ({ history }) => {
                 <DateInput onChange={(e) => setEndDate(e.target.value)} value={endDate} required />
               </div>
               <div className={styles.form__section}>
+                <div className={styles.professorsDescription}>
+                  <p>
+                    Selecione abaixo os professores da matéria e escolha pelo menos umx
+                    coordenadorx. Pra selecionar umx coordenadorx, basta clicar/tocar sobre x
+                    professorx que elx ficará assim:
+                  </p>
+                  <div className={styles.chip}>
+                    <Chip text="Alessauro" selected />
+                  </div>
+                </div>
                 <div className={styles.dropdown}>
                   <Dropdown
                     name="coordinator"
@@ -138,6 +148,9 @@ const CourseNew = ({ history }) => {
                       />
                     );
                   })}
+                </div>
+                <div className={styles.coordinatorsLabel}>
+                  <p>{coordinators.length} coordenador(xs) selecionadx(s)</p>
                 </div>
               </div>
               <div className={styles.buttons}>
