@@ -1,7 +1,6 @@
 @import "~styles/breakpoints";
 
 .container {
-  padding: 0 var(--spacing-medium);
   color: var(--gray-dark);
   max-width: 600px;
   margin: auto;
@@ -17,13 +16,14 @@
       max-width: 400px;
 
       .dropdown {
-        width: 300px;
+        max-width: 300px;
         margin: var(--spacing-base) auto;
       }
 
       .selectedProfessors {
         display: flex;
         flex-wrap: wrap;
+        margin-top: var(--spacing-huge);
       }
     }
   }

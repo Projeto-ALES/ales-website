@@ -10,7 +10,12 @@ const Chip = ({ text, removable, onRemove, selectable, onSelect, selected }) => 
     >
       <span className={styles.text}>{text}</span>
       {removable && (
-        <button onClick={() => onRemove(text)}>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onRemove(text);
+          }}
+        >
           <span className={styles.icon}>
             <i class="fas fa-times"></i>
           </span>
