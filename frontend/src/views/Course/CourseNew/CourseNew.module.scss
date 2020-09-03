@@ -20,6 +20,11 @@
         width: 300px;
         margin: var(--spacing-base) auto;
       }
+
+      .selectedProfessors {
+        display: flex;
+        flex-wrap: wrap;
+      }
     }
   }
 

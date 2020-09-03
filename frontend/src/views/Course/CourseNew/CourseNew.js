@@ -12,6 +12,7 @@ import Input from "components/Input/Input";
 import DateInput from "components/DateInput/DateInput";
 import TextArea from "components/TextArea/TextArea";
 import Dropdown from "components/Dropdown/Dropdown";
+import Chip from "components/Chip/Chip";
 import { toast } from "react-toastify";
 
 import styles from "./CourseNew.module.scss";
@@ -22,6 +23,7 @@ const CourseNew = ({ history }) => {
   const [beginningDate, setBeginningDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [professors, setProfessors] = useState([]);
+  const [selectedProfessors, setSelectedProfessors] = useState([]);
   const [coordinator, setCoordinator] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
@@ -45,6 +47,19 @@ const CourseNew = ({ history }) => {
     };
     getProfessors();
   }, []);
+
+  const addProfessor = (id, professors, selectedProfessors) => {
+    const professor = professors.find((prof) => prof._id === id);
+
+    if (!selectedProfessors.find((prof) => prof._id === id))
+      setSelectedProfessors((state) => [...state, professor]);
+    return;
+  };
+
+  const removeProfessor = (name) => {
+    const updatedProfessors = selectedProfessors.filter((prof) => prof.name !== name);
+    setSelectedProfessors(updatedProfessors);
+  };
 
   return (
     <Page>
@@ -85,10 +100,15 @@ const CourseNew = ({ history }) => {
                 <Dropdown
                   name="coordinator"
                   options={parseDropdownOptions("_id", "name", professors)}
-                  onSelect={setCoordinator}
+                  onSelect={(prof) => addProfessor(prof, professors, selectedProfessors)}
                   value={coordinator}
-                  label="Selecione Professores"
+                  label="Professores"
                 />
+              </div>
+              <div className={styles.selectedProfessors}>
+                {selectedProfessors.map((prof) => {
+                  return <Chip text={prof.name} key={prof._id} onRemove={removeProfessor} />;
+                })}
               </div>
             </div>
             <div className={styles.buttons}>
