@@ -24,7 +24,7 @@ const CourseNew = ({ history }) => {
   const [endDate, setEndDate] = useState("");
   const [professors, setProfessors] = useState([]);
   const [selectedProfessors, setSelectedProfessors] = useState([]);
-  const [coordinator, setCoordinator] = useState("");
+  const [coordinators, setCoordinators] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -59,6 +59,16 @@ const CourseNew = ({ history }) => {
   const removeProfessor = (name) => {
     const updatedProfessors = selectedProfessors.filter((prof) => prof.name !== name);
     setSelectedProfessors(updatedProfessors);
+  };
+
+  const toggleCoordinator = (name) => {
+    const coordinator = selectedProfessors.find((prof) => prof.name === name);
+
+    if (!coordinators.find((coord) => coord.name === name)) {
+      setCoordinators((state) => [...state, coordinator]);
+    } else {
+      setCoordinators(coordinators.filter((coord) => coord.name !== name));
+    }
   };
 
   return (
@@ -101,13 +111,22 @@ const CourseNew = ({ history }) => {
                   name="coordinator"
                   options={parseDropdownOptions("_id", "name", professors)}
                   onSelect={(prof) => addProfessor(prof, professors, selectedProfessors)}
-                  value={coordinator}
                   label="Professores"
                 />
               </div>
               <div className={styles.selectedProfessors}>
                 {selectedProfessors.map((prof) => {
-                  return <Chip text={prof.name} key={prof._id} onRemove={removeProfessor} />;
+                  return (
+                    <Chip
+                      text={prof.name}
+                      key={prof._id}
+                      removable
+                      onRemove={removeProfessor}
+                      selectable
+                      onSelect={toggleCoordinator}
+                      selected={coordinators.find((coord) => coord.name === prof.name)}
+                    />
+                  );
                 })}
               </div>
             </div>
