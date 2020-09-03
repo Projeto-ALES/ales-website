@@ -80,7 +80,7 @@ router.post(
 router.post("/refresh-token", VerifyRefreshToken, async (req, res) => {
   const { refreshToken } = req.authContext;
 
-  const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
+  const { TOKEN_SECRET, REFRESH_TOKEN_SECRET, NODE_ENV } = process.env;
 
   const { id, email, name } = jwt.verify(refreshToken, REFRESH_TOKEN_SECRET);
   const token = jwt.sign({ id, email, name }, TOKEN_SECRET, {
