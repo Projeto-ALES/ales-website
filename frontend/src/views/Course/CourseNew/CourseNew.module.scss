@@ -2,7 +2,6 @@
 
 .container {
   color: var(--gray-dark);
-  max-width: 600px;
   margin: auto;
 
   .form {
@@ -10,55 +9,73 @@
     flex-direction: column;
     align-items: center;
 
-    &__section {
+    @include desktop {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+
+    .left,
+    .right {
       width: 100%;
-      margin: var(--spacing-base) 0;
-      max-width: 400px;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
-      .professorsDescription {
-        margin-bottom: var(--spacing-huge);
-        color: var(--gray-dark);
+      @include desktop {
+        width: 40%;
+        margin: 0 var(--spacing-huge);
+      }
 
-        .chip {
+      .section {
+        width: 100%;
+        margin: var(--spacing-base) 0;
+        max-width: 400px;
+        text-align: center;
+
+        .professorsDescription {
+          margin-bottom: var(--spacing-huge);
+          color: var(--gray-dark);
+
+          .chip {
+            display: flex;
+            justify-content: center;
+          }
+        }
+
+        .dropdown {
+          max-width: 300px;
+          margin: var(--spacing-base) auto;
+        }
+
+        .selectedProfessors {
           display: flex;
           justify-content: center;
+          flex-wrap: wrap;
+          margin: var(--spacing-huge) 0;
+        }
+
+        .coordinatorsLabel {
+          font-weight: 600;
         }
       }
 
-      .dropdown {
-        max-width: 300px;
-        margin: var(--spacing-base) auto;
-      }
-
-      .selectedProfessors {
+      .buttons {
         display: flex;
         justify-content: center;
-        flex-wrap: wrap;
         margin: var(--spacing-huge) 0;
-      }
 
-      .coordinatorsLabel {
-        font-weight: 600;
-      }
-    }
-  }
+        @include desktop {
+          justify-content: flex-start;
+        }
 
-  .buttons {
-    display: flex;
-    justify-content: center;
-    margin: var(--spacing-huge) 0;
-
-    @include desktop {
-      justify-content: flex-start;
-    }
-
-    button {
-      &:first-of-type {
-        margin-right: var(--spacing-huge);
-      }
-      &:last-of-type {
-        width: 160px;
+        button {
+          &:first-of-type {
+            margin-right: var(--spacing-huge);
+          }
+          &:last-of-type {
+            width: 160px;
+          }
+        }
       }
     }
   }

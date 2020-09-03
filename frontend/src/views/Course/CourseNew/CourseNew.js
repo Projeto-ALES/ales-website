@@ -87,80 +87,88 @@ const CourseNew = ({ history }) => {
             </div>
           ) : (
             <form className={styles.form}>
-              <div className={styles.form__section}>
-                <Input
-                  placeholder="Nome"
-                  type="text"
-                  onChange={(e) => setName(e.target.value)}
-                  value={name}
-                  required
-                />
-              </div>
-              <div className={styles.form__section}>
-                <TextArea
-                  placeholder="Descrição"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  rows={4}
-                  required
-                />
-              </div>
-              <div className={styles.form__section}>
-                <DateInput
-                  onChange={(e) => setBeginningDate(e.target.value)}
-                  value={beginningDate}
-                  required
-                />
-              </div>
-              <div className={styles.form__section}>
-                <DateInput onChange={(e) => setEndDate(e.target.value)} value={endDate} required />
-              </div>
-              <div className={styles.form__section}>
-                <div className={styles.professorsDescription}>
-                  <p>
-                    Selecione abaixo os professores da matéria e escolha pelo menos umx
-                    coordenadorx. Pra selecionar umx coordenadorx, basta clicar/tocar sobre x
-                    professorx que elx ficará assim:
-                  </p>
-                  <div className={styles.chip}>
-                    <Chip text="Alessauro" selected />
-                  </div>
-                </div>
-                <div className={styles.dropdown}>
-                  <Dropdown
-                    name="coordinator"
-                    options={parseDropdownOptions("_id", "name", professors)}
-                    onSelect={(prof) => addProfessor(prof, professors, selectedProfessors)}
-                    label="Professores"
+              <div className={styles.left}>
+                <div className={styles.section}>
+                  <Input
+                    placeholder="Nome"
+                    type="text"
+                    onChange={(e) => setName(e.target.value)}
+                    value={name}
+                    required
                   />
                 </div>
-                <div className={styles.selectedProfessors}>
-                  {selectedProfessors.map((prof) => {
-                    return (
-                      <Chip
-                        text={prof.name}
-                        key={prof._id}
-                        removable
-                        onRemove={removeProfessor}
-                        selectable
-                        onSelect={toggleCoordinator}
-                        selected={!!coordinators.find((coord) => coord.name === prof.name)}
-                      />
-                    );
-                  })}
+                <div className={styles.section}>
+                  <TextArea
+                    placeholder="Descrição"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    rows={4}
+                    required
+                  />
                 </div>
-                <div className={styles.coordinatorsLabel}>
-                  <p>{coordinators.length} coordenador(xs) selecionadx(s)</p>
+                <div className={styles.section}>
+                  <DateInput
+                    onChange={(e) => setBeginningDate(e.target.value)}
+                    value={beginningDate}
+                    required
+                  />
+                </div>
+                <div className={styles.section}>
+                  <DateInput
+                    onChange={(e) => setEndDate(e.target.value)}
+                    value={endDate}
+                    required
+                  />
                 </div>
               </div>
-              <div className={styles.buttons}>
-                <Button
-                  text="Voltar"
-                  onClick={() => {
-                    history.goBack();
-                  }}
-                />
-                <Button kind="success" text="Enviar" onClick={() => {}} />
+              <div className={styles.right}>
+                <div className={styles.section}>
+                  <div className={styles.professorsDescription}>
+                    <p>
+                      Selecione abaixo os professores da matéria e escolha pelo menos umx
+                      coordenadorx. Pra selecionar umx coordenadorx, basta clicar/tocar sobre x
+                      professorx que elx ficará assim:
+                    </p>
+                    <div className={styles.chip}>
+                      <Chip text="Alessauro" selected />
+                    </div>
+                  </div>
+                  <div className={styles.dropdown}>
+                    <Dropdown
+                      name="coordinator"
+                      options={parseDropdownOptions("_id", "name", professors)}
+                      onSelect={(prof) => addProfessor(prof, professors, selectedProfessors)}
+                      label="Professores"
+                    />
+                  </div>
+                  <div className={styles.selectedProfessors}>
+                    {selectedProfessors.map((prof) => {
+                      return (
+                        <Chip
+                          text={prof.name}
+                          key={prof._id}
+                          removable
+                          onRemove={removeProfessor}
+                          selectable
+                          onSelect={toggleCoordinator}
+                          selected={!!coordinators.find((coord) => coord.name === prof.name)}
+                        />
+                      );
+                    })}
+                  </div>
+                  <div className={styles.coordinatorsLabel}>
+                    <p>{coordinators.length} coordenador(xs) selecionadx(s)</p>
+                  </div>
+                </div>
+                <div className={styles.buttons}>
+                  <Button
+                    text="Voltar"
+                    onClick={() => {
+                      history.goBack();
+                    }}
+                  />
+                  <Button kind="success" text="Enviar" onClick={() => {}} />
+                </div>
               </div>
             </form>
           )}
