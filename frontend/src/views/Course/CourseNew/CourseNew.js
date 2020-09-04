@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+import routes from "routes/routes";
 import { list } from "services/professor.service";
+import { create } from "services/course.service";
 
 import parseDropdownOptions from "helpers/dropdown";
 
@@ -9,11 +11,12 @@ import PageTitle from "components/PageTitle/PageTitle";
 import Container from "components/Container/Container";
 import Button from "components/Button/Button";
 import Input from "components/Input/Input";
-import DateInput from "components/DateInput/DateInput";
 import TextArea from "components/TextArea/TextArea";
 import Dropdown from "components/Dropdown/Dropdown";
 import Chip from "components/Chip/Chip";
 import Loader from "components/Loader/Loader";
+import DateInput from "components/DateInput/DateInput";
+
 import { toast } from "react-toastify";
 
 import styles from "./CourseNew.module.scss";
@@ -21,13 +24,14 @@ import styles from "./CourseNew.module.scss";
 const CourseNew = ({ history }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [beginningDate, setBeginningDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [beginningDate, setBeginningDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [professors, setProfessors] = useState([]);
   const [selectedProfessors, setSelectedProfessors] = useState([]);
   const [coordinators, setCoordinators] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const getProfessors = () => {
@@ -76,6 +80,35 @@ const CourseNew = ({ history }) => {
     }
   };
 
+  const submitCourse = async (e, data) => {
+    e.preventDefault();
+    const { coordinators } = data;
+
+    if (coordinators.length < 1) {
+      toast.error("Ops! Pelo menos umx coordadorx deve ser selecionadx");
+      return;
+    }
+
+    setIsSubmitting(true);
+    const { beginningDate, endDate } = data;
+    data.beginningDate = await beginningDate.toISOString();
+    data.endDate = await endDate.toISOString();
+
+    const { professors } = data;
+    data.professors = await professors.map((prof) => prof._id);
+    data.coordinators = await coordinators.map((coord) => coord._id);
+
+    create(data)
+      .then(() => {
+        history.push(routes.COURSES);
+        toast.success("Matéria adicionada!");
+      })
+      .catch(() => {
+        toast.error("Ops! Aconteceu algum erro na hora de adicionar essa matéria");
+        setIsSubmitting(false);
+      });
+  };
+
   return (
     <Page>
       <PageTitle title="Adicionar Matéria" icon="fas fa-plus" />
@@ -86,7 +119,19 @@ const CourseNew = ({ history }) => {
               <Loader />
             </div>
           ) : (
-            <form className={styles.form}>
+            <form
+              className={styles.form}
+              onSubmit={(e) =>
+                submitCourse(e, {
+                  name,
+                  description,
+                  beginningDate,
+                  endDate,
+                  professors: selectedProfessors,
+                  coordinators,
+                })
+              }
+            >
               <div className={styles.left}>
                 <div className={styles.section}>
                   <Input
@@ -108,15 +153,16 @@ const CourseNew = ({ history }) => {
                 </div>
                 <div className={styles.section}>
                   <DateInput
-                    onChange={(e) => setBeginningDate(e.target.value)}
-                    value={beginningDate}
-                    required
+                    placeholder="Data de Início"
+                    selected={beginningDate}
+                    onChange={(date) => setBeginningDate(date)}
                   />
                 </div>
                 <div className={styles.section}>
                   <DateInput
-                    onChange={(e) => setEndDate(e.target.value)}
-                    value={endDate}
+                    placeholder="Data de Término"
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
                     required
                   />
                 </div>
@@ -167,7 +213,13 @@ const CourseNew = ({ history }) => {
                       history.goBack();
                     }}
                   />
-                  <Button kind="success" text="Enviar" onClick={() => {}} />
+                  <Button
+                    kind="success"
+                    text="Enviar"
+                    type="submit"
+                    isLoading={isSubmitting}
+                    disabled={isSubmitting}
+                  />
                 </div>
               </div>
             </form>
