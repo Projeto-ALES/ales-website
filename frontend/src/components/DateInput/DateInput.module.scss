@@ -1,0 +1,25 @@
+.datepicker {
+  display: flex;
+  justify-content: flex-start;
+
+  input {
+    height: 35px;
+    font-size: var(--font-normal);
+    width: 100%;
+    min-width: 125px;
+    border: 1px solid #eee;
+    border-left: 3px solid var(--gray-light);
+    border-radius: 5px;
+    padding-left: 10px;
+    transition: border-color 0.5s ease-out;
+    box-sizing: border-box;
+
+    &:required {
+      border-left-color: palegreen;
+    }
+
+    &:invalid {
+      border-left-color: salmon;
+    }
+  }
+}

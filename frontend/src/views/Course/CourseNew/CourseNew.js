@@ -156,6 +156,7 @@ const CourseNew = ({ history }) => {
                     placeholder="Data de Início"
                     selected={beginningDate}
                     onChange={(date) => setBeginningDate(date)}
+                    required
                   />
                 </div>
                 <div className={styles.section}>
