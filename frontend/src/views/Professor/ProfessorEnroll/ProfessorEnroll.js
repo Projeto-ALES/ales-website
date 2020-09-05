@@ -4,7 +4,7 @@ import routes from "routes/routes";
 
 import { enroll } from "services/professor.service";
 
-import { phoneMask, formatPhone, dateMask, formatDateToSend } from "helpers/masks";
+import { phoneMask, formatPhone } from "helpers/masks";
 
 import Page from "components/Page/Page";
 import PageTitle from "components/PageTitle/PageTitle";
@@ -24,7 +24,7 @@ const ProfessorEnroll = ({ history, match }) => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
-  const [birthday, setBirthday] = useState("");
+  const [birthday, setBirthday] = useState(null);
   const [gender, setGender] = useState("");
   const [area, setArea] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +47,7 @@ const ProfessorEnroll = ({ history, match }) => {
 
     const { phone, birthday } = data;
     data.phone = formatPhone(phone);
-    data.birthday = formatDateToSend(birthday);
+    data.birthday = birthday.toISOString();
 
     enroll(data)
       .then(() => {
@@ -109,13 +109,13 @@ const ProfessorEnroll = ({ history, match }) => {
             </div>
             <div className={styles.section}>
               <span className={styles.section__label}>Dados Opcionais</span>
-              <DateInput
-                placeholder="Data de Nascimento dd/mm/aaaa"
-                onChange={(e) => setBirthday(dateMask(e.target.value))}
-                value={birthday}
-                required
-                min={8}
-              />
+              <div className={styles.section__birthday}>
+                <DateInput
+                  placeholder="Data de Nascimento"
+                  selected={birthday}
+                  onChange={(date) => setBirthday(date)}
+                />
+              </div>
               <div className={styles.section__dropdown}>
                 <Dropdown name="gender" options={options} onSelect={setGender} label="Gênero" />
               </div>
