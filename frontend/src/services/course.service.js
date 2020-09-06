@@ -7,3 +7,7 @@ export const list = async () => {
 export const create = async (data) => {
   return await api.post("/subjects", data);
 };
+
+export const get = async (id) => {
+  return await api.get(`/subjects/${id}`);
+};
