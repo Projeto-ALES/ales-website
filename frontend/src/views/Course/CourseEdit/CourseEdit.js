@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import { get } from "services/course.service";
+import routes from "routes/routes";
+import { get, update } from "services/course.service";
 import { list } from "services/professor.service";
 
 import parseDropdownOptions from "helpers/dropdown";
@@ -107,7 +108,7 @@ const CourseEdit = ({ history, match }) => {
     setCoordinator(coordinator);
   };
 
-  const submitCourse = async (e, data) => {
+  const submitCourse = async (e, id, data) => {
     e.preventDefault();
     const { coordinator } = data;
 
@@ -124,6 +125,16 @@ const CourseEdit = ({ history, match }) => {
     const { professors } = data;
     data.professors = await professors.map((prof) => prof._id);
     data.coordinator = coordinator._id;
+
+    update(id, data)
+      .then(() => {
+        history.push(routes.COURSES);
+        toast.success("Matéria atualizada!");
+      })
+      .catch(() => {
+        toast.error("Ops! Aconteceu algum erro na hora de adicionar essa matéria");
+        setIsSubmitting(false);
+      });
   };
 
   return (
@@ -140,7 +151,7 @@ const CourseEdit = ({ history, match }) => {
               <form
                 className={styles.form}
                 onSubmit={(e) =>
-                  submitCourse(e, {
+                  submitCourse(e, id, {
                     name,
                     description,
                     beginningDate,
@@ -225,6 +236,7 @@ const CourseEdit = ({ history, match }) => {
                   <div className={styles.buttons}>
                     <Button
                       text="Voltar"
+                      type="button"
                       onClick={() => {
                         history.goBack();
                       }}
