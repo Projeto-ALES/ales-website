@@ -4,6 +4,8 @@ import { get } from "services/course.service";
 
 import { formatDateToReceive } from "helpers/masks";
 
+import routes from "routes/routes";
+
 import Page from "components/Page/Page";
 import PageTitle from "components/PageTitle/PageTitle";
 import Container from "components/Container/Container";
@@ -22,7 +24,7 @@ const CourseDetail = ({ history, match }) => {
   const [beginningDate, setBeginningDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [professors, setProfessors] = useState([]);
-  const [coordinators, setCoordinators] = useState([]);
+  const [coordinator, setCoordinator] = useState({});
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -37,14 +39,14 @@ const CourseDetail = ({ history, match }) => {
             beginningDate,
             endDate,
             professors,
-            coordinators,
+            coordinator,
           } = response.data.subject;
           setName(name);
           setDescription(description);
           setBeginningDate(formatDateToReceive(beginningDate));
           setEndDate(formatDateToReceive(endDate));
           setProfessors(professors);
-          setCoordinators(coordinators);
+          setCoordinator(coordinator);
         })
         .catch((err) => {
           if (err.response && err.response.status !== 401) {
@@ -86,7 +88,13 @@ const CourseDetail = ({ history, match }) => {
                 <h4>Professores</h4>
                 <div className={styles.professors__chips}>
                   {professors.map((prof) => {
-                    return <Chip text={prof} />;
+                    return (
+                      <Chip
+                        key={prof._id}
+                        text={prof.name}
+                        selected={prof._id === coordinator._id}
+                      />
+                    );
                   })}
                 </div>
               </div>
@@ -94,7 +102,11 @@ const CourseDetail = ({ history, match }) => {
             <div className={styles.buttons}>
               <Button text="Voltar" onClick={() => history.goBack()} />
               <div className={styles.actions}>
-                <Button text="Editar" kind="primary" />
+                <Button
+                  text="Editar"
+                  kind="primary"
+                  onClick={() => history.push(routes.COURSE_EDIT.replace(":id", id))}
+                />
                 <Button text="Remover" kind="danger" />
               </div>
             </div>
