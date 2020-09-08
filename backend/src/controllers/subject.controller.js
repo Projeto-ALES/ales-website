@@ -1,10 +1,11 @@
 const express = require("express");
 const { check, validationResult } = require("express-validator");
 
-const AuthMiddleware = require("../middlewares/auth.middleware");
+const { AuthMiddleware } = require("../middlewares/auth.middleware");
 const SubjectService = require("../services/subject.service");
+const LessonService = require("../services/lesson.service");
 
-const { NotFoundError } = require("../helpers/error");
+const { NotFoundError, BadRequestError } = require("../helpers/error");
 
 const router = express.Router();
 
@@ -18,12 +19,22 @@ router.get("/subjects", async (req, res) => {
   });
 });
 
+router.get("/subjects/:id/lessons", AuthMiddleware, async (req, res, next) => {
+  const { id } = req.params;
+  const lessons = await LessonService.getLessonsBySubjectId(id);
+
+  return res.status(200).json({
+    status: 200,
+    lessons,
+  });
+});
+
 router.get("/subjects/:id", async (req, res, next) => {
   const { id } = req.params;
   const subject = await SubjectService.getSubjectsById(id);
 
   if (!subject) {
-    next(new NotFoundError(ENTITY_NAME));
+    return next(new NotFoundError(ENTITY_NAME));
   }
 
   return res.status(200).json({
@@ -32,18 +43,13 @@ router.get("/subjects/:id", async (req, res, next) => {
   });
 });
 
-router.delete("/subjects/:id", async (req, res, next) => {
-  try {
-    await AuthMiddleware.verifyAuth(req.headers.cookie);
+router.delete("/subjects/:id", AuthMiddleware, async (req, res, next) => {
+  const { id } = req.params;
 
-    const { id } = req.params;
-    const subject = await SubjectService.deleteSubject(id);
+  const subject = await SubjectService.deleteSubject(id);
 
-    if (!subject) {
-      next(new NotFoundError(ENTITY_NAME));
-    }
-  } catch (e) {
-    next(e);
+  if (!subject) {
+    return next(new NotFoundError(ENTITY_NAME));
   }
 
   return res.status(202).json({
@@ -53,6 +59,7 @@ router.delete("/subjects/:id", async (req, res, next) => {
 
 router.post(
   "/subjects",
+  AuthMiddleware,
   [
     check("name").not().isEmpty().withMessage("Name is missing"),
     check("coordinator").not().isEmpty().withMessage("Coordinator is missing"),
@@ -63,21 +70,18 @@ router.post(
       .withMessage("Beginning Date is required"),
     check("endDate").not().isEmpty().withMessage("End date is missing"),
   ],
-  async (req, res, next) => {
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return BadRequestError(errors.array());
+    }
+
     let subject;
-
     try {
-      await AuthMiddleware.verifyAuth(req.headers.cookie);
-
-      const errors = validationResult(req);
-
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      }
-
       subject = await SubjectService.createSubject(req.body);
     } catch (e) {
-      next(e);
+      return next(e);
     }
 
     return res.status(201).json({
@@ -87,15 +91,12 @@ router.post(
   }
 );
 
-router.put("/subjects/:id", async (req, res, next) => {
+router.put("/subjects/:id", AuthMiddleware, async (req, res, next) => {
   try {
-    await AuthMiddleware.verifyAuth(req.headers.cookie);
-
     const { id } = req.params;
-
     await SubjectService.updateSubject(id, req.body);
   } catch (e) {
-    next(e);
+    return next(e);
   }
 
   return res.status(201).json({
