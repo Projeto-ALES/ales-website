@@ -10,18 +10,22 @@ exports.AuthMiddleware = async (req, res, next) => {
   const cookie = headers ? headers.cookie : undefined;
 
   if (!cookie) {
-    return res.status(401).send("Access token is missing");
+    return res
+      .status(401)
+      .send({ status: 401, message: "Access token is missing" });
   }
 
   const parsedCookies = await parseCookie(cookie);
   const token = parsedCookies["token"];
   if (!token) {
-    return res.status(401).send("Access token is invalid or missing");
+    return res
+      .status(401)
+      .send({ status: 401, message: "Access token is invalid or missing" });
   }
 
   const data = jwt.verify(token, TOKEN_SECRET, (err, decoded) => {
     if (err) {
-      return res.status(401).send(err.message);
+      return res.status(401).send({ status: 401, message: err.message });
     }
     return decoded;
   });
@@ -37,27 +41,31 @@ exports.AuthMiddleware = async (req, res, next) => {
 exports.VerifyRefreshToken = async (req, res, next) => {
   const { headers } = req;
 
-  const cookie = headers ? headers.cookie : undefined;
+  const cookie = headers ? headers.cookie : null;
 
   if (!cookie) {
-    return res.status(401).send("Refresh token is missing");
+    return res
+      .status(401)
+      .send({ status: 401, message: "Refresh token is missing" });
   }
 
   const parsedCookies = await parseCookie(cookie);
   const refreshToken = parsedCookies["refresh_token"];
   if (!refreshToken) {
-    return res.status(401).send("Refresh token is invalid or missing");
+    return res
+      .status(401)
+      .send({ status: 401, message: "Refresh token is invalid or missing" });
   }
 
   jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, decoded) => {
     if (err) {
-      return res.status(401).send(err.message, true);
+      return res.status(401).send({ status: 401, message: err.message });
     }
   });
 
   req.authContext = {
     refreshToken,
-  }
+  };
 
   next();
 };
