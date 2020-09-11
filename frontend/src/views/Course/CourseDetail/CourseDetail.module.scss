@@ -1,5 +1,22 @@
 @import "~styles/breakpoints";
 
+.modal {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  &__buttons {
+    display: flex;
+    justify-content: space-around;
+    width: auto;
+
+    @include tablet-portrait {
+      width: 500px;
+      padding: var(--spacing-base);
+    }
+  }
+}
+
 .description {
   text-align: center;
   color: var(--gray-dark);

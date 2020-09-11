@@ -1,6 +1,7 @@
 @import "~styles/breakpoints";
 
 .page {
+  position: sticky;
   min-height: 100vh;
   background-color: var(--gray-lightest);
 

@@ -12,6 +12,7 @@ import Container from "components/Container/Container";
 import Button from "components/Button/Button";
 import Chip from "components/Chip/Chip";
 import Loader from "components/Loader/Loader";
+import Modal from "components/Modal/Modal";
 import { toast } from "react-toastify";
 
 import styles from "./CourseDetail.module.scss";
@@ -27,6 +28,7 @@ const CourseDetail = ({ history, match }) => {
   const [coordinator, setCoordinator] = useState({});
 
   const [isLoading, setIsLoading] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(true);
 
   useEffect(() => {
     const getCourse = (id) => {
@@ -62,6 +64,16 @@ const CourseDetail = ({ history, match }) => {
 
   return (
     <Page>
+      {modalIsOpen && (
+        <div className={styles.modal}>
+          <Modal title="Tem certeza que deseja deletar a matéria?">
+            <div className={styles.modal__buttons}>
+              <Button text="Cancelar" />
+              <Button text="Deletar" kind="danger" />
+            </div>
+          </Modal>
+        </div>
+      )}
       {isLoading ? (
         <div className="loader">
           <Loader />
@@ -107,7 +119,7 @@ const CourseDetail = ({ history, match }) => {
                   kind="primary"
                   onClick={() => history.push(routes.COURSE_EDIT.replace(":id", id))}
                 />
-                <Button text="Remover" kind="danger" />
+                <Button text="Deletar" kind="danger" />
               </div>
             </div>
           </Container>
