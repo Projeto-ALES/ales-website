@@ -15,3 +15,7 @@ export const get = async (id) => {
 export const update = async (id, data) => {
   return await api.put(`/subjects/${id}`, data);
 };
+
+export const remove = async (id) => {
+  return await api.delete(`/subjects/${id}`);
+};

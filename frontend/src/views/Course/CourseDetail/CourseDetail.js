@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { get } from "services/course.service";
+import { get, remove } from "services/course.service";
 
 import { formatDateToReceive } from "helpers/masks";
 
@@ -28,7 +28,8 @@ const CourseDetail = ({ history, match }) => {
   const [coordinator, setCoordinator] = useState({});
 
   const [isLoading, setIsLoading] = useState(false);
-  const [modalIsOpen, setModalIsOpen] = useState(true);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
     const getCourse = (id) => {
@@ -62,14 +63,38 @@ const CourseDetail = ({ history, match }) => {
     getCourse(id);
   }, []);
 
+  const deleteCourse = (id) => {
+    setIsDeleting(true);
+
+    remove(id)
+      .then(() => {
+        history.push(routes.COURSES);
+        toast.success("Matéria removida!");
+      })
+      .catch(() => {
+        toast.error("Ops! Aconteceu algum erro para deletar a matéria");
+        setIsDeleting(false);
+      });
+  };
+
   return (
     <Page>
       {modalIsOpen && (
         <div className={styles.modal}>
-          <Modal title="Tem certeza que deseja deletar a matéria?">
+          <Modal
+            title="Tem certeza que deseja deletar a matéria?"
+            onClose={() => setModalIsOpen(false)}
+          >
             <div className={styles.modal__buttons}>
-              <Button text="Cancelar" />
-              <Button text="Deletar" kind="danger" />
+              <Button text="Cancelar" onClick={() => setModalIsOpen(false)} />
+              <Button
+                text="Deletar"
+                kind="danger"
+                width={120}
+                onClick={() => deleteCourse(id)}
+                isLoading={isDeleting}
+                disabled={isDeleting}
+              />
             </div>
           </Modal>
         </div>
@@ -119,7 +144,7 @@ const CourseDetail = ({ history, match }) => {
                   kind="primary"
                   onClick={() => history.push(routes.COURSE_EDIT.replace(":id", id))}
                 />
-                <Button text="Deletar" kind="danger" />
+                <Button text="Deletar" kind="danger" onClick={() => setModalIsOpen(true)} />
               </div>
             </div>
           </Container>
