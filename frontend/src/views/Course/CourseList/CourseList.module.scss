@@ -1,71 +1,63 @@
 @import "~styles/breakpoints";
 
-.courseListContainer {
-  min-height: 100vh;
-  background-color: var(--gray-lightest);
+.cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 300px;
 
   @include desktop {
-    margin-left: var(--sidebar-width);
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 90%;
+    max-width: 1000px;
+    justify-content: center;
+    align-items: flex-start;
+    margin: var(--spacing-huge) auto;
   }
 
-  .courseListTitle {
-    text-align: center;
+  .empty {
+    margin-top: var(--spacing-huge);
 
-    h2 {
-      font-weight: 500;
-      font-size: var(--font-large);
+    span {
+      font-size: var(--font-medium);
     }
   }
 
-  .cardsContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    @include desktop {
-      flex-direction: row;
-      flex-wrap: wrap;
-      width: 90%;
-      max-width: 1000px;
-      justify-content: center;
-      margin: var(--spacing-huge) auto;
-    }
-
-    .cardContainer {
-      width: 80%;
-      max-width: 400px;
-      margin: var(--spacing-base) 0;
-
-      @include tablet-portrait {
-        margin: var(--spacing-base);
-      }
-
-      .cardContentContainer {
-        height: 45px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        span {
-          color: var(--gray-dark);
-          font-size: var(--font-medium);
-        }
-      }
-    }
-  }
-
-  .buttonsContainer {
-    margin: var(--spacing-huge) 0;
-    display: flex;
-    justify-content: space-around;
+  .card {
+    width: 80%;
+    max-width: 300px;
+    margin: var(--spacing-base) 0;
 
     @include tablet-portrait {
+      margin: var(--spacing-base);
+    }
+
+    &__content {
+      height: 60px;
+      display: flex;
+      align-items: center;
       justify-content: center;
 
-      button {
-        &:first-of-type {
-          margin-right: var(--spacing-huge);
-        }
+      span {
+        color: var(--gray-dark);
+        font-size: var(--font-medium);
+      }
+    }
+  }
+}
+
+.buttons {
+  margin: var(--spacing-huge) 0;
+  display: flex;
+  justify-content: space-around;
+
+  @include tablet-portrait {
+    justify-content: center;
+
+    button {
+      &:first-of-type {
+        margin-right: var(--spacing-huge);
       }
     }
   }

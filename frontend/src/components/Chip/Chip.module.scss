@@ -1,0 +1,37 @@
+.chip {
+  padding: var(--spacing-small) var(--spacing-small) var(--spacing-small) var(--spacing-base);
+  margin: var(--spacing-small);
+  background-color: var(--gray-light);
+  width: fit-content;
+  border-radius: var(--medium-radius);
+  box-shadow: var(--short-drop-shadow);
+
+  .text {
+    margin-right: var(--spacing-small);
+    color: var(--gray-dark);
+    font-size: var(--font-normal);
+    font-weight: 600;
+  }
+
+  button {
+    padding: var(--spacing-tiny) var(--spacing-small);
+    border-radius: 50%;
+    transition: ease 300ms;
+
+    &:hover {
+      background-color: var(--gray-lighter);
+    }
+
+    .icon {
+      color: var(--gray);
+    }
+  }
+}
+
+.selectable {
+  cursor: pointer;
+}
+
+.selected {
+  background-color: var(--brand-blue-lighter);
+}

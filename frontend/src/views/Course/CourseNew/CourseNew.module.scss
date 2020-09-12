@@ -1,66 +1,80 @@
 @import "~styles/breakpoints";
 
-.courseNewContainer {
-  min-height: 100vh;
-  background-color: var(--gray-lightest);
-  text-align: center;
+.container {
+  color: var(--gray-dark);
+  margin: auto;
 
-  @include desktop {
-    margin-left: var(--sidebar-width);
-  }
-
-  .courseNewTitle {
-    text-align: center;
-    color: var(--gray-dark);
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     @include desktop {
-      margin-bottom: var(--spacing-huge);
+      flex-direction: row;
+      align-items: flex-start;
     }
 
-    h2 {
-      font-weight: 500;
-      font-size: var(--font-large);
-    }
-  }
-
-  .formContainer {
-    padding: 0 var(--spacing-medium);
-    color: var(--gray-dark);
-    max-width: 600px;
-    margin: auto;
-
-    .form {
+    .left,
+    .right {
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
 
-      .formsSection {
+      @include desktop {
+        width: 40%;
+        margin: 0 var(--spacing-huge);
+      }
+
+      .section {
         width: 100%;
         margin: var(--spacing-base) 0;
         max-width: 400px;
+        text-align: center;
 
-        .dropdownContainer {
-          width: 300px;
+        .professorsDescription {
+          margin-bottom: var(--spacing-huge);
+          color: var(--gray-dark);
+
+          .chip {
+            display: flex;
+            justify-content: center;
+          }
+        }
+
+        .dropdown {
+          max-width: 300px;
           margin: var(--spacing-base) auto;
         }
-      }
-    }
 
-    .buttonsContainer {
-      display: flex;
-      justify-content: center;
-      margin: var(--spacing-huge) 0;
-
-      @include desktop {
-        justify-content: flex-start;
-      }
-
-      button {
-        &:first-of-type {
-          margin-right: var(--spacing-huge);
+        .selectedProfessors {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          margin: var(--spacing-huge) 0;
         }
-        &:last-of-type {
-          width: 160px;
+
+        .coordinatorsLabel {
+          font-weight: 600;
+        }
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: center;
+        margin: var(--spacing-huge) 0;
+
+        @include desktop {
+          justify-content: flex-start;
+        }
+
+        button {
+          &:first-of-type {
+            margin-right: var(--spacing-huge);
+          }
+          &:last-of-type {
+            width: 160px;
+          }
         }
       }
     }
