@@ -110,15 +110,20 @@ const CourseEdit = ({ history, match }) => {
 
   const submitCourse = async (e, id, data) => {
     e.preventDefault();
-    const { coordinator } = data;
 
+    const { beginningDate, endDate } = data;
+    if (endDate < beginningDate) {
+      toast.error("Ops! A data de término tem que ser após a de início");
+      return;
+    }
+
+    const { coordinator } = data;
     if (!coordinator.name) {
       toast.error("Ops! Umx coordenadorx deve ser selecionadx");
       return;
     }
 
     setIsSubmitting(true);
-    const { beginningDate, endDate } = data;
     data.beginningDate = await beginningDate.toISOString();
     data.endDate = await endDate.toISOString();
 
