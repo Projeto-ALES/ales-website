@@ -28,7 +28,7 @@ const CourseNew = ({ history }) => {
   const [endDate, setEndDate] = useState(null);
   const [professors, setProfessors] = useState([]);
   const [selectedProfessors, setSelectedProfessors] = useState([]);
-  const [coordinators, setCoordinators] = useState([]);
+  const [coordinator, setCoordinator] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -65,38 +65,37 @@ const CourseNew = ({ history }) => {
     const updatedProfessors = selectedProfessors.filter((prof) => prof.name !== name);
     setSelectedProfessors(updatedProfessors);
 
-    if (coordinators.find((coord) => coord.name === name)) {
-      setCoordinators(coordinators.filter((coord) => coord.name !== name));
+    if (coordinator.name === name) {
+      setCoordinator({});
     }
   };
 
-  const toggleCoordinator = (name) => {
-    const coordinator = selectedProfessors.find((prof) => prof.name === name);
-
-    if (!coordinators.find((coord) => coord.name === name)) {
-      setCoordinators((state) => [...state, coordinator]);
-    } else {
-      setCoordinators(coordinators.filter((coord) => coord.name !== name));
-    }
+  const selectCoordinator = (name) => {
+    setCoordinator(selectedProfessors.find((prof) => prof.name === name));
   };
 
   const submitCourse = async (e, data) => {
     e.preventDefault();
-    const { coordinators } = data;
 
-    if (coordinators.length < 1) {
-      toast.error("Ops! Pelo menos umx coordadorx deve ser selecionadx");
+    const { beginningDate, endDate } = data;
+    if (endDate < beginningDate) {
+      toast.error("Ops! A data de término tem que ser após a de início");
+      return;
+    }
+
+    const { coordinator } = data;
+    if (!coordinator.name) {
+      toast.error("Ops! Selecione umx coordadorx");
       return;
     }
 
     setIsSubmitting(true);
-    const { beginningDate, endDate } = data;
     data.beginningDate = await beginningDate.toISOString();
     data.endDate = await endDate.toISOString();
 
     const { professors } = data;
     data.professors = await professors.map((prof) => prof._id);
-    data.coordinators = await coordinators.map((coord) => coord._id);
+    data.coordinator = coordinator._id;
 
     create(data)
       .then(() => {
@@ -128,7 +127,7 @@ const CourseNew = ({ history }) => {
                   beginningDate,
                   endDate,
                   professors: selectedProfessors,
-                  coordinators,
+                  coordinator,
                 })
               }
             >
@@ -172,9 +171,9 @@ const CourseNew = ({ history }) => {
                 <div className={styles.section}>
                   <div className={styles.professorsDescription}>
                     <p>
-                      Selecione abaixo os professores da matéria e escolha pelo menos umx
-                      coordenadorx. Pra selecionar umx coordenadorx, basta clicar/tocar sobre x
-                      professorx que elx ficará assim:
+                      Selecione abaixo os professores da matéria e escolha umx coordenadorx. Pra
+                      selecionar umx coordenadorx, basta clicar/tocar sobre x professorx que elx
+                      ficará assim:
                     </p>
                     <div className={styles.chip}>
                       <Chip text="Alessauro" selected />
@@ -197,14 +196,18 @@ const CourseNew = ({ history }) => {
                           removable
                           onRemove={removeProfessor}
                           selectable
-                          onSelect={toggleCoordinator}
-                          selected={!!coordinators.find((coord) => coord.name === prof.name)}
+                          onSelect={selectCoordinator}
+                          selected={prof._id === coordinator._id}
                         />
                       );
                     })}
                   </div>
-                  <div className={styles.coordinatorsLabel}>
-                    <p>{coordinators.length} coordenador(xs) selecionadx(s)</p>
+                  <div className={styles.coordinatorLabel}>
+                    <p>
+                      {coordinator.name
+                        ? "Coordenadorx selecionado!"
+                        : "Selecione umx coordenadorx"}
+                    </p>
                   </div>
                 </div>
                 <div className={styles.buttons}>

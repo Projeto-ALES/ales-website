@@ -65,6 +65,7 @@
   --color-alert: var(--brand-yellow);
   --color-warning: #ff9100;
   --color-danger: #ec4949;
+  --color-danger-light: #df7171;
   --color-purple: #970b97;
   --color-purple-light: #b83db8;
 
@@ -142,4 +143,5 @@ input:focus {
 .loader {
   display: flex;
   justify-content: center;
+  padding: var(--spacing-large) 0;
 }
