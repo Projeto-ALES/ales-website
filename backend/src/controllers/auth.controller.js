@@ -5,10 +5,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { check, validationResult } = require("express-validator");
 
-const {
-  AuthMiddleware,
-  VerifyRefreshToken,
-} = require("../middlewares/auth.middleware");
+const { VerifyRefreshToken } = require("../middlewares/auth.middleware");
 
 const AuthService = require("../services/auth.service");
 
@@ -98,7 +95,7 @@ router.post("/refresh-token", VerifyRefreshToken, async (req, res) => {
     });
 });
 
-router.post("/logout", AuthMiddleware, async (req, res) => {
+router.post("/logout", async (req, res) => {
   await clearCookies(res);
   res.status(202).json({ status: 202 });
 });

@@ -88,3 +88,12 @@
     background-color: var(--color-success-light);
   }
 }
+
+.danger {
+  background-color: var(--color-danger);
+  color: #fff;
+
+  &:hover {
+    background-color: var(--color-danger-light);
+  }
+}

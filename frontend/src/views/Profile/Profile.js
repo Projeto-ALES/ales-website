@@ -7,13 +7,7 @@ import { updatePassword } from "services/auth.service";
 import { context } from "store/store";
 import { types } from "store/types";
 
-import {
-  phoneMask,
-  formatPhone,
-  dateMask,
-  formatDateToSend,
-  formatDateToReceive,
-} from "helpers/masks";
+import { phoneMask, formatPhone, formatDateToReceive } from "helpers/masks";
 
 import Page from "components/Page/Page";
 import PageTitle from "components/PageTitle/PageTitle";
@@ -35,7 +29,7 @@ const Profile = ({ history, match }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [birthday, setBirthday] = useState("");
+  const [birthday, setBirthday] = useState(null);
   const [gender, setGender] = useState("");
   const [area, setArea] = useState("");
 
@@ -49,10 +43,9 @@ const Profile = ({ history, match }) => {
   const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
 
   const options = [
-    { id: 1, value: "Gender", text: "Escolha um gênero", selected: true, disabled: true },
-    { id: 2, value: "M", text: "M", selected: false, disabled: false },
-    { id: 3, value: "F", text: "F", selected: false, disabled: false },
-    { id: 4, value: "N", text: "Não me identifico", selected: false, disabled: false },
+    { id: 1, value: "M", text: "M", selected: false, disabled: false },
+    { id: 2, value: "F", text: "F", selected: false, disabled: false },
+    { id: 3, value: "N", text: "Não me identifico", selected: false, disabled: false },
   ];
 
   useEffect(() => {
@@ -86,7 +79,7 @@ const Profile = ({ history, match }) => {
 
     const { phone, birthday } = data;
     data.phone = formatPhone(phone);
-    data.birthday = formatDateToSend(birthday);
+    data.birthday = birthday.toISOString();
 
     update(id, data)
       .then(() => {
@@ -131,7 +124,7 @@ const Profile = ({ history, match }) => {
       <PageTitle title="Perfil" icon="fas fa-user-circle" />
       <Container>
         {isLoading ? (
-          <div className={styles.loader}>
+          <div className="loader">
             <Loader />
           </div>
         ) : (
@@ -175,15 +168,21 @@ const Profile = ({ history, match }) => {
               </div>
               <div className={styles.section}>
                 <span>Dados Opcionais</span>
-                <DateInput
-                  placeholder="Data de Nascimento dd/mm/aaaa"
-                  onChange={(e) => setBirthday(dateMask(e.target.value))}
-                  value={birthday}
-                  required
-                  min={8}
-                />
+                <div className={styles.section__birthday}>
+                  <DateInput
+                    placeholder="Data de Nascimento"
+                    selected={birthday}
+                    onChange={(date) => setBirthday(date)}
+                  />
+                </div>
                 <div className={styles.section__dropdown}>
-                  <Dropdown name="gender" options={options} onSelect={setGender} value={gender} />
+                  <Dropdown
+                    name="gender"
+                    options={options}
+                    onSelect={setGender}
+                    value={gender}
+                    label="Selecione um gênero"
+                  />
                 </div>
                 <Input
                   placeholder="Curso/Área de Trabalho"
@@ -191,8 +190,6 @@ const Profile = ({ history, match }) => {
                   value={area}
                   onChange={(e) => setArea(e.target.value)}
                 />
-              </div>
-              <div className={styles.section}>
                 <div className={styles.section__buttons}>
                   <Button
                     text="Voltar"

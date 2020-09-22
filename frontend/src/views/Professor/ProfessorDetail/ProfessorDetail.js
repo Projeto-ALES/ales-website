@@ -55,7 +55,7 @@ const ProfessorDetail = ({ history, match }) => {
       <PageTitle title="Professorx" icon="fas fa-chalkboard-teacher" />
       <Container>
         {isLoading ? (
-          <div className={styles.loader}>
+          <div className="loader">
             <Loader />
           </div>
         ) : (

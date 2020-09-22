@@ -14,15 +14,18 @@
     @include desktop {
       flex-direction: row;
       justify-content: space-between;
+      align-items: flex-start;
       flex-wrap: wrap;
     }
 
     .section {
       width: 100%;
-      margin: var(--spacing-huge) 0;
       max-width: 400px;
+      min-height: 300px;
+      margin: var(--spacing-huge) 0;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
 
       @include desktop {
         margin: var(--spacing-huge) 0;
@@ -30,6 +33,13 @@
 
       &__label {
         font-weight: 600;
+      }
+
+      &__birthday {
+        height: 35px;
+        margin: var(--spacing-medium) 0;
+        display: flex;
+        align-items: center;
       }
 
       &__dropdown {
