@@ -14,7 +14,6 @@ const mailRouter = require("./src/controllers/mail.controller");
 const subjectRouter = require("./src/controllers/subject.controller");
 const lessonRouter = require("./src/controllers/lesson.controller");
 
-
 const { handleError } = require("./src/helpers/error");
 
 const app = express();
@@ -36,9 +35,7 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
-connectDb().then(() => {
-  console.log("Database connected");
-});
+connectDb();
 
 app.get(`${basePath}/ping`, (req, res) => {
   res.send("pong");
@@ -54,7 +51,7 @@ const routers = [
   lessonRouter,
 ];
 
-routers.forEach((router) => app.use(basePath, router));
+routers.forEach(router => app.use(basePath, router));
 
 app.use(errorLogger);
 
