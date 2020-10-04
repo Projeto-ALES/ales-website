@@ -49,7 +49,7 @@ describe("User service", () => {
 
   describe("deleteUser", () => {
     it("should call User.findByIdAndDelete with correct params", () => {
-      deleteUser(params);
+      deleteUser(params.id);
       expect(User.findByIdAndDelete).toHaveBeenCalledWith(params.id);
       expect(User.findByIdAndDelete).toHaveBeenCalledTimes(1);
     });
