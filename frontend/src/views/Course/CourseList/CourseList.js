@@ -24,8 +24,8 @@ const CourseList = ({ history }) => {
       setIsLoading(true);
       list()
         .then((response) => {
-          const { subjects } = response.data;
-          setCourses(subjects);
+          const { courses } = response.data;
+          setCourses(courses);
         })
         .catch((err) => {
           if (err.response && err.response.status !== 401) {
@@ -61,10 +61,10 @@ const CourseList = ({ history }) => {
               );
             })
           ) : (
-            <div className={styles.empty}>
-              <span>Nenhum curso cadastrado</span>
-            </div>
-          )}
+                <div className={styles.empty}>
+                  <span>Nenhum curso cadastrado</span>
+                </div>
+              )}
         </div>
         <div className={styles.buttons}>
           <Button text="Voltar" onClick={() => history.goBack()} />
