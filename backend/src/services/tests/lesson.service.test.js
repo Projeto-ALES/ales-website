@@ -1,5 +1,5 @@
 const {
-  getLessonsBySubjectId,
+  getLessonsByCourseId,
   getLessonById,
   createLesson,
   deleteLesson,
@@ -19,15 +19,15 @@ describe("Lesson service", () => {
   const params = {
     id: "lesson_id",
     name: "lesson_name",
-    subject: {
-      id: "subject_id",
+    course: {
+      id: "course_id",
     },
   };
 
-  describe("getLessonsBySubjectId", () => {
+  describe("getLessonsByCourseId", () => {
     it("should call Lesson.find with correct params", () => {
-      getLessonsBySubjectId(params.subject.id);
-      expect(Lesson.find).toHaveBeenCalledWith({ subject: params.subject.id });
+      getLessonsByCourseId(params.course.id);
+      expect(Lesson.find).toHaveBeenCalledWith({ course: params.course.id });
       expect(Lesson.find).toHaveBeenCalledTimes(1);
     });
   });
