@@ -11,7 +11,7 @@ const professorRouter = require("./src/controllers/professor.controller");
 const authRouter = require("./src/controllers/auth.controller");
 const passwordRouter = require("./src/controllers/password.controller");
 const mailRouter = require("./src/controllers/mail.controller");
-const subjectRouter = require("./src/controllers/subject.controller");
+const courseRouter = require("./src/controllers/course.controller");
 const lessonRouter = require("./src/controllers/lesson.controller");
 
 
@@ -50,7 +50,7 @@ const routers = [
   authRouter,
   passwordRouter,
   mailRouter,
-  subjectRouter,
+  courseRouter,
   lessonRouter,
 ];
 

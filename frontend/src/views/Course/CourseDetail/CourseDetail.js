@@ -43,7 +43,7 @@ const CourseDetail = ({ history, match }) => {
             endDate,
             professors,
             coordinator,
-          } = response.data.subject;
+          } = response.data.course;
           setName(name);
           setDescription(description);
           setBeginningDate(formatDateToReceive(beginningDate));
@@ -104,52 +104,52 @@ const CourseDetail = ({ history, match }) => {
           <Loader />
         </div>
       ) : (
-        <>
-          <PageTitle title={name} />
-          <Container>
-            <div className={styles.description}>
-              <p>{description}</p>
-            </div>
-            <div className={styles.data}>
-              <div className={styles.data__period}>
-                <div>
-                  <h4>Data de Início</h4>
-                  <span>{beginningDate}</span>
+          <>
+            <PageTitle title={name} />
+            <Container>
+              <div className={styles.description}>
+                <p>{description}</p>
+              </div>
+              <div className={styles.data}>
+                <div className={styles.data__period}>
+                  <div>
+                    <h4>Data de Início</h4>
+                    <span>{beginningDate}</span>
+                  </div>
+                  <div>
+                    <h4>Data de Término</h4>
+                    <span>{endDate}</span>
+                  </div>
                 </div>
-                <div>
-                  <h4>Data de Término</h4>
-                  <span>{endDate}</span>
+                <div className={styles.professors}>
+                  <h4>Professores</h4>
+                  <div className={styles.professors__chips}>
+                    {professors.map((prof) => {
+                      return (
+                        <Chip
+                          key={prof._id}
+                          text={prof.name}
+                          selected={prof._id === coordinator._id}
+                        />
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
-              <div className={styles.professors}>
-                <h4>Professores</h4>
-                <div className={styles.professors__chips}>
-                  {professors.map((prof) => {
-                    return (
-                      <Chip
-                        key={prof._id}
-                        text={prof.name}
-                        selected={prof._id === coordinator._id}
-                      />
-                    );
-                  })}
+              <div className={styles.buttons}>
+                <Button text="Voltar" onClick={() => history.goBack()} />
+                <div className={styles.actions}>
+                  <Button
+                    text="Editar"
+                    kind="primary"
+                    onClick={() => history.push(routes.COURSE_EDIT.replace(":id", id))}
+                  />
+                  <Button text="Deletar" kind="danger" onClick={() => setModalIsOpen(true)} />
                 </div>
               </div>
-            </div>
-            <div className={styles.buttons}>
-              <Button text="Voltar" onClick={() => history.goBack()} />
-              <div className={styles.actions}>
-                <Button
-                  text="Editar"
-                  kind="primary"
-                  onClick={() => history.push(routes.COURSE_EDIT.replace(":id", id))}
-                />
-                <Button text="Deletar" kind="danger" onClick={() => setModalIsOpen(true)} />
-              </div>
-            </div>
-          </Container>
-        </>
-      )}
+            </Container>
+          </>
+        )}
     </Page>
   );
 };
