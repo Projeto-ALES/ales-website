@@ -46,7 +46,7 @@ const CourseEdit = ({ history, match }) => {
             endDate,
             professors,
             coordinator,
-          } = response.data.subject;
+          } = response.data.course;
           setName(name);
           setDescription(description);
           setBeginningDate(new Date(beginningDate));
@@ -149,117 +149,117 @@ const CourseEdit = ({ history, match }) => {
           <Loader />
         </div>
       ) : (
-        <>
-          <PageTitle title={name} />
-          <Container>
-            <div className={styles.container}>
-              <form
-                className={styles.form}
-                onSubmit={(e) =>
-                  submitCourse(e, id, {
-                    name,
-                    description,
-                    beginningDate,
-                    endDate,
-                    professors: selectedProfessors,
-                    coordinator,
-                  })
-                }
-              >
-                <div className={styles.left}>
-                  <div className={styles.section}>
-                    <Input
-                      placeholder="Nome"
-                      type="text"
-                      onChange={(e) => setName(e.target.value)}
-                      value={name}
-                      required
-                    />
-                  </div>
-                  <div className={styles.section}>
-                    <TextArea
-                      placeholder="Descrição"
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                      rows={4}
-                      required
-                    />
-                  </div>
-                  <div className={styles.section}>
-                    <DateInput
-                      placeholder="Data de Início"
-                      selected={beginningDate}
-                      onChange={(date) => setBeginningDate(date)}
-                      required
-                    />
-                  </div>
-                  <div className={styles.section}>
-                    <DateInput
-                      placeholder="Data de Término"
-                      selected={endDate}
-                      onChange={(date) => setEndDate(date)}
-                      required
-                    />
-                  </div>
-                </div>
-                <div className={styles.right}>
-                  <div className={styles.section}>
-                    <div className={styles.professorsDescription}>
-                      <p>
-                        Selecione abaixo os professores da matéria e também escolha umx
-                        coordenadorx. Pra selecionar umx coordenadorx, basta clicar/tocar sobre x
-                        professorx que elx ficará assim:
-                      </p>
-                      <div className={styles.chip}>
-                        <Chip text="Alessauro" selected />
-                      </div>
-                    </div>
-                    <div className={styles.dropdown}>
-                      <Dropdown
-                        name="coordinator"
-                        options={parseDropdownOptions("_id", "name", professors)}
-                        onSelect={(prof) => addProfessor(prof, professors, selectedProfessors)}
-                        label="Professores"
+          <>
+            <PageTitle title={name} />
+            <Container>
+              <div className={styles.container}>
+                <form
+                  className={styles.form}
+                  onSubmit={(e) =>
+                    submitCourse(e, id, {
+                      name,
+                      description,
+                      beginningDate,
+                      endDate,
+                      professors: selectedProfessors,
+                      coordinator,
+                    })
+                  }
+                >
+                  <div className={styles.left}>
+                    <div className={styles.section}>
+                      <Input
+                        placeholder="Nome"
+                        type="text"
+                        onChange={(e) => setName(e.target.value)}
+                        value={name}
+                        required
                       />
                     </div>
-                    <div className={styles.selectedProfessors}>
-                      {selectedProfessors.map((prof) => {
-                        return (
-                          <Chip
-                            text={prof.name}
-                            key={prof._id}
-                            removable
-                            onRemove={removeProfessor}
-                            selectable
-                            onSelect={selectCoordinator}
-                            selected={prof._id === coordinator._id}
-                          />
-                        );
-                      })}
+                    <div className={styles.section}>
+                      <TextArea
+                        placeholder="Descrição"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        rows={4}
+                        required
+                      />
+                    </div>
+                    <div className={styles.section}>
+                      <DateInput
+                        placeholder="Data de Início"
+                        selected={beginningDate}
+                        onChange={(date) => setBeginningDate(date)}
+                        required
+                      />
+                    </div>
+                    <div className={styles.section}>
+                      <DateInput
+                        placeholder="Data de Término"
+                        selected={endDate}
+                        onChange={(date) => setEndDate(date)}
+                        required
+                      />
                     </div>
                   </div>
-                  <div className={styles.buttons}>
-                    <Button
-                      text="Voltar"
-                      type="button"
-                      onClick={() => {
-                        history.goBack();
-                      }}
-                    />
-                    <Button
-                      kind="success"
-                      text="Enviar"
-                      type="submit"
-                      isLoading={isSubmitting}
-                      disabled={isSubmitting}
-                    />
+                  <div className={styles.right}>
+                    <div className={styles.section}>
+                      <div className={styles.professorsDescription}>
+                        <p>
+                          Selecione abaixo os professores da matéria e também escolha umx
+                          coordenadorx. Pra selecionar umx coordenadorx, basta clicar/tocar sobre x
+                          professorx que elx ficará assim:
+                      </p>
+                        <div className={styles.chip}>
+                          <Chip text="Alessauro" selected />
+                        </div>
+                      </div>
+                      <div className={styles.dropdown}>
+                        <Dropdown
+                          name="coordinator"
+                          options={parseDropdownOptions("_id", "name", professors)}
+                          onSelect={(prof) => addProfessor(prof, professors, selectedProfessors)}
+                          label="Professores"
+                        />
+                      </div>
+                      <div className={styles.selectedProfessors}>
+                        {selectedProfessors.map((prof) => {
+                          return (
+                            <Chip
+                              text={prof.name}
+                              key={prof._id}
+                              removable
+                              onRemove={removeProfessor}
+                              selectable
+                              onSelect={selectCoordinator}
+                              selected={prof._id === coordinator._id}
+                            />
+                          );
+                        })}
+                      </div>
+                    </div>
+                    <div className={styles.buttons}>
+                      <Button
+                        text="Voltar"
+                        type="button"
+                        onClick={() => {
+                          history.goBack();
+                        }}
+                      />
+                      <Button
+                        kind="success"
+                        text="Enviar"
+                        type="submit"
+                        isLoading={isSubmitting}
+                        disabled={isSubmitting}
+                      />
+                    </div>
                   </div>
-                </div>
-              </form>
-            </div>
-          </Container>
-        </>
-      )}
+                </form>
+              </div>
+            </Container>
+          </>
+        )}
     </Page>
   );
 };
