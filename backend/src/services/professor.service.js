@@ -29,9 +29,9 @@ exports.getProfessor = async params => {
   }
 };
 
-exports.deleteProfessor = async params => {
+exports.deleteProfessor = async id => {
   try {
-    return await Professor.findByIdAndDelete(params.id);
+    return await Professor.findByIdAndDelete(id);
   } catch (e) {
     throw new ErrorHandler(500, e.errmsg);
   }

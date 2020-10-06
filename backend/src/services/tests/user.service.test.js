@@ -15,26 +15,27 @@ describe("User service", () => {
   User.findById = jest.fn();
   User.findByIdAndDelete = jest.fn();
   User.updateOne = jest.fn();
-  User.findOne = jest.fn();
 
   const params = {
     id: "test_id",
-    name: "Test Name",
-    email: "test@mail.com",
+    data: {
+      name: "Test Name",
+      email: "test@mail.com",
+    },
   };
 
   describe("getUsers", () => {
     it("should call User.find with correct params", () => {
-      getUsers(params);
-      expect(User.find).toHaveBeenCalledWith(params);
+      getUsers(params.data);
+      expect(User.find).toHaveBeenCalledWith(params.data);
       expect(User.find).toHaveBeenCalledTimes(1);
     });
   });
 
   describe("createUser", () => {
     it("should call User.create with correct params", () => {
-      createUser(params);
-      expect(User.create).toHaveBeenCalledWith(params);
+      createUser(params.data);
+      expect(User.create).toHaveBeenCalledWith(params.data);
       expect(User.create).toHaveBeenCalledTimes(1);
     });
   });
@@ -56,15 +57,13 @@ describe("User service", () => {
   });
 
   describe("updateUser", () => {
-    it("should call User.findOne and User.updateOne with correct params", () => {
-      updateUser(params.id, params);
+    it("should call User.updateOne with correct params", () => {
+      updateUser(params.id, params.data);
       expect(User.updateOne).toHaveBeenCalledWith(
         { _id: params.id },
-        { $set: params }
+        { $set: params.data }
       );
       expect(User.updateOne).toHaveBeenCalledTimes(1);
-      expect(User.findOne).toHaveBeenCalledWith({ _id: params.id });
-      expect(User.findOne).toHaveBeenCalledTimes(1);
     });
   });
 });

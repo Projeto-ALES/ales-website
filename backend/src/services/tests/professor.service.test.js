@@ -40,9 +40,9 @@ describe("Professor service", () => {
 
   describe("getProfessor", () => {
     it("should call Professor.findById with correct params", () => {
-      getProfessor(params.id);
-      expect(Professor.findById).toHaveBeenCalledWith(params.id);
-      expect(Professor.findById).toHaveBeenCalledTimes(1);
+      getProfessor(params);
+      expect(Professor.findOne).toHaveBeenCalledWith(params);
+      expect(Professor.findOne).toHaveBeenCalledTimes(1);
     });
   });
 

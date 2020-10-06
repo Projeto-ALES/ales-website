@@ -30,9 +30,9 @@ exports.getUser = async id => {
   }
 };
 
-exports.deleteUser = async params => {
+exports.deleteUser = async id => {
   try {
-    return await User.findByIdAndDelete(params.id);
+    return await User.findByIdAndDelete(id);
   } catch (e) {
     throw new ErrorHandler(500, e.errmsg);
   }
@@ -41,7 +41,7 @@ exports.deleteUser = async params => {
 exports.updateUser = async (id, data) => {
   try {
     await User.updateOne({ _id: id }, { $set: data });
-    return await User.findOne({ _id: id });
+    return await User.findById(id);
   } catch (e) {
     throw new ErrorHandler(500, e.errmsg);
   }
