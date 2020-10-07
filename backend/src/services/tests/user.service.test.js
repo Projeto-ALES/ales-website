@@ -64,6 +64,8 @@ describe("User service", () => {
         { $set: params.data }
       );
       expect(User.updateOne).toHaveBeenCalledTimes(1);
+      expect(User.findById).toHaveBeenCalledWith(params.id);
+      expect(User.findById).toHaveBeenCalledTimes(1);
     });
   });
 });
