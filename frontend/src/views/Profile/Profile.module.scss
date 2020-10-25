@@ -1,10 +1,5 @@
 @import "~styles/breakpoints";
 
-.loader {
-  display: flex;
-  justify-content: center;
-}
-
 .container {
   padding: 0 var(--spacing-medium);
   color: var(--gray-dark);
@@ -19,6 +14,7 @@
     @include desktop {
       flex-direction: row;
       justify-content: space-between;
+      align-items: flex-start;
       flex-wrap: wrap;
     }
 
@@ -36,10 +32,12 @@
 
     .section {
       width: 100%;
-      margin: var(--spacing-huge) 0;
       max-width: 400px;
+      min-height: 300px;
+      margin: var(--spacing-huge) 0;
       display: flex;
       flex-direction: column;
+      justify-content: flex-start;
 
       @include desktop {
         margin: var(--spacing-huge) 0;
@@ -47,6 +45,13 @@
 
       span {
         font-weight: 600;
+      }
+
+      &__birthday {
+        height: 35px;
+        margin: var(--spacing-medium) 0;
+        display: flex;
+        align-items: center;
       }
 
       &__dropdown {
@@ -61,6 +66,7 @@
       &__buttons {
         display: flex;
         justify-content: flex-start;
+        margin-top: var(--spacing-huge);
 
         @include desktop {
           justify-content: flex-start;

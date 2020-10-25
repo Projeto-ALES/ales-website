@@ -43,7 +43,7 @@ const ProfessorList = ({ history }) => {
       <PageTitle title="Professores" icon="fas fa-graduation-cap" />
       <Container>
         {isLoading ? (
-          <div className={styles.loader}>
+          <div className="loader">
             <Loader />
           </div>
         ) : (

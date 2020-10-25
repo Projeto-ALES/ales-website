@@ -19,14 +19,17 @@
   "scripts": {
     "dev": "nodemon --exec babel-node app.js",
     "lint": "eslint \"**/*.js\" --ignore-pattern node_modules/"
+    "test": "jest"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/node": "^7.8.7",
+    "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.9.0",
     "eslint": "^7.8.1",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
+    "jest": "^26.4.2",
     "nodemon": "^2.0.2"
   }
 }

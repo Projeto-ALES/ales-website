@@ -22,6 +22,7 @@ router.get("/users", AuthMiddleware, async (req, res) => {
 
 router.post(
   "/users",
+  AuthMiddleware,
   [
     check("email").not().isEmpty().withMessage("Email is missing"),
     check("name").not().isEmpty().withMessage("Name is missing"),
@@ -37,8 +38,6 @@ router.post(
     }
 
     try {
-      await AuthMiddleware.verifyAuth(req.headers.cookie);
-
       const user = await UserService.createUser(req.body);
       user.password = null;
       return res.status(201).json({
