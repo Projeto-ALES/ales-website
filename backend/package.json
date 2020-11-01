@@ -18,7 +18,7 @@
   },
   "scripts": {
     "dev": "nodemon --exec babel-node app.js",
-    "lint": "eslint \"**/*.js\" --ignore-pattern node_modules/"
+    "lint": "eslint \"**/*.js\" --ignore-pattern node_modules/",
     "test": "jest"
   },
   "devDependencies": {
