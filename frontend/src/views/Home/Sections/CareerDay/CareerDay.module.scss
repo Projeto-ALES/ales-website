@@ -1,9 +1,9 @@
 @import "~styles/breakpoints";
 
-.adaptionContainer {
+.container {
   background: var(--gray-lightest);
 
-  .adaptionTitle {
+  .title {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -30,7 +30,7 @@
     }
   }
 
-  .adaptionSubtitle {
+  .subtitle {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,15 +48,9 @@
     @include tablet-portrait {
       justify-content: center;
     }
-
-    img {
-      margin-left: var(--spacing-base);
-      width: 2em;
-      transform: rotate(-5deg);
-    }
   }
 
-  .adaptionDescription {
+  .description {
     text-align: center;
     padding: 0 8%;
     color: var(--gray-darker);
@@ -70,67 +64,41 @@
       font-size: var(--font-medium);
     }
 
-    .buttonsContainer {
+    .buttonContainer {
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       margin: var(--spacing-huge) 0;
-
-      @include tablet-portrait {
-        flex-direction: row;
-      }
-
-      a {
-        &:first-of-type {
-          margin-bottom: var(--spacing-huge);
-
-          @include tablet-portrait {
-            margin-bottom: 0;
-            margin-right: var(--spacing-huge);
-          }
-        }
-      }
     }
   }
 
-  .classesDescription {
+  .schedule {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: var(--spacing-large);
-    font-size: var(--font-medium);
     color: var(--gray-darker);
-
-    span {
-      font-weight: 600;
-      text-align: center;
-      font-size: var(--font-medium);
-    }
-  }
-
-  .courses {
-    display: flex;
-    justify-content: center;
 
     .table {
       width: 100%;
       min-width: 300px;
-      max-width: 400px;
       border-spacing: 0;
       color: var(--gray-darker);
       box-shadow: var(--long-drop-shadow);
+      margin-bottom: var(--spacing-huge);
 
       th:first-of-type {
         border-top-left-radius: 6px;
       }
+
       th:last-of-type {
         border-top-right-radius: 6px;
       }
+
       tr:last-of-type td:first-of-type {
         border-bottom-left-radius: 6px;
       }
+
       tr:last-of-type td:last-of-type {
         border-bottom-right-radius: 6px;
       }
@@ -147,6 +115,14 @@
         padding: var(--spacing-base);
         text-align: center;
       }
+
+      td:first-of-type {
+        font-weight: 600;
+      }
     }
+  }
+
+  .info {
+    text-align: center;
   }
 }
