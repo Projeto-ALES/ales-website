@@ -6,7 +6,7 @@ import ButtonIcon from "components/ButtonIcon/ButtonIcon";
 import Alessauro from "assets/logos/alessauro.svg";
 import styles from "./CareerDay.module.scss";
 
-import schedule from "./courses";
+import schedule from "./schedule";
 
 const CarrerDay = () => {
   return (
