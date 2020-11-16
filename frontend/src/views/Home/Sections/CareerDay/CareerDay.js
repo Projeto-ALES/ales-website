@@ -47,7 +47,11 @@ const CarrerDay = () => {
                 return (
                   <tr key={s.id}>
                     <td>{s.time}</td>
-                    <td>{s.name}</td>
+                    {s.link ? (
+                      <td>
+                        <a href={s.link} target="_blank">{s.name}</a>
+                      </td>
+                    ) : (<td>{s.name}</td>)}
                   </tr>
                 );
               })}
@@ -55,7 +59,7 @@ const CarrerDay = () => {
           </div>
         </div>
         <div className={styles.info}>
-          <p>Todas as conversas serão remotas (via Google Meet) e mandaremos o link das salas em breve!</p>
+          <p>Todas as conversas serão remotas (via Google Meet). Pra entrar na sala do curso é só clicar no nome dele na tabela aqui em cima ☝️</p>
         </div>
       </Container >
     </div >

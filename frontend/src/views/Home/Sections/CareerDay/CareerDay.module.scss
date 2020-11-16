@@ -114,6 +114,10 @@
         color: var(--gray-darker);
         padding: var(--spacing-base);
         text-align: center;
+
+        a {
+          color: var(--brand-blue);
+        }
       }
 
       td:first-of-type {
