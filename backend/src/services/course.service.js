@@ -5,7 +5,7 @@ const getCourses = async () => {
   return await Course.find();
 };
 
-const getCoursesById = async id => {
+const getCourseById = async id => {
   return await Course.findById(id)
     .populate('professors')
     .populate('coordinator');
@@ -37,7 +37,7 @@ const updateCourse = async (id, body) => {
 
 module.exports = {
   getCourses,
-  getCoursesById,
+  getCourseById,
   deleteCourse,
   createCourse,
   updateCourse,

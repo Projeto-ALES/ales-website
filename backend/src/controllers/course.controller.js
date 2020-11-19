@@ -19,19 +19,10 @@ router.get('/courses', async (req, res) => {
   });
 });
 
-router.get('/courses/:id/lessons', AuthMiddleware, async (req, res, next) => {
-  const { id } = req.params;
-  const lessons = await LessonService.getLessonsByCourseId(id);
-
-  return res.status(200).json({
-    status: 200,
-    lessons,
-  });
-});
-
 router.get('/courses/:id', async (req, res, next) => {
   const { id } = req.params;
-  const course = await CourseService.getCoursesById(id);
+  const course = await CourseService.getCourseById(id);
+  const lessons = await LessonService.getLessonsByCourseId(id);
 
   if (!course) {
     return next(new NotFoundError(ENTITY_NAME));
@@ -40,6 +31,7 @@ router.get('/courses/:id', async (req, res, next) => {
   return res.status(200).json({
     status: 200,
     course,
+    lessons
   });
 });
 
