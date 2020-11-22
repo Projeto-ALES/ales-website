@@ -10,7 +10,7 @@ const Accordion = ({ text, children }) => {
       <div className={styles.header} onClick={() => setIsOpen(!isOpen)}>
         <span>{text}</span>
       </div>
-      <div className={`${styles.body} ${isOpen && styles.active}`}>
+      <div className={`${styles.body} ${isOpen ? styles.active : null}`}>
         {children}
       </div>
     </div>
