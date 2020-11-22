@@ -53,7 +53,7 @@ const CourseDetail = ({ history, match }) => {
           setEndDate(formatDateToReceive(endDate));
           setProfessors(professors);
           setCoordinator(coordinator);
-          // setLessons(lessons);
+          setLessons(lessons);
         })
         .catch((err) => {
           if (err.response && err.response.status !== 401) {

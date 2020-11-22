@@ -213,6 +213,7 @@ const CourseNew = ({ history }) => {
                 <div className={styles.buttons}>
                   <Button
                     text="Voltar"
+                    type="button"
                     onClick={() => {
                       history.goBack();
                     }}

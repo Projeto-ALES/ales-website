@@ -90,7 +90,6 @@
     .lessons {
       text-align: center;
       width: 100%;
-      max-width: 600px;
 
       @include tablet-portrait {
         max-width: 400px;
