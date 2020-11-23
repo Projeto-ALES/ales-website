@@ -156,7 +156,7 @@ const CourseDetail = ({ history, match }) => {
                                 <span>
                                   <i class="far fa-calendar-alt"></i>
                                 </span>
-                                <span>{formatDateToReceive(lesson.date)}</span>
+                                <span>{lesson.date ? formatDateToReceive(lesson.date) : `Nenhuma data definida`}</span>
                               </div>
                             </div>
                             <div className={styles.lesson__allocated}>
