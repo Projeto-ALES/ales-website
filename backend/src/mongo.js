@@ -42,7 +42,8 @@ const connectDB = async () => {
       email: INIT_EMAIL,
       password: INIT_PASSWORD,
     };
-    if (!User.findOne({ email: INIT_EMAIL })) {
+    const query = await User.findOne({ email: INIT_EMAIL })
+    if (!query) {
       await User.create(user);
     }
     console.log("Database connected with user:", user);
