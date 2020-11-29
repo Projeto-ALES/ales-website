@@ -4,8 +4,7 @@ const { ErrorHandler } = require('../helpers/error');
 const getLessonsByCourseId = async courseId => {
   return await Lesson.find({
     course: courseId,
-  })
-    .populate('professors')
+  }).populate('professors')
 };
 
 const getLessonById = async id => {

@@ -7,11 +7,7 @@ const getCourses = async () => {
 
 const getCourseById = async id => {
   try {
-    const course = await Course.findById(id);
-    if (course) {
-      return course.populate('professors').populate('coordinator');
-    }
-    return null;
+    return await Course.findById(id).populate('professors').populate('coordinator');
   } catch (e) {
     throw new ErrorHandler(500, e.errmsg);
   }
