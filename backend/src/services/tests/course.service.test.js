@@ -22,40 +22,40 @@ describe("Course service", () => {
   };
 
   describe("getCourses", () => {
-    it("should call Course.find with correct params", () => {
-      getCourses();
+    it("should call Course.find with correct params", async () => {
+      await getCourses();
       expect(Course.find).toHaveBeenCalledWith();
       expect(Course.find).toHaveBeenCalledTimes(1);
     });
   });
 
   describe("getCourse", () => {
-    it("should call Course.findById with correct params", () => {
-      getCoursesById(params.id);
+    it("should call Course.findById with correct params", async () => {
+      await getCoursesById(params.id);
       expect(Course.findById).toHaveBeenCalledWith(params.id);
       expect(Course.findById).toHaveBeenCalledTimes(1);
     });
   });
 
   describe("deleteCourse", () => {
-    it("should call Course.findByIdAndDelete with correct params", () => {
-      deleteCourse(params.id);
+    it("should call Course.findByIdAndDelete with correct params", async () => {
+      await deleteCourse(params.id);
       expect(Course.findByIdAndDelete).toHaveBeenCalledWith(params.id);
       expect(Course.findByIdAndDelete).toHaveBeenCalledTimes(1);
     });
   });
 
   describe("createCourse", () => {
-    it("should call Course.create with correct params", () => {
-      createCourse(params);
+    it("should call Course.create with correct params", async () => {
+      await createCourse(params);
       expect(Course.create).toHaveBeenCalledWith(params);
       expect(Course.create).toHaveBeenCalledTimes(1);
     });
   });
 
   describe("updateCourse", () => {
-    it("should call Course.findOneAndUpdate with correct params", () => {
-      updateCourse(params.id, params);
+    it("should call Course.findOneAndUpdate with correct params", async () => {
+      await updateCourse(params.id, params);
       expect(Course.findOneAndUpdate).toHaveBeenCalledWith(
         { _id: params.id },
         { $set: { ...params } }
