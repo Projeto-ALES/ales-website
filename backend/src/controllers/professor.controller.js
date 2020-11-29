@@ -101,7 +101,7 @@ router.get("/professors/:id", AuthMiddleware, async (req, res) => {
 
 router.delete("/professors/:id", AuthMiddleware, async (req, res) => {
   try {
-    const professor = await ProfessorService.deleteProfessor(req.params);
+    const professor = await ProfessorService.deleteProfessor(req.params.id);
     if (!professor) {
       throw new ErrorHandler(404, "Professor not found");
     }
@@ -130,6 +130,7 @@ router.put(
 
     try {
       const { id } = req.params;
+      const { token } = req.authContext;
       if (!UserService.isOwner(id, token)) {
         throw new ErrorHandler(403, "Permission denied");
       }
@@ -160,7 +161,6 @@ router.post(
     }
 
     try {
-
       const { email } = req.body;
       const inviteToken = crypto.randomBytes(20).toString("hex");
       const inviteTokenExp = Date.now() + 3600000;

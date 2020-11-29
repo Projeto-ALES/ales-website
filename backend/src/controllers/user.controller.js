@@ -69,7 +69,7 @@ router.get("/users/:id", AuthMiddleware, async (req, res) => {
 
 router.delete("/users/:id", AuthMiddleware, async (req, res) => {
   try {
-    const user = await UserService.deleteUser(req.params);
+    const user = await UserService.deleteUser(req.params.id);
     if (!user) {
       throw new ErrorHandler(404, "User not found");
     }
