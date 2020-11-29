@@ -5,8 +5,6 @@ services:
     image: mongo:3.6.17-xenial
     ports:
       - "27017:27017"
-    env_file:
-      - .env/prod/db.env
     volumes:
       - /data/configdb:/data/configdb
       - /data/db:/data/db

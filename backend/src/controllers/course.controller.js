@@ -5,7 +5,7 @@ const { AuthMiddleware } = require('../middlewares/auth.middleware');
 const CourseService = require('../services/course.service');
 const LessonService = require('../services/lesson.service');
 
-const { NotFoundError, BadRequestError } = require('../helpers/error');
+const { NotFoundError } = require('../helpers/error');
 
 const router = express.Router();
 
@@ -64,9 +64,8 @@ router.post(
   ],
   async (req, res) => {
     const errors = validationResult(req);
-
     if (!errors.isEmpty()) {
-      return BadRequestError(errors.array());
+      return res.status(400).json(errors.array());
     }
 
     let course;

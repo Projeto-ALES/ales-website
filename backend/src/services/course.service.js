@@ -6,9 +6,15 @@ const getCourses = async () => {
 };
 
 const getCourseById = async id => {
-  return await Course.findById(id)
-    .populate('professors')
-    .populate('coordinator');
+  try {
+    const course = await Course.findById(id);
+    if (course) {
+      return course.populate('professors').populate('coordinator');
+    }
+    return null;
+  } catch (e) {
+    throw new ErrorHandler(500, e.errmsg);
+  }
 };
 
 const deleteCourse = async id => {
