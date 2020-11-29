@@ -94,6 +94,10 @@ All decisions related with user requirements and needs are made on the design pr
   - TOKEN_SECRET={token-secret}
   - REFRESH_TOKEN_SECRET={refresh-token-secret}
 
+  - INIT_USER=alessauro
+  - INIT_PASSWORD=admin
+  - INIT_EMAIL=alessauro@mail
+
   - EMAIL_HOST={email-host}
   - EMAIL_PORT={email-port}
   - EMAIL_FROM={email-from}
