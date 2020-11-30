@@ -14,7 +14,6 @@ router.post("/lessons",
   [
     check("title").not().isEmpty().withMessage("Lesson name is missing"),
     check("course").not().isEmpty().withMessage("Course is missing"),
-    check("date").not().isEmpty().withMessage("Date is missing"),
   ],
   async (req, res, next) => {
 

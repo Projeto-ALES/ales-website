@@ -13,6 +13,7 @@ import Button from "components/Button/Button";
 import Chip from "components/Chip/Chip";
 import Loader from "components/Loader/Loader";
 import Modal from "components/Modal/Modal";
+import Accordion from "components/Accordion/Accordion";
 import { toast } from "react-toastify";
 
 import styles from "./CourseDetail.module.scss";
@@ -26,6 +27,7 @@ const CourseDetail = ({ history, match }) => {
   const [endDate, setEndDate] = useState(null);
   const [professors, setProfessors] = useState([]);
   const [coordinator, setCoordinator] = useState({});
+  const [lessons, setLessons] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -44,12 +46,14 @@ const CourseDetail = ({ history, match }) => {
             professors,
             coordinator,
           } = response.data.course;
+          const { lessons } = response.data;
           setName(name);
           setDescription(description);
           setBeginningDate(formatDateToReceive(beginningDate));
           setEndDate(formatDateToReceive(endDate));
           setProfessors(professors);
           setCoordinator(coordinator);
+          setLessons(lessons);
         })
         .catch((err) => {
           if (err.response && err.response.status !== 401) {
@@ -111,28 +115,66 @@ const CourseDetail = ({ history, match }) => {
                 <p>{description}</p>
               </div>
               <div className={styles.data}>
-                <div className={styles.data__period}>
-                  <div>
-                    <h4>Data de Início</h4>
-                    <span>{beginningDate}</span>
+                <div className={styles.data__top}>
+                  <div className={styles.period}>
+                    <div>
+                      <h4>Data de Início</h4>
+                      <span>{beginningDate}</span>
+                    </div>
+                    <div>
+                      <h4>Data de Término</h4>
+                      <span>{endDate}</span>
+                    </div>
                   </div>
-                  <div>
-                    <h4>Data de Término</h4>
-                    <span>{endDate}</span>
+                  <div className={styles.professors}>
+                    <h4>Professores</h4>
+                    <div className={styles.professors__chips}>
+                      {professors.map((prof) => {
+                        return (
+                          <Chip
+                            key={prof._id}
+                            text={prof.name}
+                            selected={prof._id === coordinator._id}
+                          />
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
-                <div className={styles.professors}>
-                  <h4>Professores</h4>
-                  <div className={styles.professors__chips}>
-                    {professors.map((prof) => {
+                <div className={styles.data__bottom}>
+                  <div className={styles.lessons}>
+                    <h4>Aulas</h4>
+                    {lessons && lessons.length > 0 ? lessons.map(lesson => {
                       return (
-                        <Chip
-                          key={prof._id}
-                          text={prof.name}
-                          selected={prof._id === coordinator._id}
-                        />
-                      );
-                    })}
+                        <Accordion text={lesson.title}>
+                          <div className={styles.lesson}>
+                            <div className={styles.lesson__description}>
+                              <p>{lesson.description}</p>
+                            </div>
+                            <div className={styles.lesson__date}>
+                              <div className={styles.date}>
+                                <span>
+                                  <i class="far fa-calendar-alt"></i>
+                                </span>
+                                <span>{lesson.date ? formatDateToReceive(lesson.date) : `Nenhuma data definida`}</span>
+                              </div>
+                            </div>
+                            <div className={styles.lesson__allocated}>
+                              <div className={styles.chips}>
+                                {lesson.professors && lesson.professors.map(prof => {
+                                  return (
+                                    <Chip
+                                      text={prof.name}
+                                      selected={true}
+                                    />
+                                  )
+                                })}
+                              </div>
+                            </div>
+                          </div>
+                        </Accordion>
+                      )
+                    }) : <span>Nenhuma aula cadastrada</span>}
                   </div>
                 </div>
               </div>

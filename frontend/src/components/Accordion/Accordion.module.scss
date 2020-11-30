@@ -1,0 +1,24 @@
+.accordion {
+    .header {
+        padding: var(--spacing-medium);
+        background: var(--brand-yellow-light);
+        border-radius: 4px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--brand-yellow-lighter);
+            transition: 500ms ease;
+        }
+    }
+
+    .body {
+        height: 0px;
+        overflow: hidden;
+        transition: height 500ms;
+        background: var(--gray-lighter);
+    }
+
+    .active {
+        height: auto;
+    }
+}

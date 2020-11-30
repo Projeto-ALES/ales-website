@@ -1,6 +1,6 @@
 const {
   getCourses,
-  getCoursesById,
+  getCourseById,
   deleteCourse,
   createCourse,
   updateCourse,
@@ -31,7 +31,7 @@ describe("Course service", () => {
 
   describe("getCourse", () => {
     it("should call Course.findById with correct params", async () => {
-      await getCoursesById(params.id);
+      await getCourseById(params.id);
       expect(Course.findById).toHaveBeenCalledWith(params.id);
       expect(Course.findById).toHaveBeenCalledTimes(1);
     });
