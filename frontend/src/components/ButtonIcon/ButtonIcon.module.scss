@@ -11,6 +11,7 @@
   color: var(--gray-darker);
   box-shadow: var(--long-drop-shadow);
   transition: 300ms ease;
+  cursor: pointer;
 
   &:hover {
     background-color: var(--gray-lightest);
@@ -47,6 +48,7 @@
         -webkit-transform: rotate(0deg);
         transform: rotate(0deg);
       }
+
       100% {
         -webkit-transform: rotate(360deg);
         transform: rotate(360deg);
@@ -58,6 +60,7 @@
         -webkit-transform: rotate(0deg);
         transform: rotate(0deg);
       }
+
       100% {
         -webkit-transform: rotate(360deg);
         transform: rotate(360deg);
