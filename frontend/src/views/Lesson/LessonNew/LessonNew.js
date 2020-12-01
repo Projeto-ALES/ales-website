@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+import routes from "routes/routes";
 import { list } from "services/professor.service";
+import { create } from "services/lesson.service";
 
 import parseDropdownOptions from "helpers/dropdown";
 
@@ -19,7 +21,10 @@ import { toast } from "react-toastify";
 
 import styles from "./LessonNew.module.scss";
 
-const LessonNew = ({ history }) => {
+const LessonNew = ({ history, match }) => {
+
+  const course_id = match.params.id;
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState(null);
@@ -62,6 +67,30 @@ const LessonNew = ({ history }) => {
     setSelectedProfessors(updatedProfessors);
   };
 
+  const submitLesson = async (e, data, course_id) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const { date } = data;
+    data.date = await date.toISOString();
+
+    /* change names for id's */
+    const { professors } = data;
+    if (professors.length > 0) {
+      data.professors = await professors.map((prof) => prof._id);
+    }
+
+    create(data)
+      .then(() => {
+        history.push(routes.COURSE_DETAIL.replace(":id", course_id));
+        toast.success("Aula adicionada!");
+      })
+      .catch(() => {
+        toast.error("Ops! Aconteceu algum erro na hora de adicionar essa aula");
+        setIsSubmitting(false);
+      });
+  }
+
   return (
     <Page>
       <PageTitle title="Adicionar Aula" icon="fas fa-plus" />
@@ -72,7 +101,7 @@ const LessonNew = ({ history }) => {
               <Loader />
             </div>
           ) : (
-              <form className={styles.form}>
+              <form className={styles.form} onSubmit={(e) => submitLesson(e, { title, description, date, professors: selectedProfessors, course: course_id }, course_id)}>
                 <div className={styles.section}>
                   <Input
                     placeholder="Título"
