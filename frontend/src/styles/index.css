@@ -134,7 +134,8 @@ button {
   background: none;
 }
 
-input:focus {
+input:focus,
+textarea:focus {
   outline-color: var(--brand-blue);
   outline: none;
   box-shadow: 0 0 3px var(--brand-blue);
