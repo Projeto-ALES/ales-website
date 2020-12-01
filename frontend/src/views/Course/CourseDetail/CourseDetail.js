@@ -146,7 +146,7 @@ const CourseDetail = ({ history, match }) => {
                   <div className={styles.lessons}>
                     <h4>Aulas</h4>
                     <div className={styles.lessons__add}>
-                      <ButtonIcon text="Adicionar Aula" kind="success" icon="fas fa-plus" />
+                      <ButtonIcon text="Adicionar Aula" kind="success" icon="fas fa-plus" onClick={() => history.push(routes.LESSON_NEW.replace(":id", id))} />
                     </div>
                     {lessons && lessons.length > 0 ? lessons.map(lesson => {
                       return (
