@@ -3,6 +3,6 @@
   "prettier.prettierPath": "./frontend/node_modules/prettier",
   "editor.formatOnSave": true,
   "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   }
 }

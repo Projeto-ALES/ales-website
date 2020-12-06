@@ -21,6 +21,8 @@ const routes = {
   COURSE_DETAIL: "/courses/:id",
   COURSE_EDIT: "/courses/:id/edit",
   QUARANTINE: "/quarentenales",
+
+  LESSON_NEW: "/:id/lessons/new"
 };
 
 export default routes;

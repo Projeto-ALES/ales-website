@@ -10,6 +10,7 @@ import Page from "components/Page/Page";
 import PageTitle from "components/PageTitle/PageTitle";
 import Container from "components/Container/Container";
 import Button from "components/Button/Button";
+import ButtonIcon from "components/ButtonIcon/ButtonIcon";
 import Chip from "components/Chip/Chip";
 import Loader from "components/Loader/Loader";
 import Modal from "components/Modal/Modal";
@@ -144,6 +145,9 @@ const CourseDetail = ({ history, match }) => {
                 <div className={styles.data__bottom}>
                   <div className={styles.lessons}>
                     <h4>Aulas</h4>
+                    <div className={styles.lessons__add}>
+                      <ButtonIcon text="Adicionar Aula" kind="success" icon="fas fa-plus" onClick={() => history.push(routes.LESSON_NEW.replace(":id", id))} />
+                    </div>
                     {lessons && lessons.length > 0 ? lessons.map(lesson => {
                       return (
                         <Accordion text={lesson.title}>
