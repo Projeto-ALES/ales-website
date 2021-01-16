@@ -175,6 +175,12 @@ const CourseDetail = ({ history, match }) => {
                                 })}
                               </div>
                             </div>
+                            <div className={styles.lesson__actions}>
+                              <div className={styles.buttons}>
+                                <Button text="Detalhes" kind="success" />
+                                <Button text="Editar" kind="primary" />
+                              </div>
+                            </div>
                           </div>
                         </Accordion>
                       )

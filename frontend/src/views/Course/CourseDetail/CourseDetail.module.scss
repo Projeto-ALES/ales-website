@@ -134,6 +134,20 @@
             flex-wrap: wrap;
           }
         }
+
+        &__actions {
+          margin-top: var(--spacing-large);
+
+          .buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            @include tablet-portrait {
+              flex-direction: row;
+            }
+          }
+        }
       }
     }
   }
