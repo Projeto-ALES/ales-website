@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import routes from "routes/routes";
 import { get as getLesson, update } from "services/lesson.service";
 import { get as getCourse } from "services/course.service";
 
@@ -100,7 +99,7 @@ const LessonEdit = ({ history, match }) => {
 
     update(lesson_id, data)
       .then(() => {
-        history.push(routes.COURSE_DETAIL.replace(":id", course_id));
+        history.goBack();
         toast.success("Aula atualizada!");
       })
       .catch(() => {

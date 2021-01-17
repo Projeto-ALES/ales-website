@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import routes from "routes/routes";
 import { list } from "services/professor.service";
 import { create } from "services/lesson.service";
 
@@ -84,7 +83,7 @@ const LessonNew = ({ history, match }) => {
 
     create(data)
       .then(() => {
-        history.push(routes.COURSE_DETAIL.replace(":id", course_id));
+        history.goBack();
         toast.success("Aula adicionada!");
       })
       .catch(() => {
