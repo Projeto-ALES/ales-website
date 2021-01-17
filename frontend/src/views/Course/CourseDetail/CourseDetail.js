@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import { get, remove } from "services/course.service";
+import { get, remove as removeCourse } from "services/course.service";
+import { remove as removeLesson } from "services/lesson.service";
 
 import { formatDateToReceive } from "helpers/masks";
 
@@ -31,74 +32,114 @@ const CourseDetail = ({ history, match }) => {
   const [lessons, setLessons] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isDeletingCourse, setisDeletingCourse] = useState(false);
+  const [isDeletingLesson, setisDeletingLesson] = useState(false);
+  const [deleteCourseModal, setDeleteCourseModal] = useState(false);
+  const [deleteLessonModal, setDeleteLessonModal] = useState(false);
+  const [lessonToBeDeleted, setLessonToBeDeleted] = useState(null);
+
+  const getCourse = (course_id) => {
+    setIsLoading(true);
+    get(course_id)
+      .then((response) => {
+        const {
+          name,
+          description,
+          beginningDate,
+          endDate,
+          professors,
+          coordinator,
+        } = response.data.course;
+        const { lessons } = response.data;
+        setName(name);
+        setDescription(description);
+        setBeginningDate(formatDateToReceive(beginningDate));
+        setEndDate(formatDateToReceive(endDate));
+        setProfessors(professors);
+        setCoordinator(coordinator);
+        setLessons(lessons);
+      })
+      .catch((err) => {
+        if (err.response && err.response.status !== 401) {
+          toast.error("Ops! Aconteceu algum erro para retornar os dados");
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
 
   useEffect(() => {
-    const getCourse = (id) => {
-      setIsLoading(true);
-      get(id)
-        .then((response) => {
-          const {
-            name,
-            description,
-            beginningDate,
-            endDate,
-            professors,
-            coordinator,
-          } = response.data.course;
-          const { lessons } = response.data;
-          setName(name);
-          setDescription(description);
-          setBeginningDate(formatDateToReceive(beginningDate));
-          setEndDate(formatDateToReceive(endDate));
-          setProfessors(professors);
-          setCoordinator(coordinator);
-          setLessons(lessons);
-        })
-        .catch((err) => {
-          if (err.response && err.response.status !== 401) {
-            toast.error("Ops! Aconteceu algum erro para retornar os dados");
-          }
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    };
     getCourse(id);
   }, []);
 
-  const deleteCourse = (id) => {
-    setIsDeleting(true);
+  const deleteCourse = (course_id) => {
+    setisDeletingCourse(true);
 
-    remove(id)
+    removeCourse(course_id)
       .then(() => {
         history.push(routes.COURSES);
         toast.success("Matéria removida!");
       })
       .catch(() => {
         toast.error("Ops! Aconteceu algum erro para deletar a matéria");
-        setIsDeleting(false);
+        setisDeletingCourse(false);
       });
   };
 
+  const deleteLesson = (course_id, lesson) => {
+    setisDeletingLesson(true);
+
+    removeLesson(lesson._id)
+      .then(() => {
+        getCourse(course_id)
+      })
+      .catch(() => {
+        toast.error("Ops! Aconteceu algum erro para deletar a aula");
+      })
+      .finally(() => {
+        setisDeletingLesson(false);
+        setDeleteLessonModal(false);
+      })
+  }
+
   return (
     <Page>
-      {modalIsOpen && (
+      {deleteCourseModal && (
         <div className={styles.modal}>
           <Modal
             title="Tem certeza que deseja deletar a matéria?"
-            onClose={() => setModalIsOpen(false)}
+            onClose={() => setDeleteCourseModal(false)}
           >
             <div className={styles.modal__buttons}>
-              <Button text="Cancelar" onClick={() => setModalIsOpen(false)} />
+              <Button text="Cancelar" onClick={() => setDeleteCourseModal(false)} />
               <Button
                 text="Deletar"
                 kind="danger"
                 width={120}
                 onClick={() => deleteCourse(id)}
-                isLoading={isDeleting}
-                disabled={isDeleting}
+                isLoading={isDeletingCourse}
+                disabled={isDeletingCourse}
+              />
+            </div>
+          </Modal>
+        </div>
+      )}
+      {deleteLessonModal && (
+        <div className={styles.modal}>
+          <Modal
+            title="Tem certeza que deseja deletar a aula?"
+            onClose={() => setDeleteLessonModal(false)}
+          >
+            <div className={styles.modal__buttons}>
+              <Button text="Cancelar" onClick={() => setDeleteLessonModal(false)} />
+              <Button
+                text="Deletar"
+                kind="danger"
+                width={120}
+                onClick={() => deleteLesson(id, lessonToBeDeleted)}
+                isLoading={isDeletingLesson}
+                disabled={isDeletingLesson}
               />
             </div>
           </Modal>
@@ -175,6 +216,17 @@ const CourseDetail = ({ history, match }) => {
                                 })}
                               </div>
                             </div>
+                            <div className={styles.lesson__actions}>
+                              <div className={styles.buttons}>
+                                <Button text="Editar" kind="primary" onClick={() => history.push(routes.LESSON_EDIT.replace(":id", id).replace(":lesson_id", lesson._id))} />
+                                <Button text="Deletar" kind="danger" onClick={() => {
+                                  setLessonToBeDeleted(lesson);
+                                  setDeleteLessonModal(true);
+                                  window.scrollTo({ top: 200, behavior: "smooth" })
+                                }}
+                                />
+                              </div>
+                            </div>
                           </div>
                         </Accordion>
                       )
@@ -190,7 +242,7 @@ const CourseDetail = ({ history, match }) => {
                     kind="primary"
                     onClick={() => history.push(routes.COURSE_EDIT.replace(":id", id))}
                   />
-                  <Button text="Deletar" kind="danger" onClick={() => setModalIsOpen(true)} />
+                  <Button text="Deletar" kind="danger" onClick={() => { setDeleteCourseModal(true); window.scrollTo({ top: 200, behavior: "smooth" }) }} />
                 </div>
               </div>
             </Container>

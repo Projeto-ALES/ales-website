@@ -1,0 +1,42 @@
+@import "~styles/breakpoints";
+
+.container {
+  color: var(--gray-dark);
+  margin: auto;
+
+  .form {
+    margin: auto;
+    max-width: 400px;
+
+    .section {
+      margin: var(--spacing-huge) 0;
+
+      .dropdown {
+        margin: var(--spacing-large) auto;
+        max-width: 300px;
+      }
+
+      .allocatedProfessors {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      margin: var(--spacing-large) 0;
+
+      button {
+        &:first-of-type {
+          margin-right: var(--spacing-huge);
+        }
+
+        &:last-of-type {
+          width: 160px;
+        }
+      }
+    }
+  }
+}

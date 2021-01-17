@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-import { list } from "services/professor.service";
-import { create } from "services/lesson.service";
+import { get as getLesson, update } from "services/lesson.service";
+import { get as getCourse } from "services/course.service";
 
 import parseDropdownOptions from "helpers/dropdown";
+
+import { toast } from "react-toastify";
 
 import Page from "components/Page/Page";
 import PageTitle from "components/PageTitle/PageTitle";
@@ -16,57 +18,71 @@ import Dropdown from "components/Dropdown/Dropdown";
 import Chip from "components/Chip/Chip";
 import Button from "components/Button/Button";
 
-import { toast } from "react-toastify";
+import styles from "./LessonEdit.module.scss";
 
-import styles from "./LessonNew.module.scss";
+const LessonEdit = ({ history, match }) => {
 
-const LessonNew = ({ history, match }) => {
+  const course_id = match.params.id
+  const { lesson_id } = match.params
 
-  const course_id = match.params.id;
-
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState("")
   const [description, setDescription] = useState("");
   const [date, setDate] = useState(null);
+  const [allocatedProfessors, setAllocatedProfessors] = useState([]);
   const [professors, setProfessors] = useState([]);
-  const [selectedProfessors, setSelectedProfessors] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    const getProfessors = () => {
-      setIsLoading(true);
-      list()
-        .then((response) => {
-          const { professors } = response.data;
-          setProfessors(professors);
-        })
-        .catch((err) => {
-          if (err.response && err.response.status !== 401) {
-            toast.error("Ops! Aconteceu algum erro para listar os professores");
-          }
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    };
-    getProfessors();
+    setIsLoading(true);
+    getLesson(lesson_id)
+      .then((response) => {
+        const { lesson } = response.data;
+        setTitle(lesson.title)
+        setDescription(lesson.description)
+        setDate(lesson.date ? new Date(lesson.date) : null)
+        setAllocatedProfessors(lesson.professors)
+      })
+      .catch(() => {
+        toast.error("Ops! Aconteceu algum erro para carregar os dados da aula");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
   }, []);
 
-  const addProfessor = (id, professors, selectedProfessors) => {
+  useEffect(() => {
+    setIsLoading(true);
+    getCourse(course_id)
+      .then((response) => {
+        const { course } = response.data;
+        setProfessors(course.professors);
+      })
+      .catch((err) => {
+        if (err.response && err.response.status !== 401) {
+          toast.error("Ops! Aconteceu algum erro para retornar os dados");
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
+
+  const addProfessor = (id, professors, allocatedProfessors) => {
     const professor = professors.find((prof) => prof._id === id);
 
-    if (!selectedProfessors.find((prof) => prof._id === id))
-      setSelectedProfessors((state) => [...state, professor]);
+    if (!allocatedProfessors.find((prof) => prof._id === id))
+      setAllocatedProfessors((state) => [...state, professor]);
     return;
   };
 
   const removeProfessor = (name) => {
-    const updatedProfessors = selectedProfessors.filter((prof) => prof.name !== name);
-    setSelectedProfessors(updatedProfessors);
+    const updatedProfessors = allocatedProfessors.filter((prof) => prof.name !== name);
+    setAllocatedProfessors(updatedProfessors);
   };
 
-  const submitLesson = async (e, data, course_id) => {
+  const submitLesson = async (e, data, course_id, lesson_id) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -81,28 +97,26 @@ const LessonNew = ({ history, match }) => {
       data.professors = await professors.map((prof) => prof._id);
     }
 
-    create(data)
+    update(lesson_id, data)
       .then(() => {
         history.goBack();
-        toast.success("Aula adicionada!");
+        toast.success("Aula atualizada!");
       })
       .catch(() => {
-        toast.error("Ops! Aconteceu algum erro na hora de adicionar essa aula");
+        toast.error("Ops! Aconteceu algum erro na hora de atualizar essa aula");
         setIsSubmitting(false);
-      });
+      })
   }
 
   return (
     <Page>
-      <PageTitle title="Adicionar Aula" icon="fas fa-plus" />
+      <PageTitle title="Editar Aula" icon="fas fa-edit" />
       <Container>
         <div className={styles.container}>
-          {isLoading ? (
-            <div className="loader">
-              <Loader />
-            </div>
-          ) : (
-              <form className={styles.form} onSubmit={(e) => submitLesson(e, { title, description, date, professors: selectedProfessors, course: course_id }, course_id)}>
+          {isLoading ? <div className="loader">
+            <Loader />
+          </div> : (
+              <form className={styles.form} onSubmit={(e) => submitLesson(e, { title, description, date, professors: allocatedProfessors, course: course_id }, course_id, lesson_id)}>
                 <div className={styles.section}>
                   <Input
                     placeholder="Título"
@@ -129,19 +143,16 @@ const LessonNew = ({ history, match }) => {
                   />
                 </div>
                 <div className={styles.section}>
-                  <p>
-                    Selecione abaixo os professores alocados pra aula (se não tiver ainda, pode deixar sem nenhum)
-                    </p>
                   <div className={styles.dropdown}>
                     <Dropdown
                       name="coordinator"
                       options={parseDropdownOptions("_id", "name", professors)}
-                      onSelect={(prof) => addProfessor(prof, professors, selectedProfessors)}
+                      onSelect={(prof) => addProfessor(prof, professors, allocatedProfessors)}
                       label="Professores"
                     />
                   </div>
-                  <div className={styles.selectedProfessors}>
-                    {selectedProfessors.map((prof) => {
+                  <div className={styles.allocatedProfessors}>
+                    {allocatedProfessors.map(prof => {
                       return (
                         <Chip
                           text={prof.name}
@@ -149,7 +160,7 @@ const LessonNew = ({ history, match }) => {
                           removable
                           onRemove={removeProfessor}
                         />
-                      );
+                      )
                     })}
                   </div>
                 </div>
@@ -177,4 +188,4 @@ const LessonNew = ({ history, match }) => {
   )
 }
 
-export default LessonNew;
+export default LessonEdit;

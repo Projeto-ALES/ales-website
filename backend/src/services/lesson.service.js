@@ -8,7 +8,7 @@ const getLessonsByCourseId = async courseId => {
 };
 
 const getLessonById = async id => {
-  return await Lesson.findById(id);
+  return await Lesson.findById(id).populate('professors');
 };
 
 const createLesson = async data => {

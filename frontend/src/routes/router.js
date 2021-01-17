@@ -28,6 +28,7 @@ import CourseEdit from "views/Course/CourseEdit/CourseEdit";
 import Quarantine from "views/Quarantine/Quarantine";
 
 import LessonNew from "views/Lesson/LessonNew/LessonNew";
+import LessonEdit from "views/Lesson/LessonEdit/LessonEdit";
 
 const router = (
   <Switch>
@@ -48,6 +49,7 @@ const router = (
     <PrivateRoute path={routes.PROFESSORS} component={ProfessorList} />
 
     <PrivateRoute path={routes.LESSON_NEW} component={LessonNew} />
+    <PrivateRoute path={routes.LESSON_EDIT} component={LessonEdit} />
 
     <PrivateRoute path={routes.COURSE_EDIT} component={CourseEdit} />
     <PrivateRoute path={routes.COURSE_NEW} component={CourseNew} />
