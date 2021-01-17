@@ -72,7 +72,9 @@ const LessonNew = ({ history, match }) => {
     setIsSubmitting(true);
 
     const { date } = data;
-    data.date = await date.toISOString();
+    if (date) {
+      data.date = await date.toISOString();
+    }
 
     /* change names for id's */
     const { professors } = data;
@@ -125,7 +127,6 @@ const LessonNew = ({ history, match }) => {
                     placeholder="Data"
                     selected={date}
                     onChange={(date) => setDate(date)}
-                    required
                   />
                 </div>
                 <div className={styles.section}>
