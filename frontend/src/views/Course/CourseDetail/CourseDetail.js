@@ -177,8 +177,8 @@ const CourseDetail = ({ history, match }) => {
                             </div>
                             <div className={styles.lesson__actions}>
                               <div className={styles.buttons}>
-                                <Button text="Detalhes" kind="success" />
-                                <Button text="Editar" kind="primary" />
+                                <Button text="Editar" kind="primary" onClick={() => history.push(routes.LESSON_EDIT.replace(":id", id).replace(":lesson_id", lesson._id))} />
+                                <Button text="Deletar" kind="danger" />
                               </div>
                             </div>
                           </div>
