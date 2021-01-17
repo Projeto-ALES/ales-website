@@ -7,3 +7,7 @@ export const create = async (data) => {
 export const get = async (id) => {
     return await api.get(`/lessons/${id}`);
 }
+
+export const update = async (id, data) => {
+    return await api.put(`/lessons/${id}`, data)
+}

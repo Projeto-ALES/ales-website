@@ -22,5 +22,21 @@
         flex-wrap: wrap;
       }
     }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      margin: var(--spacing-large) 0;
+
+      button {
+        &:first-of-type {
+          margin-right: var(--spacing-huge);
+        }
+
+        &:last-of-type {
+          width: 160px;
+        }
+      }
+    }
   }
 }

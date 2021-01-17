@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import { get as getLesson } from "services/lesson.service";
+import routes from "routes/routes";
+import { get as getLesson, update } from "services/lesson.service";
 import { get as getCourse } from "services/course.service";
 
 import parseDropdownOptions from "helpers/dropdown";
@@ -16,10 +17,11 @@ import TextArea from "components/TextArea/TextArea";
 import DateInput from "components/DateInput/DateInput";
 import Dropdown from "components/Dropdown/Dropdown";
 import Chip from "components/Chip/Chip";
+import Button from "components/Button/Button";
 
 import styles from "./LessonEdit.module.scss";
 
-const LessonEdit = ({ match }) => {
+const LessonEdit = ({ history, match }) => {
 
   const course_id = match.params.id
   const { lesson_id } = match.params
@@ -31,6 +33,7 @@ const LessonEdit = ({ match }) => {
   const [professors, setProfessors] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -39,7 +42,7 @@ const LessonEdit = ({ match }) => {
         const { lesson } = response.data;
         setTitle(lesson.title)
         setDescription(lesson.description)
-        setDate(new Date(lesson.date))
+        setDate(lesson.date ? new Date(lesson.date) : null)
         setAllocatedProfessors(lesson.professors)
       })
       .catch(() => {
@@ -80,6 +83,32 @@ const LessonEdit = ({ match }) => {
     setAllocatedProfessors(updatedProfessors);
   };
 
+  const submitLesson = async (e, data, course_id, lesson_id) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const { date } = data;
+    if (date) {
+      data.date = await date.toISOString();
+    }
+
+    /* change names for id's */
+    const { professors } = data;
+    if (professors.length > 0) {
+      data.professors = await professors.map((prof) => prof._id);
+    }
+
+    update(lesson_id, data)
+      .then(() => {
+        history.push(routes.COURSE_DETAIL.replace(":id", course_id));
+        toast.success("Aula atualizada!");
+      })
+      .catch(() => {
+        toast.error("Ops! Aconteceu algum erro na hora de atualizar essa aula");
+        setIsSubmitting(false);
+      })
+  }
+
   return (
     <Page>
       <PageTitle title="Editar Aula" icon="fas fa-edit" />
@@ -88,7 +117,7 @@ const LessonEdit = ({ match }) => {
           {isLoading ? <div className="loader">
             <Loader />
           </div> : (
-              <form className={styles.form}>
+              <form className={styles.form} onSubmit={(e) => submitLesson(e, { title, description, date, professors: allocatedProfessors, course: course_id }, course_id, lesson_id)}>
                 <div className={styles.section}>
                   <Input
                     placeholder="Título"
@@ -112,7 +141,6 @@ const LessonEdit = ({ match }) => {
                     placeholder="Data"
                     selected={date}
                     onChange={(date) => setDate(date)}
-                    required
                   />
                 </div>
                 <div className={styles.section}>
@@ -136,6 +164,22 @@ const LessonEdit = ({ match }) => {
                       )
                     })}
                   </div>
+                </div>
+                <div className={styles.buttons}>
+                  <Button
+                    text="Voltar"
+                    type="button"
+                    onClick={() => {
+                      history.goBack();
+                    }}
+                  />
+                  <Button
+                    kind="success"
+                    text="Enviar"
+                    type="submit"
+                    isLoading={isSubmitting}
+                    disabled={isSubmitting}
+                  />
                 </div>
               </form>
             )}
