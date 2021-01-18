@@ -7,7 +7,7 @@ const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 exports.AuthMiddleware = async (req, res, next) => {
   const { headers } = req;
 
-  const cookie = headers ? headers.cookie : undefined;
+  const cookie = headers ? headers.cookie : null;
 
   if (!cookie) {
     return res
@@ -23,19 +23,17 @@ exports.AuthMiddleware = async (req, res, next) => {
       .send({ status: 401, message: "Access token is invalid or missing" });
   }
 
-  const data = jwt.verify(token, TOKEN_SECRET, (err, decoded) => {
+  jwt.verify(token, TOKEN_SECRET, (err, decoded) => {
     if (err) {
       return res.status(401).send({ status: 401, message: err.message });
     }
-    return decoded;
+    req.authContext = {
+      token,
+      data: decoded,
+    };
+
+    next();
   });
-
-  req.authContext = {
-    token,
-    data,
-  };
-
-  next();
 };
 
 exports.VerifyRefreshToken = async (req, res, next) => {
@@ -61,11 +59,10 @@ exports.VerifyRefreshToken = async (req, res, next) => {
     if (err) {
       return res.status(401).send({ status: 401, message: err.message });
     }
+    req.authContext = {
+      refreshToken,
+    };
+
+    next();
   });
-
-  req.authContext = {
-    refreshToken,
-  };
-
-  next();
 };
