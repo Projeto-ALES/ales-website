@@ -5,6 +5,7 @@ import routes from "routes/routes";
 import { enroll } from "services/professor.service";
 
 import { phoneMask, formatPhone } from "helpers/masks";
+import parseDropdownOptions from "helpers/dropdown";
 
 import Page from "components/Page/Page";
 import PageTitle from "components/PageTitle/PageTitle";
@@ -47,7 +48,10 @@ const ProfessorEnroll = ({ history, match }) => {
 
     const { phone, birthday } = data;
     data.phone = formatPhone(phone);
-    data.birthday = birthday.toISOString();
+
+    if (birthday) {
+      data.birthday = birthday.toISOString();
+    }
 
     enroll(data)
       .then(() => {
@@ -117,7 +121,7 @@ const ProfessorEnroll = ({ history, match }) => {
                 />
               </div>
               <div className={styles.section__dropdown}>
-                <Dropdown name="gender" options={options} onSelect={setGender} label="Gênero" />
+                <Dropdown name="gender" value={gender} options={parseDropdownOptions("value", "text", options)} onSelect={(option) => setGender(option)} label="Gênero" />
               </div>
               <Input
                 placeholder="Curso/Área de Trabalho"
