@@ -12,10 +12,6 @@ const LessonSchema = new mongoose.Schema({
   date: {
     type: Date,
   },
-  course: {
-    type: mongoose.Types.ObjectId,
-    ref: 'Course',
-  },
   professors: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
   createdAt: {
     type: Date,

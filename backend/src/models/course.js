@@ -8,10 +8,6 @@ const CourseSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
   coordinator: { type: mongoose.Types.ObjectId, ref: 'User' },
   professors: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
   beginningDate: {
@@ -19,6 +15,11 @@ const CourseSchema = new mongoose.Schema({
   },
   endDate: {
     type: Date,
+  },
+  lessons: [{ type: mongoose.Types.ObjectId, ref: 'Lesson' }],
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
 });
 
