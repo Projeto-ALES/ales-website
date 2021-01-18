@@ -1,6 +1,5 @@
 const Course = require('../models/course');
 const { ErrorHandler } = require('../helpers/error');
-const { model } = require('../models/course');
 
 const getCourses = async () => {
   return await Course.find();
