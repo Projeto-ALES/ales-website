@@ -2,34 +2,38 @@ const express = require("express");
 const { check, validationResult } = require("express-validator");
 
 const { AuthMiddleware } = require("../middlewares/auth.middleware");
+const CourseService = require("../services/course.service");
 const LessonService = require("../services/lesson.service");
 
-const { BadRequestError, NotFoundError } = require("../helpers/error");
+const { BadRequestError, NotFoundError, handleError } = require("../helpers/error");
 
 const router = express.Router();
 
 const ENTITY_NAME = "Lesson";
 
-router.post("/lessons",
+router.post("/:id/lessons",
   [
     check("title").not().isEmpty().withMessage("Lesson name is missing"),
-    check("course").not().isEmpty().withMessage("Course is missing"),
   ],
   async (req, res, next) => {
 
     const errors = validationResult(req);
-
     if (!errors.isEmpty()) {
       return next(new BadRequestError(errors.array()))
     };
 
-  const lesson = await LessonService.createLesson(req.body);
+    try {
+      const lesson = await LessonService.createLesson(req.body);
+      const course = await CourseService.addLesson(req.params.id, lesson._id);
 
-  return res.status(201).json({
-    status: 201,
-    lesson,
+      return res.status(201).json({
+        status: 201,
+        course,
+      });
+    } catch (e) {
+      handleError(e, res);
+    }
   });
-});
 
 router.get("/lessons/:id", AuthMiddleware, async (req, res, next) => {
   const { id } = req.params;
@@ -37,7 +41,7 @@ router.get("/lessons/:id", AuthMiddleware, async (req, res, next) => {
   const lesson = await LessonService.getLessonById(id);
 
   if (!lesson) {
-    return next (new NotFoundError(ENTITY_NAME));
+    return next(new NotFoundError(ENTITY_NAME));
   };
 
   return res.status(200).json({
@@ -53,10 +57,10 @@ router.put("/lessons/:id", AuthMiddleware, async (req, res, next) => {
     const lesson = await LessonService.updateLesson(id, req.body);
 
     if (!lesson) {
-      return next (new NotFoundError(ENTITY_NAME));
+      return next(new NotFoundError(ENTITY_NAME));
     }
 
-  } catch(e) {
+  } catch (e) {
     return next(e);
   };
 
@@ -72,7 +76,7 @@ router.delete("/lessons/:id", AuthMiddleware, async (req, res, next) => {
   const lesson = await LessonService.deleteLesson(id);
 
   if (!lesson) {
-    return next (new NotFoundError(ENTITY_NAME));
+    return next(new NotFoundError(ENTITY_NAME));
   }
 
   return res.status(202).json({

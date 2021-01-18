@@ -81,7 +81,7 @@ const LessonNew = ({ history, match }) => {
       data.professors = await professors.map((prof) => prof._id);
     }
 
-    create(data)
+    create(course_id, data)
       .then(() => {
         history.goBack();
         toast.success("Aula adicionada!");

@@ -49,8 +49,8 @@ const CourseDetail = ({ history, match }) => {
           endDate,
           professors,
           coordinator,
+          lessons,
         } = response.data.course;
-        const { lessons } = response.data;
         setName(name);
         setDescription(description);
         setBeginningDate(formatDateToReceive(beginningDate));
