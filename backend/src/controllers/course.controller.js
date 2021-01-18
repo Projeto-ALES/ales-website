@@ -3,7 +3,6 @@ const { check, validationResult } = require('express-validator');
 
 const { AuthMiddleware } = require('../middlewares/auth.middleware');
 const CourseService = require('../services/course.service');
-const LessonService = require('../services/lesson.service');
 
 const { NotFoundError } = require('../helpers/error');
 
@@ -22,7 +21,6 @@ router.get('/courses', async (req, res) => {
 router.get('/courses/:id', async (req, res, next) => {
   const { id } = req.params;
   const course = await CourseService.getCourseById(id);
-  const lessons = await LessonService.getLessonsByCourseId(id);
 
   if (!course) {
     return next(new NotFoundError(ENTITY_NAME));
@@ -31,7 +29,6 @@ router.get('/courses/:id', async (req, res, next) => {
   return res.status(200).json({
     status: 200,
     course,
-    lessons
   });
 });
 
