@@ -1,7 +1,7 @@
 import api from "./api";
 
-export const create = async (data) => {
-    return await api.post("/lessons", data);
+export const create = async (course_id, data) => {
+    return await api.post(`/${course_id}/lessons`, data);
 };
 
 export const get = async (id) => {
