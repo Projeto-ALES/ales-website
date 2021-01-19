@@ -13,7 +13,7 @@ const MailService = require("../services/mail.service");
 const { handleError, ErrorHandler } = require("../helpers/error");
 const { professorStatus } = require("../helpers/status");
 
-router.get("/professors", AuthMiddleware, async (req, res) => {
+router.get("/", AuthMiddleware, async (req, res) => {
   try {
     const professors = await ProfessorService.getProfessors({
       status: "active",
@@ -28,7 +28,7 @@ router.get("/professors", AuthMiddleware, async (req, res) => {
 });
 
 router.post(
-  "/professors",
+  "/",
   [
     check("name").not().isEmpty().withMessage("Name is missing"),
     check("password").not().isEmpty().withMessage("Password is missing"),
@@ -81,7 +81,7 @@ router.post(
   }
 );
 
-router.get("/professors/:id", AuthMiddleware, async (req, res) => {
+router.get("/:id", AuthMiddleware, async (req, res) => {
   try {
     const { id } = req.params;
     const professor = await ProfessorService.getProfessor({ _id: id });
@@ -99,7 +99,7 @@ router.get("/professors/:id", AuthMiddleware, async (req, res) => {
   }
 });
 
-router.delete("/professors/:id", AuthMiddleware, async (req, res) => {
+router.delete("/:id", AuthMiddleware, async (req, res) => {
   try {
     const professor = await ProfessorService.deleteProfessor(req.params.id);
     if (!professor) {
@@ -115,7 +115,7 @@ router.delete("/professors/:id", AuthMiddleware, async (req, res) => {
 });
 
 router.put(
-  "/professors/:id",
+  "/:id",
   AuthMiddleware,
   [
     check("name").not().isEmpty().withMessage("Name is missing"),
@@ -151,7 +151,7 @@ router.put(
 );
 
 router.post(
-  "/invite-professor",
+  "/invite",
   AuthMiddleware,
   [check("email").not().isEmpty().withMessage("Email is missing")],
   async (req, res) => {
