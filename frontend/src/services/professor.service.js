@@ -1,7 +1,7 @@
 import api from "./api";
 
 export const invite = async (email) => {
-  return await api.post("/invite-professor", { email });
+  return await api.post("/professors/invite", { email });
 };
 
 export const enroll = async (data) => {
