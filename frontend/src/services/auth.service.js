@@ -3,12 +3,12 @@ import history from "routes/history";
 import routes from "routes/routes";
 
 export const login = async (email, password) => {
-  return await api.post("/login", { email, password });
+  return await api.post("/auth/login", { email, password });
 };
 
 export const logout = async (error = false) => {
   history.push({ pathname: routes.LOGIN, state: { logout: true, error } });
-  await api.post("/logout");
+  await api.post("/auth/logout");
 };
 
 export const resetPassword = async (email) => {
