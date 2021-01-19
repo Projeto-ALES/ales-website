@@ -3,8 +3,9 @@ const { check, validationResult } = require('express-validator');
 
 const { AuthMiddleware } = require('../middlewares/auth.middleware');
 const CourseService = require('../services/course.service');
+const LessonService = require("../services/lesson.service");
 
-const { NotFoundError } = require('../helpers/error');
+const { BadRequestError, NotFoundError, handleError } = require('../helpers/error');
 
 const router = express.Router();
 
@@ -91,5 +92,29 @@ router.put('/:id', AuthMiddleware, async (req, res, next) => {
     status: 200,
   });
 });
+
+router.post("/:id/lessons",
+  [
+    check("title").not().isEmpty().withMessage("Lesson name is missing"),
+  ],
+  async (req, res, next) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return next(new BadRequestError(errors.array()))
+    };
+
+    try {
+      const lesson = await LessonService.createLesson(req.body);
+      const course = await CourseService.addLesson(req.params.id, lesson._id);
+
+      return res.status(201).json({
+        status: 201,
+        course,
+      });
+    } catch (e) {
+      handleError(e, res);
+    }
+  });
 
 module.exports = router;
