@@ -6,9 +6,7 @@ const connectDb = require("./src/mongo");
 const { logger, errorLogger } = require("./src/logger");
 
 // controllers
-const userRouter = require("./src/controllers/user.controller");
 const professorRouter = require("./src/controllers/professor.controller");
-const authRouter = require("./src/controllers/auth.controller");
 const passwordRouter = require("./src/controllers/password.controller");
 const mailRouter = require("./src/controllers/mail.controller");
 const courseRouter = require("./src/controllers/course.controller");
@@ -42,15 +40,14 @@ app.get(`${basePath}/ping`, (req, res) => {
 });
 
 const routers = [
-  userRouter,
   professorRouter,
-  authRouter,
   passwordRouter,
   mailRouter,
   courseRouter,
   lessonRouter,
 ];
 
+app.use(basePath, require("./src/controllers"));
 routers.forEach(router => app.use(basePath, router));
 
 app.use(errorLogger);
