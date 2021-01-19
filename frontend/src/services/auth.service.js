@@ -12,13 +12,13 @@ export const logout = async (error = false) => {
 };
 
 export const resetPassword = async (email) => {
-  return await api.post("/reset-password", { email });
+  return await api.post("/password/reset", { email });
 };
 
 export const newPassword = async (new_password, new_password_conf, token) => {
-  return await api.post("/new-password", { new_password, new_password_conf, token });
+  return await api.post("/password/new", { new_password, new_password_conf, token });
 };
 
 export const updatePassword = async (id, password, new_password, new_password_conf) => {
-  return await api.post(`/update-password/${id}`, { password, new_password, new_password_conf });
+  return await api.post(`/password/update/${id}`, { password, new_password, new_password_conf });
 };
