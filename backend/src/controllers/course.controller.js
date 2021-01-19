@@ -3,14 +3,15 @@ const { check, validationResult } = require('express-validator');
 
 const { AuthMiddleware } = require('../middlewares/auth.middleware');
 const CourseService = require('../services/course.service');
+const LessonService = require("../services/lesson.service");
 
-const { NotFoundError } = require('../helpers/error');
+const { BadRequestError, NotFoundError, handleError } = require('../helpers/error');
 
 const router = express.Router();
 
 const ENTITY_NAME = 'Course';
 
-router.get('/courses', async (req, res) => {
+router.get('/', async (req, res) => {
   const courses = await CourseService.getCourses({});
   return res.status(200).json({
     status: 200,
@@ -18,7 +19,7 @@ router.get('/courses', async (req, res) => {
   });
 });
 
-router.get('/courses/:id', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   const { id } = req.params;
   const course = await CourseService.getCourseById(id);
 
@@ -32,7 +33,7 @@ router.get('/courses/:id', async (req, res, next) => {
   });
 });
 
-router.delete('/courses/:id', AuthMiddleware, async (req, res, next) => {
+router.delete('/:id', AuthMiddleware, async (req, res, next) => {
   const { id } = req.params;
 
   const course = await CourseService.deleteCourse(id);
@@ -47,7 +48,7 @@ router.delete('/courses/:id', AuthMiddleware, async (req, res, next) => {
 });
 
 router.post(
-  '/courses',
+  '/',
   AuthMiddleware,
   [
     check('name').not().isEmpty().withMessage('Name is missing'),
@@ -79,7 +80,7 @@ router.post(
   }
 );
 
-router.put('/courses/:id', AuthMiddleware, async (req, res, next) => {
+router.put('/:id', AuthMiddleware, async (req, res, next) => {
   try {
     const { id } = req.params;
     await CourseService.updateCourse(id, req.body);
@@ -91,5 +92,29 @@ router.put('/courses/:id', AuthMiddleware, async (req, res, next) => {
     status: 200,
   });
 });
+
+router.post("/:id/lessons",
+  [
+    check("title").not().isEmpty().withMessage("Lesson name is missing"),
+  ],
+  async (req, res, next) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return next(new BadRequestError(errors.array()))
+    };
+
+    try {
+      const lesson = await LessonService.createLesson(req.body);
+      const course = await CourseService.addLesson(req.params.id, lesson._id);
+
+      return res.status(201).json({
+        status: 201,
+        course,
+      });
+    } catch (e) {
+      handleError(e, res);
+    }
+  });
 
 module.exports = router;

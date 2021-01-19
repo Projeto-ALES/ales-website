@@ -8,7 +8,7 @@ const { AuthMiddleware } = require("../middlewares/auth.middleware");
 const UserService = require("../services/user.service");
 const { handleError, ErrorHandler } = require("../helpers/error");
 
-router.get("/users", AuthMiddleware, async (req, res) => {
+router.get("/", AuthMiddleware, async (req, res) => {
   try {
     const users = await UserService.getUsers({});
     return res.status(200).json({
@@ -21,7 +21,7 @@ router.get("/users", AuthMiddleware, async (req, res) => {
 });
 
 router.post(
-  "/users",
+  "/",
   AuthMiddleware,
   [
     check("email").not().isEmpty().withMessage("Email is missing"),
@@ -50,7 +50,7 @@ router.post(
   }
 );
 
-router.get("/users/:id", AuthMiddleware, async (req, res) => {
+router.get("/:id", AuthMiddleware, async (req, res) => {
   try {
     const { id } = req.params;
     const user = await UserService.getUser(id);
@@ -67,7 +67,7 @@ router.get("/users/:id", AuthMiddleware, async (req, res) => {
   }
 });
 
-router.delete("/users/:id", AuthMiddleware, async (req, res) => {
+router.delete("/:id", AuthMiddleware, async (req, res) => {
   try {
     const user = await UserService.deleteUser(req.params.id);
     if (!user) {
@@ -82,7 +82,7 @@ router.delete("/users/:id", AuthMiddleware, async (req, res) => {
   }
 });
 
-router.put("/users/:id", AuthMiddleware, async (req, res) => {
+router.put("/:id", AuthMiddleware, async (req, res) => {
   try {
     const { id } = req.params;
     const user = await UserService.updateUser(id, req.body);
@@ -93,29 +93,6 @@ router.put("/users/:id", AuthMiddleware, async (req, res) => {
     return res.status(200).json({
       status: 200,
       user,
-    });
-  } catch (e) {
-    handleError(e, res);
-  }
-});
-
-router.get("/me", AuthMiddleware, async (req, res) => {
-  try {
-    const { data } = req.authContext;
-    const { id } = data;
-    const user = await UserService.getUser(id);
-    if (!user) {
-      throw new ErrorHandler(404, "User not found");
-    }
-
-    const { _id, name, email } = user;
-    return res.status(200).json({
-      status: 200,
-      user: {
-        _id,
-        name,
-        email,
-      },
     });
   } catch (e) {
     handleError(e, res);

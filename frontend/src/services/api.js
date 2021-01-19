@@ -23,10 +23,10 @@ api.interceptors.response.use(
 
     const originalRequest = error.config;
     if (error.response && error.response.data && error.response.data.message === "jwt expired") {
-      if (originalRequest.url !== "/refresh-token") {
+      if (originalRequest.url !== "/auth/refresh-token") {
         return new Promise((resolve, reject) => {
           api
-            .post("/refresh-token")
+            .post("/auth/refresh-token")
             .then(() => {
               return resolve(axios(originalRequest));
             })

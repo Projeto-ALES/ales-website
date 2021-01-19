@@ -13,7 +13,7 @@ const MailService = require("../services/mail.service");
 const { handleError, ErrorHandler } = require("../helpers/error");
 
 router.post(
-  "/update-password/:id",
+  "/update/:id",
   AuthMiddleware,
   [
     check("id").not().isEmpty().withMessage("ID is missing"),
@@ -69,7 +69,7 @@ router.post(
 );
 
 router.post(
-  "/reset-password",
+  "/reset",
   [check("email").not().isEmpty().withMessage("Email is missing")],
   async (req, res) => {
     const errors = validationResult(req);
@@ -108,7 +108,7 @@ router.post(
 );
 
 router.post(
-  "/new-password",
+  "/new",
   [
     check("token").not().isEmpty().withMessage("Token is missing"),
     check("new_password")

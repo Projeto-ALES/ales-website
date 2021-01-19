@@ -7,7 +7,7 @@ const MailService = require("../services/mail.service");
 const { handleError } = require("../helpers/error");
 
 router.post(
-  "/send-mail",
+  "/",
   [
     check("name").not().isEmpty().withMessage("Name is missing"),
     check("email").not().isEmpty().withMessage("Email is missing"),
