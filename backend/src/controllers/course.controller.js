@@ -10,7 +10,7 @@ const router = express.Router();
 
 const ENTITY_NAME = 'Course';
 
-router.get('/courses', async (req, res) => {
+router.get('/', async (req, res) => {
   const courses = await CourseService.getCourses({});
   return res.status(200).json({
     status: 200,
@@ -18,7 +18,7 @@ router.get('/courses', async (req, res) => {
   });
 });
 
-router.get('/courses/:id', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   const { id } = req.params;
   const course = await CourseService.getCourseById(id);
 
@@ -32,7 +32,7 @@ router.get('/courses/:id', async (req, res, next) => {
   });
 });
 
-router.delete('/courses/:id', AuthMiddleware, async (req, res, next) => {
+router.delete('/:id', AuthMiddleware, async (req, res, next) => {
   const { id } = req.params;
 
   const course = await CourseService.deleteCourse(id);
@@ -47,7 +47,7 @@ router.delete('/courses/:id', AuthMiddleware, async (req, res, next) => {
 });
 
 router.post(
-  '/courses',
+  '/',
   AuthMiddleware,
   [
     check('name').not().isEmpty().withMessage('Name is missing'),
@@ -79,7 +79,7 @@ router.post(
   }
 );
 
-router.put('/courses/:id', AuthMiddleware, async (req, res, next) => {
+router.put('/:id', AuthMiddleware, async (req, res, next) => {
   try {
     const { id } = req.params;
     await CourseService.updateCourse(id, req.body);
