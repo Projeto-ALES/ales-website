@@ -57,7 +57,7 @@ const Profile = ({ history, match }) => {
           setName(name);
           setEmail(email);
           setPhone(phoneMask(phone));
-          setBirthday(formatDateToReceive(birthday));
+          setBirthday(birthday ? new Date(birthday) : null);
           setGender(gender);
           setArea(area);
         })
@@ -79,7 +79,9 @@ const Profile = ({ history, match }) => {
 
     const { phone, birthday } = data;
     data.phone = formatPhone(phone);
-    data.birthday = birthday.toISOString();
+    if (birthday) {
+      data.birthday = birthday.toISOString();
+    }
 
     update(id, data)
       .then(() => {
@@ -128,131 +130,131 @@ const Profile = ({ history, match }) => {
             <Loader />
           </div>
         ) : (
-          <div className={styles.container}>
-            <form
-              className={styles.form}
-              onSubmit={(e) =>
-                submitUpdate(e, id, {
-                  name,
-                  email,
-                  phone,
-                  birthday,
-                  gender,
-                  area,
-                })
-              }
-            >
-              <div className={styles.section}>
-                <span>Dados Principais</span>
-                <Input
-                  placeholder="Nome"
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-                <Input
-                  placeholder="Email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-                <PhoneInput
-                  placeholder="Telefone (99) 9XXXX-XXXX"
-                  onChange={(e) => setPhone(phoneMask(e.target.value))}
-                  value={phone}
-                  required
-                  min={11}
-                />
-              </div>
-              <div className={styles.section}>
-                <span>Dados Opcionais</span>
-                <div className={styles.section__birthday}>
-                  <DateInput
-                    placeholder="Data de Nascimento"
-                    selected={birthday}
-                    onChange={(date) => setBirthday(date)}
-                  />
-                </div>
-                <div className={styles.section__dropdown}>
-                  <Dropdown
-                    name="gender"
-                    options={options}
-                    onSelect={setGender}
-                    value={gender}
-                    label="Selecione um gênero"
-                  />
-                </div>
-                <Input
-                  placeholder="Curso/Área de Trabalho"
-                  type="text"
-                  value={area}
-                  onChange={(e) => setArea(e.target.value)}
-                />
-                <div className={styles.section__buttons}>
-                  <Button
-                    text="Voltar"
-                    type="button"
-                    kind="tertiary"
-                    onClick={() => history.goBack()}
-                  />
-                  <Button
-                    text="Salvar"
-                    type="submit"
-                    kind="success"
-                    isLoading={isSubmitting}
-                    disabled={isSubmitting}
-                    width="140px"
-                  />
-                </div>
-              </div>
-            </form>
-            <form
-              className={styles.form}
-              onSubmit={(e) =>
-                submitPasswordUpdate(e, id, { password, newPassword, newPasswordConf })
-              }
-            >
-              <div className={styles.authForm}>
+            <div className={styles.container}>
+              <form
+                className={styles.form}
+                onSubmit={(e) =>
+                  submitUpdate(e, id, {
+                    name,
+                    email,
+                    phone,
+                    birthday,
+                    gender,
+                    area,
+                  })
+                }
+              >
                 <div className={styles.section}>
-                  <span>Autenticação</span>
+                  <span>Dados Principais</span>
                   <Input
-                    placeholder="Senha Atual"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Nome"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     required
                   />
                   <Input
-                    placeholder="Nova Senha"
-                    type="password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
+                    placeholder="Email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
+                  <PhoneInput
+                    placeholder="Telefone (99) 9XXXX-XXXX"
+                    onChange={(e) => setPhone(phoneMask(e.target.value))}
+                    value={phone}
+                    required
+                    min={11}
+                  />
+                </div>
+                <div className={styles.section}>
+                  <span>Dados Opcionais</span>
+                  <div className={styles.section__birthday}>
+                    <DateInput
+                      placeholder="Data de Nascimento"
+                      selected={birthday}
+                      onChange={(date) => setBirthday(date)}
+                    />
+                  </div>
+                  <div className={styles.section__dropdown}>
+                    <Dropdown
+                      name="gender"
+                      options={options}
+                      onSelect={setGender}
+                      value={gender}
+                      label="Selecione um gênero"
+                    />
+                  </div>
                   <Input
-                    placeholder="Confirmação da Nova Senha"
-                    type="password"
-                    value={newPasswordConf}
-                    onChange={(e) => setNewPasswordConf(e.target.value)}
-                    required
+                    placeholder="Curso/Área de Trabalho"
+                    type="text"
+                    value={area}
+                    onChange={(e) => setArea(e.target.value)}
                   />
-                  <div className={styles.section__button}>
+                  <div className={styles.section__buttons}>
                     <Button
-                      text="Atualizar senha"
+                      text="Voltar"
+                      type="button"
+                      kind="tertiary"
+                      onClick={() => history.goBack()}
+                    />
+                    <Button
+                      text="Salvar"
                       type="submit"
-                      kind="primary"
-                      isLoading={isUpdatingPassword}
-                      disabled={isUpdatingPassword}
-                      width="180px"
+                      kind="success"
+                      isLoading={isSubmitting}
+                      disabled={isSubmitting}
+                      width="140px"
                     />
                   </div>
                 </div>
-              </div>
-            </form>
-          </div>
-        )}
+              </form>
+              <form
+                className={styles.form}
+                onSubmit={(e) =>
+                  submitPasswordUpdate(e, id, { password, newPassword, newPasswordConf })
+                }
+              >
+                <div className={styles.authForm}>
+                  <div className={styles.section}>
+                    <span>Autenticação</span>
+                    <Input
+                      placeholder="Senha Atual"
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                    <Input
+                      placeholder="Nova Senha"
+                      type="password"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      required
+                    />
+                    <Input
+                      placeholder="Confirmação da Nova Senha"
+                      type="password"
+                      value={newPasswordConf}
+                      onChange={(e) => setNewPasswordConf(e.target.value)}
+                      required
+                    />
+                    <div className={styles.section__button}>
+                      <Button
+                        text="Atualizar senha"
+                        type="submit"
+                        kind="primary"
+                        isLoading={isUpdatingPassword}
+                        disabled={isUpdatingPassword}
+                        width="180px"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          )}
       </Container>
     </Page>
   );
