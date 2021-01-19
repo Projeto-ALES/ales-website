@@ -5,9 +5,10 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { check, validationResult } = require("express-validator");
 
-const { VerifyRefreshToken } = require("../middlewares/auth.middleware");
+const { AuthMiddleware, VerifyRefreshToken } = require("../middlewares/auth.middleware");
 
 const AuthService = require("../services/auth.service");
+const UserService = require("../services/user.service");
 
 const { handleError, ErrorHandler } = require("../helpers/error");
 const { clearCookies } = require("../helpers/cookie");
@@ -98,6 +99,29 @@ router.post("/refresh-token", VerifyRefreshToken, async (req, res) => {
 router.post("/logout", async (req, res) => {
   await clearCookies(res);
   res.status(202).json({ status: 202 });
+});
+
+router.get("/me", AuthMiddleware, async (req, res) => {
+  try {
+    const { data } = req.authContext;
+    const { id } = data;
+    const user = await UserService.getUser(id);
+    if (!user) {
+      throw new ErrorHandler(404, "User not found");
+    }
+
+    const { _id, name, email } = user;
+    return res.status(200).json({
+      status: 200,
+      user: {
+        _id,
+        name,
+        email,
+      },
+    });
+  } catch (e) {
+    handleError(e, res);
+  }
 });
 
 module.exports = router;
