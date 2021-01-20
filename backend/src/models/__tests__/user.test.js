@@ -41,10 +41,48 @@ describe("User model test", () => {
     });
   });
 
+  describe("user not found", () => {
+    it("gets a non existent user", async () => {
+      const user = await User.findOne({ name: "foo" });
+      expect(user).toEqual(null);
+    });
+  });
+
   describe("save user", () => {
     it("saves a user", async () => {
       const savedUser = await User.create({ name: "foo", email: "foo@mail", password: "bar" });
       expect(savedUser.name).toEqual("foo");
+      expect(savedUser.email).toEqual("foo@mail");
+    });
+  });
+
+  describe("fields validation", () => {
+    it("saves a user with valid fields", async () => {
+      const savedUser = await User.create({ name: "foo", email: "foo@mail", password: "bar" });
+      expect(savedUser._id).toBeDefined();
+      expect(savedUser.name).toBeDefined();
+      expect(savedUser.email).toBeDefined();
+      expect(savedUser.password).toBeDefined();
+    });
+  });
+
+  describe("invalid fields", () => {
+    it("saves a user with a invalid field", async () => {
+      const savedUser = await User.create({ name: "foo", email: "foo@mail", password: "bar", username: "_foo_" });
+      expect(savedUser._id).toBeDefined();
+      expect(savedUser.username).toBeUndefined();
+    });
+  });
+
+  describe("required field missing", () => {
+    it("tries to save a user without a required field", async () => {
+      let error;
+      try {
+        await User.create({ name: "foo" });
+      } catch (e) {
+        error = e;
+      }
+      expect(error).toBeInstanceOf(mongoose.Error.ValidationError);
     });
   });
 
@@ -54,6 +92,21 @@ describe("User model test", () => {
       user.name = "bar";
       const updatedUser = await user.save();
       expect(updatedUser.name).toEqual("bar");
+    });
+  });
+
+  describe("try to update a user", () => {
+    it("updates a non existent user", async () => {
+      const user = await User.create({ name: "foo", email: "foo@mail", password: "bar" });
+      await User.deleteOne({ _id: user._id });
+      let error;
+      try {
+        user.name = "bar";
+        await user.save();
+      } catch (e) {
+        error = e;
+      }
+      expect(error).toBeInstanceOf(mongoose.Error.DocumentNotFoundError);
     });
   });
 
