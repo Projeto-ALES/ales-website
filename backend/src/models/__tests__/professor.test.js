@@ -40,10 +40,48 @@ describe("Professor model test", () => {
     });
   });
 
+  describe("professor not found", () => {
+    it("gets a non existent professor", async () => {
+      const prof = await Professor.findOne({ name: "foo" });
+      expect(prof).toEqual(null);
+    });
+  });
+
   describe("save professor", () => {
     it("saves a professor", async () => {
       const savedProf = await Professor.create({ name: "foo", email: "foo@mail", password: "bar" });
       expect(savedProf.name).toEqual("foo");
+    });
+  });
+
+  describe("fields validation", () => {
+    it("saves a professor with valid fields", async () => {
+      const savedProf = await Professor.create({ name: "foo", email: "foo@mail", password: "bar", area: "Math" });
+      expect(savedProf._id).toBeDefined();
+      expect(savedProf.name).toBeDefined();
+      expect(savedProf.email).toBeDefined();
+      expect(savedProf.password).toBeDefined();
+      expect(savedProf.area).toBeDefined();
+    });
+  });
+
+  describe("invalid fields", () => {
+    it("saves a professor with an invalid field", async () => {
+      const savedProf = await Professor.create({ name: "foo", email: "foo@mail", password: "bar", area: "math", university: "mit" });
+      expect(savedProf._id).toBeDefined();
+      expect(savedProf.university).toBeUndefined();
+    });
+  });
+
+  describe("required field missing", () => {
+    it("tries to save a professor without a required field", async () => {
+      let error;
+      try {
+        await Professor.create({ name: "foo" });
+      } catch (e) {
+        error = e;
+      }
+      expect(error).toBeInstanceOf(mongoose.Error.ValidationError);
     });
   });
 
@@ -53,6 +91,21 @@ describe("Professor model test", () => {
       prof.name = "bar";
       const updatedProf = await prof.save();
       expect(updatedProf.name).toEqual("bar");
+    });
+  });
+
+  describe("try to update a professor", () => {
+    it("updates a non existent professor", async () => {
+      const prof = await Professor.create({ name: "foo", email: "foo@mail", password: "bar", area: "math" });
+      await Professor.deleteOne({ _id: prof._id });
+      let error;
+      try {
+        prof.area = "science";
+        await prof.save();
+      } catch (e) {
+        error = e;
+      }
+      expect(error).toBeInstanceOf(mongoose.Error.DocumentNotFoundError);
     });
   });
 
