@@ -1,8 +1,8 @@
 const Course = require('../models/course');
 const { ErrorHandler } = require('../helpers/error');
 
-const getCourses = async () => {
-  return await Course.find();
+const getCourses = async (params) => {
+  return await Course.find(params);
 };
 
 const getCourseById = async id => {

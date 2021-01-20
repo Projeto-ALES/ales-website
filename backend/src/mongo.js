@@ -5,12 +5,12 @@ const User = require("./models/user");
 const {
   MONGO_INITDB_ROOT_USERNAME,
   MONGO_INITDB_ROOT_PASSWORD,
-  MONGO_DATABASE,
   MONGO_HOSTNAME,
   NODE_ENV,
 } = process.env;
 
 let isProduction = NODE_ENV === "production";
+let isTest = NODE_ENV === "test";
 let mongoURL;
 let DB_PASSWORD;
 
@@ -20,17 +20,16 @@ if (isProduction) {
   DB_PASSWORD = MONGO_INITDB_ROOT_PASSWORD;
 }
 
-const mongoAuth = `${MONGO_INITDB_ROOT_USERNAME}:${DB_PASSWORD.trim()}`;
-mongoURL = `mongodb://${mongoAuth}@${MONGO_HOSTNAME}/${MONGO_DATABASE}`;
-
-const connectDB = async () => {
+const connectDB = async (database) => {
+  const mongoAuth = `${MONGO_INITDB_ROOT_USERNAME}:${DB_PASSWORD.trim()}`;
+  mongoURL = `mongodb://${mongoAuth}@${MONGO_HOSTNAME}/${database}`;
   try {
     await mongoose.connect(mongoURL, {
       useNewUrlParser: true,
       auth: { authSource: "admin" },
     });
 
-    if (isProduction) {
+    if (isProduction || isTest) {
       console.log("Database connected");
       return;
     }

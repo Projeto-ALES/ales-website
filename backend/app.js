@@ -26,7 +26,7 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
-connectDb();
+connectDb(process.env.MONGO_DATABASE);
 
 app.get(`${basePath}/ping`, (req, res) => {
   res.send("pong");
