@@ -11,6 +11,7 @@ const {
 } = process.env;
 
 let isProduction = NODE_ENV === "production";
+let isTest = NODE_ENV === "test";
 let mongoURL;
 let DB_PASSWORD;
 
@@ -30,7 +31,7 @@ const connectDB = async () => {
       auth: { authSource: "admin" },
     });
 
-    if (isProduction) {
+    if (isProduction || isTest) {
       console.log("Database connected");
       return;
     }

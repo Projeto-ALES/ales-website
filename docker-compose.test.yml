@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  mongo:
+    image: mongo:3.6.17-xenial
+    container_name: db_test
+    ports:
+      - "27017:27017"
+    env_file:
+      - .env/test/db.env
+    volumes:
+      - /test/data/configdb:/data/configdb
+      - /test/data/db:/data/db
+
+  backend:
+    build:
+      context: ./backend
+    image: ales_backend_test
+    container_name: api_test
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env/test/app.env
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - mongo
+    restart: on-failure
+    command: yarn test
