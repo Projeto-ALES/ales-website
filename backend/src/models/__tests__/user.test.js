@@ -2,14 +2,15 @@ const mongoose = require("mongoose");
 const connect = require("../../mongo");
 const User = require("../user");
 
+connect("user_model_test");
+
 describe("User model test", () => {
   beforeAll(async () => {
-    connect();
-    await User.remove({});
+    await User.deleteMany({});
   });
 
   afterEach(async () => {
-    await User.remove({});
+    await User.deleteMany({});
   });
 
   afterAll(async () => {
@@ -22,12 +23,9 @@ describe("User model test", () => {
 
   describe("list users", () => {
     it("list all users", async () => {
-      const user1 = new User({ name: "foo1", email: "foo1@mail", password: "bar" });
-      await user1.save();
-      const user2 = new User({ name: "foo2", email: "foo2@mail", password: "bar" });
-      await user2.save();
-      const user3 = new User({ name: "foo3", email: "foo3@mail", password: "bar" });
-      await user3.save();
+      await User.create({ name: "foo1", email: "foo1@mail", password: "bar" });
+      await User.create({ name: "foo2", email: "foo2@mail", password: "bar" });
+      await User.create({ name: "foo3", email: "foo3@mail", password: "bar" });
 
       const users = await User.find({});
       expect(users.length).toEqual(3);
@@ -36,8 +34,7 @@ describe("User model test", () => {
 
   describe("get user", () => {
     it("gets a user", async () => {
-      const user = new User({ name: "foo", email: "foo@mail", password: "bar" });
-      await user.save();
+      await User.create({ name: "foo", email: "foo@mail", password: "bar" });
 
       const foundUser = await User.findOne({ name: "foo" });
       expect(foundUser.name).toEqual("foo");
@@ -46,29 +43,23 @@ describe("User model test", () => {
 
   describe("save user", () => {
     it("saves a user", async () => {
-      const user = new User({ name: "foo", email: "foo@mail", password: "bar" });
-      const savedUser = await user.save();
+      const savedUser = await User.create({ name: "foo", email: "foo@mail", password: "bar" });
       expect(savedUser.name).toEqual("foo");
     });
   });
 
   describe("update user", () => {
     it("updates a user", async () => {
-      const user = new User({ name: "foo", email: "foo@mail", password: "bar" });
-      await user.save();
-
+      const user = await User.create({ name: "foo", email: "foo@mail", password: "bar" });
       user.name = "bar";
       const updatedUser = await user.save();
-
       expect(updatedUser.name).toEqual("bar");
     });
   });
 
   describe("delete user", () => {
     it("deletes a user", async () => {
-      const user = new User({ name: "foo", email: "foo@mail", password: "bar" });
-      await user.save();
-
+      const user = await User.create({ name: "foo", email: "foo@mail", password: "bar" });
       await User.findOneAndDelete({ name: user.name });
       const deletedUser = await User.findOne({ name: user.name });
       expect(deletedUser).toEqual(null);
