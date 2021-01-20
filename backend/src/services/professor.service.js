@@ -1,15 +1,15 @@
-const Professor = require("../models/professor");
-const { ErrorHandler } = require("../helpers/error");
+const Professor = require('../models/professor');
+const { ErrorHandler } = require('../helpers/error');
 
-exports.getProfessors = async query => {
+const getProfessors = async (query) => {
   try {
     return await Professor.find(query);
   } catch (e) {
-    throw new ErrorHandler(500, "Error while fetching professors");
+    throw new ErrorHandler(500, 'Error while fetching professors');
   }
 };
 
-exports.createProfessor = async data => {
+const createProfessor = async (data) => {
   try {
     return await Professor.create(data);
   } catch (e) {
@@ -21,7 +21,7 @@ exports.createProfessor = async data => {
   }
 };
 
-exports.getProfessor = async params => {
+const getProfessor = async (params) => {
   try {
     return await Professor.findOne(params);
   } catch (e) {
@@ -29,7 +29,7 @@ exports.getProfessor = async params => {
   }
 };
 
-exports.deleteProfessor = async id => {
+const deleteProfessor = async (id) => {
   try {
     return await Professor.findByIdAndDelete(id);
   } catch (e) {
@@ -37,10 +37,18 @@ exports.deleteProfessor = async id => {
   }
 };
 
-exports.updateProfessor = async (id, data) => {
+const updateProfessor = async (id, data) => {
   try {
     return await Professor.findOneAndUpdate({ _id: id }, { $set: data });
   } catch (e) {
     throw new ErrorHandler(500, e.errmsg);
   }
+};
+
+module.exports = {
+  getProfessors,
+  createProfessor,
+  getProfessor,
+  deleteProfessor,
+  updateProfessor,
 };
