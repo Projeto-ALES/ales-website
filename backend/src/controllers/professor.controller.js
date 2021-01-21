@@ -57,7 +57,7 @@ router.post(
     try {
       const { inviteToken } = req.body;
 
-      let professor = await ProfessorService.getProfessor({ inviteToken });
+      let professor = await ProfessorService.getProfessorWithToken({ inviteToken });
       if (!professor) {
         throw new ErrorHandler(400, "Invalid token");
       }
