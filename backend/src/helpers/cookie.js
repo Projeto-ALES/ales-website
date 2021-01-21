@@ -1,4 +1,4 @@
-exports.parseCookie = async cookie => {
+const parseCookie = async cookie => {
   const rawCookies = cookie.split(";");
   const parsedCookies = {};
 
@@ -10,8 +10,13 @@ exports.parseCookie = async cookie => {
   return parsedCookies;
 };
 
-exports.clearCookies = res => {
+const clearCookies = res => {
   res.clearCookie("token");
   res.clearCookie("refresh_token");
   return res;
 };
+
+module.exports = {
+  parseCookie,
+  clearCookies,
+}
