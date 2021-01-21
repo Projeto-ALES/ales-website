@@ -1,23 +1,9 @@
 const Course = require('../models/course');
 const { ErrorHandler } = require('../helpers/error');
 
-const getCourses = async (params) => {
-  return await Course.find(params);
-};
+const getCourses = async (params) => await Course.find(params);
 
-const getCourseById = async id => {
-  try {
-    return await Course.findById(id).populate(["professors", "coordinator"]).populate({ path: "lessons", populate: { path: "professors" } });
-  } catch (e) {
-    throw new ErrorHandler(500, e.errmsg);
-  }
-};
-
-const deleteCourse = async id => {
-  return await Course.findByIdAndDelete(id);
-};
-
-const createCourse = async data => {
+const createCourse = async (data) => {
   try {
     return await Course.create(data);
   } catch (e) {
@@ -29,6 +15,16 @@ const createCourse = async data => {
   }
 };
 
+const getCourseById = async (id) => {
+  try {
+    return await Course.findById(id).populate(['professors', 'coordinator']).populate({ path: 'lessons', populate: { path: 'professors' } });
+  } catch (e) {
+    throw new ErrorHandler(500, e.errmsg);
+  }
+};
+
+const deleteCourse = async (id) => await Course.findByIdAndDelete(id);
+
 const updateCourse = async (id, body) => {
   try {
     return await Course.findOneAndUpdate({ _id: id }, { $set: { ...body } });
@@ -39,17 +35,21 @@ const updateCourse = async (id, body) => {
 
 const addLesson = async (id, lesson_id) => {
   try {
-    return await Course.findOneAndUpdate({ _id: id }, { $push: { lessons: lesson_id } }, { new: true, useFindAndModify: false });
+    return await Course.findOneAndUpdate(
+      { _id: id },
+      { $push: { lessons: lesson_id } },
+      { new: true, useFindAndModify: false },
+    );
   } catch (e) {
     throw new ErrorHandler(500, e.errmsg);
   }
-}
+};
 
 module.exports = {
   getCourses,
+  createCourse,
   getCourseById,
   deleteCourse,
-  createCourse,
   updateCourse,
   addLesson,
 };
