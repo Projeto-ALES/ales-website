@@ -15,6 +15,7 @@ const createAgent = app => {
 };
 
 const login = async (user, done) => {
+  await User.deleteMany({});
   const admin = { email: "admin@mail", password: "admin" };
   await User.create(admin);
 
