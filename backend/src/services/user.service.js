@@ -1,17 +1,17 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
-const User = require("../models/user");
-const { ErrorHandler } = require("../helpers/error");
+const User = require('../models/user');
+const { ErrorHandler } = require('../helpers/error');
 
-exports.getUsers = async query => {
+const getUsers = async (query) => {
   try {
     return await User.find(query);
   } catch (e) {
-    throw new ErrorHandler(500, "Error while fetching users");
+    throw new ErrorHandler(500, 'Error while fetching users');
   }
 };
 
-exports.createUser = async data => {
+const createUser = async (data) => {
   try {
     return await User.create(data);
   } catch (e) {
@@ -22,7 +22,7 @@ exports.createUser = async data => {
   }
 };
 
-exports.getUser = async id => {
+const getUser = async (id) => {
   try {
     return await User.findById(id);
   } catch (e) {
@@ -30,7 +30,7 @@ exports.getUser = async id => {
   }
 };
 
-exports.deleteUser = async id => {
+const deleteUser = async (id) => {
   try {
     return await User.findByIdAndDelete(id);
   } catch (e) {
@@ -38,7 +38,7 @@ exports.deleteUser = async id => {
   }
 };
 
-exports.updateUser = async (id, data) => {
+const updateUser = async (id, data) => {
   try {
     await User.updateOne({ _id: id }, { $set: data });
     return await User.findById(id);
@@ -47,7 +47,7 @@ exports.updateUser = async (id, data) => {
   }
 };
 
-exports.isOwner = (idParam, token) => {
+const isOwner = (idParam, token) => {
   try {
     const { TOKEN_SECRET } = process.env;
     const { id } = jwt.verify(token, TOKEN_SECRET);
@@ -59,4 +59,13 @@ exports.isOwner = (idParam, token) => {
   } catch (e) {
     throw new ErrorHandler(500, e.errmsg);
   }
+};
+
+module.exports = {
+  getUsers,
+  createUser,
+  getUser,
+  deleteUser,
+  updateUser,
+  isOwner,
 };

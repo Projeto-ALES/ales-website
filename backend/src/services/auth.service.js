@@ -1,22 +1,27 @@
-const User = require("../models/user");
-const { ErrorHandler } = require("../helpers/error");
+const User = require('../models/user');
+const { ErrorHandler } = require('../helpers/error');
 
-exports.getUserWithPassword = async params => {
+const getUserWithPassword = async (params) => {
   try {
-    return await User.findOne(params).select("+password");
+    return await User.findOne(params).select('+password');
   } catch (e) {
     throw new ErrorHandler(500, e.errmsg);
   }
 };
 
-exports.getUserWithPasswordToken = async params => {
+const getUserWithPasswordToken = async (params) => {
   try {
     return await User.findOne(params).select([
-      "password",
-      "passwordToken",
-      "passwordTokenExp",
+      'password',
+      'passwordToken',
+      'passwordTokenExp',
     ]);
   } catch (e) {
     throw new ErrorHandler(500, e.errmsg);
   }
+};
+
+module.exports = {
+  getUserWithPassword,
+  getUserWithPasswordToken,
 };
