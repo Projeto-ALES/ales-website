@@ -1,17 +1,13 @@
 const Lesson = require('../models/lesson');
 const { ErrorHandler } = require('../helpers/error');
 
-const getLessonsByCourseId = async courseId => {
-  return await Lesson.find({
-    course: courseId,
-  }).populate('professors')
-};
+const getLessonsByCourseId = async (courseId) => await Lesson.find({
+  course: courseId,
+}).populate('professors');
 
-const getLessonById = async id => {
-  return await Lesson.findById(id).populate('professors');
-};
+const getLessonById = async (id) => await Lesson.findById(id).populate('professors');
 
-const createLesson = async data => {
+const createLesson = async (data) => {
   try {
     return await Lesson.create(data);
   } catch (e) {
@@ -23,9 +19,7 @@ const createLesson = async data => {
   }
 };
 
-const deleteLesson = async id => {
-  return await Lesson.findByIdAndDelete(id);
-};
+const deleteLesson = async (id) => await Lesson.findByIdAndDelete(id);
 
 const updateLesson = async (id, body) => {
   try {
@@ -39,6 +33,6 @@ module.exports = {
   getLessonsByCourseId,
   getLessonById,
   createLesson,
-  updateLesson,
   deleteLesson,
+  updateLesson,
 };
