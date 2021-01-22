@@ -4,7 +4,7 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 
 const MailService = require("../services/mail.service");
-const { handleError } = require("../helpers/error");
+const { handleError, BadRequestError } = require("../helpers/error");
 
 router.post(
   "/",
@@ -14,12 +14,12 @@ router.post(
     check("message").not().isEmpty().withMessage("Message is missing"),
   ],
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json(errors.array());
-    }
-
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        throw new BadRequestError(errors.array());
+      }
+
       const { name, email, message } = req.body;
       const { EMAIL_FROM } = process.env;
 
