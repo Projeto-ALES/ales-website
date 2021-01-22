@@ -19,32 +19,39 @@ router.get('/', async (req, res) => {
   });
 });
 
-router.get('/:id', async (req, res, next) => {
-  const { id } = req.params;
-  const course = await CourseService.getCourseById(id);
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const course = await CourseService.getCourseById(id);
 
-  if (!course) {
-    return next(new NotFoundError(ENTITY_NAME));
+    if (!course) {
+      throw new NotFoundError(ENTITY_NAME);
+    }
+
+    return res.status(200).json({
+      status: 200,
+      course,
+    });
+  } catch (e) {
+    handleError(e, res);
   }
-
-  return res.status(200).json({
-    status: 200,
-    course,
-  });
 });
 
-router.delete('/:id', AuthMiddleware, async (req, res, next) => {
-  const { id } = req.params;
+router.delete('/:id', AuthMiddleware, async (req, res,) => {
+  try {
+    const { id } = req.params;
+    const course = await CourseService.deleteCourse(id);
 
-  const course = await CourseService.deleteCourse(id);
+    if (!course) {
+      throw new NotFoundError(ENTITY_NAME);
+    }
 
-  if (!course) {
-    return next(new NotFoundError(ENTITY_NAME));
+    return res.status(202).json({
+      status: 202,
+    });
+  } catch (e) {
+    handleError(e, res);
   }
-
-  return res.status(202).json({
-    status: 202,
-  });
 });
 
 router.post(
@@ -61,52 +68,56 @@ router.post(
     check('endDate').not().isEmpty().withMessage('End date is missing'),
   ],
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json(errors.array());
-    }
-
-    let course;
     try {
-      course = await CourseService.createCourse(req.body);
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        throw new BadRequestError(errors.array());
+      }
+      const course = await CourseService.createCourse(req.body);
+      return res.status(201).json({
+        status: 201,
+        course,
+      });
     } catch (e) {
-      return next(e);
+      handleError(e, res);
     }
-
-    return res.status(201).json({
-      status: 201,
-      course,
-    });
   }
 );
 
-router.put('/:id', AuthMiddleware, async (req, res, next) => {
+router.put('/:id', AuthMiddleware, async (req, res) => {
   try {
     const { id } = req.params;
     await CourseService.updateCourse(id, req.body);
-  } catch (e) {
-    return next(e);
-  }
 
-  return res.status(201).json({
-    status: 200,
-  });
+    return res.status(200).json({
+      status: 200,
+    });
+  } catch (e) {
+    handleError(e, res);
+  }
 });
 
 router.post("/:id/lessons",
+  AuthMiddleware,
   [
     check("title").not().isEmpty().withMessage("Lesson name is missing"),
+    check("description").not().isEmpty().withMessage("Lesson description is missing"),
   ],
-  async (req, res, next) => {
-
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return next(new BadRequestError(errors.array()))
-    };
+  async (req, res) => {
 
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        throw new BadRequestError(errors.array());
+      };
+
+      let course = await CourseService.getCourseById(req.params.id);
+      if (!course) {
+        throw new BadRequestError(ENTITY_NAME);
+      }
+
       const lesson = await LessonService.createLesson(req.body);
-      const course = await CourseService.addLesson(req.params.id, lesson._id);
+      course = await CourseService.addLesson(course._id, lesson._id);
 
       return res.status(201).json({
         status: 201,
