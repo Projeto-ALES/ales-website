@@ -184,13 +184,16 @@ router.post(
         });
       }
 
-      const { EMAIL_FROM, DOMAIN } = process.env;
-      const processing = await MailService.sendEmail({
-        from: EMAIL_FROM,
-        to: email,
-        subject: "[ALES] Convite",
-        html: `<span>Olá! Você foi convidado para ter acesso ao site do ALES!</span><br><span>Acesse <a href="${DOMAIN}/professors/enroll/${inviteToken}" target="_blank">este link</a> para completar seu cadastro.</span>`,
-      });
+      const { EMAIL_FROM, DOMAIN, NODE_ENV } = process.env;
+      let processing;
+      if (NODE_ENV !== "test") {
+        processing = await MailService.sendEmail({
+          from: EMAIL_FROM,
+          to: email,
+          subject: "[ALES] Convite",
+          html: `<span>Olá! Você foi convidado para ter acesso ao site do ALES!</span><br><span>Acesse <a href="${DOMAIN}/professors/enroll/${inviteToken}" target="_blank">este link</a> para completar seu cadastro.</span>`,
+        });
+      }
 
       return res.status(200).json({
         status: 200,
