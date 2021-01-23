@@ -21,10 +21,6 @@ services:
       - "8000:8000"
     env_file:
       - .env/test/app.env
-    volumes:
-      - ./backend:/usr/src/app
-      - /usr/src/app/node_modules
     depends_on:
       - mongo
-    restart: on-failure
     command: yarn test

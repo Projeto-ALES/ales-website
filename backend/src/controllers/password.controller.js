@@ -86,13 +86,16 @@ router.post(
       user.passwordTokenExp = Date.now() + 3600000;
       user.save();
 
-      const { EMAIL_FROM, DOMAIN } = process.env;
-      const processing = await MailService.sendEmail({
-        from: EMAIL_FROM,
-        to: email,
-        subject: "[ALES] Reset da senha",
-        html: `<span>Olá! Você solicitou o cadastro de uma nova senha</span><br><span>Acesse <a href="${DOMAIN}/new-password/${token}" target="_blank">este link</a> para cadastrar uma nova.</span>`,
-      });
+      const { EMAIL_FROM, DOMAIN, NODE_ENV } = process.env;
+      let processing;
+      if (NODE_ENV !== "test") {
+        processing = await MailService.sendEmail({
+          from: EMAIL_FROM,
+          to: email,
+          subject: "[ALES] Reset da senha",
+          html: `<span>Olá! Você solicitou o cadastro de uma nova senha</span><br><span>Acesse <a href="${DOMAIN}/new-password/${token}" target="_blank">este link</a> para cadastrar uma nova.</span>`,
+        });
+      }
       return res.status(200).json({
         status: 200,
         message: "Token generated and successfully sent to the given email",

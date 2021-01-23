@@ -21,14 +21,17 @@ router.post(
       }
 
       const { name, email, message } = req.body;
-      const { EMAIL_FROM } = process.env;
+      const { EMAIL_FROM, NODE_ENV } = process.env;
 
-      await MailService.sendEmail({
-        from: email,
-        to: EMAIL_FROM,
-        subject: "[ALES] Mensagem do Site",
-        text: `${name} - ${email} enviou a seguinte mensagem: ${message}`,
-      });
+      if (NODE_ENV !== "test") {
+        await MailService.sendEmail({
+          from: email,
+          to: EMAIL_FROM,
+          subject: "[ALES] Mensagem do Site",
+          text: `${name} - ${email} enviou a seguinte mensagem: ${message}`,
+        });
+      }
+
       return res.status(200).json({
         status: 200,
       });

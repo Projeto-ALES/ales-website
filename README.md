@@ -177,6 +177,54 @@ But before you search for it (which we suggest you to do), know that we use some
 
 Despite all of that, it is recommended to spend some time (not much) checking [Airbnb's code style](https://github.com/airbnb/javascript).
 
+## Testing
+
+For now, there are only tests for `backend`. They are separated in:
+
+- `models`
+- `services`
+- `controllers`
+
+The following dependencies are used to run tests:
+
+- [Jest](https://jestjs.io/)
+- [Sinon](https://sinonjs.org/)
+- [Supertest](https://github.com/visionmedia/supertest)
+
+`jest` is responsible to run every test. `sinon` and `supertest` just make it easier to run tests that are related with _mocking_ and _http_ calls.
+
+Every test should be in a file that is inside a `__tests__` folder, because that's where `jest` will be looking for.
+
+You can either run them locally or with Github Actions.
+
+### Locally
+
+For running tests locally, there are a [docker-compose](https://docs.docker.com/compose/) file named `docker-compose.test.yml`. Since we need an `MongoDB` instance to be able to run all tests, that file helps us a lot to accomplish such task.
+
+So all we need to do is:
+
+1. Create a folder `test/` inside `.env/`
+
+2. Create the files `app.env` and `db.env` inside `test/`. `db.env` must have `MONGO_INITDB_ROOT_USERNAME` and `MONGO_INITDB_ROOT_PASSWORD` variables set and `app.env` can have the same variables that `.env/dev/app.env` has (except `INIT_USER`, `INIT_PASSWORD` and `INIT_EMAIL` since test environment doesn't create a default user)
+
+3. Run the command:
+
+```sh
+docker-compose -f docker-compose.test.yml up backend
+```
+
+> This command will create an instance for each service (MongoDB and Express) and it will run the command `yarn test`, which will call `jest`
+
+> You should be able to see all tests running and their respective output
+
+### Continuous Integration
+
+There project is also configured to run those tests in a Continuous Integration environment. We use [Github Actions](https://docs.github.com/en/actions) for that.
+
+For now, a new pipeline will be created for each pull request opened against `master` branch. If the pull request is updated, another pipeline will run and so on.
+
+> This configuration is specified in `.github/workflows/ci.yml` file.
+
 ### First Commit
 
 Finally this moment has come \o/
