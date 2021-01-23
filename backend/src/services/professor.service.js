@@ -29,6 +29,14 @@ const getProfessor = async (params) => {
   }
 };
 
+const getProfessorWithToken = async (params) => {
+  try {
+    return await Professor.findOne(params).select(['inviteToken', 'inviteTokenExp']);
+  } catch (e) {
+    throw new ErrorHandler(500, e.errmsg);
+  }
+};
+
 const deleteProfessor = async (id) => {
   try {
     return await Professor.findByIdAndDelete(id);
@@ -49,6 +57,7 @@ module.exports = {
   getProfessors,
   createProfessor,
   getProfessor,
+  getProfessorWithToken,
   deleteProfessor,
   updateProfessor,
 };

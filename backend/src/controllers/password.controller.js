@@ -10,7 +10,7 @@ const { AuthMiddleware } = require("../middlewares/auth.middleware");
 const AuthService = require("../services/auth.service");
 const MailService = require("../services/mail.service");
 
-const { handleError, ErrorHandler } = require("../helpers/error");
+const { handleError, BadRequestError, NotFoundError } = require("../helpers/error");
 
 router.post(
   "/update/:id",
@@ -31,29 +31,26 @@ router.post(
       .withMessage("New password confirmation is missing"),
   ],
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json(errors.array());
-    }
-
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        throw new BadRequestError(errors.array());
+      }
+
       const { id } = req.params;
       const { password, new_password, new_password_conf } = req.body;
 
       const user = await AuthService.getUserWithPassword({ _id: id });
       if (!user) {
-        throw new ErrorHandler(404, "User not found");
+        throw new NotFoundError("User");
       }
 
       if (!bcrypt.compareSync(password, user.password)) {
-        throw new ErrorHandler(401, "Invalid password");
+        throw new BadRequestError("Invalid password");
       }
 
       if (new_password !== new_password_conf) {
-        throw new ErrorHandler(
-          401,
-          "New password and its confirmation are different"
-        );
+        throw new BadRequestError("New password and its confirmation are different");
       }
 
       user.password = new_password;
@@ -72,16 +69,16 @@ router.post(
   "/reset",
   [check("email").not().isEmpty().withMessage("Email is missing")],
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json(errors.array());
-    }
-
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        throw new BadRequestError(errors.array());
+      }
+
       const { email } = req.body;
       const user = await AuthService.getUserWithPasswordToken({ email });
       if (!user) {
-        throw new ErrorHandler(404, "User not found");
+        throw new NotFoundError("User");
       }
 
       const token = crypto.randomBytes(20).toString("hex");
@@ -124,29 +121,25 @@ router.post(
       .withMessage("New password confirmation is missing"),
   ],
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json(errors.array());
-    }
-
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        throw new BadRequestError(errors.array());
+      }
+
       const { token, new_password, new_password_conf } = req.body;
       if (new_password !== new_password_conf) {
-        throw new ErrorHandler(
-          400,
-          "New password and its confirmation are different"
-        );
+        throw new BadRequestError("New password and its confirmation are different");
       }
 
       const user = await AuthService.getUserWithPasswordToken({
         passwordToken: token,
       });
       if (!user) {
-        throw new ErrorHandler(404, "User not found");
+        throw new NotFoundError("User");
       }
-
       if (Date.parse(user.passwordTokenExp) < Date.now()) {
-        throw new ErrorHandler(400, "The given token has expired");
+        throw new BadRequestError("The given token has expired");
       }
 
       user.password = new_password;
