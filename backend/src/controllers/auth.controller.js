@@ -10,7 +10,7 @@ const { AuthMiddleware, VerifyRefreshToken } = require("../middlewares/auth.midd
 const AuthService = require("../services/auth.service");
 const UserService = require("../services/user.service");
 
-const { handleError, ErrorHandler } = require("../helpers/error");
+const { handleError, ErrorHandler, BadRequestError } = require("../helpers/error");
 const { clearCookies } = require("../helpers/cookie");
 const jwtConfig = require("../jwt");
 
@@ -18,16 +18,15 @@ router.post(
   "/login",
   [
     check("email").not().isEmpty().withMessage("Email is missing"),
-    check("password")
-      .isLength({ min: 5 })
-      .withMessage("Password must have at least 5 chars long"),
+    check("password").not().isEmpty().withMessage("Password is missing"),
   ],
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json(errors.array());
-    }
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        throw new BadRequestError(errors.array());
+      }
+
       const { email, password } = req.body;
       const user = await AuthService.getUserWithPassword({ email });
       if (!user) {

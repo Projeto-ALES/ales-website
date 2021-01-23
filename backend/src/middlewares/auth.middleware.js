@@ -4,7 +4,7 @@ const { parseCookie } = require("../helpers/cookie");
 
 const { TOKEN_SECRET, REFRESH_TOKEN_SECRET } = process.env;
 
-exports.AuthMiddleware = async (req, res, next) => {
+const AuthMiddleware = async (req, res, next) => {
   const { headers } = req;
 
   const cookie = headers ? headers.cookie : null;
@@ -36,15 +36,14 @@ exports.AuthMiddleware = async (req, res, next) => {
   });
 };
 
-exports.VerifyRefreshToken = async (req, res, next) => {
+const VerifyRefreshToken = async (req, res, next) => {
   const { headers } = req;
-
   const cookie = headers ? headers.cookie : null;
 
   if (!cookie) {
     return res
       .status(401)
-      .send({ status: 401, message: "Refresh token is missing" });
+      .json({ status: 401, message: "Refresh token is missing" });
   }
 
   const parsedCookies = await parseCookie(cookie);
@@ -52,12 +51,12 @@ exports.VerifyRefreshToken = async (req, res, next) => {
   if (!refreshToken) {
     return res
       .status(401)
-      .send({ status: 401, message: "Refresh token is invalid or missing" });
+      .json({ status: 401, message: "Refresh token is invalid or missing" });
   }
 
   jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, decoded) => {
     if (err) {
-      return res.status(401).send({ status: 401, message: err.message });
+      return res.status(401).json({ status: 401, message: err.message });
     }
     req.authContext = {
       refreshToken,
@@ -65,4 +64,9 @@ exports.VerifyRefreshToken = async (req, res, next) => {
 
     next();
   });
+};
+
+module.exports = {
+  AuthMiddleware,
+  VerifyRefreshToken,
 };
