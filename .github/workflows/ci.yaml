@@ -4,14 +4,29 @@ on:
   pull_request:
     branches: [master]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+      MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+      MONGO_DATABASE: ${{ secrets.MONGO_DATABASE }}
+      MONGO_HOSTNAME: ${{ secrets.MONGO_HOSTNAME }}
+      TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
+      REFRESH_TOKEN_SECRET: ${{ secrets.REFRESH_TOKEN_SECRET }}
+      DOMAIN: ${{ secrets.DOMAIN }}
+      EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
+      EMAIL_FROM: ${{ secrets.EMAIL_HOST }}
+      EMAIL_USER: ${{ secrets.EMAIL_FROM }}
+      EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
     steps:
-      - uses: actions/checkout@v2
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: build
+        run: docker-compose -f docker-compose.ci.yml up -d backend
 
       - name: run tests
-        run: docker-compose -f docker-compose.test.yml up --build backend
+        run: docker exec api_test yarn test

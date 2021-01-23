@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+  mongo:
+    image: mongo:3.6.17-xenial
+    container_name: db_test
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD
+    volumes:
+      - /test/data/configdb:/data/configdb
+      - /test/data/db:/data/db
+
+  backend:
+    build:
+      context: ./backend
+    image: ales_backend
+    container_name: api_test
+    ports:
+      - "8000:8000"
+    environment:
+      - NODE_ENV=test
+      - PORT=8000
+      - MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD
+      - MONGO_DATABASE
+      - MONGO_HOSTNAME
+      - TOKEN_SECRET
+      - REFRESH_TOKEN_SECRET
+      - DOMAIN
+      - EMAIL_HOST
+      - EMAIL_PORT=2525
+      - EMAIL_FROM
+      - EMAIL_USER
+      - EMAIL_PASSWORD
+    depends_on:
+      - mongo
+    command: node app.js
