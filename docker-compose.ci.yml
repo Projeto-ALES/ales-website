@@ -14,9 +14,7 @@ services:
       - /test/data/db:/data/db
 
   backend:
-    build:
-      context: ./backend
-    image: ales_backend
+    image: projetoales/ales_backend:ci
     container_name: api_test
     ports:
       - "8000:8000"
