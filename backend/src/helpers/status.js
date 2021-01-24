@@ -10,7 +10,14 @@ const gender = {
   N: "N",
 };
 
+const recruitmentStatus = {
+  ACTIVE: "active",
+  DONE: "done",
+  ARCHIVED: "archived",
+};
+
 module.exports = {
   professorStatus,
   gender,
-}
+  recruitmentStatus,
+};
