@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import { Form, Input, Button, DatePicker } from 'antd';
+import { create } from "services/recruitment.service";
+
+import { Form, Input, Button, DatePicker, message } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 
 import Page from "components/Page/Page";
@@ -15,52 +17,61 @@ const { RangePicker } = DatePicker;
 const ProcessNew = ({ history }) => {
   const [form] = Form.useForm();
   const [, forceUpdate] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     forceUpdate({});
   }, []);
 
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [beginningDate, setBeginningDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const submitProcess = (data) => {
+    setIsSubmitting(true);
+
+    const { name, description, dates } = data;
+    const beginningDate = dates[0]._d;
+    const endDate = dates[1]._d;
+
+    create({ name, description, beginningDate, endDate })
+      .then(() => {
+        history.goBack();
+        message.success("Processo adicionado!");
+      })
+      .catch(() => {
+        message.error("Ops! Parece que houve um erro pra criar o processo");
+        setIsSubmitting(false);
+      });
+  };
 
   return (
     <Page>
       <PageTitle title="Novo PS" />
       <Container>
         <div className={styles.form}>
-          <Form form={form}>
+          <Form form={form} onFinish={submitProcess}>
             <div className={styles.item}>
               <Form.Item
-                name="Nome"
+                name="name"
                 rules={[{ required: true, message: "Faltou o nome do processo!" }]}
               >
-                <Input placeholder="Nome" value={name} onChange={(e) => setName(e.target.value)} />
+                <Input placeholder="Nome" />
               </Form.Item>
             </div>
             <div className={styles.item}>
               <Form.Item
-                name="Descrição"
+                name="description"
               >
                 <TextArea
                   rows={4}
                   placeholder="Descrição"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
                 />
               </Form.Item>
             </div>
             <div className={styles.item}>
               <Form.Item
-                name="Datas"
+                name="dates"
                 rules={[{ required: true, message: "Faltou escolher as datas!" }]}
               >
                 <RangePicker
                   placeholder={["Início", "Término"]}
-                  value={[beginningDate, endDate]}
-                  onChange={(moment, string) => (setBeginningDate(string[0]), setEndDate(string[1]))}
                 />
               </Form.Item>
             </div>
@@ -68,7 +79,11 @@ const ProcessNew = ({ history }) => {
               <Button icon={<ArrowLeftOutlined />} onClick={() => history.goBack()}>
                 Voltar
               </Button>
-              <Button type="primary" htmlType="submit">
+              <Button
+                type="primary"
+                htmlType="submit"
+                loading={isSubmitting}
+              >
                 Enviar
               </Button>
             </div>
