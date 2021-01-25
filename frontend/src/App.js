@@ -13,6 +13,7 @@ import { loggedIn, notLoggedIn } from "./components/SideBar/items";
 
 import { context } from "store/store";
 import { types } from "store/types";
+import "./App.css";
 
 const App = () => {
   const [state, dispatch] = useContext(context);
