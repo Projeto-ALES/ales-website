@@ -8,7 +8,7 @@ import styles from "./Recruitment.module.scss";
 
 const Recruitment = () => {
   return (
-    <div className={styles.container} id="dia-profissoes">
+    <div className={styles.container} id="recrutamento">
       <Container>
         <div className={styles.title}>
           <img src={Alessauro} alt="alessauro" />
@@ -32,7 +32,7 @@ const Recruitment = () => {
           <div className={styles.buttons}>
             <a
               className={styles.button}
-              href="https://drive.google.com/file/d/1H4MOL6sG7sFbqZLWgL_QdBkkNJH3f_VA/view"
+              href="https://drive.google.com/file/d/1SlgU2G-cZgHtftyRr5IxjgbenEXKlKVR/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -40,7 +40,7 @@ const Recruitment = () => {
             </a>
             <a
               className={styles.button}
-              href="https://drive.google.com/file/d/1H4MOL6sG7sFbqZLWgL_QdBkkNJH3f_VA/view"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSc2C2-mkRGdAAeVYTfSxgochVZdAfcEu0VJekqWmyqWyRAwAA/viewform"
               target="_blank"
               rel="noopener noreferrer"
             >
