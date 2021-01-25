@@ -88,4 +88,23 @@ router.delete('/:name',
   }
 );
 
+router.put('/:name',
+  AuthMiddleware,
+  async (req, res) => {
+    try {
+      const { name } = req.params;
+      const process = await RecruitmentService.updateProcess(name, req.body);
+      if (!process) {
+        throw new NotFoundError(ENTITY_NAME);
+      }
+
+      return res.status(200).json({
+        status: 200,
+      });
+    } catch (e) {
+      handleError(e, res);
+    }
+  }
+);
+
 module.exports = router;

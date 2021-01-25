@@ -144,5 +144,33 @@ describe("Recruitment controller test", () => {
         .expect('Content-Type', /json/)
         .expect(202);
     });
+
+    it("is unauthorized to update a process", async () => {
+      const { name } = await Recruitment.create({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now() });
+      await request(app)
+        .put(`/api/recruitment/${name}`)
+        .send({ description: "Volunteers Recruitment" })
+        .expect('Content-Type', /json/)
+        .expect(401);
+    });
+
+    it("tries to update a non existent recruitment process", async () => {
+      const { name } = await Recruitment.create({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now() });
+      await Recruitment.deleteOne({ name });
+      await authUser
+        .put(`/api/recruitment/${name}`)
+        .send({ description: "Volunteers Recruitment" })
+        .expect('Content-Type', /json/)
+        .expect(404);
+    });
+
+    it("updates a recruitment process", async () => {
+      const { name } = await Recruitment.create({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now() });
+      await authUser
+        .put(`/api/recruitment/${name}`)
+        .send({ description: "Volunteers Recruitment" })
+        .expect('Content-Type', /json/)
+        .expect(200);
+    });
   });
 });
