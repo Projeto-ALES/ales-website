@@ -30,10 +30,14 @@ import Quarantine from "views/Quarantine/Quarantine";
 import LessonNew from "views/Lesson/LessonNew/LessonNew";
 import LessonEdit from "views/Lesson/LessonEdit/LessonEdit";
 
+import Recruitment from "views/Recruitment/Recruitment";
+
 const router = (
   <Switch>
     <Route path={routes.LOGIN} component={Login} />
     <Route path={routes.CONTACT} component={Contact} />
+
+    <PrivateRoute path={routes.RECRUITMENT} component={Recruitment} />
 
     <PrivateRoute path={routes.MY_AREA_ID} component={Profile} />
     <PrivateRoute path={routes.MY_AREA} component={MyArea} />

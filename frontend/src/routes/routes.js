@@ -23,7 +23,9 @@ const routes = {
   QUARANTINE: "/quarentenales",
 
   LESSON_NEW: "/:id/lessons/new",
-  LESSON_EDIT: "/:id/lessons/:lesson_id"
+  LESSON_EDIT: "/:id/lessons/:lesson_id",
+
+  RECRUITMENT: "/recruitment",
 };
 
 export default routes;

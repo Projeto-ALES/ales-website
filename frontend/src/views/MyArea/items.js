@@ -8,7 +8,7 @@ export const getItems = (id) => {
       text: "Matérias",
       icon: "fa fa-flask",
     },
-    // { id: 4, route: "students", text: "Alunos", icon: "fa fa-child" },
+    { id: 4, route: "/recruitment", text: "Recrutamento", icon: "fas fa-bullseye" },
   ];
 
   return items;
