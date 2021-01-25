@@ -12,7 +12,7 @@ const ENTITY_NAME = 'Process';
 router.get('/',
   AuthMiddleware,
   async (req, res) => {
-    const processes = await RecruitmentService.getProcesses({});
+    const processes = await RecruitmentService.getProcesses(req.query || {});
     return res.status(200).json({
       status: 200,
       processes,
