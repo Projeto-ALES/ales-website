@@ -13,6 +13,7 @@
 
     h2 {
       width: 60%;
+      font-weight: 600;
 
       @include tablet-portrait {
         width: auto;
@@ -40,6 +41,8 @@
     margin-top: var(--spacing-large);
 
     h3 {
+      font-weight: 600;
+
       @include tablet-portrait {
         width: auto;
       }
@@ -90,5 +93,6 @@
 
   .info {
     text-align: center;
+    font-size: var(--font-medium);
   }
 }
