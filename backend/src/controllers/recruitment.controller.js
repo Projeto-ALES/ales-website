@@ -17,7 +17,8 @@ router.get('/',
       status: 200,
       processes,
     });
-  });
+  }
+);
 
 router.post('/',
   AuthMiddleware,
@@ -44,7 +45,8 @@ router.post('/',
     } catch (e) {
       handleError(e, res);
     }
-  });
+  }
+);
 
 router.get('/:name',
   AuthMiddleware,
@@ -62,6 +64,25 @@ router.get('/:name',
       });
     }
     catch (e) {
+      handleError(e, res);
+    }
+  }
+);
+
+router.delete('/:name',
+  AuthMiddleware,
+  async (req, res) => {
+    try {
+      const { name } = req.params;
+      const process = await RecruitmentService.deleteProcessByName(name);
+      if (!process) {
+        throw new NotFoundError(ENTITY_NAME);
+      }
+
+      return res.status(202).json({
+        status: 202,
+      });
+    } catch (e) {
       handleError(e, res);
     }
   }

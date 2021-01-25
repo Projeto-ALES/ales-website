@@ -119,5 +119,30 @@ describe("Recruitment controller test", () => {
         .expect('Content-Type', /json/)
         .expect(200);
     });
+
+    it("is unauthorized to delete a process", async () => {
+      const { name } = await Recruitment.create({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now() });
+      await request(app)
+        .delete(`/api/recruitment/${name}`)
+        .expect('Content-Type', /json/)
+        .expect(401);
+    });
+
+    it("tries to delete a non existent recruitment process", async () => {
+      const { name } = await Recruitment.create({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now() });
+      await Recruitment.deleteOne({ name });
+      await authUser
+        .delete(`/api/recruitment/${name}`)
+        .expect('Content-Type', /json/)
+        .expect(404);
+    });
+
+    it("deletes a recruitment process", async () => {
+      const { name } = await Recruitment.create({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now() });
+      await authUser
+        .delete(`/api/recruitment/${name}`)
+        .expect('Content-Type', /json/)
+        .expect(202);
+    });
   });
 });
