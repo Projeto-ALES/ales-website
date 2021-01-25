@@ -43,6 +43,10 @@ const Recruitment = ({ history }) => {
       });
   };
 
+  useEffect(() => {
+    getProcesses();
+  }, []);
+
   const mapStatus = (status) => {
     switch (status) {
       case "active":
@@ -54,9 +58,26 @@ const Recruitment = ({ history }) => {
     }
   };
 
-  useEffect(() => {
-    getProcesses();
-  }, []);
+  const actions = [
+    <Tooltip placement="left" title="Detalhe">
+      <InfoCircleOutlined onClick={() => alert("info")} />
+    </Tooltip>
+  ];
+
+  const activeActions = [...actions,
+  <Tooltip placement="bottom" title="Editar">
+    <EditOutlined key="edit" onClick={() => alert("edit")} />
+  </Tooltip>,
+  <Tooltip placement="bottom" title="Finalizar">
+    <CheckCircleOutlined key="edit" onClick={() => alert("edit")} />
+  </Tooltip>
+  ];
+
+  const doneActions = [...actions,
+  <Tooltip placement="right" title="Arquivar">
+    <DeleteOutlined onClick={() => alert("remove")} />
+  </Tooltip>
+  ];
 
   return (
     <Page>
@@ -96,20 +117,12 @@ const Recruitment = ({ history }) => {
                 <div className={styles.card}>
                   <Card
                     style={{ width: 300, textAlign: "center" }}
-                    actions={[
-                      <Tooltip placement="left" title="Detalhe">
-                        <InfoCircleOutlined onClick={() => alert("info")} />
-                      </Tooltip>,
-                      <Tooltip placement="bottom" title="Editar">
-                        <EditOutlined key="edit" onClick={() => alert("edit")} />
-                      </Tooltip>,
-                      <Tooltip placement="bottom" title="Finalizar">
-                        <CheckCircleOutlined key="edit" onClick={() => alert("edit")} />
-                      </Tooltip>,
-                      <Tooltip placement="right" title="Arquivar">
-                        <DeleteOutlined onClick={() => alert("remove")} />
-                      </Tooltip>,
-                    ]}
+                    actions={
+                      proc.status === "active" ?
+                        activeActions :
+                        proc.status === "done" ?
+                          doneActions : actions
+                    }
                   >
                     <div style={{ display: "flex", justifyContent: "space-evenly" }}>
                       <Meta title={proc.name} />
