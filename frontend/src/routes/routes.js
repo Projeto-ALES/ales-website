@@ -26,6 +26,7 @@ const routes = {
   LESSON_EDIT: "/:id/lessons/:lesson_id",
 
   RECRUITMENT: "/recruitment",
+  PROCESS_NEW: "/recruitment/new",
 };
 
 export default routes;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+import routes from "routes/routes";
 import { list } from "services/recruitment.service";
 
 import { Card, Tooltip, Button, Tag, Switch } from "antd";
@@ -94,7 +95,7 @@ const Recruitment = ({ history }) => {
             <Button
               type="primary"
               icon={<PlusOutlined />}
-              onClick={() => alert("add")}
+              onClick={() => history.push(routes.PROCESS_NEW)}
             >
               Novo PS
           </Button>

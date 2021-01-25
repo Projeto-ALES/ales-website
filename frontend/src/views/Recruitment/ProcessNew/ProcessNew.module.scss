@@ -1,0 +1,25 @@
+@import "~styles/breakpoints";
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  form {
+    width: 100%;
+
+    @include tablet-portrait {
+      max-width: 450px;
+    }
+  }
+
+  .item {
+    margin: var(--spacing-huge) 0;
+    text-align: center;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-around;
+  }
+}
