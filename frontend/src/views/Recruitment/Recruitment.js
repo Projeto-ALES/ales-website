@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { list } from "services/recruitment.service";
 
-import { Card, Tooltip, Button } from "antd";
+import { Card, Tooltip, Button, Tag, Switch } from "antd";
 import {
   InfoCircleOutlined,
   EditOutlined,
@@ -23,6 +23,8 @@ import styles from "./Recruitment.module.scss";
 const Recruitment = ({ history }) => {
   const { Meta } = Card;
   const [processes, setProcesses] = useState([]);
+  const [activeProcesses, setActiveProcesses] = useState([]);
+  const [listAll, setListAll] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const getProcesses = () => {
@@ -31,14 +33,26 @@ const Recruitment = ({ history }) => {
       .then((response) => {
         const { processes } = response.data;
         setProcesses(processes);
+        setActiveProcesses(processes.filter(proc => proc.status === "active") || []);
       })
       .catch(() => {
         toast.error("Ops! Aconteceu algum erro para listar os processos");
       })
       .finally(() => {
         setIsLoading(false);
-      })
-  }
+      });
+  };
+
+  const mapStatus = (status) => {
+    switch (status) {
+      case "active":
+        return <Tag color="green">Ativo</Tag>
+      case "done":
+        return <Tag color="blue">Finalizado</Tag>
+      case "archived":
+        return <Tag color="orange">Arquivado</Tag>
+    }
+  };
 
   useEffect(() => {
     getProcesses();
@@ -64,12 +78,20 @@ const Recruitment = ({ history }) => {
               Novo PS
           </Button>
           </div>
+          <div>
+            <Switch
+              checkedChildren="Ativos"
+              unCheckedChildren="Todos"
+              defaultChecked={!listAll}
+              onClick={() => setListAll(state => !state)}
+            />
+          </div>
           <div className={styles.processes}>
             {isLoading ? (
               <div className="loader">
                 <Loader />
               </div>
-            ) : processes.map((proc) => {
+            ) : (listAll ? processes : activeProcesses).map((proc) => {
               return (
                 <div className={styles.card}>
                   <Card
@@ -89,7 +111,10 @@ const Recruitment = ({ history }) => {
                       </Tooltip>,
                     ]}
                   >
-                    <Meta title={proc.name} />
+                    <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+                      <Meta title={proc.name} />
+                      {mapStatus(proc.status)}
+                    </div>
                   </Card>
                 </div>
               )
