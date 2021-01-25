@@ -63,7 +63,7 @@ describe("Recruitment controller test", () => {
     });
 
     it("tries to create a process with a duplicated name", async () => {
-      const { name } = await Recruitment.create({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now() })
+      const { name } = await Recruitment.create({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now() });
       await authUser
         .post("/api/recruitment")
         .send({ name, beginningDate: Date.now(), endDate: Date.now() })
@@ -93,6 +93,31 @@ describe("Recruitment controller test", () => {
         .send({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now() })
         .expect('Content-Type', /json/)
         .expect(201);
+    });
+
+    it("is unauthorized to get a process", async () => {
+      const { name } = await Recruitment.create({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now() });
+      await request(app)
+        .get(`/api/recruitment/${name}`)
+        .expect('Content-Type', /json/)
+        .expect(401);
+    });
+
+    it("tries to get a non existent recruitment process", async () => {
+      const { name } = await Recruitment.create({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now() });
+      await Recruitment.deleteOne({ name });
+      await authUser
+        .get(`/api/recruitment/${name}`)
+        .expect('Content-Type', /json/)
+        .expect(404);
+    });
+
+    it("gets a recruitment process", async () => {
+      const { name } = await Recruitment.create({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now() });
+      await authUser
+        .get(`/api/recruitment/${name}`)
+        .expect('Content-Type', /json/)
+        .expect(200);
     });
   });
 });

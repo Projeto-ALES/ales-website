@@ -4,10 +4,10 @@ const { check, validationResult } = require('express-validator');
 const { AuthMiddleware } = require('../middlewares/auth.middleware');
 const RecruitmentService = require("../services/recruitment.service");
 
-const { BadRequestError, handleError } = require('../helpers/error');
+const { BadRequestError, handleError, NotFoundError } = require('../helpers/error');
 
 const router = express.Router();
-
+const ENTITY_NAME = 'Process';
 
 router.get('/',
   AuthMiddleware,
@@ -44,6 +44,27 @@ router.post('/',
     } catch (e) {
       handleError(e, res);
     }
-  })
+  });
+
+router.get('/:name',
+  AuthMiddleware,
+  async (req, res) => {
+    try {
+      const { name } = req.params;
+      const process = await RecruitmentService.getProcessByName(name);
+      if (!process) {
+        throw new NotFoundError(ENTITY_NAME);
+      }
+
+      return res.status(200).json({
+        status: 200,
+        process,
+      });
+    }
+    catch (e) {
+      handleError(e, res);
+    }
+  }
+);
 
 module.exports = router;
