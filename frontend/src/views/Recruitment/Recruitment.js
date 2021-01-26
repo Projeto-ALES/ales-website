@@ -65,9 +65,11 @@ const Recruitment = ({ history }) => {
     </Tooltip>
   ];
 
-  const activeActions = [...actions,
+  const activeActions = (name) => [...actions,
   <Tooltip placement="bottom" title="Editar">
-    <EditOutlined key="edit" onClick={() => alert("edit")} />
+    <EditOutlined
+      key="edit"
+      onClick={() => history.push(routes.PROCESS_EDIT.replace(":name", name))} />
   </Tooltip>,
   <Tooltip placement="bottom" title="Finalizar">
     <CheckCircleOutlined key="edit" onClick={() => alert("edit")} />
@@ -120,7 +122,7 @@ const Recruitment = ({ history }) => {
                     style={{ width: 300, textAlign: "center" }}
                     actions={
                       proc.status === "active" ?
-                        activeActions :
+                        activeActions(proc.name) :
                         proc.status === "done" ?
                           doneActions : actions
                     }
