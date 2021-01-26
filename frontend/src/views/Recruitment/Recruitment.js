@@ -30,7 +30,6 @@ const Recruitment = ({ history }) => {
   const [activeProcesses, setActiveProcesses] = useState([]);
   const [listAll, setListAll] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const getProcesses = () => {
     setIsLoading(true);
@@ -38,7 +37,7 @@ const Recruitment = ({ history }) => {
       .then((response) => {
         const { processes } = response.data;
         setProcesses(processes);
-        setActiveProcesses(processes.filter(proc => proc.status === "active") || []);
+        setActiveProcesses(processes.filter(proc => proc.status !== "archived") || []);
       })
       .catch(() => {
         toast.error("Ops! Aconteceu algum erro para listar os processos");
