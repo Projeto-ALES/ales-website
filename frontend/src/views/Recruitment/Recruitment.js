@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 import routes from "routes/routes";
-import { list } from "services/recruitment.service";
+import { list, update } from "services/recruitment.service";
 
-import { Card, Tooltip, Button, Tag, Switch } from "antd";
+import { Card, Tooltip, Button, Tag, Switch, Modal, message } from "antd";
 import {
   InfoCircleOutlined,
   EditOutlined,
@@ -11,6 +11,7 @@ import {
   DeleteOutlined,
   PlusOutlined,
   ArrowLeftOutlined,
+  ExclamationCircleOutlined,
 } from "@ant-design/icons";
 
 import Page from "components/Page/Page";
@@ -23,10 +24,13 @@ import styles from "./Recruitment.module.scss";
 
 const Recruitment = ({ history }) => {
   const { Meta } = Card;
+  const { confirm } = Modal;
+
   const [processes, setProcesses] = useState([]);
   const [activeProcesses, setActiveProcesses] = useState([]);
   const [listAll, setListAll] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const getProcesses = () => {
     setIsLoading(true);
@@ -72,21 +76,74 @@ const Recruitment = ({ history }) => {
       onClick={() => history.push(routes.PROCESS_EDIT.replace(":name", name))} />
   </Tooltip>,
   <Tooltip placement="bottom" title="Finalizar">
-    <CheckCircleOutlined key="edit" onClick={() => alert("edit")} />
+    <CheckCircleOutlined key="edit" onClick={() => showDoneConfirm(name)} />
   </Tooltip>
   ];
 
-  const doneActions = [...actions,
+  const doneActions = (name) => [...actions,
   <Tooltip placement="right" title="Arquivar">
-    <DeleteOutlined onClick={() => alert("remove")} />
+    <DeleteOutlined onClick={() => showArchiveConfirm(name)} />
   </Tooltip>
   ];
+
+  const archiveProcess = (name) => {
+    update(name, { status: "archived" })
+      .then(() => {
+        message.success("Processo arquivado!");
+        getProcesses();
+      })
+      .catch(() => {
+        message.error("Ops! Aconteceu algum erro pra arquivar o processo");
+      });
+  };
+
+  const showArchiveConfirm = (name) => {
+    confirm({
+      title: "Tem certeza que arquivar o processo?",
+      icon: <ExclamationCircleOutlined />,
+      okText: "Arquivar",
+      okType: "danger",
+      cancelText: "Cancelar",
+      confirmLoading: true,
+      onOk() {
+        return archiveProcess(name);
+      },
+      onCancel() { },
+    });
+  };
+
+  const closeProcess = (name) => {
+    update(name, { status: "done" })
+      .then(() => {
+        message.success("Processo encerrado!");
+        getProcesses();
+      })
+      .catch(() => {
+        message.error("Ops! Aconteceu algum erro pra encerrar o processo");
+      });
+  };
+
+  const showDoneConfirm = async (name) => {
+    confirm({
+      title: "Tem certeza que encerrar o processo?",
+      icon: <ExclamationCircleOutlined />,
+      okText: "Encerrar",
+      okType: "danger",
+      cancelText: "Cancelar",
+      confirmLoading: true,
+      onOk() {
+        return closeProcess(name);
+      },
+      onCancel() { },
+    });
+  };
 
   return (
     <Page>
       <PageTitle title="Recrutamento" />
       <Container>
         <div className={styles.recruitment}>
+          { }
           <div className={styles.buttons}>
             <Button
               icon={<ArrowLeftOutlined />}
@@ -124,7 +181,7 @@ const Recruitment = ({ history }) => {
                       proc.status === "active" ?
                         activeActions(proc.name) :
                         proc.status === "done" ?
-                          doneActions : actions
+                          doneActions(proc.name) : actions
                     }
                   >
                     <div style={{ display: "flex", justifyContent: "space-evenly" }}>
