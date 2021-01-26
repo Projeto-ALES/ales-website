@@ -21,9 +21,18 @@ const updateInterview = async (id, body) => {
   }
 };
 
+const createManyInterviews = async (interviews) => {
+  try {
+    return await Interview.insertMany(interviews);
+  } catch (e) {
+    throw new ErrorHandler(500, e.errmsg);
+  }
+};
+
 module.exports = {
   getInterviewById,
   createInterview,
   deleteInterview,
   updateInterview,
+  createManyInterviews,
 };

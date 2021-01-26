@@ -44,4 +44,17 @@ describe('InterviewService test', () => {
       expect(findOneAndUpdate.withArgs({ _id: id }, { $set: { ...body } }).callCount).toEqual(1);
     });
   });
+
+  describe('createManyInterviews test', () => {
+    it('calls Interview.insertMany once', async () => {
+      const insertMany = sinon.stub(Interview, 'insertMany');
+      const interviews = [
+        { start: Date.now(), end: Date.now() },
+        { start: Date.now(), end: Date.now() },
+        { start: Date.now(), end: Date.now() },
+      ]
+      await InterviewService.createManyInterviews(interviews);
+      expect(insertMany.withArgs(interviews).callCount).toEqual(1);
+    });
+  });
 });
