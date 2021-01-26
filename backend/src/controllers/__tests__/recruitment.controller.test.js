@@ -172,5 +172,41 @@ describe("Recruitment controller test", () => {
         .expect('Content-Type', /json/)
         .expect(200);
     });
+
+    it("is unauthorized to add interviews", async () => {
+      const { name } = await Recruitment.create({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now() });
+      await request(app)
+        .post(`/api/recruitment/${name}/interviews`)
+        .send({ interviews: [{ start: Date.now(), end: Date.now() }, { start: Date.now(), end: Date.now() }] })
+        .expect('Content-Type', /json/)
+        .expect(401);
+    });
+
+    it("tries to add interviews without a interviews field", async () => {
+      const { name } = await Recruitment.create({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now() });
+      await authUser
+        .post(`/api/recruitment/${name}/interviews`)
+        .send([{ start: Date.now(), end: Date.now() }, { start: Date.now(), end: Date.now() }])
+        .expect('Content-Type', /json/)
+        .expect(400);
+    });
+
+    it("tries to add interviews with some of them with invalid fields", async () => {
+      const { name } = await Recruitment.create({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now() });
+      await authUser
+        .post(`/api/recruitment/${name}/interviews`)
+        .send({ interviews: [{ start: Date.now() }, { start: Date.now(), end: Date.now() }] })
+        .expect('Content-Type', /json/)
+        .expect(500);
+    });
+
+    it("adds interviews to a recruitment process", async () => {
+      const { name } = await Recruitment.create({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now() });
+      await authUser
+        .post(`/api/recruitment/${name}/interviews`)
+        .send({ interviews: [{ start: Date.now(), end: Date.now() }, { start: Date.now(), end: Date.now() }] })
+        .expect('Content-Type', /json/)
+        .expect(200);
+    });
   });
 });

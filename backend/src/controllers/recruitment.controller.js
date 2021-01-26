@@ -3,6 +3,7 @@ const { check, validationResult } = require('express-validator');
 
 const { AuthMiddleware } = require('../middlewares/auth.middleware');
 const RecruitmentService = require("../services/recruitment.service");
+const InterviewService = require("../services/interview.service");
 
 const { BadRequestError, handleError, NotFoundError } = require('../helpers/error');
 
@@ -101,6 +102,39 @@ router.put('/:name',
       return res.status(200).json({
         status: 200,
       });
+    } catch (e) {
+      handleError(e, res);
+    }
+  }
+);
+
+router.post("/:name/interviews",
+  AuthMiddleware,
+  [
+    check('interviews').not().isEmpty().withMessage('Interviews field is missing'),
+  ],
+  async (req, res) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        throw new BadRequestError(errors.array());
+      }
+
+      const { name } = req.params;
+      const { interviews } = req.body;
+
+      const docs = await InterviewService.createManyInterviews(interviews);
+      if (!docs) {
+        throw new BadRequestError("Some interviews are invalid");
+      }
+
+      const docs_refs = await docs.map(doc => doc._id);
+      await RecruitmentService.addInterviews(name, docs_refs);
+
+      return res.status(200).json({
+        status: 200,
+      });
+
     } catch (e) {
       handleError(e, res);
     }
