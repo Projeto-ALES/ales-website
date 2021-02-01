@@ -13,7 +13,6 @@ const gender = {
 const recruitmentStatus = {
   ACTIVE: "active",
   DONE: "done",
-  ARCHIVED: "archived",
 };
 
 const interviewStatus = {
