@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const { recruitmentStatus } = require("../helpers/status");
-const { ACTIVE, DONE, ARCHIVED } = recruitmentStatus;
+const { ACTIVE, DONE } = recruitmentStatus;
 
 const RecruitmentSchema = new mongoose.Schema({
   name: {
@@ -22,7 +22,7 @@ const RecruitmentSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: [ACTIVE, DONE, ARCHIVED],
+    enum: [ACTIVE, DONE],
     default: ACTIVE,
   },
   interviews: [{ type: mongoose.Types.ObjectId, ref: 'Interview' }],
