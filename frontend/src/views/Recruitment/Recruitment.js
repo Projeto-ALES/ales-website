@@ -8,7 +8,6 @@ import {
   InfoCircleOutlined,
   EditOutlined,
   CheckCircleOutlined,
-  DeleteOutlined,
   PlusOutlined,
   ArrowLeftOutlined,
   ExclamationCircleOutlined,
@@ -37,7 +36,7 @@ const Recruitment = ({ history }) => {
       .then((response) => {
         const { processes } = response.data;
         setProcesses(processes);
-        setActiveProcesses(processes.filter(proc => proc.status !== "archived") || []);
+        setActiveProcesses(processes.filter(proc => proc.status !== "done") || []);
       })
       .catch(() => {
         toast.error("Ops! Aconteceu algum erro para listar os processos");
@@ -57,8 +56,6 @@ const Recruitment = ({ history }) => {
         return <Tag color="green">Ativo</Tag>
       case "done":
         return <Tag color="blue">Finalizado</Tag>
-      case "archived":
-        return <Tag color="orange">Arquivado</Tag>
     }
   };
 
@@ -74,42 +71,10 @@ const Recruitment = ({ history }) => {
       key="edit"
       onClick={() => history.push(routes.PROCESS_EDIT.replace(":name", name))} />
   </Tooltip>,
-  <Tooltip placement="bottom" title="Finalizar">
+  <Tooltip placement="right" title="Finalizar">
     <CheckCircleOutlined key="edit" onClick={() => showDoneConfirm(name)} />
   </Tooltip>
   ];
-
-  const doneActions = (name) => [...actions,
-  <Tooltip placement="right" title="Arquivar">
-    <DeleteOutlined onClick={() => showArchiveConfirm(name)} />
-  </Tooltip>
-  ];
-
-  const archiveProcess = (name) => {
-    update(name, { status: "archived" })
-      .then(() => {
-        message.success("Processo arquivado!");
-        getProcesses();
-      })
-      .catch(() => {
-        message.error("Ops! Aconteceu algum erro pra arquivar o processo");
-      });
-  };
-
-  const showArchiveConfirm = (name) => {
-    confirm({
-      title: "Tem certeza que arquivar o processo?",
-      icon: <ExclamationCircleOutlined />,
-      okText: "Arquivar",
-      okType: "danger",
-      cancelText: "Cancelar",
-      confirmLoading: true,
-      onOk() {
-        return archiveProcess(name);
-      },
-      onCancel() { },
-    });
-  };
 
   const closeProcess = (name) => {
     update(name, { status: "done" })
@@ -179,8 +144,7 @@ const Recruitment = ({ history }) => {
                     actions={
                       proc.status === "active" ?
                         activeActions(proc.name) :
-                        proc.status === "done" ?
-                          doneActions(proc.name) : actions
+                        actions
                     }
                   >
                     <div style={{ display: "flex", justifyContent: "space-evenly" }}>
