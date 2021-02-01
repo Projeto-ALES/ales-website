@@ -50,6 +50,25 @@ describe('RecruitmentService test', () => {
       const data = { description: 'recruitment process' };
       await RecruitmentService.updateProcess(name, data);
       expect(findOneAndUpdate.withArgs({ name }, { $set: data }).callCount).toEqual(1);
+      findOneAndUpdate.restore();
+    });
+  });
+
+  describe('addInterviews test', () => {
+    it('calls Recruitment.findOneAndUpdate once', async () => {
+      const findOneAndUpdate = sinon.stub(Recruitment, 'findOneAndUpdate');
+      const name = "1S2021";
+      const interviews = [
+        { start: Date.now(), end: Date.now() },
+        { start: Date.now(), end: Date.now() },
+        { start: Date.now(), end: Date.now() },
+      ];
+      await RecruitmentService.addInterviews(name, interviews);
+      expect(findOneAndUpdate.withArgs(
+        { name },
+        { $push: { interviews: { $each: interviews } } },
+        { new: true, useFindAndModify: false }
+      ).callCount).toEqual(1);
     });
   });
 });

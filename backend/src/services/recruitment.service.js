@@ -37,6 +37,18 @@ const updateProcess = async (name, body) => {
   }
 };
 
+const addInterviews = async (name, interviews) => {
+  try {
+    await Recruitment.findOneAndUpdate(
+      { name },
+      { $push: { interviews: { $each: interviews } } },
+      { new: true, useFindAndModify: false }
+    );
+  } catch (e) {
+    throw new ErrorHandler(500, e.errmsg);
+  }
+};
+
 
 module.exports = {
   getProcesses,
@@ -44,4 +56,5 @@ module.exports = {
   getProcessByName,
   deleteProcessByName,
   updateProcess,
+  addInterviews,
 };

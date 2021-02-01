@@ -16,8 +16,15 @@ const recruitmentStatus = {
   ARCHIVED: "archived",
 };
 
+const interviewStatus = {
+  NOT_SCHEDULED: "not scheduled",
+  PENDING: "pending",
+  SCHEDULED: "scheduled",
+};
+
 module.exports = {
   professorStatus,
   gender,
   recruitmentStatus,
+  interviewStatus,
 };

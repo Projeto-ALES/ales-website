@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const connect = require("../../mongo");
 
 const Recruitment = require("../recruitment");
+const Interview = require("../interview");
 
 connect("recruitment_model_test");
 
@@ -12,6 +13,7 @@ describe("Recruitment model test", () => {
 
   afterEach(async () => {
     await Recruitment.deleteMany({});
+    await Interview.deleteMany({});
   });
 
   afterAll(async () => {
@@ -145,6 +147,23 @@ describe("Recruitment model test", () => {
       await Recruitment.findOneAndDelete({ name: process.name });
       const deletedProcess = await Recruitment.findOne({ name: process.name });
       expect(deletedProcess).toEqual(null);
+    });
+  });
+
+  describe("add interview", () => {
+    it("adds interviews to a given recruitment process", async () => {
+      const process = await Recruitment.create({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now() });
+      await Interview.deleteMany({});
+      const interview1 = await Interview.create({ start: Date.now(), end: Date.now() });
+      const interview2 = await Interview.create({ start: Date.now(), end: Date.now() });
+      await Recruitment.findOneAndUpdate(
+        { _id: process._id },
+        { $push: { interviews: { $each: [interview1._id, interview2._id] } } },
+        { new: true, useFindAndModify: false }
+      );
+
+      const { interviews } = await Recruitment.findOne({ name: process.name });
+      expect(interviews.length).toEqual(2);
     });
   });
 });

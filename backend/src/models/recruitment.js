@@ -25,6 +25,7 @@ const RecruitmentSchema = new mongoose.Schema({
     enum: [ACTIVE, DONE, ARCHIVED],
     default: ACTIVE,
   },
+  interviews: [{ type: mongoose.Types.ObjectId, ref: 'Interview' }],
   createdAt: {
     type: Date,
     default: Date.now,
