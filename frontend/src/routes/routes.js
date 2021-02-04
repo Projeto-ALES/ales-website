@@ -28,6 +28,7 @@ const routes = {
   RECRUITMENT: "/recruitment",
   PROCESS_NEW: "/recruitment/new",
   PROCESS_EDIT: "/recruitment/:name/edit",
+  RECRUITMENT_INSTRUCTIONS: "/recruitment/instructions",
 };
 
 export default routes;
