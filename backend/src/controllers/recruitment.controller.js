@@ -4,7 +4,9 @@ const { check, validationResult } = require('express-validator');
 const { AuthMiddleware } = require('../middlewares/auth.middleware');
 const RecruitmentService = require("../services/recruitment.service");
 const InterviewService = require("../services/interview.service");
+
 const { createCalendar } = require("../calendar/services/createCalendar");
+const { editCalendar } = require("../calendar/services/editCalendar");
 
 const { BadRequestError, handleError, NotFoundError } = require('../helpers/error');
 
@@ -101,6 +103,7 @@ router.put('/:name',
       if (!process) {
         throw new NotFoundError(ENTITY_NAME);
       }
+      await editCalendar(process.calendarId, process.name);
 
       return res.status(200).json({
         status: 200,
