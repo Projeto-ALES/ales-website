@@ -40,7 +40,7 @@ router.post('/',
       }
 
       const calendar = await createCalendar(req.body.name);
-      const process = await RecruitmentService.createProcess(req.body);
+      const process = await RecruitmentService.createProcess({ ...req.body, calendarId: calendar.data.id });
       return res.status(201).json({
         status: 201,
         process,
