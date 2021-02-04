@@ -4,6 +4,7 @@ const { check, validationResult } = require('express-validator');
 const { AuthMiddleware } = require('../middlewares/auth.middleware');
 const RecruitmentService = require("../services/recruitment.service");
 const InterviewService = require("../services/interview.service");
+const { createCalendar } = require("../calendar/services/createCalendar");
 
 const { BadRequestError, handleError, NotFoundError } = require('../helpers/error');
 
@@ -38,10 +39,12 @@ router.post('/',
         throw new BadRequestError(errors.array());
       }
 
+      const calendar = await createCalendar(req.body.name);
       const process = await RecruitmentService.createProcess(req.body);
       return res.status(201).json({
         status: 201,
         process,
+        calendar,
       });
     } catch (e) {
       handleError(e, res);
