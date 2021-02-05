@@ -59,13 +59,13 @@ const Recruitment = ({ history }) => {
     }
   };
 
-  const actions = [
+  const actions = (name) => [
     <Tooltip placement="left" title="Detalhe">
-      <InfoCircleOutlined onClick={() => alert("info")} />
+      <InfoCircleOutlined onClick={() => history.push(routes.PROCESS_DETAIL.replace(":name", name))} />
     </Tooltip>
   ];
 
-  const activeActions = (name) => [...actions,
+  const activeActions = (name) => [...actions(name),
   <Tooltip placement="bottom" title="Editar">
     <EditOutlined
       key="edit"
@@ -107,7 +107,6 @@ const Recruitment = ({ history }) => {
       <PageTitle title="Recrutamento" />
       <Container>
         <div className={styles.recruitment}>
-          { }
           <div className={styles.buttons}>
             <Button
               icon={<ArrowLeftOutlined />}
@@ -144,7 +143,7 @@ const Recruitment = ({ history }) => {
                     actions={
                       proc.status === "active" ?
                         activeActions(proc.name) :
-                        actions
+                        actions(proc.name)
                     }
                   >
                     <div style={{ display: "flex", justifyContent: "space-evenly" }}>
