@@ -12,6 +12,7 @@ const { BadRequestError, handleError, NotFoundError } = require('../helpers/erro
 
 const router = express.Router();
 const ENTITY_NAME = 'Process';
+const isTesting = process.env.NODE_ENV === "test";
 
 router.get('/',
   AuthMiddleware,
@@ -41,13 +42,21 @@ router.post('/',
         throw new BadRequestError(errors.array());
       }
 
-      const calendar = await createCalendar(req.body.name);
-      const process = await RecruitmentService.createProcess({ ...req.body, calendarId: calendar.data.id });
-      return res.status(201).json({
-        status: 201,
-        process,
-        calendar,
-      });
+      if (!isTesting) {
+        const calendar = await createCalendar(req.body.name);
+        const process = await RecruitmentService.createProcess({ ...req.body, calendarId: calendar.data.id });
+        return res.status(201).json({
+          status: 201,
+          process,
+          calendar,
+        });
+      } else {
+        const process = await RecruitmentService.createProcess(req.body);
+        return res.status(201).json({
+          status: 201,
+          process,
+        });
+      }
     } catch (e) {
       handleError(e, res);
     }
@@ -103,7 +112,10 @@ router.put('/:name',
       if (!process) {
         throw new NotFoundError(ENTITY_NAME);
       }
-      await editCalendar(process.calendarId, process.name);
+
+      if (!isTesting) {
+        await editCalendar(process.calendarId, process.name);
+      }
 
       return res.status(200).json({
         status: 200,

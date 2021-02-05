@@ -33,7 +33,6 @@ const RecruitmentSchema = new mongoose.Schema({
   // Google Calendar
   calendarId: {
     type: String,
-    unique: true,
   },
 });
 
