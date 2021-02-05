@@ -19,7 +19,7 @@ describe('RecruitmentService test', () => {
   describe('createProcess test', () => {
     it('calls Recruitment.create once', async () => {
       const create = sinon.stub(Recruitment, 'create');
-      const process = { name: '1S2020', beginningDate: Date.now(), endDate: Date.now() };
+      const process = { name: '1S2020', beginningDate: Date.now(), endDate: Date.now(), calendarId: "foo" };
       await RecruitmentService.createProcess(process);
       expect(create.withArgs(process).callCount).toEqual(1);
     });

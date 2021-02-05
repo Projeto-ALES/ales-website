@@ -70,7 +70,13 @@ describe("Recruitment model test", () => {
 
   describe("fields validation", () => {
     it("saves a recruitment process with valid fields", async () => {
-      const savedProcess = await Recruitment.create({ name: "1S2020", description: "recruitment process", beginningDate: new Date().toISOString(), endDate: new Date().toISOString() });
+      const savedProcess = await Recruitment.create({
+        name: "1S2020",
+        description: "recruitment process",
+        beginningDate: new Date().toISOString(),
+        endDate: new Date().toISOString(),
+        calendarId: "foo",
+      });
       expect(savedProcess._id).toBeDefined();
       expect(savedProcess.name).toBeDefined();
       expect(savedProcess.description).toBeDefined();
@@ -78,6 +84,7 @@ describe("Recruitment model test", () => {
       expect(savedProcess.endDate).toBeDefined();
       expect(savedProcess.status).toBeDefined();
       expect(savedProcess.createdAt).toBeDefined();
+      expect(savedProcess.calendarId).toBeDefined();
     });
   });
 
