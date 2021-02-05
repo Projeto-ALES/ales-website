@@ -90,7 +90,7 @@ describe("Recruitment controller test", () => {
     it("creates a new recruitment process", async () => {
       await authUser
         .post("/api/recruitment")
-        .send({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now() })
+        .send({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now(), calendarId: "foo" })
         .expect('Content-Type', /json/)
         .expect(201);
     });
@@ -165,7 +165,7 @@ describe("Recruitment controller test", () => {
     });
 
     it("updates a recruitment process", async () => {
-      const { name } = await Recruitment.create({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now() });
+      const { name } = await Recruitment.create({ name: "1S2020", beginningDate: Date.now(), endDate: Date.now(), calendarId: "bar" });
       await authUser
         .put(`/api/recruitment/${name}`)
         .send({ description: "Volunteers Recruitment" })

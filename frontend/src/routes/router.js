@@ -33,12 +33,14 @@ import LessonEdit from "views/Lesson/LessonEdit/LessonEdit";
 import Recruitment from "views/Recruitment/Recruitment";
 import ProcessNew from "views/Recruitment/ProcessNew/ProcessNew";
 import ProcessEdit from "views/Recruitment/ProcessEdit/ProcessEdit";
+import Instructions from "views/Recruitment/Instructions/Instructions";
 
 const router = (
   <Switch>
     <Route path={routes.LOGIN} component={Login} />
     <Route path={routes.CONTACT} component={Contact} />
 
+    <PrivateRoute path={routes.RECRUITMENT_INSTRUCTIONS} component={Instructions} />
     <PrivateRoute path={routes.PROCESS_EDIT} component={ProcessEdit} />
     <PrivateRoute path={routes.PROCESS_NEW} component={ProcessNew} />
     <PrivateRoute path={routes.RECRUITMENT} component={Recruitment} />

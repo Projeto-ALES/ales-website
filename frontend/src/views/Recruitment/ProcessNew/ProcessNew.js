@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { create } from "services/recruitment.service";
+import routes from "routes/routes";
 
 import { Form, Input, Button, DatePicker, message } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
@@ -32,7 +33,7 @@ const ProcessNew = ({ history }) => {
 
     create({ name, description, beginningDate, endDate })
       .then(() => {
-        history.goBack();
+        history.push(routes.RECRUITMENT_INSTRUCTIONS);
         message.success("Processo adicionado!");
       })
       .catch(() => {

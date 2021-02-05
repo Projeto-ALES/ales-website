@@ -5,10 +5,14 @@ const { AuthMiddleware } = require('../middlewares/auth.middleware');
 const RecruitmentService = require("../services/recruitment.service");
 const InterviewService = require("../services/interview.service");
 
+const { createCalendar } = require("../calendar/services/createCalendar");
+const { editCalendar } = require("../calendar/services/editCalendar");
+
 const { BadRequestError, handleError, NotFoundError } = require('../helpers/error');
 
 const router = express.Router();
 const ENTITY_NAME = 'Process';
+const isTesting = process.env.NODE_ENV === "test";
 
 router.get('/',
   AuthMiddleware,
@@ -38,11 +42,21 @@ router.post('/',
         throw new BadRequestError(errors.array());
       }
 
-      const process = await RecruitmentService.createProcess(req.body);
-      return res.status(201).json({
-        status: 201,
-        process,
-      });
+      if (!isTesting) {
+        const calendar = await createCalendar(req.body.name);
+        const process = await RecruitmentService.createProcess({ ...req.body, calendarId: calendar.data.id });
+        return res.status(201).json({
+          status: 201,
+          process,
+          calendar,
+        });
+      } else {
+        const process = await RecruitmentService.createProcess(req.body);
+        return res.status(201).json({
+          status: 201,
+          process,
+        });
+      }
     } catch (e) {
       handleError(e, res);
     }
@@ -97,6 +111,10 @@ router.put('/:name',
       const process = await RecruitmentService.updateProcess(name, req.body);
       if (!process) {
         throw new NotFoundError(ENTITY_NAME);
+      }
+
+      if (!isTesting) {
+        await editCalendar(process.calendarId, process.name);
       }
 
       return res.status(200).json({

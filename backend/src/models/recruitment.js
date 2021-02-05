@@ -30,6 +30,10 @@ const RecruitmentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  // Google Calendar
+  calendarId: {
+    type: String,
+  },
 });
 
 const Recruitment = mongoose.model("Recruitment", RecruitmentSchema);

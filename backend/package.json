@@ -14,7 +14,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.7",
     "nodemailer": "^6.4.10",
-    "winston": "^3.3.3"
+    "winston": "^3.3.3",
+    "googleapis": "^67.0.0"
   },
   "scripts": {
     "dev": "nodemon --exec babel-node app.js",

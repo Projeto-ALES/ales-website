@@ -3,3 +3,6 @@
 
 # logs
 *.log
+
+# credentials
+google-credentials.json
