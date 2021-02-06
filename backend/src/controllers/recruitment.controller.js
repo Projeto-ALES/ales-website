@@ -75,7 +75,10 @@ router.get('/:name',
       }
 
       // Google Calendar events
-      const events = await listEvents(process.calendarId, process.beginningDate);
+      let events;
+      if (process.calendarId) {
+        events = await listEvents(process.calendarId, process.beginningDate);
+      }
 
       return res.status(200).json({
         status: 200,
