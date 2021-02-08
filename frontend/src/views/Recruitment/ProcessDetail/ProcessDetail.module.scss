@@ -40,6 +40,13 @@
 
   .select {
     margin-bottom: var(--spacing-huge);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__info {
+      margin-left: var(--spacing-base);
+    }
   }
 
   .table {

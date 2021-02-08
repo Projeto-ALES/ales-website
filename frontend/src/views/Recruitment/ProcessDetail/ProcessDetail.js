@@ -9,8 +9,8 @@ import PageTitle from "components/PageTitle/PageTitle";
 import Container from "components/Container/Container";
 import Loader from "components/Loader/Loader";
 
-import { message, Tag, Statistic, Button, Select, Table, Space } from "antd";
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import { message, Tag, Statistic, Button, Select, Table, Tooltip } from "antd";
+import { ArrowLeftOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 
 import styles from "./ProcessDetail.module.scss";
 
@@ -129,6 +129,14 @@ const ProcessDetail = ({ history, match }) => {
                     return <Option value={key}>{key}</Option>
                   })}
                 </Select>
+                <div className={styles.select__info}>
+                  <Tooltip
+                    title="Listados apenas os dias que contém pelo menos 1 evento"
+                    placement="bottom"
+                  >
+                    <QuestionCircleOutlined />
+                  </Tooltip>
+                </div>
               </div>
               <div className={styles.table}>
                 <Table
