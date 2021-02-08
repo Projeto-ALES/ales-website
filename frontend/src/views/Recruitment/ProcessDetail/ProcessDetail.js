@@ -13,6 +13,7 @@ import { message, Tag, Statistic, Button, Select, Table, Tooltip } from "antd";
 import { ArrowLeftOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 
 import styles from "./ProcessDetail.module.scss";
+import columns from "./columns";
 
 const { Option } = Select;
 
@@ -65,38 +66,6 @@ const ProcessDetail = ({ history, match }) => {
     }
   };
 
-  const columns = [
-    {
-      title: "Evento",
-      dataIndex: "summary",
-      key: "name",
-    },
-    {
-      title: "Início",
-      dataIndex: ["start", "dateTime"],
-      key: "start",
-      render: value => value ? new Date(value).toTimeString().slice(0, 5) : "-"
-    },
-    {
-      title: "Fim",
-      dataIndex: ["end", "dateTime"],
-      key: "end",
-      render: value => value ? new Date(value).toTimeString().slice(0, 5) : "-"
-    },
-    {
-      title: "Status",
-      dataIndex: "processStatus",
-      key: "status",
-      render: value => <Tag color={value.color}>{value.status}</Tag>
-    },
-    {
-      title: "Meet",
-      dataIndex: "hangoutLink",
-      key: "hangoutLink",
-      render: value => value ? <a href={value} target="_blank">Link</a> : "-"
-    },
-  ];
-
   return (
     <Page>
       <PageTitle title="Detalhes do PS" />
@@ -144,6 +113,7 @@ const ProcessDetail = ({ history, match }) => {
                   dataSource={events[selectedDate]}
                   pagination={false}
                   scroll={{ x: 800 }}
+                  bordered
                 />
               </div>
             </div>
