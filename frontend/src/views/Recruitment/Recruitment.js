@@ -137,7 +137,7 @@ const Recruitment = ({ history }) => {
               </div>
             ) : (listAll ? processes : activeProcesses).map((proc) => {
               return (
-                <div className={styles.card}>
+                <div className={styles.card} key={proc.id}>
                   <Card
                     style={{ width: 300, textAlign: "center" }}
                     actions={
