@@ -43,8 +43,8 @@ const router = (
 
     <PrivateRoute path={routes.RECRUITMENT_INSTRUCTIONS} component={Instructions} />
     <PrivateRoute path={routes.PROCESS_EDIT} component={ProcessEdit} />
-    <PrivateRoute path={routes.PROCESS_DETAIL} component={ProcessDetail} />
     <PrivateRoute path={routes.PROCESS_NEW} component={ProcessNew} />
+    <PrivateRoute path={routes.PROCESS_DETAIL} component={ProcessDetail} />
     <PrivateRoute path={routes.RECRUITMENT} component={Recruitment} />
 
     <PrivateRoute path={routes.MY_AREA_ID} component={Profile} />

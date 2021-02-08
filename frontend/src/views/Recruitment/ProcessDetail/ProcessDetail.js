@@ -9,16 +9,20 @@ import PageTitle from "components/PageTitle/PageTitle";
 import Container from "components/Container/Container";
 import Loader from "components/Loader/Loader";
 
-import { message, Tag, Statistic, Button } from "antd";
+import { message, Tag, Statistic, Button, Select, Table, Space } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 
 import styles from "./ProcessDetail.module.scss";
+
+const { Option } = Select;
 
 const ProcessDetail = ({ history, match }) => {
   const [name, setName] = useState("");
   const [status, setStatus] = useState("");
   const [beginningDate, setBeginningDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [events, setEvents] = useState({});
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,6 +36,9 @@ const ProcessDetail = ({ history, match }) => {
           setStatus(process.status);
           setBeginningDate(formatDateToReceive(process.beginningDate));
           setEndDate(formatDateToReceive(process.endDate));
+
+          const { events } = response.data;
+          setEvents(events);
         })
         .catch(() => {
           message.error("Ops! Aconteceu algum erro pra pegar os dados do Processo");
@@ -43,7 +50,13 @@ const ProcessDetail = ({ history, match }) => {
     getProcess(match.params.name);
   }, []);
 
-  const mapStatus = (status) => {
+  useEffect(() => {
+    if (events) {
+      setSelectedDate(Object.keys(events)[0]);
+    }
+  }, [events]);
+
+  const mapProcessStatus = (status) => {
     switch (status) {
       case "active":
         return <Tag color="green">Ativo</Tag>
@@ -51,6 +64,38 @@ const ProcessDetail = ({ history, match }) => {
         return <Tag color="blue">Finalizado</Tag>
     }
   };
+
+  const columns = [
+    {
+      title: "Evento",
+      dataIndex: "summary",
+      key: "name",
+    },
+    {
+      title: "Início",
+      dataIndex: ["start", "dateTime"],
+      key: "start",
+      render: value => value ? new Date(value).toTimeString().slice(0, 5) : "-"
+    },
+    {
+      title: "Fim",
+      dataIndex: ["end", "dateTime"],
+      key: "end",
+      render: value => value ? new Date(value).toTimeString().slice(0, 5) : "-"
+    },
+    {
+      title: "Status",
+      dataIndex: "processStatus",
+      key: "status",
+      render: value => <Tag color={value.color}>{value.status}</Tag>
+    },
+    {
+      title: "Meet",
+      dataIndex: "hangoutLink",
+      key: "hangoutLink",
+      render: value => value ? <a href={value} target="_blank">Link</a> : "-"
+    },
+  ];
 
   return (
     <Page>
@@ -67,15 +112,31 @@ const ProcessDetail = ({ history, match }) => {
               </div>
               <div className={styles.title}>
                 <h1>{name}</h1>
-                {mapStatus(status)}
+                {mapProcessStatus(status)}
               </div>
               <div className={styles.dates}>
                 <div className={styles.date}>
-                  <Statistic title="Início" value={beginningDate} />
+                  {beginningDate && <Statistic title="Início" value={beginningDate} />}
                 </div>
                 <div className={styles.date}>
-                  <Statistic title="Fim" value={endDate} />
+                  {endDate && <Statistic title="Fim" value={endDate} />}
                 </div>
+              </div>
+              <div className={styles.select}>
+                <Select style={{ width: 200 }} defaultValue={selectedDate} onChange={(value) => setSelectedDate(value)}>
+                  {Object.entries(events).map(([key,]
+                  ) => {
+                    return <Option value={key}>{key}</Option>
+                  })}
+                </Select>
+              </div>
+              <div className={styles.table}>
+                <Table
+                  columns={columns}
+                  dataSource={events[selectedDate]}
+                  pagination={false}
+                  scroll={{ x: 800 }}
+                />
               </div>
             </div>
           )}
