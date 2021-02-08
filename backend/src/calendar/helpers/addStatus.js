@@ -12,6 +12,7 @@ const addStatus = async (events) => {
       e["processStatus"] = processStatus.EMPTY;
     }
   });
+  return events;
 }
 
 module.exports = {

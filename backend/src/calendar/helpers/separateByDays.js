@@ -5,10 +5,10 @@ const separateByDays = async (events) => {
     let date;
     if (e.start.dateTime) {
       date = new Date(e.start.dateTime);
+      date = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
     } else if (e.start.date) {
-      date = new Date(e.start.date);
+      date = e.start.date;
     }
-    date = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
     if (items[date] !== undefined) {
       items[date].push(e);
     } else {
