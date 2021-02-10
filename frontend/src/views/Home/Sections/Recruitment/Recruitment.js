@@ -23,6 +23,7 @@ const Recruitment = () => {
           </p>
           <p>
             Temos vagas para as seguinte matérias neste semestre: <b>Inglês</b>, <b>Humanidades</b>, <b>Programação</b>, <b>Ciências</b>, <b>Matemática</b> e <b>Desenho</b>.
+          </p>
           <p>
             O nosso cronograma de aulas de sábado seguirá a seguinte agenda semanal:
   <ul>9h30 - 10h30: Inglês</ul>
