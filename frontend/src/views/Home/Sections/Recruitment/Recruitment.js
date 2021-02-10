@@ -48,7 +48,6 @@ const Recruitment = () => {
               <ButtonIcon text="Inscrição" kind="blue" icon="far fa-file-alt" />
             </a>
           </div>
-        </div>
         <div className={styles.info}>
           <p>Todo o processo ocorrerá de forma remota, assim como as atividades realizadas ao longo do semestre. <br></br>
               </p>
