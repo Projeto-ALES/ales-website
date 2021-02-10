@@ -32,14 +32,6 @@ const Recruitment = () => {
           <div className={styles.buttons}>
             <a
               className={styles.button}
-              href="https://drive.google.com/file/d/1SlgU2G-cZgHtftyRr5IxjgbenEXKlKVR/view?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <ButtonIcon text="Edital" kind="primary" icon="fas fa-info-circle" />
-            </a>
-            <a
-              className={styles.button}
               href="https://docs.google.com/forms/d/e/1FAIpQLSc2C2-mkRGdAAeVYTfSxgochVZdAfcEu0VJekqWmyqWyRAwAA/viewform"
               target="_blank"
               rel="noopener noreferrer"
