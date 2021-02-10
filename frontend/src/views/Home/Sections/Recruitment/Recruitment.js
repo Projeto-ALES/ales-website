@@ -22,27 +22,35 @@ const Recruitment = () => {
             O ano de 2021 já começou e o ALES já está se preparando para o retorno das aulas aos sábados. Neste semestre, seguiremos modelo online semelhante ao implementado no semestre passado, com o auxílio de ferramentas como Google Meet e Google Classroom. As aulas serão aos sábados, com as atividades iniciando às 9h30 e terminando às 17h30.
           </p>
           <p>
-            Temos vagas para as seguinte matérias neste semestre: Inglês, Humanidades, Programação, Ciências, Matemática e Desenho. </p>
+            Temos vagas para as seguinte matérias neste semestre: <b>Inglês</b>, <b>Humanidades</b>, <b>Programação</b>, <b>Ciências</b>, <b>Matemática</b> e <b>Desenho</b>. </p>
     <p>
             O nosso cronograma de aulas de sábado seguirá a seguinte agenda semanal:
     </p>
-<ul>
-    <li>9h30 - 10h30: Inglês </li> 
-<li>10h35 - 11h50: Humanidades </li>
+    
+    <div id="wrapper" class="center">
+    <div id="content" class="center">
+        <div id="listDiv" class="center">
+            <ul>
+                <li>9h30 - 10h30: Inglês </li> 
+                <li>10h35 - 11h50: Humanidades </li>
 <li>11h50 - 13h00: Período de Almoço </li>
 <li>13h00 - 14h00: Programação </li>
 <li>14h05 - 15h20: Ciências </li>
 <li>15h25 - 16h25: Matemática </li>
 <li>16h30 - 17h30: Desenho </li>
-   </ul>
+            </ul>
+        </div>
+    </div>
+</div>
+    
 <p>Você pode escolher quantas matérias quiser (pode fazer uma só ou todas!!!)</p>
           <p>
-            AAs inscrições vão de 10/02 até 19/02 e podem ser feitas pelo formulário a seguir:
+            As inscrições vão de <b>10/02</b> até <b>19/02</b> e podem ser feitas pelo formulário a seguir:
             </p>
           <div className={styles.buttons}>
             <a
               className={styles.button}
-              href="https://docs.google.com/forms/d/e/1FAIpQLSc2C2-mkRGdAAeVYTfSxgochVZdAfcEu0VJekqWmyqWyRAwAA/viewform"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSeba10ZJF0aJj3382-g2eUZINBuDPTDCaO8BFTRih-eWOnvBQ/viewform?usp=pp_url"
               target="_blank"
               rel="noopener noreferrer"
             >
