@@ -19,6 +19,15 @@
         width: auto;
       }
     }
+    
+    div.center {
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+    }
+    ul {
+    text-align: left;
+    }
 
     @include tablet-portrait {
       justify-content: center;
