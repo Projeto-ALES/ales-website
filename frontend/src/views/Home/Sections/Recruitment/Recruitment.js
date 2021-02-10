@@ -26,22 +26,44 @@ const Recruitment = () => {
     <p>
             O nosso cronograma de aulas de sábado seguirá a seguinte agenda semanal:
     </p>
-    
-    <div id="wrapper" class="center">
-    <div id="content" class="center">
-        <div id="listDiv" class="center">
-            <ul>
-                <li>9h30 - 10h30: Inglês </li> 
-                <li>10h35 - 11h50: Humanidades </li>
-<li>11h50 - 13h00: Período de Almoço </li>
-<li>13h00 - 14h00: Programação </li>
-<li>14h05 - 15h20: Ciências </li>
-<li>15h25 - 16h25: Matemática </li>
-<li>16h30 - 17h30: Desenho </li>
-            </ul>
-        </div>
-    </div>
-</div>
+
+    <table>
+  <tr>
+    <td>9h30 - 10h30</td>
+    <td></td>
+    <td>Inglês</td>
+  </tr>
+  <tr>
+    <td>10h35 - 11h50</td>
+    <td></td>
+    <td>Humanidades</td>
+  </tr>
+    <tr>
+    <td>11h50 - 13h00</td>
+    <td></td>
+    <td>Período de almoço</td>
+  </tr>
+  <tr>
+    <td>13h00 - 14h00</td>
+    <td></td>
+    <td>Programação</td>
+  </tr>
+  <tr>
+    <td>14h05 - 15h20</td>
+    <td></td>
+    <td>Ciências</td>
+  </tr>
+  <tr>
+    <td>15h25 - 16h25</td>
+    <td></td>
+    <td>Matemática</td>
+  </tr>
+  <tr>
+    <td>16h30 - 17h30</td>
+    <td></td>
+    <td>Desenho</td>
+  </tr>
+</table>
     
 <p>Você pode escolher quantas matérias quiser (pode fazer uma só ou todas!!!)</p>
           <p>
