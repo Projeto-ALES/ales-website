@@ -7,6 +7,9 @@ const InterviewService = require("../services/interview.service");
 
 const { createCalendar } = require("../calendar/services/createCalendar");
 const { editCalendar } = require("../calendar/services/editCalendar");
+const { listEvents } = require("../calendar/services/listEvents");
+const { addStatus } = require("../calendar/helpers/addStatus");
+const { separateByDays } = require("../calendar/helpers/separateByDays");
 
 const { BadRequestError, handleError, NotFoundError } = require('../helpers/error');
 
@@ -73,9 +76,23 @@ router.get('/:name',
         throw new NotFoundError(ENTITY_NAME);
       }
 
+      // Google Calendar events
+      let events = [];
+      if (process.calendarId) {
+        events = await listEvents(process.calendarId, process.beginningDate, process.endDate);
+      }
+
+      if (events && events.length > 0) {
+        // add a status for each event
+        await addStatus(events);
+        // divide by days
+        events = await separateByDays(events);
+      }
+
       return res.status(200).json({
         status: 200,
         process,
+        events,
       });
     }
     catch (e) {

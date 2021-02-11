@@ -28,6 +28,7 @@ const routes = {
   RECRUITMENT: "/recruitment",
   PROCESS_NEW: "/recruitment/new",
   PROCESS_EDIT: "/recruitment/:name/edit",
+  PROCESS_DETAIL: "/recruitment/:name",
   RECRUITMENT_INSTRUCTIONS: "/recruitment/instructions",
 };
 
