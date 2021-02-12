@@ -24,6 +24,7 @@ const ProcessDetail = ({ history, match }) => {
   const [endDate, setEndDate] = useState(null);
   const [events, setEvents] = useState({});
   const [selectedDate, setSelectedDate] = useState(null);
+  const [statistics, setStatistics] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -38,8 +39,10 @@ const ProcessDetail = ({ history, match }) => {
           setBeginningDate(formatDateToReceive(process.beginningDate));
           setEndDate(formatDateToReceive(process.endDate));
 
-          const { events } = response.data;
+          const { events, statistics } = response.data;
           setEvents(events);
+          setStatistics(statistics);
+
         })
         .catch(() => {
           message.error("Ops! Aconteceu algum erro pra pegar os dados do Processo");
@@ -93,20 +96,24 @@ const ProcessDetail = ({ history, match }) => {
               </div>
               <div className={styles.statistics}>
                 <div className={styles.statistic}>
-                  <Statistic title="Total de entrevistas" value={50} prefix={<CalendarOutlined />} />
+                  <Statistic
+                    title="Total de entrevistas"
+                    value={statistics && statistics["total"] >= 0 ? statistics["total"] : "-"}
+                    prefix={<CalendarOutlined />}
+                  />
                 </div>
                 <div className={styles.statistic}>
                   <div className={styles.statistic__status}>
                     <Tag color="orange">Vago</Tag>
-                    <span className={styles.value}>{20}</span>
+                    <span className={styles.value}>{statistics && statistics["Vago"] || "-"}</span>
                   </div>
                   <div className={styles.statistic__status}>
                     <Tag color="blue">Pendente</Tag>
-                    <span className={styles.value}>{15}</span>
+                    <span className={styles.value}>{statistics && statistics["Pendente"] || "-"}</span>
                   </div>
                   <div className={styles.statistic__status}>
                     <Tag color="green">Confirmado</Tag>
-                    <span className={styles.value}>{15}</span>
+                    <span className={styles.value}>{statistics && statistics["Confirmado"] || "-"}</span>
                   </div>
                 </div>
               </div>
