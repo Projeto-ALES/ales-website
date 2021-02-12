@@ -10,7 +10,7 @@ import Container from "components/Container/Container";
 import Loader from "components/Loader/Loader";
 
 import { message, Tag, Statistic, Button, Select, Table, Tooltip } from "antd";
-import { ArrowLeftOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined, QuestionCircleOutlined, CalendarOutlined } from "@ant-design/icons";
 
 import styles from "./ProcessDetail.module.scss";
 import columns from "./columns";
@@ -89,6 +89,25 @@ const ProcessDetail = ({ history, match }) => {
                 </div>
                 <div className={styles.date}>
                   {endDate && <Statistic title="Fim" value={endDate} />}
+                </div>
+              </div>
+              <div className={styles.statistics}>
+                <div className={styles.statistic}>
+                  <Statistic title="Total de entrevistas" value={50} prefix={<CalendarOutlined />} />
+                </div>
+                <div className={styles.statistic}>
+                  <div className={styles.statistic__status}>
+                    <Tag color="orange">Vago</Tag>
+                    <span className={styles.value}>{20}</span>
+                  </div>
+                  <div className={styles.statistic__status}>
+                    <Tag color="blue">Pendente</Tag>
+                    <span className={styles.value}>{15}</span>
+                  </div>
+                  <div className={styles.statistic__status}>
+                    <Tag color="green">Confirmado</Tag>
+                    <span className={styles.value}>{15}</span>
+                  </div>
                 </div>
               </div>
               <div className={styles.select}>
