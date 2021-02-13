@@ -1,7 +1,7 @@
 name: cd
 
 on:
-  pull_request:
+  push:
     branches: [master]
 
   workflow_dispatch:
@@ -27,14 +27,14 @@ jobs:
         with:
           context: ./backend
           push: true
-          tags: projetoales/ales_backend:latest
+          tags: projetoales/ales_backend
 
       - name: build and push frontend
         uses: docker/build-push-action@v2
         with:
           context: ./frontend
           push: true
-          tags: projetoales/ales_frontend:latest
+          tags: projetoales/ales_frontend
 
   deploy:
     needs: build
