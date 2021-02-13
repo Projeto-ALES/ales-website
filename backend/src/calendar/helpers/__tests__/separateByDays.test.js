@@ -11,45 +11,44 @@ describe("separateByDays test", () => {
 
   it("has start.dateTime", async () => {
     const today = new Date();
-
     const events = [
       {
         start: {
-          dateTime: today,
+          dateTime: today.toISOString(),
         },
       },
       {
         start: {
-          dateTime: today,
+          dateTime: today.toISOString(),
         },
       }
     ];
-    const date = today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear();
+
+    const date = ("0" + today.getDate()).slice(-2) + "/" + ("0" + (today.getMonth() + 1)).slice(-2) + "/" + today.getFullYear();
     const result = {};
     result[date] = [...events];
+
     expect(await separateByDays(events)).toMatchObject(result);
   });
 
   it("has start.date", async () => {
-    const today = new Date();
-    const date = today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear();
-
+    const today = "2000-02-01";
     const events = [
       {
         summary: "Event 1",
         start: {
-          date,
+          date: today,
         },
       },
       {
         summary: "Event 2",
         start: {
-          date,
+          date: today,
         },
       }
     ];
     let result = {};
-    result[date] = [...events];
+    result["01/02/2000"] = [...events];
     expect(await separateByDays(events)).toMatchObject(result);
   });
 });

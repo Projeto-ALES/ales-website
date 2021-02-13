@@ -4,9 +4,9 @@ import Container from "components/Container/Container";
 import ButtonIcon from "components/ButtonIcon/ButtonIcon";
 
 import Alessauro from "assets/logos/alessauro.svg";
-import styles from "./Recruitment.module.scss";
+import styles from "./Subscription.module.scss";
 
-const Recruitment = () => {
+const Subscription = () => {
   return (
     <div className={styles.container} id="recrutamento">
       <Container>
@@ -23,49 +23,51 @@ const Recruitment = () => {
           </p>
           <p>
             Temos vagas para as seguinte matérias neste semestre: <b>Inglês</b>, <b>Humanidades</b>, <b>Programação</b>, <b>Ciências</b>, <b>Matemática</b> e <b>Desenho</b>. </p>
-    <p>
+          <p>
             O nosso cronograma de aulas de sábado seguirá a seguinte agenda semanal:
-    </p>
+          </p>
 
-    <table>
-  <tr>
-    <td>9h30 - 10h30</td>
-    <td></td>
-    <td>Inglês</td>
-  </tr>
-  <tr>
-    <td>10h35 - 11h50</td>
-    <td></td>
-    <td>Humanidades</td>
-  </tr>
-    <tr>
-    <td>11h50 - 13h00</td>
-    <td></td>
-    <td>Período de almoço</td>
-  </tr>
-  <tr>
-    <td>13h00 - 14h00</td>
-    <td></td>
-    <td>Programação</td>
-  </tr>
-  <tr>
-    <td>14h05 - 15h20</td>
-    <td></td>
-    <td>Ciências</td>
-  </tr>
-  <tr>
-    <td>15h25 - 16h25</td>
-    <td></td>
-    <td>Matemática</td>
-  </tr>
-  <tr>
-    <td>16h30 - 17h30</td>
-    <td></td>
-    <td>Desenho</td>
-  </tr>
-</table>
-    
-<p>Você pode escolher quantas matérias quiser (pode fazer uma só ou todas!!!)</p>
+          <div className={styles.table}>
+            <table>
+              <tr>
+                <td>9h30 - 10h30</td>
+                <td></td>
+                <td>Inglês</td>
+              </tr>
+              <tr>
+                <td>10h35 - 11h50</td>
+                <td></td>
+                <td>Humanidades</td>
+              </tr>
+              <tr>
+                <td>11h50 - 13h00</td>
+                <td></td>
+                <td>Período de almoço</td>
+              </tr>
+              <tr>
+                <td>13h00 - 14h00</td>
+                <td></td>
+                <td>Programação</td>
+              </tr>
+              <tr>
+                <td>14h05 - 15h20</td>
+                <td></td>
+                <td>Ciências</td>
+              </tr>
+              <tr>
+                <td>15h25 - 16h25</td>
+                <td></td>
+                <td>Matemática</td>
+              </tr>
+              <tr>
+                <td>16h30 - 17h30</td>
+                <td></td>
+                <td>Desenho</td>
+              </tr>
+            </table>
+          </div>
+
+          <p>Você pode escolher quantas matérias quiser (pode fazer uma só ou todas!!!)</p>
           <p>
             As inscrições vão de <b>10/02</b> até <b>19/02</b> e podem ser feitas pelo formulário a seguir:
             </p>
@@ -89,4 +91,4 @@ const Recruitment = () => {
   )
 }
 
-export default Recruitment;
+export default Subscription;

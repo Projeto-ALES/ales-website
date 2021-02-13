@@ -12,6 +12,7 @@ const { addStatus } = require("../calendar/helpers/addStatus");
 const { separateByDays } = require("../calendar/helpers/separateByDays");
 
 const { BadRequestError, handleError, NotFoundError } = require('../helpers/error');
+const { addStatistics } = require('../calendar/helpers/addStatistics');
 
 const router = express.Router();
 const ENTITY_NAME = 'Process';
@@ -82,9 +83,12 @@ router.get('/:name',
         events = await listEvents(process.calendarId, process.beginningDate, process.endDate);
       }
 
-      if (events && events.length > 0) {
+      let statistics = {};
+      if (events) {
         // add a status for each event
         await addStatus(events);
+        // add statistics
+        statistics = await addStatistics(events);
         // divide by days
         events = await separateByDays(events);
       }
@@ -93,6 +97,7 @@ router.get('/:name',
         status: 200,
         process,
         events,
+        statistics,
       });
     }
     catch (e) {

@@ -20,6 +20,11 @@
     align-items: center;
     margin-bottom: var(--spacing-huge);
 
+    @include tablet-portrait {
+      flex-direction: row;
+      justify-content: center;
+    }
+
     .date {
       margin: var(--spacing-base) 0;
 
@@ -31,10 +36,38 @@
         color: var(--gray-dark);
       }
     }
+  }
+
+  .statistics {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: var(--spacing-huge);
 
     @include tablet-portrait {
       flex-direction: row;
       justify-content: center;
+    }
+
+    .statistic {
+      margin: var(--spacing-base) 0;
+      min-width: 130px;
+
+      @include tablet-portrait {
+        margin: 0 var(--spacing-huge);
+      }
+
+      &__status {
+        display: flex;
+        justify-content: space-between;
+
+        margin: var(--spacing-base) 0;
+
+        .value {
+          color: var(--gray-dark);
+          font-size: 16px;
+        }
+      }
     }
   }
 

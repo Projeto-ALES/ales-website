@@ -11,15 +11,15 @@ const popover = (
     <div style={style}>
       <Tag color="orange">Vago</Tag>
       Significa que ninguém ainda está alocado para o evento
-      </div>
+    </div>
     <div style={style}>
       <Tag color="blue">Pendente</Tag>
       Significa que um candidato escolheu este horário mas não confirmou presença no evento ainda
-      </div>
+    </div>
     <div style={style}>
       <Tag color="green">Confirmado</Tag>
       Significa que o candidato já confirmou a presença no evento!
-      </div>
+    </div>
   </div>
 );
 
