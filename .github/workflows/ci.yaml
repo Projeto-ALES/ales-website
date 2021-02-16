@@ -39,11 +39,6 @@ jobs:
       MONGO_HOSTNAME: ${{ secrets.MONGO_HOSTNAME }}
       TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
       REFRESH_TOKEN_SECRET: ${{ secrets.REFRESH_TOKEN_SECRET }}
-      DOMAIN: ${{ secrets.DOMAIN }}
-      EMAIL_HOST: ${{ secrets.EMAIL_HOST }}
-      EMAIL_FROM: ${{ secrets.EMAIL_HOST }}
-      EMAIL_USER: ${{ secrets.EMAIL_FROM }}
-      EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
     steps:
       - name: checkout
         uses: actions/checkout@v2
