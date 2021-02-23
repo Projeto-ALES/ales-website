@@ -11,6 +11,8 @@ const { listEvents } = require("../calendar/services/listEvents");
 const { addStatus } = require("../calendar/helpers/addStatus");
 const { separateByDays } = require("../calendar/helpers/separateByDays");
 
+const { getSpreadsheet } = require("../sheets/services/getSpreadsheet");
+
 const { BadRequestError, handleError, NotFoundError } = require('../helpers/error');
 const { addStatistics } = require('../calendar/helpers/addStatistics');
 
@@ -180,5 +182,16 @@ router.post("/:name/interviews",
     }
   }
 );
+
+router.get("/spreadsheet/:id",
+  AuthMiddleware,
+  async (req, res) => {
+    try {
+      await getSpreadsheet(req.params.id);
+    } catch (e) {
+      handleError(e, res);
+    }
+  }
+)
 
 module.exports = router;
