@@ -1,40 +1,49 @@
-# Recruitment
+# Recrutamento
 
-## Description
+### Descrição
 
-This document intends to explain the basic flow of creating a recruitment process and how to configure Google Calendar API.
+Este documento visa explicar o fluxo básico e roadmap das funcionalidades pra automatizar os Processos Seletivos do ALES utilizando a API do Google Calendar.
 
-## Why
+### Por que?
 
-For what we have experienced in past recruitment processes, the most stressful and tiresome part of organizing a recruitment process is the one that you have to allocate each candidate in a schedule good for him and for you. There are always conflicts and unforeseens, so the manual work ends up being very repetitive.
-So we thought: "Why don't we automate at least that part? We have a website, we can do that." And that's what this document tries to detail.
+Pelo que a gente já experienciou em Processos Seletivos passados, a parte mais estressante e cansativa sempre acaba sendo a alocação dos candidatos nos horários de entrevista disponíveis. Sempre há conflitos e imprevistos, o que acaba tornando o trabalho muito manual e repetitivo. Por isso a ideia de automatizar pelo menos essa parte (e quem sabe outras partes no futuro).
 
-### Creating a new recruitment process
+### Criando um novo Processo Seletivo
 
-What we want here is that a recruitment process can have basic information such as `name`, `description`, `start` and `end` dates. Also, it would be very convenient to integrate this recruitment process with Google Calendar, which is a tool very used by us. Thus, whenever you create a recruitment process, a new Google Calendar will be created with the same name and with the configured account.
+Aqui queremos apenas as informações básicas de um processo de recrutamento como: `nome`, `descrição`, `início` e `fim`.
+Além disso, como usamos bastante o Google Calendar (não só para o processo mas para outros projetos do ALES), configuramos o site para que ele crie um novo calendário no Google Calendar com o mesmo nome do Processo Seletivo criado.
 
-### Editing a recruitment process
+### Editando um Processo Seletivo
 
-The only thing (for now) that you can edit in a Google Calendar's calendar (when editing a recruitment process) is its `name` and `timeZone`. Since we want to be able to create and edit events all the time, it is way more easier to do that in Google Calendar's UI itself and the website just consumes and displays that data.
+A única coisa configurada por enquanto é a possibilidade de editar o nome do calendário criado no Google Calendar. Como queremos criar e editar os eventos (as entrevistas no caso), então é muito mais fácil de fazer isso diretamente pelo Google Calendar do que refazer tudo isso no site. Então a ideia é que o site apenas puxe os dados da API do Calendar e mostre na interface do site.
 
-## Google Calendar API
+## API do Google Calendar
 
-### Creating a project
+### Criando um projeto
 
-To be able to interact with Google Calendar API (any Google API actually) you have to create a project in [Google Developer Console](https://console.developers.google.com/project). After that, search for the API that you need in the API Library and activate it. And finally, create the credentials for accessing the API. There are 2 types of credentials: `oAuth2` and `Account Service`. `oAuth2` is always attached to a Google account and is suitable when you need permissions from different users. `Account Service` can be used when you just want to access an API in an transparent way for the user.
+Pra ser capaz de interagir com a API do Google Calendar (com qualquer API do Google na verdade) você precisa criar um projeto no [Google Developer Console](https://console.developers.google.com/project). Depois disso, procure pela API do Calendar na biblioteca de APIs e ative essa API. E por fim, crie as credenciais para o `backend` do site poder acessar a API. Existem 2 tipos de credenciais: `OAuth2` e `Account Service`. OAuth2 é sempre associado com permissões de usuários (geralmente login ou leitura de dados) e faz sentido usar quando temos que lidar com esses tipos de permissões. Account Service é útil quando queremos que um serviço utilize e acesse alguma API do Google de forma transparente pro usuário, que é o que queremos aqui. Então crie uma credencial desse tipo (só é necessário fazer esse passo 1 vez).
 
-We use the second one, as we will be using a unique account (ALES's account) to handle the events/interviews. So create credentials for a `Service Account`.
+### Listando os eventos
 
-### Configuring credentials
+Na página de detalhe de um Processo Seletivo, são listados todos os eventos que foram criados no Calendar separados por data. Essa página foi pensada apenas como um lugar onde se consegue ter um panorama geral das entrevistas.
 
-Once you have the credentials, just download it as a `.json` file. Then you will need 2 environment variables:
+### Configurando as credenciais no site
+
+Uma vez que você tem as credenciais, apenas faça o download como um arquivo `.json` e coloque esse arquivo na pasta `backend`. Feito isso, você vai precisar adicionar 2 novas variáveis de ambiente:
 
 - GOOGLE_APPLICATION_CREDENTIALS=/usr/src/app/{file-name} (recomendado nomear como `google-credentials.json`, caso contrário mudar no `.gitignore`)
 - CALENDAR_EMAIL={your-email}
 
-> Just add them to `dev/app.env` or `prod/app.env`
+> Adicione em `dev/app.env` pra testar e se deu certo e quiser testar em produção adicione em `prod/app.env`
 
-> CALENDAR_EMAIL will be the owner of all calendars created within the application
+> CALENDAR_EMAIL é o email que será owner de todos os calendários criados na aplicação (recomendado usar um email do ALES)
 
-And that's it for now! Try to run the application with some sample project and with your Google account.
-This document will be updated as soon as new features are implemented.
+## Roadmap
+
+Por enquanto ainda não resolvemos o problema de alocação de entrevistas. Então a ideia é continuar trabalhando nessas features para que no próximo PS já seja possível utilizar o site pra essa etapa. Como uma referência de roadmap (ideias pensadas mas não implementadas ainda e que podem ser mudadas), podemos ter:
+
+1. Adição dos candidatos alocados pra entrevista (pode ser via anexo de uma planilha do Google Forms, por exemplo)
+
+2. Com os candidatos adicionados e as entrevistas criadas (eventos no Calendar), podemos criar uma tela com todos os horários disponíveis (puxando os dados do Calendar) e mandar o link com um token único pros candidatos por email pra eles escolherem um desses horários. Escolhido um horário, o candidato já poderia ser convidado automaticamente no evento do Calendar.
+
+3. Seria interessante também se o candidato pudesse de alguma forma indicar na página que nenhum dos horários listados é o ideal pra ele. Nesse caso o recrutador poderia combinar com ele de forma manual.
