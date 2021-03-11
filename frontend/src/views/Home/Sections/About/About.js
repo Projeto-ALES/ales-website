@@ -3,9 +3,6 @@ import React from "react";
 import Container from "components/Container/Container";
 import numbers from "./numbers";
 
-import Unicamp from "assets/img/unicamp-logo.png";
-import Proec from "assets/img/proec-logo.png";
-
 import styles from "./About.module.scss";
 
 const About = () => {
@@ -20,10 +17,6 @@ const About = () => {
             {numbers.map((item, index) => {
               return <span key={index}>{item.text}</span>;
             })}
-          </div>
-          <div className={styles.partnersContainer}>
-            <img src={Unicamp} alt="Unicamp Logo" />
-            <img src={Proec} alt="Proec Logo" />
           </div>
         </div>
       </Container>
