@@ -12,17 +12,20 @@ const Subscription = () => {
       <Container>
         <div className={styles.title}>
           <img src={Alessauro} alt="alessauro" />
-          <h2>Novas vagas para alunos!!</h2>
+          <h2>Vagas remanescentes para alunos!</h2>
         </div>
         <div className={styles.subtitle}>
-          <h3>O Projeto ALES está com vagas abertas para alunos do 8º ano ao 3º ano do ensino médio.</h3>
+          <h3>O Projeto ALES está com vagas remanescentes abertas para alunos do 8º ano ao 3º ano do ensino médio.</h3>
         </div>
         <div className={styles.description}>
           <p>
-            O ano de 2021 já começou e o ALES já está se preparando para o retorno das aulas aos sábados. Neste semestre, seguiremos modelo online semelhante ao implementado no semestre passado, com o auxílio de ferramentas como Google Meet e Google Classroom. As aulas serão aos sábados, com as atividades iniciando às 9h30 e terminando às 17h30.
+          O semestre do ALES já começou com as aulas aos sábados! Neste semestre, estamos seguindo modelo online semelhante ao implementado no semestre passado, com o auxílio de ferramentas como Google Meet e Google Classroom. As aulas são aos sábados, com as atividades iniciando às 9h30 e terminando às 17h30.
           </p>
           <p>
-            Temos vagas para as seguinte matérias neste semestre: <b>Inglês</b>, <b>Humanidades</b>, <b>Programação</b>, <b>Ciências</b>, <b>Matemática</b> e <b>Desenho</b>. </p>
+            Temos vagas para as seguinte matérias neste semestre: <b>Inglês</b>, <b>Humanidades</b>, <b>Programação</b>, <b>Ciências</b> e <b>Matemática</b>. </p>
+            <p>
+            As nossas inscrições vão até dia <b>15/03</b>!
+          </p>
           <p>
             O nosso cronograma de aulas de sábado seguirá a seguinte agenda semanal:
           </p>
@@ -68,13 +71,11 @@ const Subscription = () => {
           </div>
 
           <p>Você pode escolher quantas matérias quiser (pode fazer uma só ou todas!!!)</p>
-          <p>
-            As inscrições vão de <b>10/02</b> até <b>19/02</b> e podem ser feitas pelo formulário a seguir:
-            </p>
+
           <div className={styles.buttons}>
             <a
               className={styles.button}
-              href="https://docs.google.com/forms/d/e/1FAIpQLSeba10ZJF0aJj3382-g2eUZINBuDPTDCaO8BFTRih-eWOnvBQ/viewform?usp=pp_url"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSe2pK73SUosXhSiSPpfhC5sZYcVFFz1CNr1CSTwfGAjrs4vXA/viewform?usp=pp_url"
               target="_blank"
               rel="noopener noreferrer"
             >
