@@ -20,7 +20,7 @@ const Volunteer = () => {
             <div className={styles.container}>
                 <Container>
                     <div className={styles.title}>
-                        <h2>Você ficou interessado no ALES e deseja ser um voluntário?</h2>
+                        <h1>Você ficou interessado no ALES e deseja ser um voluntário?</h1>
                     </div>
 
                     <div className={styles.description}>
@@ -29,7 +29,8 @@ const Volunteer = () => {
                         </p>
 
                         <p>
-                            <strong>Por que ser um voluntário?</strong>
+                            <strong><big>Por que ser um voluntário?</big></strong>
+                            <p></p>
                             <ul>
                                 <li>Contribuir para uma sociedade melhor;</li>
                                 <li>Aumentar a sua visão de mundo;</li>
@@ -39,16 +40,12 @@ const Volunteer = () => {
                                 <li>Conhecer pessoas incríveis e engajadas com causas sociais.</li>
                             </ul>
                         </p>
-                    </div>
-
-                    <br /><br /><br />
-
-                    <div className={styles.title}>
-                        <h2>Quais são as áreas onde posso atuar como voluntário?</h2>
-                    </div>
+                </div>
 
                     <div className={styles.description}>
-                        <p><strong>O projeto ALES é dividido em duas grandes áreas:</strong></p>
+
+                    <p><strong><big>Quais são as áreas onde posso atuar como voluntário?</big></strong></p>
+                        <p>O projeto ALES é dividido em duas grandes áreas:</p>
                         <p>
                             <strong>ENSINO:</strong> área responsável pelas aulas semanais do projeto, que durante a pandemia está ocorrendo de maneira remota, através do uso do Google Meet. Se você tem vontade de lecionar e estar diretamente envolvido com as aulas, essa é a área para você.  Cada disciplina possui diversos professores, que se revezam ao longo do semestre. Atualmente, as matérias que fazem parte da grade do ALES são: Ciências, Desenho, Humanidades, Inglês, Matemática e Programação.
                         </p>
@@ -79,7 +76,7 @@ const Volunteer = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                <ButtonIcon text="Inscrição" kind="purple" icon="far fa-file-alt" />
+                                <ButtonIcon text="Quero ser avisado(a) quando as inscrições estiverem abertas!" kind="purple" icon="far fa-file-alt" />
                             </a>
                         </div>
                     </div>
