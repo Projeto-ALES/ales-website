@@ -20,7 +20,7 @@ const Volunteer = () => {
             <div className={styles.container}>
                 <Container>
                     <div className={styles.title}>
-                        <h2>Quer ser aluno ou aluna do projeto ALES?</h2>
+                        <h1>Quer ser aluno ou aluna do projeto ALES?</h1>
                     </div>
 
                     <div className={styles.description}>
@@ -29,7 +29,8 @@ const Volunteer = () => {
                         </p>
 
                         <p>
-                            <strong>Por que ser um aluno?</strong>
+                            <strong><big>Por que ser um aluno do ALES?</big></strong>
+                            <p></p>
                             <ul>
                                 <li>Aprender conteúdos diferentes dos oferecidos nas escolas;</li>
                                 <li>Descobrir novas oportunidades;</li>
@@ -39,7 +40,8 @@ const Volunteer = () => {
                         </p>
 
                         <p>
-                            <strong>Quais são as aulas?</strong>
+                            <strong><big>Quais são as aulas?</big></strong>
+                            <p></p>
                             <ul>
                                 <li><strong>CIÊNCIAS:</strong> Buscamos atiçar a curiosidade natural que todos nós temos para entender o funcionamento da natureza e para enxergar como a biologia, a física e a química estão presentes no nosso dia-a-dia.</li>
                                 <li><strong>DESENHO:</strong> Queremos que você possa colocar as imagens de sua cabeça no papel! Para tornar isso possível vamos estudar fundamentos importantes como desenho de observação, corpo humano, luz e sombra, entre muitos outros. Venha com a gente nessa jornada!</li>
@@ -61,7 +63,7 @@ const Volunteer = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                <ButtonIcon text="Inscrição" kind="purple" icon="far fa-file-alt" />
+                                <ButtonIcon text="Quero ser avisado(a) quando as inscrições estiverem abertas!" kind="purple" icon="far fa-file-alt" />
                             </a>
                         </div>
                     </div>
