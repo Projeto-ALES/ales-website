@@ -7,6 +7,8 @@ import PrivateRoute from "./PrivateRoute";
 import Home from "views/Home/Home";
 import Login from "views/Login/Login";
 import Contact from "views/Contact/Contact";
+import Aluno from "views/Aluno/Aluno";
+import Volunteer from "views/Volunteer/Volunteer";
 
 import MyArea from "views/MyArea/MyArea";
 import Profile from "views/Profile/Profile";
@@ -40,6 +42,8 @@ const router = (
   <Switch>
     <Route path={routes.LOGIN} component={Login} />
     <Route path={routes.CONTACT} component={Contact} />
+    <Route path={routes.ALUNO} component={Aluno} />
+    <Route path={routes.VOLUNTEER} component={Volunteer} />
 
     <PrivateRoute path={routes.RECRUITMENT_INSTRUCTIONS} component={Instructions} />
     <PrivateRoute path={routes.PROCESS_EDIT} component={ProcessEdit} />

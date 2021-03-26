@@ -1,0 +1,141 @@
+@import "~styles/breakpoints";
+
+.container {
+  background: var(--gray-lightest);
+  margin-left: var(--sidebar-width);
+  padding: 0 5%;
+
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 5%;
+    color: var(--gray-darker);
+
+    h2 {
+      width: 60%;
+      font-weight: 600;
+
+      @include tablet-portrait {
+        width: auto;
+      }
+    }
+
+    @include tablet-portrait {
+      justify-content: center;
+    }
+
+    img {
+      margin-right: var(--spacing-large);
+      width: 3.5em;
+      transform: rotate(-9deg);
+    }
+  }
+
+  .subtitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--gray-darker);
+    padding: 0 var(--spacing-large);
+    margin-top: var(--spacing-large);
+
+    h3 {
+      font-weight: 600;
+
+      @include tablet-portrait {
+        width: auto;
+      }
+    }
+
+    @include tablet-portrait {
+      justify-content: center;
+    }
+  }
+
+  .description {
+    text-align: center;
+    padding: 0 8%;
+    color: var(--gray-darker);
+
+    @include tablet-portrait {
+      padding: 0 15%;
+    }
+
+    p {
+      margin: var(--spacing-large) 0;
+      font-size: var(--font-medium);
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .button {
+        margin: var(--spacing-base) 0;
+      }
+
+      @include tablet-portrait {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin: var(--spacing-huge) auto;
+
+        .button {
+          &:first-of-type {
+            margin-right: var(--spacing-huge);
+          }
+        }
+      }
+    }
+
+    .table {
+      table {
+        border-spacing: 0.5rem;
+        margin: 0 auto;
+
+        td {
+          font-weight: bold;
+          padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+        }
+
+        tr {
+          padding-top: 10px;
+          border: 8px;
+          border-style: solid;
+          border-color: #fafafa;
+        }
+
+        td:nth-child(1) {
+          background: hsl(64, 97%, 75%);
+          width: 140px;
+        }
+        td:nth-child(2) {
+          background: transparent;
+          width: 2px;
+        }
+        td:nth-child(3) {
+          background: hsl(199, 83%, 82%);
+          width: 140px;
+        }
+        td:nth-child(4) {
+          background: hsl(180, 80%, 50%);
+        }
+        td:nth-child(5) {
+          background: hsl(190, 90%, 50%);
+        }
+        td:nth-child(6) {
+          background: hsl(200, 99%, 50%);
+        }
+      }
+    }
+  }
+
+  .info {
+    text-align: center;
+    font-size: var(--font-medium);
+  }
+}
