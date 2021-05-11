@@ -1,0 +1,77 @@
+version: "3.7"
+
+services:
+  mongo:
+    image: mongo:3.6.19-xenial
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/db_password
+    secrets:
+      - db_password
+    volumes:
+      - /data/configdb:/data/configdb
+      - /data/db:/data/db
+    restart: always
+    networks:
+      - app-network
+
+  backend:
+    image: projetoales/ales_backend
+    ports:
+      - "8000:8000"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: /run/secrets/db_password
+      EMAIL_PASSWORD: /run/secrets/email_password
+      TOKEN_SECRET: /run/secrets/token_secret
+      REFRESH_TOKEN_SECRET: /run/secrets/refresh_token_secret
+      NODE_ENV: production
+    secrets:
+      - db_password
+      - email_password
+      - token_secret
+      - refresh_token_secret
+    env_file:
+      - .env/app.env
+    volumes:
+      - /usr/src/app/node_modules
+      - /usr/src/app/logs:/logs
+    depends_on:
+      - mongo
+    restart: always
+    networks:
+      - app-network
+    command: node app.js
+
+  frontend:
+    image: projetoales/ales_frontend
+    build:
+      context: ./frontend
+      args:
+        API_URL: /api
+    ports:
+      - "80:80"
+      - "443:443"
+    env_file:
+      - .env/ui.env
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    restart: always
+
+networks:
+  app-network:
+    driver: overlay
+
+secrets:
+  db_password:
+    file: secrets/db_password.secret
+  email_password:
+    file: secrets/email_password.secret
+  token_secret:
+    file: secrets/token_secret.secret
+  refresh_token_secret:
+    file: secrets/refresh_token_secret.secret
