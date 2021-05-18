@@ -13,7 +13,7 @@
     "express-winston": "^4.0.5",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.7",
-    "nodemailer": "^6.4.10",
+    "nodemailer": "^6.4.16",
     "winston": "^3.3.3",
     "googleapis": "^67.0.0"
   },
