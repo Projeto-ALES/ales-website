@@ -1,9 +1,4 @@
-FROM node:alpine3.11 as build-deps
-
-RUN apk --no-cache --virtual build-dependencies add \
-    python \
-    make \
-    g++
+FROM node:14-alpine as build-deps
 
 ENV WORKDIR /usr/src/app
 
