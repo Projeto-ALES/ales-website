@@ -4,9 +4,114 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
     <link rel="shortcut icon" type="image/ico" href="./alessauro.ico" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <script src="https://kit.fontawesome.com/9d97f9bd64.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Open+Sans:wght@300;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="C:\Users\jonas\ales-website\frontend\src\views\Home\Sections\Testimonials\Testimonials.module.css">
+
+   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Open+Sans" rel="stylesheet">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <style>
+  
+   h2 {
+     color: #333;
+     text-align: center;
+     text-transform: uppercase;
+     font-family: "Roboto", sans-serif;
+     font-weight: bold;
+     position: relative;
+     margin: 30px 0 60px;
+   }
+   h2::after {
+     content: "";
+     width: 100px;
+     position: absolute;
+     margin: 0 auto;
+     height: 3px;
+     left: 0;
+     right: 0;
+     bottom: -10px;
+   }
+   .col-center {
+     margin: 0 auto;
+     float: none !important;
+   }
+   .carousel {
+     margin: 50px auto;
+     padding: 0 70px;
+   }
+   .carousel .item {
+     color: rgb(102, 100, 100);
+     font-size: 19px;
+       text-align: center;
+     overflow: hidden;
+       min-height: 290px;
+       font-style: italic;
+   }
+   .carousel .item .img-box {
+     width: 135px;
+     height: 135px;
+     margin: 0 auto;
+     padding: 5px;
+     border: 1px solid #ddd;
+     border-radius: 50%;
+   }
+   .carousel .img-box img {
+     width: 100%;
+     height: 100%;
+     display: block;
+     border-radius: 50%;
+   }
+   .carousel .testimonial {
+     padding: 30px 0 10px;
+   }
+   .carousel .overview {	
+     font-style: italic;
+   }
+   .carousel .overview b {
+     text-transform: uppercase;
+     color: rgb(11, 106, 150);
+   }
+   .carousel .carousel-control {
+     width: 40px;
+       height: 40px;
+       margin-top: -20px;
+       top: 50%;
+     background: none;
+   }
+   .carousel-control i {
+       font-size: 68px;
+     line-height: 42px;
+       position: absolute;
+       display: inline-block;
+     color: rgba(0, 0, 0, 0.8);
+       text-shadow: 0 3px 3px #e6e6e6, 0 0 0 #000;
+   }
+   .carousel .carousel-indicators {
+     bottom: -40px;
+   }
+   .carousel-indicators li, .carousel-indicators li.active {
+     width: 10px;
+     height: 10px;
+     margin: 1px 3px;
+     border-radius: 50%;
+   }
+   .carousel-indicators li {	
+     background: #999;
+     border-color: transparent;
+     box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);
+   }
+   .carousel-indicators li.active {	
+     background: rgb(11, 106, 150);		
+     box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);
+   }
+   </style>
+
 
     <title>Projeto ALES</title>
   </head>
@@ -14,6 +119,9 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
   </body>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
 <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
 </html>

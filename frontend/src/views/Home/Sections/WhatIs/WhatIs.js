@@ -17,7 +17,7 @@ const WhatIs = () => {
           <p>
             Acreditamos que a curiosidade e a vontade de aprender são essenciais na vida dos jovens,
             mas muitas vezes estes são suprimidos pela falta de acesso às informações corretas ou
-            são desestimulados pelo sistema de ensino arcaico que ainda mantemos em nosso país.
+            são desestimulados pelo sistema de ensino que mantemos em nosso país.
           </p>
           <p>
             Reconhecemos que a culpa disso não é das escolas. Muitas vezes faltam, em especial nas

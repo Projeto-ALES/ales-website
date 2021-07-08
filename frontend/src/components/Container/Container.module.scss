@@ -1,7 +1,7 @@
 @import "~styles/breakpoints";
 
 .container {
-  padding: var(--spacing-medium) var(--spacing-medium);
+  padding: var(--spacing-low) var(--spacing-low);
 
   @include tablet-portrait {
     padding: var(--spacing-huge);
@@ -12,6 +12,6 @@
   }
 
   @include desktop {
-    padding: var(--spacing-very-huge);
+    padding: var(--spacing-huge);
   }
 }
