@@ -14,11 +14,10 @@ const WhatDo = () => {
     <Container>
       <div className={styles.whatdoContainer}>
         <div className={styles.whatdoTitle}>
-          <h2>Que atividades oferecemos?</h2>
+          <h2>Que disciplinas oferecemos?</h2>
         </div>
         <div className={styles.whatdoDescription}>
           <div className={styles.activitiesContainer}>
-            <p>Oferecemos um vasto leque de aulas:</p>
             <div className={styles.cardsContainer}>
               {courses.map((course, index) => {
                 return (
@@ -35,10 +34,9 @@ const WhatDo = () => {
                 );
               })}
             </div>
-            <Link to="/#">e muito mais!</Link>
           </div>
           <div className={styles.activitiesContainer}>
-            <p>E outras atividades:</p>
+            
             <div className={styles.cardsContainer}>
               {activities.map((activity, index) => {
                 return (

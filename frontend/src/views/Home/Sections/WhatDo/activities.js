@@ -1,7 +1,7 @@
 const activities = [
-  { id: 1, text: "UPA", icon: "fas fa-graduation-cap" },
-  { id: 2, text: "MUPA", icon: "fas fa-landmark" },
-  { id: 3, text: "Hackathons", icon: "fas fa-users" },
+  { id: 1, text: "Programação", icon: "fas fa-laptop-code" },
+  { id: 2, text: "Ciências", icon: "fa fa-flask" },
+  { id: 3, text: "Matemática", icon: "fas fa-calculator" },
 ];
 
 export default activities;
