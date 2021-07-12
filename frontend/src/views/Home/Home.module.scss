@@ -6,12 +6,12 @@
   }
 
   .line {
-    height: 1px;
+    height: 1.5px;
     margin: 0 5em;
     background-color: var(--gray-light);
 
     @include desktop {
-      margin: 2em 20em;
+      margin: 2em 15em;
     }
   }
 }
