@@ -1,0 +1,47 @@
+@import "~styles/breakpoints";
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: var(--gray-darker);
+
+  @include desktop {
+    padding: 0 10em;
+  }
+
+  .infoTitle {
+    display: flex;
+    align-items: center;
+
+    h2 {
+      font-size: var(--font-large);
+      font-weight: 500;
+      margin-right: var(--spacing-base);
+      padding-bottom: 25px;
+    }
+
+    img {
+      width: 3em;
+      padding-bottom: 30px;
+    }
+  }
+
+  .infoDescription {
+    p {
+      font-size: var(--font-medium);
+    }
+  }
+
+a.button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+}
+
+
+

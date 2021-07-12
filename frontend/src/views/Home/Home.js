@@ -1,6 +1,7 @@
 import React from "react";
 
 import Landing from "./Sections/Landing/Landing";
+import Info from "./Sections/Info/Info";
 import WhatIs from "./Sections/WhatIs/WhatIs";
 import WhatDo from "./Sections/WhatDo/WhatDo";
 import About from "./Sections/About/About";
@@ -12,6 +13,8 @@ const Home = () => {
   return (
     <div className={styles.container}>
       <Landing />
+      <Info />
+      <div className={styles.line}></div>
       <WhatIs />
       <div className={styles.line}></div>
       <WhatDo />
