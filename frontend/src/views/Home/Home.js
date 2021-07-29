@@ -13,8 +13,6 @@ const Home = () => {
   return (
     <div className={styles.container}>
       <Landing />
-      <Info />
-      <div className={styles.line}></div>
       <WhatIs />
       <div className={styles.line}></div>
       <WhatDo />
