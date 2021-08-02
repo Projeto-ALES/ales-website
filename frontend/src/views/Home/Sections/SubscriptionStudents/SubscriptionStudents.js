@@ -13,7 +13,7 @@ const SubscriptionStudents = () => {
           <h3><b>Inscrições abertas para novos alunos!!</b></h3>
         </div>
         <div className={styles.subtitle}>
-          <h4>O Projeto ALES está com vagas abertas para alunos do 8º ano ao 3º ano do ensino médio.</h4>
+          <h4>O Projeto ALES está com vagas abertas para alunos do 8º ano ao 3º ano do ensino médio, preferencialmente de escolas públicas.</h4>
         </div>
         <div className={styles.description}>
           <p>
