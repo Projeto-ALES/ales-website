@@ -5,6 +5,7 @@ import WhatIs from "./Sections/WhatIs/WhatIs";
 import WhatDo from "./Sections/WhatDo/WhatDo";
 import About from "./Sections/About/About";
 import Testimonials2 from "./Sections/Testimonials2/Testimonials2";
+import SubscriptionStudents from "./Sections/SubscriptionStudents/SubscriptionStudents";
 
 import styles from "./Home.module.scss";
 
@@ -12,6 +13,8 @@ const Home = () => {
   return (
     <div className={styles.container}>
       <Landing />
+      <SubscriptionStudents />
+      <div className={styles.line}></div>
       <WhatIs />
       <div className={styles.line}></div>
       <WhatDo />
