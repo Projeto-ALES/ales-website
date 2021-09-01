@@ -12,6 +12,9 @@
     margin-bottom: 0;
     margin-left: var(--sidebar-width);
   }
+  @include smartphone {
+    padding-bottom: 70px;
+  }
 
   .item {
     margin: 0 var(--spacing-large);

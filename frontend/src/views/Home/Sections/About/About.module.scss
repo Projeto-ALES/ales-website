@@ -13,6 +13,11 @@
     @include desktop {
       margin-bottom: var(--spacing-huge);
     }
+    @include smartphone {
+      margin-top: 40px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
   }
 
   .numbersContainer {

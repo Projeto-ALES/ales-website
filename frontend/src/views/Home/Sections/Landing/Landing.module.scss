@@ -13,6 +13,10 @@
     height: 70vh;
   }
 
+  @include smartphone {
+    height: 60vh;
+  }
+
   .landingContainer {
     padding-top: var(--spacing-very-huge);
     display: flex;
@@ -24,6 +28,11 @@
     h3 {
       color: #fff;
       font-weight: 600;
+      @include smartphone {
+        margin-top: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
     }
 
     @include tablet-portrait {
