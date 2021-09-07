@@ -7,10 +7,14 @@
   background-size: cover;
   background-position: center;
   position: relative;
-  height: 100vh;
+  height: 65vh;
 
   @include tablet-landscape {
     height: 70vh;
+  }
+
+  @include tablet-portrait{
+    height: 60vh;
   }
 
   @include smartphone {

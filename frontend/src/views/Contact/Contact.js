@@ -63,7 +63,7 @@ const Contact = () => {
         })}
       </div>
       <div className={styles.contact}>
-        <h3>Mande uma mensagem!</h3>
+        <h3 style={{color: 'white'}}>Mande uma mensagem!</h3>
         <form className={styles.form} onSubmit={(e) => submitMessage(e, { name, email, message })}>
           <div className={styles.inputs}>
             <Input
