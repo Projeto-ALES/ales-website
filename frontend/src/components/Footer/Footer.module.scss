@@ -12,7 +12,17 @@
     margin-bottom: 0;
     margin-left: var(--sidebar-width);
   }
+  @include smartphone {
+    padding-bottom: 80px;
+  }
+  @include tablet-portrait {
+    padding-bottom: 80px;
+  }
 
+  @include tablet-landscape{
+    padding-bottom: 80px;
+  }
+  
   .item {
     margin: 0 var(--spacing-large);
 

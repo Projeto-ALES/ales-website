@@ -1,2 +1,7 @@
+@import "~antd/dist/antd.css";
 
-@import '~antd/dist/antd.css';
+@media (max-width: 599px) {
+  .title {
+    margin-top: 40px;
+  }
+}

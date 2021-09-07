@@ -12,6 +12,9 @@
     h2 {
       font-size: var(--font-large);
       font-weight: 500;
+      @include smartphone {
+        margin-top: 40px;
+      }
     }
   }
 
@@ -25,8 +28,6 @@
     }
 
     .activitiesContainer {
-      margin: var(--spacing-medium) 0;
-
       @include desktop {
         width: 50%;
       }

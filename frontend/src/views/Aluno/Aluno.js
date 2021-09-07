@@ -20,7 +20,7 @@ const Volunteer = () => {
             <div className={styles.container}>
                 <Container>
                     <div className={styles.title}>
-                        <h1>Quer ser aluno ou aluna do projeto ALES?</h1>
+                        <h1 className="mt-5">Quer ser aluno ou aluna do projeto ALES?</h1>
                     </div>
 
                     <div className={styles.description}>

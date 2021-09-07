@@ -20,7 +20,7 @@ const Volunteer = () => {
             <div className={styles.container}>
                 <Container>
                     <div className={styles.title}>
-                        <h1>Você ficou interessado no ALES e deseja ser um voluntário?</h1>
+                        <h1 className="mt-5">Você ficou interessado no ALES e deseja ser um voluntário?</h1>
                     </div>
 
                     <div className={styles.description}>
