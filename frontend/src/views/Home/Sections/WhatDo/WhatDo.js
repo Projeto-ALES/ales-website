@@ -27,7 +27,7 @@ const WhatDo = () => {
                         <span>
                           <i class={course.icon}></i>
                         </span>
-                        <span>{course.text}</span>
+                        <span style={{textTransform: "uppercase"}}>{course.text}</span>
                       </div>
                     </Card>
                   </div>
@@ -46,7 +46,7 @@ const WhatDo = () => {
                         <span>
                           <i class={activity.icon}></i>
                         </span>
-                        <span>{activity.text}</span>
+                        <span style={{textTransform: "uppercase"}}>{activity.text}</span>
                       </div>
                     </Card>
                   </div>
