@@ -41,7 +41,7 @@ const WhatDo = () => {
               {activities.map((activity, index) => {
                 return (
                   <div className={styles.cardContainer} key={index}>
-                    <Card kind="blue-dark" id={activity.id} width="200px">
+                    <Card kind="yellow" id={activity.id} width="200px">
                       <div className={styles.cardContentContainer}>
                         <span>
                           <i class={activity.icon}></i>
