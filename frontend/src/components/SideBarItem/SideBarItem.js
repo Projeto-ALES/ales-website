@@ -8,7 +8,7 @@ const SideBarItem = ({ text, icon, to, isOpen, onClick }) => {
     <li className={styles.container} onClick={onClick}>
       <Link className={`${styles.item}`} to={to}>
         <div>
-          <span style={{ color: "white", fontSize: "1.5em" }}>
+          <span style={{ color: "#F9A620", fontSize: "1.5em" }}>
             <i class={icon}></i>
           </span>
         </div>

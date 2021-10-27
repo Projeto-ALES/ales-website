@@ -16,12 +16,12 @@ const Landing = () => {
           <h1>Projeto Além da Escola</h1>
           <h3>Aulas extracurriculares aos finais de semana e de graça! \o/</h3>
           <div className={styles.buttonsContainer}>
-            <Button
+            {/* <Button
               text="Contato"
               kind="secondary"
               width="160px"
               onClick={() => history.push(routes.CONTACT)}
-            />
+            /> */}
           </div>
         </div>
       </Container>
