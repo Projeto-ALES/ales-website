@@ -43,7 +43,7 @@
         align-items: center;
 
         .cardContainer {
-          width: 80%;
+          width: 60%;
           margin: var(--spacing-base) 0;
 
           @include tablet-portrait {
@@ -52,7 +52,7 @@
 
           .cardContentContainer {
             display: flex;
-            justify-content: flex-start;
+            justify-content: center;
 
             span {
               font-size: var(--font-normal);
