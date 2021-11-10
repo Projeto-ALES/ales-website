@@ -62,7 +62,7 @@ const Contact = () => {
           );
         })}
       </div>
-      <div className={styles.contact}>
+      {/* <div className={styles.contact}>
         <h3 style={{color: 'white'}}>Mande uma mensagem!</h3>
         <form className={styles.form} onSubmit={(e) => submitMessage(e, { name, email, message })}>
           <div className={styles.inputs}>
@@ -97,7 +97,7 @@ const Contact = () => {
             disabled={isSubmitting}
           />
         </form>
-      </div>
+      </div> */}
     </Page>
   );
 };
