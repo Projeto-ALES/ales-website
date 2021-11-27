@@ -15,29 +15,11 @@ const WhatIs = () => {
         </div>
         <div className={styles.whatisDescription}>
           <p>
-            Acreditamos que a curiosidade e a vontade de aprender são essenciais na vida dos jovens,
-            mas muitas vezes estes são suprimidos pela falta de acesso às informações corretas ou
-            são desestimulados pelo sistema de ensino que mantemos em nosso país.
+          A curiosidade e a vontade de aprender são essenciais na vida dos jovens, mas muitas vezes estas são suprimidas pela falta de acesso às informações e sistema de ensino vigente em nosso país. Reconhecemos que a culpa disso não é das escolas e desta percepção nasceu o ALES, um projeto que tem como objetivo trazer conteúdos além da escola, complementando o desenvolvimento escolar e pessoal de estudantes do ensino médio, em especial da rede pública.
+Nosso projeto não é um substituto da escola, e sim uma ferramenta para expandir horizontes e inspirar estudantes a irem além na busca por novos conhecimentos.
+
           </p>
-          <p>
-            Reconhecemos que a culpa disso não é das escolas. Muitas vezes faltam, em especial nas
-            públicas, as ferramentas e oportunidades para abordar temas extra-curriculares, por mais
-            importantes que eles sejam. Desta percepção nasceu o ALES, um projeto que tem como
-            objetivo trazer complementos acadêmicos e intelectuais, fora das escolas, de forma
-            gratuita aos alunos da comunidade de Barão Geraldo, Campinas.
-          </p>
-          <p>
-            Os alunos que tiverem interesse em participar do projeto terão a oportunidade de
-            crescer, se conhecer e aprender através do contato com conteúdos que dificilmente teriam
-            acesso apenas através da rede pública de ensino. Nosso projeto, portanto, não é um
-            substituto da escola. É uma ferramenta para expandir horizontes e inspirar alunos a
-            fazerem algo novo.
-          </p>
-          <p>
-            É a nossa vontade de mostrar para os alunos que conhecimento é muito mais do que as
-            coisas que aprendem na escola e que eles também podem aprender, alcançar e criar coisas
-            que antes eles pensavam, ou eram ditos, serem distantes demais de sua realidade.
-          </p>
+          
         </div>
       </div>
     </Container>
