@@ -51,7 +51,7 @@ const Contact = () => {
           return (
             <a href={item.to} target="_blank" rel="noopener noreferrer">
               <div className={styles.card} key={index}>
-                <Card kind="outline-yellow">
+                <Card kind="yellow">
                   <div className={styles.item}>
                     <i class={item.icon}></i>
                     <span>{item.text}</span>

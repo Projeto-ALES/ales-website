@@ -103,3 +103,12 @@
     background-color: var(--color-purple-light);
   }
 }
+
+.yellow {
+  background-color: #f9a620;
+  color: #fff;
+
+  &:hover {
+    background-color: #b1cd40;
+  }
+}
