@@ -11,7 +11,6 @@ const WhatIs = () => {
       <div className={styles.whatisContainer}>
         <div className={styles.whatisTitle}>
           <h2>O que é o ALES?</h2>
-          <img src={Logo} alt="ales-logo" />
         </div>
         <div className={styles.whatisDescription}>
           <p>

@@ -76,7 +76,7 @@ const Volunteer = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                <ButtonIcon text="Quero ser avisado(a) quando as inscrições estiverem abertas!" kind="purple" icon="far fa-file-alt" />
+                                <ButtonIcon text="Quero ser avisado(a) quando as inscrições estiverem abertas!" kind="yellow" icon="far fa-file-alt" />
                             </a>
                         </div>
                     </div>
