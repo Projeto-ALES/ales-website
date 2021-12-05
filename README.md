@@ -1,7 +1,7 @@
 # ALES Website
 
 ---
-permalink: /index.html
+permalink: frontend/public/index.html
 ---
 
 ## Description
