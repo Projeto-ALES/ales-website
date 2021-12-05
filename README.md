@@ -1,5 +1,9 @@
 # ALES Website
 
+---
+permalink: /index.html
+---
+
 ## Description
 
 This project intends to serve as a new website for ALES organization. We have one already but it's a little old and now we have different requirements to attend.
