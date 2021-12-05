@@ -1,8 +1,8 @@
 # ALES Website
 
----
+
 permalink: frontend/public/index.html
----
+
 
 ## Description
 
