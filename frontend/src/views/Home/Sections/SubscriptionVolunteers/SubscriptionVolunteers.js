@@ -21,18 +21,18 @@ const SubscriptionVolunteers = () => {
           </p>
           
           <p>
-            Possuímos vagas para as seguintes 
+            Possuímos vagas para as seguintes áreas: 
           </p>
           <div className={styles.table}>
             <table>
-            Administrativo
+            <p><b>Administrativo</b></p>
               <tr>
                 <td>Comunicação</td>
                 <td>Financeiro</td>
                 <td>Pessoas</td>
                 <td>TECH</td>
               </tr>
-  Ensino
+  <p><b>Ensino</b></p>
               <tr>
                 <td>Desenho</td>
                 <td>Inglês</td>
