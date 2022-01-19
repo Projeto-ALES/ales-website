@@ -51,7 +51,7 @@ const SubscriptionVolunteers = () => {
 <div className={styles.buttons}>
             <a
               className={styles.button}
-              href="https://docs.google.com/forms/d/e/1FAIpQLSfCtFWbTMnEreqQ61mImHAmSoLH5euHQfrlWWCOtsYELt89Tw/viewform"
+              href="https://drive.google.com/file/d/1TAZaFTOWkym_cJJax4Jf2mfcLUrC0WJs/view"
               target="_blank"
               rel="noopener noreferrer"
             >
