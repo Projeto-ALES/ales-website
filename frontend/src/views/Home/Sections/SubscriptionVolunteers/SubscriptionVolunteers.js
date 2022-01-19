@@ -32,7 +32,10 @@ const SubscriptionVolunteers = () => {
                 <td>Pessoas</td>
                 <td>TECH</td>
               </tr>
+ </table>
+
   <p><b>Ensino</b></p>
+    <table>
               <tr>
                 <td>Desenho</td>
                 <td>Inglês</td>
