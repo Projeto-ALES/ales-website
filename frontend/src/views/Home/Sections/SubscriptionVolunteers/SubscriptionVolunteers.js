@@ -25,7 +25,7 @@ const SubscriptionVolunteers = () => {
           </p>
           <div className={styles.table}>
             <table>
-            <p><b>Administrativo</b></p>
+            <p style="text-align:center"><b>Administrativo</b></p>
               <tr>
                 <td>Comunicação</td>
                 <td class = "branco"></td>
