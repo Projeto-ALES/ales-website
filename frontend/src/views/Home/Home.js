@@ -14,6 +14,7 @@ const Home = () => {
     <div className={styles.container}>
       <Landing />
       <SubscriptionVolunteers />
+      <div className={styles.line}></div>
       <WhatIs />
       <div className={styles.line}></div>
       <WhatDo />
