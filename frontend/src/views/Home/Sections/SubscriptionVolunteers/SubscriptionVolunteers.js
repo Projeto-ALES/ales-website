@@ -23,9 +23,10 @@ const SubscriptionVolunteers = () => {
           <p>
             Possuímos vagas para as seguintes áreas: 
           </p>
+
+<p><b>Administrativo</b></p>
           <div className={styles.table}>
             <table>
-            <p style="margin-left:300px"><b>Administrativo</b></p>
               <tr>
                 <td>Comunicação</td>
                 <td class = "branco"></td>
