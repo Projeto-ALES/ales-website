@@ -28,8 +28,11 @@ const SubscriptionVolunteers = () => {
             <p><b>Administrativo</b></p>
               <tr>
                 <td>Comunicação</td>
+                <td class = "branco"></td>
                 <td>Financeiro</td>
+                <td class = "branco"></td>
                 <td>Pessoas</td>
+                <td class = "branco"></td>
                 <td>TECH</td>
               </tr>
  </table>
@@ -40,9 +43,13 @@ const SubscriptionVolunteers = () => {
     <table>
               <tr>
                 <td>Desenho</td>
+                <td class = "branco"></td>
                 <td>Inglês</td>
+                <td class = "branco"></td>
                 <td>Humanidades</td>
+                <td class = "branco"></td>
                 <td>Matemática</td>
+                <td class = "branco"></td>
                 <td>Programação</td>
               </tr>
              
