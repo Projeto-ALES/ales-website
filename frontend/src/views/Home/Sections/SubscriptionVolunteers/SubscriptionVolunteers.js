@@ -33,8 +33,10 @@ const SubscriptionVolunteers = () => {
                 <td>TECH</td>
               </tr>
  </table>
+</div>
 
   <p><b>Ensino</b></p>
+     <div className={styles.table}>
     <table>
               <tr>
                 <td>Desenho</td>
