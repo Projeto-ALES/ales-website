@@ -79,10 +79,12 @@
 }
 
 .secondary {
-  background-color: var(--brand-yellow);
+  background-color: #021b3d;
+  color: #fff;
 
   &:hover {
-    background-color: var(--brand-yellow-light);
+    background-color: #18498d;
+    color: #fff;
   }
 }
 
