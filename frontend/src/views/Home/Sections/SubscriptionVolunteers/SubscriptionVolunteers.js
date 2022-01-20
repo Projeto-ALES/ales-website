@@ -45,13 +45,13 @@ const SubscriptionVolunteers = () => {
     <table>
               <tr>
                 <td>Desenho</td>
-                <td class = "branco"></td>
+                <td></td>
                 <td>Inglês</td>
-                <td class = "branco"></td>
+                <td></td>
                 <td>Humanidades</td>
-                <td class = "branco"></td>
+                <td></td>
                 <td>Matemática</td>
-                <td class = "branco"></td>
+                <td></td>
                 <td>Programação</td>
               </tr>
              
