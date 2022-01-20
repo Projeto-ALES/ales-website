@@ -29,12 +29,13 @@ const SubscriptionVolunteers = () => {
             <table>
               <tr>
                 <td>Comunicação</td>
-                <td class = "branco"></td>
+                <td></td>
                 <td>Financeiro</td>
-                <td class = "branco"></td>
+                <td></td>
                 <td>Pessoas</td>
-                <td class = "branco"></td>
+                <td></td>
                 <td>TECH</td>
+               
               </tr>
  </table>
 </div>
@@ -60,6 +61,8 @@ const SubscriptionVolunteers = () => {
 <p>
             Você pode conferir nosso edital no link abaixo:
             </p>
+
+          
 
 <div className={styles.buttons}>
             <a
@@ -90,6 +93,7 @@ const SubscriptionVolunteers = () => {
 
         </div>
         <div className={styles.info}>
+          <br></br>
           <p>Todo o processo ocorrerá de forma remota, assim como as atividades realizadas ao longo do semestre. <br></br>
           </p>
         </div>
