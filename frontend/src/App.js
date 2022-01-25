@@ -30,7 +30,6 @@ const App = () => {
           dispatch({ type: types.LOGOUT });
         });
     };
-    getMe();
     // eslint-disable-next-line
   }, []);
 
